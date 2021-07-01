@@ -7,16 +7,11 @@ import { HttpClient } from '@angular/common/http'
 })
 export class TestService {
 
-  Url = "http://localhost:8080/test/1"
-  UrlCategories = "http://localhost:8080"
+  Url = "http://localhost:8080/test/2"
 
   constructor(private http: HttpClient) { }
 
-  public test() {
-    return this.http.get<any>(this.Url);
-  }
-
   public categories() {
-    return this.http.get<any>(this.UrlCategories);
+    return this.http.get<any>(this.Url);
   }
 }

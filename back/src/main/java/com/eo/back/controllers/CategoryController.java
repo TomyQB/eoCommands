@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -19,10 +20,10 @@ public class CategoryController {
     @Autowired
     private CategoryServices services;
 
-    @GetMapping
-    public ResponseEntity<List<String>> getCategories(){
-        List<String> categoriesList = services.getAllCategories();
-        return new ResponseEntity<List<String>>(categoriesList, HttpStatus.OK);
+    @GetMapping("/test/{id}")
+    public ResponseEntity<List<Category>> getCategories(@PathVariable long id){
+        List<Category> categoriesList = services.getAllCategories(id);
+        return new ResponseEntity<List<Category>>(categoriesList, HttpStatus.OK);
     }
     
 }

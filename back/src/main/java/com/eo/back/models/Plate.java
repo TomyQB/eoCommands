@@ -28,13 +28,9 @@ public class Plate {
 
     @OneToOne(mappedBy = "plate")
     private Amount amount;
-
-    @ManyToOne
-    @JsonIgnore
-    @JoinColumn(name = "idRestaurant")
-    private Restaurant restaurant;
     
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "idCategory")
     private Category category;
 
@@ -82,14 +78,6 @@ public class Plate {
     }
 
     
-    public Restaurant getRestaurant() {
-        return restaurant;
-    }
-
-    public void setRestaurant(Restaurant restaurant) {
-        this.restaurant = restaurant;
-    }
-
     public Category getCategory() {
         return category;
     }

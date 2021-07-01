@@ -26,7 +26,7 @@ public class Restaurant {
     private UserRestaurant userRestaurant;
 
     @OneToMany(mappedBy = "restaurant")
-    private List<Plate> plates;
+    private List<Category> categories;
 
     @OneToMany(mappedBy = "restaurant")
     private List<Pedido> orders;
@@ -56,12 +56,12 @@ public class Restaurant {
     }
 
     
-    public List<Plate> getPlates() {
-        return plates;
+    public List<Category> getCategories() {
+        return categories;
     }
 
-    public void setPlates(List<Plate> plates) {
-        this.plates = plates;
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
     }
 
     public List<Pedido> getOrders() {

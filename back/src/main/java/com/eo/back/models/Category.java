@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -20,9 +22,14 @@ public class Category {
     private long id;
 
     private String name;
+    private String image;
+
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "idRestaurant")
+    private Restaurant restaurant;
 
     @OneToMany(mappedBy = "category")
-    @JsonIgnore
     private List<Plate> plates;
 
     public long getId() {
@@ -49,5 +56,20 @@ public class Category {
         this.plates = plates;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
+    }
     
 }
