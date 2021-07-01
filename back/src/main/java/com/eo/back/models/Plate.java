@@ -12,6 +12,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "plate")
 public class Plate {
@@ -28,10 +31,12 @@ public class Plate {
     private Amount amount;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "idMenu")
     private Menu menu;
     
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "idCategory")
     private Category category;
 

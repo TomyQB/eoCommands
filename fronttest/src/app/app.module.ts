@@ -3,16 +3,14 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
-import { HttpClientModule } from '@angular/common/http';
 import { TestComponent } from './pages/test/test.component';
-import { QrComponent } from './containers/qr/qr.component'
+
+import { HttpClientModule } from '@angular/common/http'
 
 @NgModule({
   declarations: [
     AppComponent,
-    TestComponent,
-    QrComponent
+    TestComponent
   ],
   imports: [
     BrowserModule,

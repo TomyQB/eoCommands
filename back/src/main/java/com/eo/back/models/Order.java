@@ -12,8 +12,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
-@Table(name = "pedido")
+@Table(name = "pedido", schema = "order")
 public class Order {
     
     @Id
@@ -29,6 +32,7 @@ public class Order {
     private UserClient userClient;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "idRestaurante")
     private Restaurant restaurant;
 

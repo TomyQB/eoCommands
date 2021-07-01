@@ -9,6 +9,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "amount")
 public class Amount {
@@ -21,10 +24,12 @@ public class Amount {
     private String description;
 
     @OneToOne
+    // @JsonIgnoreProperties("amount")
     @JoinColumn(name = "idPlate")
     private Plate plate;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "idOrder")
     private Order order;
 

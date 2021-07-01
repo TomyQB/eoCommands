@@ -1,12 +1,12 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "cli": {
-    "analytics": "7d0e91aa-f97d-46bc-afb0-01034274bee6"
+    "analytics": "8f98505f-cdea-4a38-b050-c80854944389"
   },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "front": {
+    "fronttest": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -23,7 +23,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/front",
+            "outputPath": "dist/fronttest",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -71,18 +71,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "front:build"
+            "browserTarget": "fronttest:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "front:build:production"
+              "browserTarget": "fronttest:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "front:build"
+            "browserTarget": "fronttest:build"
           }
         },
         "test": {
@@ -119,16 +119,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "front:serve"
+            "devServerTarget": "fronttest:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "front:serve:production"
+              "devServerTarget": "fronttest:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "front"
+  "defaultProject": "fronttest"
 }

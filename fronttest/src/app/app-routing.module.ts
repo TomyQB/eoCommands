@@ -1,15 +1,15 @@
-import { TestComponent } from './pages/test/test.component';
+import { TestComponent } from '../app/pages/test/test.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'test',
+    redirectTo: 'home',
     pathMatch: 'full',
   },
   {
-    path: 'test',
+    path: 'home',
     component: TestComponent
   },
 ];

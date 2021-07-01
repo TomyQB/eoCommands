@@ -8,6 +8,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 @Entity
 @Table(name = "additional")
@@ -21,6 +24,7 @@ public class Additional {
     private double price;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "idPlate")
     private Plate plate;
 
