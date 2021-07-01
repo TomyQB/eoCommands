@@ -7,8 +7,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 @Entity
 @Table(name = "userClient")
 public class UserClient {
@@ -24,7 +22,7 @@ public class UserClient {
 
     @OneToOne(mappedBy = "userClient")
     // @JsonIgnoreProperties("userClient")
-    private Order order;
+    private Pedido order;
 
     public long getId() {
         return id;
@@ -66,11 +64,11 @@ public class UserClient {
         this.password = password;
     }
 
-    public Order getOrder() {
+    public Pedido getOrder() {
         return order;
     }
 
-    public void setOrder(Order order) {
+    public void setOrder(Pedido order) {
         this.order = order;
     }
 

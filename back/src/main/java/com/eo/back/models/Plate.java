@@ -13,7 +13,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "plate")
@@ -25,18 +24,17 @@ public class Plate {
 
     private String name;
     private String description;
-    private double prive;
+    private double price;
 
     @OneToOne(mappedBy = "plate")
     private Amount amount;
 
     @ManyToOne
     @JsonIgnore
-    @JoinColumn(name = "idMenu")
-    private Menu menu;
+    @JoinColumn(name = "idRestaurant")
+    private Restaurant restaurant;
     
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "idCategory")
     private Category category;
 
@@ -67,12 +65,12 @@ public class Plate {
         this.description = description;
     }
 
-    public double getPrive() {
-        return prive;
+    public double getPrice() {
+        return price;
     }
 
-    public void setPrive(double prive) {
-        this.prive = prive;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public Amount getAmount() {
@@ -83,12 +81,13 @@ public class Plate {
         this.amount = amount;
     }
 
-    public Menu getMenu() {
-        return menu;
+    
+    public Restaurant getRestaurant() {
+        return restaurant;
     }
 
-    public void setMenu(Menu menu) {
-        this.menu = menu;
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
     }
 
     public Category getCategory() {

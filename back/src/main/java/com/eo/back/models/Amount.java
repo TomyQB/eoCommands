@@ -10,7 +10,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "amount")
@@ -31,7 +30,7 @@ public class Amount {
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "idOrder")
-    private Order order;
+    private Pedido order;
 
     public long getId() {
         return id;
@@ -66,11 +65,11 @@ public class Amount {
     }
 
     
-    public Order getOrder() {
+    public Pedido getOrder() {
         return order;
     }
 
-    public void setOrder(Order order) {
+    public void setOrder(Pedido order) {
         this.order = order;
     }
 

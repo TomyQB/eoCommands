@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "userRestaurant")
@@ -23,7 +23,7 @@ public class UserRestaurant {
     private String password;
 
     @OneToOne(mappedBy = "userRestaurant")
-    // @JsonIgnoreProperties("userRestaurant")
+    @JsonIgnore
     private Restaurant restaurant;
 
     public long getId() {

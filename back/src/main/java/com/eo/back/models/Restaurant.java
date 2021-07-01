@@ -11,8 +11,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 @Entity
 @Table(name = "restaurant")
 public class Restaurant {
@@ -27,12 +25,11 @@ public class Restaurant {
     @JoinColumn(name = "idUserrestaurant")
     private UserRestaurant userRestaurant;
 
-    @OneToOne
-    @JoinColumn(name = "idMenu")
-    private Menu menu;
+    @OneToMany(mappedBy = "restaurant")
+    private List<Plate> plates;
 
     @OneToMany(mappedBy = "restaurant")
-    private List<Order> orders;
+    private List<Pedido> orders;
 
     public long getId() {
         return id;
@@ -58,19 +55,20 @@ public class Restaurant {
         this.userRestaurant = userRestaurant;
     }
 
-    public Menu getMenu() {
-        return menu;
+    
+    public List<Plate> getPlates() {
+        return plates;
     }
 
-    public void setMenu(Menu menu) {
-        this.menu = menu;
+    public void setPlates(List<Plate> plates) {
+        this.plates = plates;
     }
 
-    public List<Order> getOrders() {
+    public List<Pedido> getOrders() {
         return orders;
     }
 
-    public void setOrders(List<Order> orders) {
+    public void setOrders(List<Pedido> orders) {
         this.orders = orders;
     }
 

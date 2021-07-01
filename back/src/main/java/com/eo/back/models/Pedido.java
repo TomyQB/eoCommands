@@ -13,11 +13,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "pedido", schema = "order")
-public class Order {
+@Table(name = "pedido")
+public class Pedido {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
