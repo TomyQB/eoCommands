@@ -8,6 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TestComponent implements OnInit {
 
+  dto: any = {
+    plates: null,
+    tableNum: 9,
+    email: "asd",
+    restaurantId: 2
+  }
+
   constructor(private service: TestService) { }
 
   ngOnInit(): void {
@@ -15,7 +22,11 @@ export class TestComponent implements OnInit {
     //   console.log(data)
     // })
 
-    this.service.categories().subscribe(data => {
+    // this.service.categories().subscribe(data => {
+    //   console.log(data)
+    // })
+
+    this.service.converter(this.dto).subscribe(data => {
       console.log(data)
     })
   }

@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -25,10 +24,7 @@ public class Pedido {
     private String date;
     private double total;
     private int tableNum;
-
-    @OneToOne
-    @JoinColumn(name = "idClient")
-    private UserClient userClient;
+    private String email;
 
     @ManyToOne
     @JsonIgnore
@@ -70,16 +66,6 @@ public class Pedido {
         this.tableNum = tableNum;
     }
 
-    
-
-    public UserClient getUserClient() {
-        return userClient;
-    }
-
-    public void setUserClient(UserClient userClient) {
-        this.userClient = userClient;
-    }
-
     public Restaurant getRestaurant() {
         return restaurant;
     }
@@ -96,5 +82,20 @@ public class Pedido {
         this.amounts = amounts;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "Pedido [amounts=" + amounts + ", date=" + date + ", email=" + email + ", id=" + id + ", restaurant="
+                + restaurant + ", tableNum=" + tableNum + ", total=" + total + "]";
+    }
+
     
+        
 }

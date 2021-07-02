@@ -21,9 +21,9 @@ public class Amount {
 
     private int amount;
     private String description;
+    private double subTotal;
 
     @OneToOne
-    // @JsonIgnoreProperties("amount")
     @JoinColumn(name = "idPlate")
     private Plate plate;
 
@@ -73,5 +73,13 @@ public class Amount {
         this.order = order;
     }
 
-    
+    public double getSubTotal() {
+        return subTotal;
+    }
+
+    public void setSubTotal(double subTotal) {
+        this.subTotal = subTotal;
+    }
+
+        
 }

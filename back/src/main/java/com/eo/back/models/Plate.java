@@ -94,6 +94,11 @@ public class Plate {
         this.additionals = additionals;
     }
 
-    
+    @Override
+    public String toString() {
+        return "Plate [additionals=" + additionals + ", amount=" + amount + ", category=" + category + ", description="
+                + description + ", id=" + id + ", name=" + name + ", price=" + price + "]";
+    }
 
+    
 }

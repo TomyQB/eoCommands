@@ -8,10 +8,15 @@ import { HttpClient } from '@angular/common/http'
 export class TestService {
 
   Url = "http://localhost:8080/test/2"
+  ConverterUrl = "http://localhost:8080/converter"
 
   constructor(private http: HttpClient) { }
 
   public categories() {
     return this.http.get<any>(this.Url);
+  }
+
+  public converter(dto: any) {
+    return this.http.post<any>(this.ConverterUrl, dto);
   }
 }
