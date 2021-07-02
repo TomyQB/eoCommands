@@ -1,5 +1,6 @@
 package com.eo.back.models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,7 +24,7 @@ public class Amount {
     private String description;
     private double subTotal;
 
-    @OneToOne
+    @OneToOne(orphanRemoval = false)
     @JoinColumn(name = "idPlate")
     private Plate plate;
 
@@ -80,6 +81,5 @@ public class Amount {
     public void setSubTotal(double subTotal) {
         this.subTotal = subTotal;
     }
-
-        
+            
 }

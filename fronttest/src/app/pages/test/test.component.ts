@@ -26,7 +26,11 @@ export class TestComponent implements OnInit {
     //   console.log(data)
     // })
 
-    this.service.converter(this.dto).subscribe(data => {
+    // this.service.converter(this.dto).subscribe(data => {
+    //   console.log(data)
+    // })
+
+    this.service.delete(22).subscribe(data => {
       console.log(data)
     })
   }

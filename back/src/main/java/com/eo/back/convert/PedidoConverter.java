@@ -9,6 +9,7 @@ import com.eo.back.dto.PedidoDTO;
 import com.eo.back.models.Amount;
 import com.eo.back.models.Pedido;
 import com.eo.back.models.Plate;
+import com.eo.back.services.AmountServices;
 import com.eo.back.services.RestaurantServices;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,10 @@ import org.springframework.stereotype.Service;
 public class PedidoConverter extends AbstractConverter<Pedido, PedidoDTO> {
 
     @Autowired
-    private RestaurantServices services;
+    private RestaurantServices restaurantServices;
+
+    @Autowired
+    private AmountServices amountServices;
 
     private double total = 0;
 
@@ -29,11 +33,11 @@ public class PedidoConverter extends AbstractConverter<Pedido, PedidoDTO> {
         
         List<Amount> amounts = createAmountList(dto.getPlates());
 
+        // pedido.setId(dto.getTableNum());
         pedido.setAmounts(amounts);
         pedido.setEmail(dto.getEmail());
         pedido.setTableNum(dto.getTableNum());
-        System.out.println(dto.getPlates().get(0).getCategory());
-        pedido.setRestaurant(services.getRestaurantById(dto.getRestaurantId()));
+        pedido.setRestaurant(restaurantServices.getRestaurantById(dto.getRestaurantId()));
         pedido.setDate(calculateDate());
         pedido.setTotal(total);
         
@@ -47,13 +51,16 @@ public class PedidoConverter extends AbstractConverter<Pedido, PedidoDTO> {
         for (Plate p : plates) {
             Amount a = new Amount();
 
-            a.setPlate(p);
+            System.out.println(p.toString());
+
+            // a.setPlate(p);
             a.setAmount(p.getAmount().getAmount());
             a.setDescription(p.getAmount().getDescription());
             a.setSubTotal(p.getPrice() * a.getAmount());
 
+            // amountServices.saveAmount(a);
+
             total += a.getSubTotal();
-            System.out.println(a.getSubTotal());
             
             amounts.add(a);
         }
@@ -64,7 +71,6 @@ public class PedidoConverter extends AbstractConverter<Pedido, PedidoDTO> {
     private String calculateDate() {
         SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
         String dateString = date.format(new Date());
-        System.out.println(dateString);
 
         return dateString;
     }

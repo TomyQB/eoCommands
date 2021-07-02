@@ -72,5 +72,12 @@ public class Restaurant {
         this.orders = orders;
     }
 
+    @Override
+    public String toString() {
+        return "Restaurant [id=" + id + "]";
+    }
+
     
+
+        
 }
