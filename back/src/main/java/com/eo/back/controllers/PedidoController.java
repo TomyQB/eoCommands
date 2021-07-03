@@ -6,10 +6,8 @@ import java.util.List;
 import com.eo.back.convert.PedidoConverter;
 import com.eo.back.dto.PedidoDTO;
 import com.eo.back.models.Amount;
-import com.eo.back.models.Category;
 import com.eo.back.models.Pedido;
 import com.eo.back.models.Plate;
-import com.eo.back.models.Restaurant;
 import com.eo.back.services.PedidoServices;
 
 import org.springframework.beans.factory.annotation.Autowired;

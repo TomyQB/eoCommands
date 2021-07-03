@@ -1,6 +1,5 @@
 package com.eo.back.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.eo.back.models.Category;
@@ -17,15 +16,5 @@ public class CategoryServices {
 
     public List<Category> getAllCategories(long id) {
         return repository.getCategoryByRestaurantId(id);
-        // List<String> categoriesList = getNames(repository.findAll());
-        // return categoriesList;
-    }
-
-    private List<String> getNames(List<Category> categories) {
-        List<String> categoriesNames = new ArrayList<String>();
-        for (Category c : categories) {
-            categoriesNames.add(c.getName());
-        }
-        return categoriesNames;
     }
 }

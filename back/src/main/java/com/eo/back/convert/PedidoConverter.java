@@ -9,7 +9,6 @@ import com.eo.back.dto.PedidoDTO;
 import com.eo.back.models.Amount;
 import com.eo.back.models.Pedido;
 import com.eo.back.models.Plate;
-import com.eo.back.services.AmountServices;
 import com.eo.back.services.RestaurantServices;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +20,6 @@ public class PedidoConverter extends AbstractConverter<Pedido, PedidoDTO> {
     @Autowired
     private RestaurantServices restaurantServices;
 
-    @Autowired
-    private AmountServices amountServices;
-
     private double total = 0;
 
     @Override
@@ -33,7 +29,6 @@ public class PedidoConverter extends AbstractConverter<Pedido, PedidoDTO> {
         
         List<Amount> amounts = createAmountList(dto.getPlates());
 
-        // pedido.setId(dto.getTableNum());
         pedido.setAmounts(amounts);
         pedido.setEmail(dto.getEmail());
         pedido.setTableNum(dto.getTableNum());
@@ -57,8 +52,6 @@ public class PedidoConverter extends AbstractConverter<Pedido, PedidoDTO> {
             a.setAmount(p.getAmount().getAmount());
             a.setDescription(p.getAmount().getDescription());
             a.setSubTotal(p.getPrice() * a.getAmount());
-
-            // amountServices.saveAmount(a);
 
             total += a.getSubTotal();
             

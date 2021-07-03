@@ -2,8 +2,6 @@ package com.eo.back.repositories;
 
 import java.util.List;
 
-import javax.persistence.NamedQuery;
-
 import com.eo.back.models.Pedido;
 
 import org.springframework.data.jdbc.repository.query.Query;
