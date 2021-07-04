@@ -82,17 +82,17 @@ public class PedidoController {
 
         // services.madePedido(pedidoFinal);
 
-        List<Pedido> pedidos = services.getAllPedidos(2);
+        // List<Pedido> pedidos = services.getAllPedidos(2);
 
-        System.out.println(pedidos);
+        // System.out.println(pedidos);
 
     }
 
-    @GetMapping
-    public ResponseEntity<List<Pedido>> getPedidos(@PathVariable long id) {
-        List<Pedido> pedidosList = services.getAllPedidos(id);        
-        return new ResponseEntity<List<Pedido>>(pedidosList, HttpStatus.OK);
-    }
+    // @GetMapping
+    // public ResponseEntity<List<Pedido>> getPedidos(@PathVariable long id) {
+    //     List<Pedido> pedidosList = services.getAllPedidos(id);        
+    //     return new ResponseEntity<List<Pedido>>(pedidosList, HttpStatus.OK);
+    // }
 
     @PostMapping("/delete")
     public void deletePedidos(@RequestBody int tableNum) {

@@ -3,6 +3,7 @@ package com.eo.back.services;
 import java.util.List;
 
 import com.eo.back.models.Pedido;
+import com.eo.back.models.UserRestaurant;
 import com.eo.back.repositories.PedidoRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,8 @@ public class PedidoServices {
         repository.save(pedido);
     }
 
-    public List<Pedido> getAllPedidos(long id) {
-        return repository.getPedidoByRestaurantId(id);
+    public List<Pedido> getAllPedidos(UserRestaurant user) {
+        return user.getRestaurant().getOrders();
     }
 
     public void deletePedidosByTable(int tableNum, long id) {
