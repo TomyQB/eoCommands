@@ -1,0 +1,30 @@
+<div>
+  <div>
+    {{plate.name}}
+  </div>
+
+  <div>
+    {{plate.price}}€
+  </div>
+
+  <div>
+    {{plate.description}}
+  </div>
+
+  <div *ngIf="plate.additionals != undefined">
+    <div *ngFor="let a of plate.additionals">
+      {{a.name}}
+      {{a.price}}
+    </div>
+  </div>
+
+  <div>
+    {{amount.description}}
+  </div>
+
+  <div>
+    <button (click)="add()">+</button>
+    {{amount.amount}}
+    <button (click)="takeOut()">-</button>
+  </div>
+</div>

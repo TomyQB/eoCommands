@@ -1,0 +1,4 @@
+<div *ngFor="let c of categories; let i = index" (click)="plateView(i)">
+  <img src={{c.image}}>
+  <h3>{{c.name}}</h3>
+</div>

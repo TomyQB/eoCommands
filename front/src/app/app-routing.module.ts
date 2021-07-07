@@ -1,7 +1,28 @@
+import { PlateInfoComponent } from './components/plate-info/plate-info.component';
+import { PlatesComponent } from './components/plates/plates.component';
+import { CategoriesComponent } from './components/categories/categories.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [];
+const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'menu/:id',
+    pathMatch: 'full',
+  },
+  {
+    path: 'menu/:id',
+    component: CategoriesComponent
+  },
+  {
+    path: 'plates',
+    component: PlatesComponent
+  },
+  {
+    path: 'plateInfo',
+    component: PlateInfoComponent
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

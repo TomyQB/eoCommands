@@ -1,0 +1,4 @@
+<div *ngFor="let p of plates; let i = index" (click)="plateInfoView(i)">
+  {{p.name}}
+  {{p.price}}€
+</div>
