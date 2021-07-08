@@ -20,7 +20,7 @@ public class CategoryController {
     @Autowired
     private CategoryServices services;
 
-    @GetMapping("/test/{id}")
+    @GetMapping("/menu/{id}")
     public ResponseEntity<List<Category>> getCategories(@PathVariable long id){
         List<Category> categoriesList = services.getAllCategories(id);
         return new ResponseEntity<List<Category>>(categoriesList, HttpStatus.OK);

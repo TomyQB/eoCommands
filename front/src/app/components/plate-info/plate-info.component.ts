@@ -2,8 +2,10 @@ import { PedidoDTO } from './../../models/PedidoDTO';
 import { Amount } from './../../models/Amount';
 import { Plate } from './../../models/Plate';
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common'
 
 import { PedidoServicesService } from '../../services/pedido-services.service'
+import { HashService } from '../../services/hash.service'
 
 @Component({
   selector: 'app-plate-info',
@@ -22,19 +24,33 @@ export class PlateInfoComponent implements OnInit {
 
 
 
-  constructor(private pedidoServices: PedidoServicesService) { }
+  constructor(private pedidoServices: PedidoServicesService, private hashService: HashService, private location: Location) { }
 
   ngOnInit(): void {
-    if(history.state.plate.amount != undefined) {
-      this.amount = history.state.plate.amount
-    }
+    this.amount.amount = this.hashService.getElementByName(this.plate.name)
   }
 
-  ngOnDestroy() {
-    if(this.amount.amount > 0) {
-      this.pedidoServices.addAmountToPlate(this.plate, this.amount)
-    }
+  addToPedido(description: string) {
+
+    this.amount.description = description
+
+    this.plate.amount = this.amount
+    this.pedidoServices.sendPlate(this.plate).subscribe(data => {})
+
+    this.hashService.setAmountByName(this.plate.name, this.amount.amount)
+
+    this.location.back();
+
   }
+
+  // ngOnDestroy() {
+  //   if(this.amount.amount > 0) {
+  //     this.plate.amount = this.amount
+  //     this.pedidoServices.sendPlate(this.plate).subscribe(data => {})
+  //   }
+
+  //   this.hashService.setAmountByName(this.plate.name, this.amount.amount)
+  // }
 
   add() {
     this.amount.amount++
@@ -44,6 +60,10 @@ export class PlateInfoComponent implements OnInit {
     if(this.amount.amount > 0) {
       this.amount.amount--
     }
+  }
+
+  writting(event: any) {
+    this.amount.description = event
   }
 
 }

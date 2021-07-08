@@ -1,47 +1,35 @@
 package com.eo.back.dto;
 
-import java.util.List;
-
-import com.eo.back.models.Plate;
-
 public class PedidoDTO {
-
-    private List<Plate> plates;
-    private int tableNum;
+    
+    private int numTable;
     private String email;
-    private long restaurantId;
+    private double total;
+    private int idRestaurant;
 
-    public List<Plate> getPlates() {
-        return plates;
+    public int getNumTable() {
+        return numTable;
     }
-
-    public void setPlates(List<Plate> plates) {
-        this.plates = plates;
+    public void setNumTable(int numTable) {
+        this.numTable = numTable;
     }
-
-    public int getTableNum() {
-        return tableNum;
-    }
-
-    public void setTableNum(int tableNum) {
-        this.tableNum = tableNum;
-    }
-
     public String getEmail() {
         return email;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public long getRestaurantId() {
-        return restaurantId;
+    public double getTotal() {
+        return total;
     }
-
-    public void setRestaurantId(long restaurantId) {
-        this.restaurantId = restaurantId;
+    public void setTotal(double total) {
+        this.total = total;
     }
-
-                     
+    public int getIdRestaurant() {
+        return idRestaurant;
+    }
+    public void setIdRestaurant(int idRestaurant) {
+        this.idRestaurant = idRestaurant;
+    }
+    
 }

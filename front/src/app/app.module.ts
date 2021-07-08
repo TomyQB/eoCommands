@@ -7,14 +7,18 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { PlatesComponent } from './components/plates/plates.component';
-import { PlateInfoComponent } from './components/plate-info/plate-info.component'
+import { PlateInfoComponent } from './components/plate-info/plate-info.component';
+import { PedidoComponent } from './share/pedido/pedido.component';
+import { PedidoInfoComponent } from './components/pedido-info/pedido-info.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     CategoriesComponent,
     PlatesComponent,
-    PlateInfoComponent
+    PlateInfoComponent,
+    PedidoComponent,
+    PedidoInfoComponent
   ],
   imports: [
     BrowserModule,

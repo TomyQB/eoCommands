@@ -1,4 +1,11 @@
 <div *ngFor="let p of plates; let i = index" (click)="plateInfoView(i)">
   {{p.name}}
   {{p.price}}€
+  <div *ngIf="dic[p.name] != 0">
+    {{dic[p.name]}}
+  </div>
+</div>
+
+<div>
+  <app-pedido></app-pedido>
 </div>

@@ -2,6 +2,8 @@ import { Plate } from './../../models/Plate';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { HashService } from '../../services/hash.service'
+
 @Component({
   selector: 'app-plates',
   templateUrl: './plates.component.html',
@@ -11,9 +13,14 @@ export class PlatesComponent implements OnInit {
 
   plates: Plate[] = history.state.plates
 
-  constructor(private router: Router) { }
+  dic: {[key: string]: number} = {}
+
+  constructor(private router: Router, private hashService: HashService) { }
 
   ngOnInit(): void {
+    this.hashService.createDictionary(this.plates)
+    this.dic = this.hashService.getElement()
+    console.log(this.hashService.getElement())
     console.log(this.plates)
   }
 

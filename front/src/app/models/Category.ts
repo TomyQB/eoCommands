@@ -4,5 +4,5 @@ export interface Category {
   id: number
   image: string,
   name: string,
-  plates: Plate
+  plates: Plate[]
 }

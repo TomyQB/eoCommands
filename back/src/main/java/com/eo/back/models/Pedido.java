@@ -32,7 +32,7 @@ public class Pedido {
     @JoinColumn(name = "idRestaurante")
     private Restaurant restaurant;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<Amount> amounts;
 
     public long getId() {

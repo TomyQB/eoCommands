@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface PedidoRepository extends JpaRepository<Pedido, Long> {
 
-    List<Pedido>getPedidoByTableNumAndRestaurantId(int tableNum, long id);
+    List<Pedido>deletePedidoByTableNumAndRestaurantId(int tableNum, long id);
     
     @Query("select p from pedido p where p.id_restaurant = :id")
     List<Pedido>getPedidoByRestaurantId(@Param("id") long id);

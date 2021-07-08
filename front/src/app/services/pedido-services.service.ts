@@ -10,21 +10,20 @@ import { Plate } from '../models/Plate';
 })
 export class PedidoServicesService {
 
-  constructor() { }
+  Url = "http://localhost:8080/"
 
-  addAmountToPlate(plate: Plate, amount: Amount) {
-    console.log(amount)
+  constructor(private http: HttpClient) { }
+
+  sendPlate(plate: Plate) {
     console.log(plate)
-    plate.amount = amount
-    // this.addPlateToPedido(plate, pedido)
+    return this.http.post<any>(this.Url + "converter", plate)
   }
 
-  addPlateToPedido(plate: Plate, pedidoDTO: PedidoDTO) {
-    const p = pedidoDTO.plates.find(x => x == plate)
-    if(p != undefined){
-      const i = pedidoDTO.plates.indexOf(p)
-      pedidoDTO.plates.splice(i)
-    }
-    pedidoDTO.plates.push(plate)
+  madePedido(pedido: PedidoDTO) {
+    return this.http.post<any>(this.Url + "madePedido", pedido)
+  }
+
+  getPedidoInfo() {
+    return this.http.get<any>(this.Url + "pedidoInfo")
   }
 }

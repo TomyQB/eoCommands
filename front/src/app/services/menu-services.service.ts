@@ -1,4 +1,3 @@
-import { Category } from './../models/Category';
 import { Injectable } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http'
@@ -14,7 +13,6 @@ export class MenuServicesService {
 
   getMenu() {
     const id = localStorage.getItem("id")
-    console.log(id)
     return this.http.get<any>(this.Url + id)
   }
 }
