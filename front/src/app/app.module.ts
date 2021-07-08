@@ -11,8 +11,10 @@ import { PlateInfoComponent } from './components/plate-info/plate-info.component
 import { PedidoComponent } from './share/pedido/pedido.component';
 import { PedidoInfoComponent } from './components/pedido-info/pedido-info.component';
 import { LoginComponent } from './components/login/login.component';
-import { RestaurantPedidosComponent } from './components/restaurant-pedidos/restaurant-pedidos.component'
-
+import { RestaurantPedidosComponent } from './components/restaurant-pedidos/restaurant-pedidos.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { MaterialModule } from './share/material/material.module';
+import { CoreComponent } from './components/core/core.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,12 +24,15 @@ import { RestaurantPedidosComponent } from './components/restaurant-pedidos/rest
     PedidoComponent,
     PedidoInfoComponent,
     LoginComponent,
-    RestaurantPedidosComponent
+    RestaurantPedidosComponent,
+    CoreComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]

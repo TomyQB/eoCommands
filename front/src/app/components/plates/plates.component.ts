@@ -1,3 +1,4 @@
+import { Category } from './../../models/Category';
 import { Plate } from './../../models/Plate';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -13,6 +14,8 @@ import { DescAndAmount } from 'src/app/models/DescAndAmount';
 export class PlatesComponent implements OnInit {
 
   plates: Plate[] = history.state.plates
+  categoryName: string = history.state.category
+
 
   dic: {[key: string]: DescAndAmount} = {}
 

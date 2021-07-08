@@ -36,8 +36,8 @@ export class CategoriesComponent implements OnInit {
     }
   }
 
-  plateView(i: number) {
-    this.router.navigateByUrl("/plates", {state: {plates: this.categories[i].plates}});
+  plateView(i: number, categoryName: string) {
+    this.router.navigateByUrl("/plates", {state: {plates: this.categories[i].plates, category: categoryName}});
   }
 
   goToLogin() {

@@ -1,13 +1,17 @@
 <div>
-  <div>
-    {{plate.name}}
-  </div>
+  <div class="info-header">
+    <div style="font-size: 20px;">
+      {{plate.name}}
+    </div>
 
-  <div>
-    {{plate.price}}€
-  </div>
+    <div>
+      {{plate.price}}€
+    </div>
 
-  <div>
+  </div>
+  <mat-divider></mat-divider>
+
+  <div class="info-description">
     {{plate.description}}
   </div>
 
@@ -22,13 +26,13 @@
     <textarea style="width: 100%; height: 100px;" placeholder="1 poco hecha, 2 al punto... Sin cebolla..." ng-model="string" ng-name="text" #description>{{hash.description}}</textarea>
   </div>
 
-  <div>
-    <button (click)="takeOut()">-</button>
-    {{amount.amount}}
-    <button (click)="add()">+</button>
+  <div class="info-amount center">
+    <button class="info-amount_button" (click)="takeOut()">-</button>
+    <span class="info-amount_button space-amount">{{amount.amount}}</span>
+    <button class="info-amount_button" (click)="add()">+</button>
   </div>
 </div>
 
-<div>
-  <button (click)="addToPedido(description.value)">Añadir al pedido {{plate.price * amount.amount}}€</button>
+<div class="center">
+  <button mat-raised-button color="primary" (click)="addToPedido(description.value)">Añadir al pedido {{plate.price * amount.amount}}€</button>
 </div>

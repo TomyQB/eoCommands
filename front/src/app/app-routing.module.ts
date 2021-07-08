@@ -1,3 +1,4 @@
+import { CoreComponent } from './components/core/core.component';
 import { RestaurantPedidosComponent } from './components/restaurant-pedidos/restaurant-pedidos.component';
 import { LoginComponent } from './components/login/login.component';
 import { PedidoInfoComponent } from './components/pedido-info/pedido-info.component';
@@ -10,33 +11,35 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'menu/:name',
-    pathMatch: 'full',
-  },
-  {
-    path: 'menu/:name',
-    component: CategoriesComponent
-  },
-  {
-    path: 'plates',
-    component: PlatesComponent
-  },
-  {
-    path: 'plateInfo',
-    component: PlateInfoComponent
+    component: CoreComponent,
+    children: [
+      {
+        path: 'menu/:name',
+        component: CategoriesComponent
+      },
+      {
+        path: 'plates',
+        component: PlatesComponent
+      },
+      {
+        path: 'plateInfo',
+        component: PlateInfoComponent
+      },
+      {
+        path: 'login',
+        component: LoginComponent
+      },
+      {
+        path: 'restaurantPedidos',
+        component: RestaurantPedidosComponent
+      },
+    ]
   },
   {
     path: 'pedidoInfo',
     component: PedidoInfoComponent
   },
-  {
-    path: 'login',
-    component: LoginComponent
-  },
-  {
-    path: 'restaurantPedidos',
-    component: RestaurantPedidosComponent
-  },
+
 ];
 
 @NgModule({

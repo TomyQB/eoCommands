@@ -1,11 +1,14 @@
-<div *ngFor="let p of plates; let i = index" (click)="plateInfoView(i)">
-  {{p.name}}
-  {{p.price}}€
-  <div *ngIf="dic[p.name].amount != 0">
-    {{dic[p.name].amount}}
+<mat-list>
+  <div mat-subheader>{{categoryName}}</div>
+  <div *ngFor="let p of plates; let i = index" (click)="plateInfoView(i)">
+    <div class="list-item">
+      <div>{{p.name}}</div>
+      <div>{{p.price}}€</div>
+      <div>
+        {{dic[p.name].amount}}
+      </div>
+    </div>
+  <mat-divider *ngIf="plates.length>i+1"></mat-divider>
   </div>
-</div>
-
-<div>
-  <app-pedido></app-pedido>
-</div>
+</mat-list>
+<!-- *ngIf="dic[p.name].amount != 0" -->
