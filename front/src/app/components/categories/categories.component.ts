@@ -16,41 +16,23 @@ import { HashService } from '../../services/hash.service'
 export class CategoriesComponent implements OnInit {
 
   categories!: Category[]
-  // platess!: Plate[]
-
-  pedido: PedidoDTO = {
-    email: "hola@gmail.com",
-    numTable: 22,
-    total: 50,
-    idRestaurant: 1
-  }
+  restaurantName: string = this.activeRoute.snapshot.paramMap.get('name')!
 
   constructor(private pedidoService: PedidoServicesService, private menuServices: MenuServicesService, private router: Router, private activeRoute: ActivatedRoute, private hashService: HashService) { }
 
   ngOnInit(): void {
-
-    this.getUrlId();
+    this.setUrlName();
 
     this.menuServices.getMenu().subscribe(data => {
       this.categories = data
-      // this.hashService.plates = this.categories[1].plates
-      // this.hashService.plates.push(this.categories[0].plates[0])
-      // this.hashService.plates.push(this.categories[0].plates[1])
-      // for(let i = 1; i < this.categories.length; i++) {
-      //   for (let j = 0; j < this.categories[i].plates.length; j++) {
-      //     console.log(this.categories[i].plates[j])
-      //     this.hashService.plates.push(this.categories[i].plates[j])
-      //   }
-      // }
-      // this.hashService.createDictionary()
+
       console.log(this.categories)
     })
   }
 
-  private getUrlId() {
-    const id = this.activeRoute.snapshot.paramMap.get('id');
-    if(id != null) {
-      localStorage.setItem('id', id);
+  private setUrlName() {
+    if(this.restaurantName != null) {
+      localStorage.setItem('name', this.restaurantName);
     }
   }
 
@@ -58,8 +40,8 @@ export class CategoriesComponent implements OnInit {
     this.router.navigateByUrl("/plates", {state: {plates: this.categories[i].plates}});
   }
 
-  hacerPedido() {
-    this.pedidoService.madePedido(this.pedido).subscribe(data => {})
+  goToLogin() {
+    this.router.navigateByUrl("/login");
   }
 
 }

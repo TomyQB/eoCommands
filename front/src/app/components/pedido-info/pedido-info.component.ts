@@ -1,4 +1,7 @@
+import { HashService } from './../../services/hash.service';
+import { PedidoDTO } from './../../models/PedidoDTO';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { PedidoServicesService } from '../../services/pedido-services.service'
 
@@ -11,7 +14,14 @@ export class PedidoInfoComponent implements OnInit {
 
   pedido!: any[]
 
-  constructor(private pedidoService: PedidoServicesService) { }
+  pedidoInfo: PedidoDTO = {
+    numTable: -1,
+    email: "",
+    restaurantName: localStorage.getItem("name")!,
+    total: -1
+  }
+
+  constructor(private pedidoService: PedidoServicesService, private router: Router, private hash: HashService) { }
 
   ngOnInit(): void {
     this.pedidoService.getPedidoInfo().subscribe(data => {
@@ -19,6 +29,24 @@ export class PedidoInfoComponent implements OnInit {
 
 
       console.log(this.pedido)
+    })
+  }
+
+  getEmail(event: any) {
+    this.pedidoInfo.email = event.target.value
+  }
+
+  getTableNum(event: any) {
+    this.pedidoInfo.numTable = event.target.value
+  }
+
+  finishPedido() {
+    this.pedidoService.madePedido(this.pedidoInfo).subscribe(data => {
+      if(data) {
+        // this.hash.dic = {}
+        const name = localStorage.getItem("name")
+        this.router.navigateByUrl("/menu/" + name);
+      }
     })
   }
 

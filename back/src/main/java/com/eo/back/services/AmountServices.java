@@ -15,6 +15,10 @@ public class AmountServices {
     public List<Amount> getAmountList() {
         return this.amounts;
     }
+
+    public void deleteLocalAmountList(){
+        this.amounts = new ArrayList<Amount>();
+    }
     
     public void addAmountToList(Amount amount) {
         if(amounts.size() > 0) {

@@ -1,3 +1,4 @@
+import { DescAndAmount } from './../../models/DescAndAmount';
 import { PedidoDTO } from './../../models/PedidoDTO';
 import { Amount } from './../../models/Amount';
 import { Plate } from './../../models/Plate';
@@ -16,6 +17,8 @@ export class PlateInfoComponent implements OnInit {
 
   plate: Plate = history.state.plate
 
+  hash!: DescAndAmount
+
   amount: Amount = {
     amount: 0,
     description: "",
@@ -27,17 +30,20 @@ export class PlateInfoComponent implements OnInit {
   constructor(private pedidoServices: PedidoServicesService, private hashService: HashService, private location: Location) { }
 
   ngOnInit(): void {
-    this.amount.amount = this.hashService.getElementByName(this.plate.name)
+    this.hash = this.hashService.getElementByName(this.plate.name)
+    this.amount.amount = this.hash.amount
   }
 
   addToPedido(description: string) {
 
     this.amount.description = description
-
     this.plate.amount = this.amount
+
+    this.amount.subTotal = this.amount.amount * this.plate.price
+
     this.pedidoServices.sendPlate(this.plate).subscribe(data => {})
 
-    this.hashService.setAmountByName(this.plate.name, this.amount.amount)
+    this.hashService.setHashByName(this.plate.name, this.amount.amount, description)
 
     this.location.back();
 

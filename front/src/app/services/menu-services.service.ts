@@ -12,7 +12,7 @@ export class MenuServicesService {
   constructor(private http: HttpClient) { }
 
   getMenu() {
-    const id = localStorage.getItem("id")
-    return this.http.get<any>(this.Url + id)
+    const restaurantName = localStorage.getItem("name")
+    return this.http.get<any>(this.Url + restaurantName)
   }
 }

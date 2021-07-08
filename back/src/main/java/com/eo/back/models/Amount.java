@@ -25,7 +25,7 @@ public class Amount {
     private String description;
     private double subTotal;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(/*fetch = FetchType.LAZY*/)
     @JoinColumn(name = "idPlate")
     private Plate plate;
 

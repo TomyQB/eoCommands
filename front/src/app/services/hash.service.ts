@@ -1,3 +1,4 @@
+import { DescAndAmount } from './../models/DescAndAmount';
 import { Injectable } from '@angular/core';
 import { Plate } from '../models/Plate';
 
@@ -6,14 +7,14 @@ import { Plate } from '../models/Plate';
 })
 export class HashService {
 
-  dic: {[key: string]: number} = {}
+  public dic: {[key: string]: DescAndAmount} = {}
 
   constructor() { }
 
   public createDictionary(plates: Plate[]) {
     for(let p of plates) {
       if(!(p.name in this.dic)) {
-        this.dic[p.name] = 0
+        this.dic[p.name] = {amount: 0, description: ""}
       }
     }
   }
@@ -26,7 +27,8 @@ export class HashService {
     return this.dic
   }
 
-  public setAmountByName(name: string, amount: number) {
-    this.dic[name] = amount
+  public setHashByName(name: string, amount: number, description: string) {
+    this.dic[name] = {amount: amount, description: description}
   }
+
 }

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { HashService } from '../../services/hash.service'
+import { DescAndAmount } from 'src/app/models/DescAndAmount';
 
 @Component({
   selector: 'app-plates',
@@ -13,7 +14,7 @@ export class PlatesComponent implements OnInit {
 
   plates: Plate[] = history.state.plates
 
-  dic: {[key: string]: number} = {}
+  dic: {[key: string]: DescAndAmount} = {}
 
   constructor(private router: Router, private hashService: HashService) { }
 

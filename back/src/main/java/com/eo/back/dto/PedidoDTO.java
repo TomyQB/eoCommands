@@ -5,7 +5,7 @@ public class PedidoDTO {
     private int numTable;
     private String email;
     private double total;
-    private int idRestaurant;
+    private String restaurantName;
 
     public int getNumTable() {
         return numTable;
@@ -25,11 +25,11 @@ public class PedidoDTO {
     public void setTotal(double total) {
         this.total = total;
     }
-    public int getIdRestaurant() {
-        return idRestaurant;
+    public String getRestaurantName() {
+        return restaurantName;
     }
-    public void setIdRestaurant(int idRestaurant) {
-        this.idRestaurant = idRestaurant;
+    public void setRestaurantName(String idRestaurant) {
+        this.restaurantName = idRestaurant;
     }
     
 }

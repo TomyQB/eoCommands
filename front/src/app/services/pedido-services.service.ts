@@ -20,6 +20,7 @@ export class PedidoServicesService {
   }
 
   madePedido(pedido: PedidoDTO) {
+    console.log(pedido)
     return this.http.post<any>(this.Url + "madePedido", pedido)
   }
 

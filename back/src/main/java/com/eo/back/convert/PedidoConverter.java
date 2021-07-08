@@ -13,16 +13,20 @@ public class PedidoConverter extends AbstractConverter<Pedido, PedidoDTO>{
     @Autowired
     private RestaurantServices restaurantServices;
 
-    @Override
-    public Pedido fromDTO(PedidoDTO dto) {
+    public Pedido fromDTO(PedidoDTO dto, Pedido pedido) {
 
-        Pedido pedido = new Pedido();
         pedido.setEmail(dto.getEmail());
         pedido.setTableNum(dto.getNumTable());
         pedido.setTotal(dto.getTotal());
-        pedido.setRestaurant(restaurantServices.getRestaurantById(dto.getIdRestaurant()));
+        pedido.setRestaurant(restaurantServices.getRestaurantByName(dto.getRestaurantName()));
 
         return pedido;
+    }
+
+    @Override
+    public Pedido fromDTO(PedidoDTO dto) {
+        // TODO Auto-generated method stub
+        return null;
     }
     
 }

@@ -1,10 +1,12 @@
+
+<header>
+  {{restaurantName}}
+  <span class="material-icons-outlined" (click)="goToLogin()">account_circle </span>
+</header>
+
 <div *ngFor="let c of categories; let i = index" (click)="plateView(i)">
   <img src={{c.image}}>
   <h3>{{c.name}}</h3>
-</div>
-
-<div>
-  <button (click)="hacerPedido()">hacer pedido</button>
 </div>
 
 <div style="background-color: blue;">

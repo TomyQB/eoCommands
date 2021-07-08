@@ -3,3 +3,8 @@
   {{a.plate.price}}€ X {{a.amount}} = {{a.subTotal}} <br>
   {{a.description}}
 </div>
+
+<input matInput formControlName = "userName"  (keyup)="getEmail($event)" name="none" >
+<input matInput formControlName = "password" [type]='"number"' (keyup)="getTableNum($event)" name="none" >
+
+<button (click)="finishPedido()">Terminar pedido</button>

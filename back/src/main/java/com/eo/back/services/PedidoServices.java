@@ -21,10 +21,10 @@ public class PedidoServices {
     @Autowired
     private AmountServices amountServices;
 
-    private Pedido pedido;
+    private Pedido pedidoLocal;
 
     public Pedido getPedido() {
-        return this.pedido;
+        return this.pedidoLocal;
     }
     
     public void savePedido(Pedido pedido) {
@@ -35,10 +35,15 @@ public class PedidoServices {
         return user.getRestaurant().getOrders();
     }
 
+    public void deleteLocalPedido(){
+        this.pedidoLocal = null;
+    }
+
     public void madePedido(Pedido pedido) {
         pedido.setDate(this.calculateDate());
         pedido.setAmounts(amountServices.getAmountList());
         addPedidoToAmount(pedido);
+        this.pedidoLocal = pedido;
     }
 
     public void deletePedidosByTable(int tableNum, long id) {

@@ -21,7 +21,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/Login")
+    @PostMapping("/login")
     public ResponseEntity<List<Pedido>> login(@RequestBody UserRestaurant user) {
         List<Pedido> pedidos = userService.loginUser(user.getEmail(), user.getPassword());
         return new ResponseEntity<List<Pedido>>(pedidos, HttpStatus.OK);

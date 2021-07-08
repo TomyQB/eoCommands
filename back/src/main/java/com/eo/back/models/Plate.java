@@ -28,7 +28,7 @@ public class Plate {
     private String description;
     private double price;
 
-    @OneToOne(mappedBy = "plate", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "plate"/*, fetch = FetchType.LAZY*/)
     @JsonIgnore
     private Amount amount;
     

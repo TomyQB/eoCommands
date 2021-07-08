@@ -14,7 +14,7 @@ public class CategoryServices {
     @Autowired
     private CategoryRepository repository;
 
-    public List<Category> getAllCategories(long id) {
-        return repository.getCategoryByRestaurantId(id);
+    public List<Category> getAllCategories(String restaurantName) {
+        return repository.getCategoryByRestaurantName(restaurantName);
     }
 }

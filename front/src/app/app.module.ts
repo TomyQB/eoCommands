@@ -9,7 +9,9 @@ import { CategoriesComponent } from './components/categories/categories.componen
 import { PlatesComponent } from './components/plates/plates.component';
 import { PlateInfoComponent } from './components/plate-info/plate-info.component';
 import { PedidoComponent } from './share/pedido/pedido.component';
-import { PedidoInfoComponent } from './components/pedido-info/pedido-info.component'
+import { PedidoInfoComponent } from './components/pedido-info/pedido-info.component';
+import { LoginComponent } from './components/login/login.component';
+import { RestaurantPedidosComponent } from './components/restaurant-pedidos/restaurant-pedidos.component'
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { PedidoInfoComponent } from './components/pedido-info/pedido-info.compon
     PlatesComponent,
     PlateInfoComponent,
     PedidoComponent,
-    PedidoInfoComponent
+    PedidoInfoComponent,
+    LoginComponent,
+    RestaurantPedidosComponent
   ],
   imports: [
     BrowserModule,

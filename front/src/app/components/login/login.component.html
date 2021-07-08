@@ -1,0 +1,5 @@
+<input matInput formControlName = "userName"  (keyup)="getUserName($event)" name="none" >
+<input matInput formControlName = "password" [type]='"password"' (keyup)="getPassword($event)" name="none" >
+<button mat-button id="bSearch" (click)="onSignIn()" style="background-color:rgba(46, 49, 49, 0.7);">
+  Iniciar Sesión
+</button>
