@@ -1,1 +1,6 @@
-<p>restaurant-pedidos works!</p>
+<div *ngFor="let pedido of pedidos; let i = index">
+  <div (click)="plateView(i)">
+    {{pedido.tableNum}}
+    {{pedido.date}}
+  </div>
+</div>

@@ -1,4 +1,4 @@
-import { PedidoDTO } from './../../models/PedidoDTO';
+import { Pedido } from '../../models/Pedido';
 import { Category } from './../../models/Category';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -16,6 +16,7 @@ import { HashService } from '../../services/hash.service'
 export class CategoriesComponent implements OnInit {
 
   categories!: Category[]
+
   restaurantName: string = this.activeRoute.snapshot.paramMap.get('name')!
 
   constructor(private pedidoService: PedidoServicesService, private menuServices: MenuServicesService, private router: Router, private activeRoute: ActivatedRoute, private hashService: HashService) { }
@@ -25,8 +26,6 @@ export class CategoriesComponent implements OnInit {
 
     this.menuServices.getMenu().subscribe(data => {
       this.categories = data
-
-      console.log(this.categories)
     })
   }
 
@@ -37,11 +36,17 @@ export class CategoriesComponent implements OnInit {
   }
 
   plateView(i: number, categoryName: string) {
+
+    this.categories[i].plates = this.duplicateFilter(this.categories[i].plates)
+
     this.router.navigateByUrl("/plates", {state: {plates: this.categories[i].plates, category: categoryName}});
   }
 
-  goToLogin() {
-    this.router.navigateByUrl("/login");
+  duplicateFilter(plates: Plate[]): Plate[] {
+    let hash: {[key: string]: boolean} = {}
+    plates = plates.filter(o => hash[o.name] ? false : hash[o.name] = true);
+
+    return plates
   }
 
 }

@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment.prod';
 import { Injectable } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http'
@@ -7,12 +8,12 @@ import { HttpClient } from '@angular/common/http'
 })
 export class MenuServicesService {
 
-  Url = "http://localhost:8080/menu/"
+  Url = environment.Url
 
   constructor(private http: HttpClient) { }
 
   getMenu() {
     const restaurantName = localStorage.getItem("name")
-    return this.http.get<any>(this.Url + restaurantName)
+    return this.http.get<any>(this.Url + "menu/" + restaurantName)
   }
 }

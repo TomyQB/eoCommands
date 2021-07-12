@@ -8,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CoreComponent implements OnInit {
 
-  restaurantName: string = this.activeRoute.snapshot.paramMap.get('name')!
+  restaurantName: string =localStorage.getItem("name")!;
 
   constructor(private activeRoute: ActivatedRoute) { }
 

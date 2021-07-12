@@ -24,8 +24,6 @@ export class PlatesComponent implements OnInit {
   ngOnInit(): void {
     this.hashService.createDictionary(this.plates)
     this.dic = this.hashService.getElement()
-    console.log(this.hashService.getElement())
-    console.log(this.plates)
   }
 
   plateInfoView(i: number) {

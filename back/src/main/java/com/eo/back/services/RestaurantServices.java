@@ -1,5 +1,8 @@
 package com.eo.back.services;
 
+import java.util.List;
+
+import com.eo.back.models.Pedido;
 import com.eo.back.models.Restaurant;
 import com.eo.back.repositories.RestaurantRepository;
 
@@ -18,5 +21,9 @@ public class RestaurantServices {
 
     public Restaurant getRestaurantByName(String name) {
         return repository.getRestaurantByName(name);
+    }
+    
+    public List<Pedido> getAllPedidos(long id) {
+        return repository.getRestaurantByUserRestaurantId(id).getOrders();
     }
 }

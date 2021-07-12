@@ -11,7 +11,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "category")
@@ -25,7 +24,6 @@ public class Category {
     private String image;
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "idRestaurant")
     private Restaurant restaurant;
 
@@ -70,6 +68,11 @@ public class Category {
 
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
+    }
+
+    @Override
+    public String toString() {
+        return "Category [id=" + id + ", image=" + image + ", name=" + name + "]";
     }
     
 }

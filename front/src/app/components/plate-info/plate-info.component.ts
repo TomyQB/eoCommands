@@ -1,11 +1,10 @@
+import { AmountServicesService } from './../../services/amount-services.service';
+import { TotalObservableService } from './../../services/total-observable.service';
 import { DescAndAmount } from './../../models/DescAndAmount';
-import { PedidoDTO } from './../../models/PedidoDTO';
 import { Amount } from './../../models/Amount';
-import { Plate } from './../../models/Plate';
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common'
 
-import { PedidoServicesService } from '../../services/pedido-services.service'
 import { HashService } from '../../services/hash.service'
 
 @Component({
@@ -15,48 +14,36 @@ import { HashService } from '../../services/hash.service'
 })
 export class PlateInfoComponent implements OnInit {
 
-  plate: Plate = history.state.plate
-
   hash!: DescAndAmount
 
   amount: Amount = {
     amount: 0,
     description: "",
-    subTotal: 0
+    subTotal: 0,
+    plate: history.state.plate
   }
 
 
 
-  constructor(private pedidoServices: PedidoServicesService, private hashService: HashService, private location: Location) { }
+  constructor(private amountServices: AmountServicesService,private hashService: HashService, private location: Location, private totalObservableService: TotalObservableService) { }
 
   ngOnInit(): void {
-    this.hash = this.hashService.getElementByName(this.plate.name)
+    this.hash = this.hashService.getElementByName(this.amount.plate.name)
     this.amount.amount = this.hash.amount
   }
 
   addToPedido(description: string) {
 
     this.amount.description = description
-    this.plate.amount = this.amount
+    this.amount.subTotal = this.amount.amount * this.amount.plate.price
 
-    this.amount.subTotal = this.amount.amount * this.plate.price
+    this.totalObservableService.writeTotal(this.amountServices.addAmountToList(this.amount))
 
-    this.pedidoServices.sendPlate(this.plate).subscribe(data => {})
-
-    this.hashService.setHashByName(this.plate.name, this.amount.amount, description)
+    this.hashService.setHashByName(this.amount.plate.name, this.amount.amount, description)
 
     this.location.back();
 
   }
-
-  // ngOnDestroy() {
-  //   if(this.amount.amount > 0) {
-  //     this.plate.amount = this.amount
-  //     this.pedidoServices.sendPlate(this.plate).subscribe(data => {})
-  //   }
-
-  //   this.hashService.setAmountByName(this.plate.name, this.amount.amount)
-  // }
 
   add() {
     this.amount.amount++

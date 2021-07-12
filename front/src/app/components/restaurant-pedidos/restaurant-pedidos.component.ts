@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { PedidoServicesService } from '../../services/pedido-services.service'
 
 @Component({
   selector: 'app-restaurant-pedidos',
@@ -7,12 +10,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RestaurantPedidosComponent implements OnInit {
 
-  pedidos: any = history.state.pedidos
+  userId: number = history.state.userId
 
-  constructor() { }
+  pedidos!: any[]
+
+  constructor(private pedidoServices: PedidoServicesService, private router: Router) { }
 
   ngOnInit(): void {
-    console.log(this.pedidos)
+    this.pedidoServices.getAllPedidos(this.userId).subscribe(data => {
+      this.pedidos = data
+      console.log(this.pedidos)
+    })
+  }
+
+  plateView(i: number) {
+    this.router.navigateByUrl("/restaurantPedidosInfo", {state: {pedido: this.pedidos[i]}});
   }
 
 }

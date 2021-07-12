@@ -1,30 +1,31 @@
-import { PedidoDTO } from './../models/PedidoDTO';
-import { Amount } from './../models/Amount';
+import { userRestaurant } from './../models/userRestaurant';
+import { Pedido } from '../models/Pedido';
+import { environment } from './../../environments/environment.prod';
 import { Injectable } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http'
 import { Plate } from '../models/Plate';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PedidoServicesService {
 
-  Url = "http://localhost:8080/"
+  Url = environment.Url
 
   constructor(private http: HttpClient) { }
 
-  sendPlate(plate: Plate) {
-    console.log(plate)
-    return this.http.post<any>(this.Url + "converter", plate)
-  }
-
-  madePedido(pedido: PedidoDTO) {
-    console.log(pedido)
+  madePedido(pedido: Pedido) {
     return this.http.post<any>(this.Url + "madePedido", pedido)
   }
 
-  getPedidoInfo() {
-    return this.http.get<any>(this.Url + "pedidoInfo")
+  getAllPedidos(idUser: number): Observable<any[]> {
+    return this.http.post<any>(this.Url + "pedido", idUser)
   }
+
+  deletePedido(idPedido: number) {
+    return this.http.post<any>(this.Url + "delete", idPedido)
+  }
+
 }

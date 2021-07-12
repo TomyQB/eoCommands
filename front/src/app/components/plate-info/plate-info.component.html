@@ -1,22 +1,22 @@
 <div>
   <div class="info-header">
     <div style="font-size: 20px;">
-      {{plate.name}}
+      {{amount.plate.name}}
     </div>
 
     <div>
-      {{plate.price}}€
+      {{amount.plate.price}}€
     </div>
 
   </div>
   <mat-divider></mat-divider>
 
   <div class="info-description">
-    {{plate.description}}
+    {{amount.plate.description}}
   </div>
 
-  <div *ngIf="plate.additionals != undefined">
-    <div *ngFor="let a of plate.additionals">
+  <div *ngIf="amount.plate.additionals != undefined">
+    <div *ngFor="let a of amount.plate.additionals">
       {{a.name}}
       {{a.price}}
     </div>
@@ -34,5 +34,5 @@
 </div>
 
 <div class="center">
-  <button mat-raised-button color="primary" (click)="addToPedido(description.value)">Añadir al pedido {{plate.price * amount.amount}}€</button>
+  <button mat-raised-button color="primary" [disabled]="amount.amount == 0" (click)="addToPedido(description.value)">Añadir al pedido {{amount.plate.price * amount.amount}}€</button>
 </div>

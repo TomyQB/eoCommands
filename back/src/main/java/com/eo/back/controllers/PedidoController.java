@@ -5,40 +5,35 @@ import java.util.List;
 import com.eo.back.convert.PedidoConverter;
 import com.eo.back.dto.PedidoDTO;
 import com.eo.back.models.Pedido;
-import com.eo.back.services.AmountServices;
 import com.eo.back.services.PedidoServices;
+import com.eo.back.services.RestaurantServices;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin
 public class PedidoController {
     
     @Autowired
     private PedidoServices pedidoServices;
     
     @Autowired
-    private AmountServices amountServices;
+    private RestaurantServices restaurantServices;
 
     @Autowired
     private PedidoConverter pedidoConverter;
 
-    @GetMapping("/pedidoInfo")
-    public ResponseEntity<Pedido> getPedidoInfo(){
+    @PostMapping("/pedido")
+    public ResponseEntity<List<Pedido>> getPedidos(@RequestBody long id) {
+        List<Pedido> pedidos = restaurantServices.getAllPedidos(id);
 
-        System.out.println("AAAAAAAAAAAAAAAAA");
-        Pedido pedido = new Pedido();
-        pedidoServices.madePedido(pedido);
-        System.out.println(pedido.toString());
-
-        return new ResponseEntity<Pedido>(pedido, HttpStatus.OK);
+        return new ResponseEntity<List<Pedido>>(pedidos, HttpStatus.OK);
     }
     
     @PostMapping("/madePedido")
@@ -46,12 +41,10 @@ public class PedidoController {
 
         Boolean done = false;
 
-        Pedido pedido = pedidoServices.getPedido();
-        pedido = pedidoConverter.fromDTO(dto, pedido);
+        Pedido pedido = pedidoConverter.fromDTO(dto);
         if(pedido.getAmounts().size() > 0) {
+            pedidoServices.addPedidoToAmount(pedido);
             pedidoServices.savePedido(pedido);
-            pedidoServices.deleteLocalPedido();
-            amountServices.deleteLocalAmountList();
             done = true;
         }
         
@@ -59,8 +52,7 @@ public class PedidoController {
     }
 
     @PostMapping("/delete")
-    public void deletePedidos(@RequestBody int tableNum) {
-        long id = 1;
-        pedidoServices.deletePedidosByTable(tableNum, id);
+    public void deletePedidos(@RequestBody long idPedido) {
+        pedidoServices.deletePedidosById(idPedido);
     }
 }

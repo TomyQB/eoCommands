@@ -31,8 +31,7 @@ export class LoginComponent implements OnInit {
 
   onSignIn() {
     this.userService.login(this.userRestaurant).subscribe(data => {
-      console.log(data)
-      this.router.navigateByUrl("/restaurantPedidos", {state: {pedidos: data}});
+      this.router.navigateByUrl("/restaurantPedidos", {state: {userId: data.id}});
     })
   }
 

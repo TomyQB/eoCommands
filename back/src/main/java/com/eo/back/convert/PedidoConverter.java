@@ -13,20 +13,29 @@ public class PedidoConverter extends AbstractConverter<Pedido, PedidoDTO>{
     @Autowired
     private RestaurantServices restaurantServices;
 
-    public Pedido fromDTO(PedidoDTO dto, Pedido pedido) {
+    public Pedido fromDTO(String name, Pedido pedido) {
 
-        pedido.setEmail(dto.getEmail());
-        pedido.setTableNum(dto.getNumTable());
-        pedido.setTotal(dto.getTotal());
-        pedido.setRestaurant(restaurantServices.getRestaurantByName(dto.getRestaurantName()));
+        // pedido.setEmail(dto.getEmail());
+        // pedido.setTableNum(dto.getNumTable());
+        // pedido.setTotal(dto.getTotal());
+        pedido.setRestaurant(restaurantServices.getRestaurantByName(name));
 
         return pedido;
     }
 
     @Override
     public Pedido fromDTO(PedidoDTO dto) {
-        // TODO Auto-generated method stub
-        return null;
+        
+        Pedido pedido = new Pedido();
+
+        pedido.setAmounts(dto.getAmounts());
+        pedido.setDate(dto.getDate());
+        pedido.setEmail(dto.getEmail());
+        pedido.setRestaurant(restaurantServices.getRestaurantByName(dto.getRestaurantName()));
+        pedido.setTableNum(dto.getNumTable());
+        pedido.setTotal(dto.getTotal());
+
+        return pedido;
     }
     
 }

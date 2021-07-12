@@ -1,10 +1,44 @@
-<div *ngFor="let a of pedido">
-  {{a.plate.name}}
-  {{a.plate.price}}€ X {{a.amount}} = {{a.subTotal}} <br>
-  {{a.description}}
+<mat-toolbar color="primary">
+  <span>Pedido</span>
+</mat-toolbar>
+<div class="peddido-content">
+  <mat-list>
+  <div *ngFor="let a of pedido.amounts">
+    <div class="list-item">
+      <div class="info-plate-price">
+        <div>{{a.plate.name}}</div>
+        <div>{{a.plate.price}}€ X {{a.amount}} = {{a.subTotal}}</div>
+      </div>
+      <div>{{a.description}}</div>
+    </div>
+  <mat-divider></mat-divider>
+  </div>
+  </mat-list>
+
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Email</mat-label>
+      <input type="email" matInput [formControl]="emailFormControl" placeholder="Ej. email@example.com">
+      <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+        Introduce un email correcto
+      </mat-error>
+      <mat-error *ngIf="emailFormControl.hasError('required')">
+        Email obligatorio
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Nº de mesa</mat-label>
+      <input type="table" matInput [formControl]="tableFormControl" placeholder="Ej. 10">
+      <mat-error *ngIf="tableFormControl.hasError('required')">
+        Nº de mesa obligatorio
+      </mat-error>
+    </mat-form-field>
+  </form>
+
+  <div class="button-end-order">
+    <button mat-raised-button color="primary" [disabled]="!(pedido.total > 0)" (click)="openDialog()">Pagar</button>
+  </div>
+
 </div>
 
-<input matInput formControlName = "userName"  (keyup)="getEmail($event)" name="none" >
-<input matInput formControlName = "password" [type]='"number"' (keyup)="getTableNum($event)" name="none" >
-
-<button (click)="finishPedido()">Terminar pedido</button>

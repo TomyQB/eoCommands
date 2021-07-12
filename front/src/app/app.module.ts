@@ -14,7 +14,12 @@ import { LoginComponent } from './components/login/login.component';
 import { RestaurantPedidosComponent } from './components/restaurant-pedidos/restaurant-pedidos.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MaterialModule } from './share/material/material.module';
-import { CoreComponent } from './components/core/core.component'
+import { CoreComponent } from './components/core/core.component';
+import { RestaurantPedidoInfoComponent } from './components/restaurant-pedido-info/restaurant-pedido-info.component';
+import { PaymentComponent } from './components/payment/payment.component';
+import { PaymentModalComponent } from './components/payment-modal/payment-modal.component'
+
+import { NgxStripeModule } from 'ngx-stripe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,15 +30,20 @@ import { CoreComponent } from './components/core/core.component'
     PedidoInfoComponent,
     LoginComponent,
     RestaurantPedidosComponent,
-    CoreComponent
+    CoreComponent,
+    RestaurantPedidoInfoComponent,
+    PaymentComponent,
+    PaymentModalComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    NgxStripeModule.forRoot('pk_test_51HZwJtDRmiSLFsD4v5RcApqDX0kKokCoEQzNnnYhwydPSAjF2kqDDX0jYVaz3FOLU1rLbqvAh81QY7xahTxev1Io004DUUbSbT')
   ],
+  entryComponents: [PaymentComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

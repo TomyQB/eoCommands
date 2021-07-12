@@ -23,9 +23,6 @@ public class CategoryController {
     @GetMapping("/menu/{restaurantName}")
     public ResponseEntity<List<Category>> getCategories(@PathVariable String restaurantName){
         List<Category> categoriesList = services.getAllCategories(restaurantName);
-        for (Category category : categoriesList) {
-            System.out.println(category.getPlates());
-        }
         return new ResponseEntity<List<Category>>(categoriesList, HttpStatus.OK);
     }
     

@@ -1,5 +1,6 @@
 import { userRestaurant } from './../models/userRestaurant';
 import { Injectable } from '@angular/core';
+import { environment } from './../../environments/environment.prod';
 
 import { HttpClient } from '@angular/common/http'
 
@@ -8,12 +9,12 @@ import { HttpClient } from '@angular/common/http'
 })
 export class UserService {
 
-  Url = "http://localhost:8080/"
+  Url = environment.Url
 
   constructor(private http: HttpClient) { }
 
   login(user: userRestaurant) {
-    console.log(user)
     return this.http.post<any>(this.Url + "login", user)
   }
+
 }

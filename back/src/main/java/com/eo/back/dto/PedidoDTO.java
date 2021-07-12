@@ -1,11 +1,20 @@
 package com.eo.back.dto;
 
+import java.util.List;
+
+import com.eo.back.models.Amount;
+
 public class PedidoDTO {
+
+
     
     private int numTable;
     private String email;
     private double total;
     private String restaurantName;
+    private String date;
+
+    private List<Amount> amounts;
 
     public int getNumTable() {
         return numTable;
@@ -31,5 +40,18 @@ public class PedidoDTO {
     public void setRestaurantName(String idRestaurant) {
         this.restaurantName = idRestaurant;
     }
-    
+    public String getDate() {
+        return date;
+    }
+    public void setDate(String date) {
+        this.date = date;
+    }
+    public List<Amount> getAmounts() {
+        return amounts;
+    }
+    public void setAmounts(List<Amount> amounts) {
+        this.amounts = amounts;
+    }
+
+        
 }
