@@ -32,6 +32,7 @@ public class PaymentController {
         String paymentStr = paymentIntent.toJson();
         if(paymentStr.indexOf("succeeded") != -1) {
             succeeded = true;
+            paymentService.transferPayment("acct_1JCnGqJ4Ehs7B0OC", paymentIntent.getCurrency(), paymentIntent.getAmount());
         }
         System.out.println(paymentStr);
 

@@ -41,10 +41,12 @@ import { NgxStripeModule } from 'ngx-stripe';
     HttpClientModule,
     BrowserAnimationsModule,
     MaterialModule,
-    NgxStripeModule.forRoot('pk_test_51HZwJtDRmiSLFsD4v5RcApqDX0kKokCoEQzNnnYhwydPSAjF2kqDDX0jYVaz3FOLU1rLbqvAh81QY7xahTxev1Io004DUUbSbT')
+    NgxStripeModule.forRoot('pk_live_51HZwJtDRmiSLFsD4EzwVEeRaVsNcry47Iim4i7zFAiBR1dB6D5e01YIcBW9sOaHUoHJAjozgWEN1QyJEFZ0MCsTA00rbsjUwIS')
   ],
   entryComponents: [PaymentComponent],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+// pk_test_51HZwJtDRmiSLFsD4v5RcApqDX0kKokCoEQzNnnYhwydPSAjF2kqDDX0jYVaz3FOLU1rLbqvAh81QY7xahTxev1Io004DUUbSbT
