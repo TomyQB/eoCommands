@@ -1,3 +1,5 @@
+import { PaymentServiceService } from './../../services/payment-service.service';
+import { PendingPayment } from './../../models/PendingPayment';
 import { AmountServicesService } from './../../services/amount-services.service';
 import { HashService } from './../../services/hash.service';
 import { Pedido } from '../../models/Pedido';
@@ -31,6 +33,12 @@ export class PedidoInfoComponent implements OnInit {
     date: ""
   }
 
+  pendingPayment: PendingPayment = {
+    date: "",
+    amount: history.state.total,
+    nameUserRestaurant: localStorage.getItem("name")
+  }
+
   emailFormControl = new FormControl('', [
     Validators.required,
     Validators.email,
@@ -41,37 +49,47 @@ export class PedidoInfoComponent implements OnInit {
   ]);
 
 
-  constructor(private pedidoService: PedidoServicesService, public dialog: MatDialog,private router: Router, private hash: HashService, private amountServices: AmountServicesService, private totalObservableService: TotalObservableService) { }
+  constructor(private pedidoService: PedidoServicesService, private paymentService: PaymentServiceService, public dialog: MatDialog,private router: Router, private hash: HashService, private amountServices: AmountServicesService, private totalObservableService: TotalObservableService) { }
 
   ngOnInit(): void {
     this.pedido.amounts = this.amountServices.amounts
-    this.pedido.date = this.getDate()
     console.log(this.pedido.date)
   }
 
   finishPedido() {
-    this.pedido.date = this.getDate()
+    this.pedido.date = this.getHour()
     console.log(this.pedido.numTable)
     this.sendOrder();
 
   }
 
   sendOrder(){
-    this.pedidoService.madePedido(this.pedido).subscribe(data => {
+    this.pendingPayment.date = this.getDay()
+    this.paymentService.addPendingPayment(this.pendingPayment).subscribe(data => {
       if(data) {
-        const name = localStorage.getItem("name")
-        this.hash.dic = {}
-        this.totalObservableService.writeTotal(0)
-        this.amountServices.amounts = []
-        this.router.navigateByUrl("/menu/" + name);
+        this.pedidoService.madePedido(this.pedido).subscribe(dataa => {
+          if(dataa) {
+            const name = localStorage.getItem("name")
+            this.hash.dic = {}
+            this.totalObservableService.writeTotal(0)
+            this.amountServices.amounts = []
+            this.router.navigateByUrl("/menu/" + name);
+          }
+        })
       }
     })
   }
 
-  getDate() {
+  getHour() {
     let dateFormat = require('dateformat');
     let now = new Date()
-    return dateFormat(now, "dd/mm/yyyy, h:MM:ss");
+    return dateFormat(now, "h:MM:ss");
+  }
+
+  getDay() {
+    let dateFormat = require('dateformat');
+    let now = new Date()
+    return dateFormat(now, "dd/mm/yyyy");
   }
 
   openDialog() {

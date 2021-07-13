@@ -1,13 +1,19 @@
 package com.eo.back.models;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 @Entity
 @Table(name = "userRestaurant")
@@ -21,10 +27,15 @@ public class UserRestaurant {
     private String email;
     private String phone;
     private String password;
+    private String stripeId;
 
     @OneToOne(mappedBy = "userRestaurant")
     @JsonIgnore
     private Restaurant restaurant;
+    
+    @OneToMany(mappedBy = "userRestaurant")
+    @NotFound(action = NotFoundAction.IGNORE)
+    private List<PendingPayment> pendingPayments;
 
     public long getId() {
         return id;
@@ -72,6 +83,14 @@ public class UserRestaurant {
 
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
+    }
+    
+    public String getStripeId() {
+        return stripeId;
+    }
+
+    public void setStripeId(String stripeId) {
+        this.stripeId = stripeId;
     }
 
     @Override

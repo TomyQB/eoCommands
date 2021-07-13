@@ -1,7 +1,11 @@
 package com.eo.back.controllers;
 
+import com.eo.back.convert.PendingPaymentConverter;
 import com.eo.back.dto.PaymentIntentDTO;
+import com.eo.back.dto.PendingPaymentDTO;
+import com.eo.back.models.PendingPayment;
 import com.eo.back.services.PaymentService;
+import com.eo.back.services.PendingPaymentServices;
 import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentIntent;
 
@@ -20,6 +24,12 @@ public class PaymentController {
     
     @Autowired
     private PaymentService paymentService;
+    
+    @Autowired
+    private PendingPaymentServices pendingPaymentServices;
+
+    @Autowired
+    private PendingPaymentConverter pendingPaymentConverter;
 
     @PostMapping("/payment")
     public ResponseEntity<Boolean> payment(@RequestBody PaymentIntentDTO paymentIntentDTO) throws StripeException {
@@ -32,11 +42,20 @@ public class PaymentController {
         String paymentStr = paymentIntent.toJson();
         if(paymentStr.indexOf("succeeded") != -1) {
             succeeded = true;
-            paymentService.transferPayment("acct_1JCnGqJ4Ehs7B0OC", paymentIntent.getCurrency(), paymentIntent.getAmount());
+            // paymentService.transferPayment("acct_1JCnGqJ4Ehs7B0OC", paymentIntent.getCurrency(), paymentIntent.getAmount());
         }
-        System.out.println(paymentStr);
 
         return new ResponseEntity<Boolean>(succeeded, HttpStatus.OK);
+    }
+
+    @PostMapping("/pendingpayment")
+    public ResponseEntity<Boolean> addPendingPayment(@RequestBody PendingPaymentDTO pendingPaymentDTO) {
+      System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
+      PendingPayment pendingPayment = pendingPaymentConverter.fromDTO(pendingPaymentDTO);
+
+      pendingPaymentServices.savePendingPayment(pendingPayment);
+      
+      return new ResponseEntity<Boolean>(true, HttpStatus.OK);
     }
 
     // @PostMapping("/confirm/{id}")

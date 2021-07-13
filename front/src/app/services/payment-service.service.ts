@@ -1,3 +1,4 @@
+import { PendingPayment } from './../models/PendingPayment';
 import { Observable } from 'rxjs';
 import { PaymentIntentDTO } from './../models/PaymentIntentDTO';
 import { Injectable } from '@angular/core';
@@ -16,5 +17,10 @@ export class PaymentServiceService {
 
   pay(paymentIntentDTO: PaymentIntentDTO) {
     return this.http.post<boolean>(this.Url + 'payment', paymentIntentDTO)
+  }
+
+  addPendingPayment(pendingPayment: PendingPayment) {
+    console.log(pendingPayment)
+    return this.http.post<any>(this.Url + "pendingpayment", pendingPayment)
   }
 }

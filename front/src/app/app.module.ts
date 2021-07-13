@@ -17,7 +17,6 @@ import { MaterialModule } from './share/material/material.module';
 import { CoreComponent } from './components/core/core.component';
 import { RestaurantPedidoInfoComponent } from './components/restaurant-pedido-info/restaurant-pedido-info.component';
 import { PaymentComponent } from './components/payment/payment.component';
-import { PaymentModalComponent } from './components/payment-modal/payment-modal.component'
 
 import { NgxStripeModule } from 'ngx-stripe';
 @NgModule({
@@ -33,7 +32,6 @@ import { NgxStripeModule } from 'ngx-stripe';
     CoreComponent,
     RestaurantPedidoInfoComponent,
     PaymentComponent,
-    PaymentModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,7 +39,7 @@ import { NgxStripeModule } from 'ngx-stripe';
     HttpClientModule,
     BrowserAnimationsModule,
     MaterialModule,
-    NgxStripeModule.forRoot('pk_live_51HZwJtDRmiSLFsD4EzwVEeRaVsNcry47Iim4i7zFAiBR1dB6D5e01YIcBW9sOaHUoHJAjozgWEN1QyJEFZ0MCsTA00rbsjUwIS')
+    NgxStripeModule.forRoot('pk_test_51HZwJtDRmiSLFsD4v5RcApqDX0kKokCoEQzNnnYhwydPSAjF2kqDDX0jYVaz3FOLU1rLbqvAh81QY7xahTxev1Io004DUUbSbT')
   ],
   entryComponents: [PaymentComponent],
   providers: [],

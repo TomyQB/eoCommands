@@ -62,9 +62,7 @@ export class PaymentComponent implements OnInit {
             currency: 'EUR',
           }
           this.paymentService.pay(paymentIntentDTO).subscribe(data => {
-            // if(data) {
               this.dialog.close(data)
-            // }
           })
         } else if (result.error) {
           alert(result.error.message);

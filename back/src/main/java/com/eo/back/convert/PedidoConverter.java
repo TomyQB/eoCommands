@@ -13,16 +13,6 @@ public class PedidoConverter extends AbstractConverter<Pedido, PedidoDTO>{
     @Autowired
     private RestaurantServices restaurantServices;
 
-    public Pedido fromDTO(String name, Pedido pedido) {
-
-        // pedido.setEmail(dto.getEmail());
-        // pedido.setTableNum(dto.getNumTable());
-        // pedido.setTotal(dto.getTotal());
-        pedido.setRestaurant(restaurantServices.getRestaurantByName(name));
-
-        return pedido;
-    }
-
     @Override
     public Pedido fromDTO(PedidoDTO dto) {
         
