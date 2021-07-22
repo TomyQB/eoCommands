@@ -26,6 +26,7 @@ public class Pedido {
     private double total;
     private int tableNum;
     private String email;
+    private String phoneNumber;
 
     @ManyToOne
     @JsonIgnore
@@ -91,12 +92,18 @@ public class Pedido {
         this.email = email;
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     @Override
     public String toString() {
         return "Pedido [amounts=" + amounts + ", date=" + date + ", email=" + email + ", id=" + id + ", restaurant="
                 + restaurant + ", tableNum=" + tableNum + ", total=" + total + "]";
-    }
-
-    
+    } 
         
 }

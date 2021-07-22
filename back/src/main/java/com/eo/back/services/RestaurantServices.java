@@ -14,10 +14,6 @@ public class RestaurantServices {
 
     @Autowired
     private RestaurantRepository repository;
-    
-    public Restaurant getRestaurantById(long id) {
-        return repository.getById(id);
-    }
 
     public Restaurant getRestaurantByName(String name) {
         return repository.getRestaurantByName(name);

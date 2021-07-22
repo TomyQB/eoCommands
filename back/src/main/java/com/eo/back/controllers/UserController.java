@@ -1,7 +1,10 @@
 package com.eo.back.controllers;
 
+import java.text.ParseException;
+
 import com.eo.back.models.UserRestaurant;
 import com.eo.back.services.UserService;
+import com.stripe.exception.StripeException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,9 +22,10 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/login")
-    public ResponseEntity<UserRestaurant> login(@RequestBody UserRestaurant user) {
+    public ResponseEntity<UserRestaurant> login(@RequestBody UserRestaurant user) throws StripeException, ParseException {
         UserRestaurant userLogged = userService.loginUser(user.getEmail(), user.getPassword());
         return new ResponseEntity<UserRestaurant>(userLogged, HttpStatus.OK);
     }
+
     
 }

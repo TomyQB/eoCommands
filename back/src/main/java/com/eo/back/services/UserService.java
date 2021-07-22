@@ -1,7 +1,5 @@
 package com.eo.back.services;
 
-import java.util.List;
-
 import com.eo.back.models.UserRestaurant;
 import com.eo.back.repositories.UserRepository;
 
@@ -12,13 +10,13 @@ import org.springframework.stereotype.Service;
 public class UserService {
     
     @Autowired
-    private UserRepository repository;
+    private UserRepository userRepository;
 
     public UserRestaurant loginUser(String email, String password) {
 
-        List<UserRestaurant> user = repository.getUserRestaurantByEmailAndPassword(email, password);
+        UserRestaurant user = userRepository.getUserRestaurantByEmailAndPassword(email, password);
 
-        return user.get(0);
+        return user;
     }
 
 }

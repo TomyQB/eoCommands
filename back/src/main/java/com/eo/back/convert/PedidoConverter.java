@@ -24,6 +24,7 @@ public class PedidoConverter extends AbstractConverter<Pedido, PedidoDTO>{
         pedido.setRestaurant(restaurantServices.getRestaurantByName(dto.getRestaurantName()));
         pedido.setTableNum(dto.getNumTable());
         pedido.setTotal(dto.getTotal());
+        pedido.setPhoneNumber(dto.getPhoneNumber());
 
         return pedido;
     }

@@ -1,19 +1,13 @@
 package com.eo.back.models;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
 
 @Entity
 @Table(name = "userRestaurant")
@@ -32,10 +26,6 @@ public class UserRestaurant {
     @OneToOne(mappedBy = "userRestaurant")
     @JsonIgnore
     private Restaurant restaurant;
-    
-    @OneToMany(mappedBy = "userRestaurant")
-    @NotFound(action = NotFoundAction.IGNORE)
-    private List<PendingPayment> pendingPayments;
 
     public long getId() {
         return id;

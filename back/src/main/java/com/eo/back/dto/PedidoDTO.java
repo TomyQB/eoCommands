@@ -5,14 +5,13 @@ import java.util.List;
 import com.eo.back.models.Amount;
 
 public class PedidoDTO {
-
-
     
     private int numTable;
     private String email;
     private double total;
     private String restaurantName;
     private String date;
+    private String phoneNumber;
 
     private List<Amount> amounts;
 
@@ -53,5 +52,11 @@ public class PedidoDTO {
         this.amounts = amounts;
     }
 
-        
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+    
 }

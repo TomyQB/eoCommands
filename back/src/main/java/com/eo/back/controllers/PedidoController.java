@@ -39,9 +39,12 @@ public class PedidoController {
     @PostMapping("/madePedido")
     public ResponseEntity<Boolean> madePedido(@RequestBody PedidoDTO dto) {
 
+        System.out.println(dto.getPhoneNumber());
+
         Boolean done = false;
 
         Pedido pedido = pedidoConverter.fromDTO(dto);
+        System.out.println(pedido.getPhoneNumber());
         if(pedido.getAmounts().size() > 0) {
             pedidoServices.addPedidoToAmount(pedido);
             pedidoServices.savePedido(pedido);

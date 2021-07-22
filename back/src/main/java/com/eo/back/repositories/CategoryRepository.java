@@ -13,6 +13,6 @@ import org.springframework.stereotype.Repository;
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 
     @Query("select c from category c where c.id_restaurant = :name orderby c.name")
-    List<Category>getCategoryByRestaurantName(@Param("name") String name);
+    List<Category>getCategoryByRestaurantNameOrderByName(@Param("name") String name);
     
 }

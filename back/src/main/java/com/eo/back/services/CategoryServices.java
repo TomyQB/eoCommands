@@ -15,6 +15,6 @@ public class CategoryServices {
     private CategoryRepository repository;
 
     public List<Category> getAllCategories(String restaurantName) {
-        return repository.getCategoryByRestaurantName(restaurantName);
+        return repository.getCategoryByRestaurantNameOrderByName(restaurantName);
     }
 }

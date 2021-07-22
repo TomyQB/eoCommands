@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.eo.back.models.Category;
 import com.eo.back.services.CategoryServices;
+import com.eo.back.services.PhoneServices;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,11 +15,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin
 public class CategoryController {
 
     @Autowired
     private CategoryServices services;
+
+    @Autowired
+    private PhoneServices phoneServices;
 
     @GetMapping("/menu/{restaurantName}")
     public ResponseEntity<List<Category>> getCategories(@PathVariable String restaurantName){

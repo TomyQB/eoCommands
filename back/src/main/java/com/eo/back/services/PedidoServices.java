@@ -16,16 +16,16 @@ public class PedidoServices {
     public void savePedido(Pedido pedido) {
         repository.save(pedido);
     }
-    
+
+    public void deletePedidosById(long idPedido) {
+        repository.deleteById(idPedido);
+    }
+        
     public void addPedidoToAmount(Pedido pedido) {
         
         for (Amount a : pedido.getAmounts()) {
             a.setOrder(pedido);
         }
-    }
-
-    public void deletePedidosById(long idPedido) {
-        repository.deleteById(idPedido);
     }
 
 }
