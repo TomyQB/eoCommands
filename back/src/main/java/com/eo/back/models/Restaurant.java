@@ -13,8 +13,13 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
 @Table(name = "restaurant")
+@Setter
+@Getter
 public class Restaurant {
     
     @Id
@@ -34,53 +39,9 @@ public class Restaurant {
     @OneToMany(mappedBy = "restaurant")
     private List<Pedido> orders;
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public UserRestaurant getUserRestaurant() {
-        return userRestaurant;
-    }
-
-    public void setUserRestaurant(UserRestaurant userRestaurant) {
-        this.userRestaurant = userRestaurant;
-    }
-
-    
-    public List<Category> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
-    }
-
-    public List<Pedido> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<Pedido> orders) {
-        this.orders = orders;
-    }
-
     @Override
     public String toString() {
         return "Restaurant [id=" + id + "]";
     }
-
-    
-
         
 }

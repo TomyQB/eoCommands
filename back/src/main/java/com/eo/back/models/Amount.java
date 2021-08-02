@@ -11,8 +11,13 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
 @Table(name = "amount")
+@Setter
+@Getter
 public class Amount {
     
     @Id
@@ -32,61 +37,10 @@ public class Amount {
     @JoinColumn(name = "idOrder")
     private Pedido order;
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
-
-    public Plate getPlate() {
-        return plate;
-    }
-
-    public void setPlate(Plate plate) {
-        this.plate = plate;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    
-    public Pedido getOrder() {
-        return order;
-    }
-
-    public void setOrder(Pedido order) {
-        this.order = order;
-    }
-
-    public double getSubTotal() {
-        return subTotal;
-    }
-
-    public void setSubTotal(double subTotal) {
-        this.subTotal = subTotal;
-    }
-
     @Override
     public String toString() {
         return "Amount [amount=" + amount + ", description=" + description + ", id=" + id + ", subTotal=" + subTotal
                 + "]";
     }
-
-    
             
 }

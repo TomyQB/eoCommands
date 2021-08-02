@@ -6,6 +6,7 @@ import com.eo.back.convert.PedidoConverter;
 import com.eo.back.dto.PedidoDTO;
 import com.eo.back.models.Pedido;
 import com.eo.back.services.PedidoServices;
+import com.eo.back.services.PendingOrderService;
 import com.eo.back.services.RestaurantServices;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,15 +40,15 @@ public class PedidoController {
     @PostMapping("/madePedido")
     public ResponseEntity<Boolean> madePedido(@RequestBody PedidoDTO dto) {
 
-        System.out.println(dto.getPhoneNumber());
-
         Boolean done = false;
 
         Pedido pedido = pedidoConverter.fromDTO(dto);
-        System.out.println(pedido.getPhoneNumber());
+        // PendingOrderService pendingOrder = 
         if(pedido.getAmounts().size() > 0) {
             pedidoServices.addPedidoToAmount(pedido);
             pedidoServices.savePedido(pedido);
+            System.out.println(pedido);
+            // pendingOrderService.savePendingOrder(pendingOrder);
             done = true;
         }
         

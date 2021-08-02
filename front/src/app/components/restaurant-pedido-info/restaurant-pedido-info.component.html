@@ -1,0 +1,9 @@
+<div *ngFor="let amount of pedido.amounts">
+  {{amount.plate.name}}
+  {{amount.amount}}
+  <div>
+    {{amount.description}}
+  </div>
+</div>
+
+<button (click)="deletePedido(pedido.id)">Pedido terminado</button>

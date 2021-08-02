@@ -11,9 +11,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+
 
 @Entity
 @Table(name = "category")
+@Setter
+@Getter
 public class Category {
     
     @Id
@@ -29,46 +34,6 @@ public class Category {
 
     @OneToMany(mappedBy = "category")
     private List<Plate> plates;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Plate> getPlates() {
-        return plates;
-    }
-
-    public void setPlates(List<Plate> plates) {
-        this.plates = plates;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public Restaurant getRestaurant() {
-        return restaurant;
-    }
-
-    public void setRestaurant(Restaurant restaurant) {
-        this.restaurant = restaurant;
-    }
 
     @Override
     public String toString() {

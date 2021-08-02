@@ -1,0 +1,7 @@
+<div class="content-category">
+  <div class="card-category" *ngFor="let c of categories; let i = index" (click)="plateView(i, c.name)">
+    <img class="category-img" src={{c.image}}>
+      <label class="category-label">{{c.name}}</label>
+  </div>
+</div>
+
