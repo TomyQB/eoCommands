@@ -1,5 +1,5 @@
-<mat-toolbar color="primary">
-  <span>Pedido</span>
+<mat-toolbar class="primary">
+  <span>{{restaurantName}}</span>
 </mat-toolbar>
 <div class="peddido-content">
   <mat-list>
@@ -45,7 +45,7 @@
   </form>
 
   <div class="button-end-order">
-    <button mat-raised-button color="primary" (click)="openDialog()" [disabled]="!(pedido.total > 0)">Hacer pedido</button>
+    <button mat-raised-button class="primary" (click)="openDialog()" [disabled]="!(pedido.total > 0)">Hacer pedido</button>
   </div>
 
 </div>

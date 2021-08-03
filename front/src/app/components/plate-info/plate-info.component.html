@@ -34,5 +34,5 @@
 </div>
 
 <div class="center">
-  <button mat-raised-button color="primary" [disabled]="amount.amount == 0" (click)="addToPedido(description.value)">Añadir al pedido {{amount.plate.price * amount.amount}}€</button>
+  <button mat-raised-button class="primary" [disabled]="amount.amount == 0" (click)="addToPedido(description.value)">Añadir al pedido {{amount.plate.price * amount.amount}}€</button>
 </div>

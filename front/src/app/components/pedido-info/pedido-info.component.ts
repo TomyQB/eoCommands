@@ -21,6 +21,8 @@ declare var require: any
 })
 export class PedidoInfoComponent implements OnInit {
 
+  restaurantName: string = localStorage.getItem("name")!;
+
   dialogConfig: MatDialogConfig = {
     width: '90%',
   }
@@ -88,7 +90,6 @@ export class PedidoInfoComponent implements OnInit {
     this.pedido.email = this.emailFormControl.value
     this.pedido.numTable = this.tableFormControl.value
     this.pedido.phoneNumber = this.phoneFormControl.value
-    this.finishPedido()
 
     if(this.pedido.email && this.pedido.numTable && this.pedido.numTable) {
       this.phoneService.sendSMS(this.pedido.phoneNumber).subscribe(data => {
@@ -97,6 +98,8 @@ export class PedidoInfoComponent implements OnInit {
         dialogRef.afterClosed().subscribe(res => {
           if(res) {
             this.finishPedido()
+          } else {
+            console.log("NOOOOOOOOO")
           }
         })
       })

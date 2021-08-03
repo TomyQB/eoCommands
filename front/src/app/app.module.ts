@@ -19,6 +19,7 @@ import { RestaurantPedidoInfoComponent } from './components/restaurant-pedido-in
 
 import { NgxStripeModule } from 'ngx-stripe';
 import { ModalPhoneComponent } from './components/modal-phone/modal-phone.component';
+import { RestaurantPedidoBebidaComponent } from './components/restaurant-pedido-bebida/restaurant-pedido-bebida.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,6 +33,7 @@ import { ModalPhoneComponent } from './components/modal-phone/modal-phone.compon
     CoreComponent,
     RestaurantPedidoInfoComponent,
     ModalPhoneComponent,
+    RestaurantPedidoBebidaComponent,
   ],
   imports: [
     BrowserModule,

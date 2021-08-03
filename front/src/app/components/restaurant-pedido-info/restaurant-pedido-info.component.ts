@@ -14,7 +14,7 @@ export class RestaurantPedidoInfoComponent implements OnInit {
   constructor(private pedidoServices: PedidoServicesService) { }
 
   ngOnInit(): void {
-
+    console.log(this.pedido)
   }
 
   deletePedido(id: number) {

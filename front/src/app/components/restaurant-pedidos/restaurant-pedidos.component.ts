@@ -23,8 +23,12 @@ export class RestaurantPedidosComponent implements OnInit {
     })
   }
 
-  plateView(i: number) {
-    this.router.navigateByUrl("/restaurantPedidosInfo", {state: {pedido: this.pedidos[i]}});
+  plateView(pedido: any) {
+    this.router.navigateByUrl("/restaurantPedidosInfo", {state: {pedido: pedido}});
+  }
+
+  drinkView(pedido: any) {
+    this.router.navigateByUrl("/restaurantPedidosBebida", {state: {pedido: pedido}});
   }
 
 }

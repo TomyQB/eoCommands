@@ -12,6 +12,6 @@ export class PhoneService {
   constructor(private http: HttpClient) { }
 
   sendSMS(phone: string) {
-    return this.http.post<any>(this.Url + "sms", phone)
+    return this.http.post<number>(this.Url + "sms", phone)
   }
 }

@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-modal-phone',
@@ -9,9 +11,26 @@ export class ModalPhoneComponent implements OnInit {
 
   @Input() code!: number;
 
-  constructor() { }
+  codeFormControl = new FormControl('', [
+    Validators.required,
+  ]);
+
+  constructor(public dialog: MatDialogRef<ModalPhoneComponent>) { }
 
   ngOnInit(): void {
+  }
+
+  acept() {
+    console.log(this.codeFormControl.value)
+    if(this.codeFormControl.value == this.code) {
+      this.dialog.close(true)
+    } else {
+      alert("Codigo incorrecto")
+    }
+  }
+
+  cancel() {
+    this.dialog.close(false)
   }
 
 }

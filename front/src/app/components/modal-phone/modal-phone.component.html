@@ -1,1 +1,12 @@
-<p>modal-phone works!</p>
+<mat-form-field class="example-full-width">
+  <mat-label>Nº de mesa</mat-label>
+  <input type="table" matInput [formControl]="codeFormControl" placeholder="Ej. 1010">
+  <mat-error *ngIf="codeFormControl.hasError('required')">
+    Código
+  </mat-error>
+</mat-form-field>
+
+<div>
+  <button (click)="acept()">Aceptar</button>
+  <button (click)="cancel()">Cancelar</button>
+</div>

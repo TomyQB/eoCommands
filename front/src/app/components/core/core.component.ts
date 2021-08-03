@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-core',
@@ -8,11 +8,23 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CoreComponent implements OnInit {
 
-  restaurantName: string =localStorage.getItem("name")!;
+  restaurantName: string = localStorage.getItem("name")!;
+  showOrder: boolean = true;
 
-  constructor(private activeRoute: ActivatedRoute) { }
+  constructor(private router: Router) {
+    router.events.subscribe((val) => {
+      // see also
+      if(this.router.url === "/plateInfo") {
+        this.showOrder = false;
+      } else {
+        this.showOrder = true;
+      }
+      console.log(val instanceof NavigationEnd)
+    });
+  }
 
   ngOnInit(): void {
+    console.log(this.router.url)
   }
 
 }

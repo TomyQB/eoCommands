@@ -1,6 +1,36 @@
-<div *ngFor="let pedido of pedidos; let i = index">
-  <div (click)="plateView(i)">
-    {{pedido.tableNum}}
-    {{pedido.date}}
-  </div>
-</div>
+<mat-tab-group>
+  <mat-tab label="Cocina">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Mesa</th>
+          <th scope="col">Hora</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pedido of pedidos" (click)="plateView(pedido)">
+            <th scope="row">{{pedido.tableNum}}</th>
+            <th>{{pedido.date}}</th>
+        </tr>
+      </tbody>
+    </table>
+  </mat-tab>
+  <mat-tab label="Barra">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Mesa</th>
+          <th scope="col">Hora</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pedido of pedidos" (click)="drinkView(pedido)">
+            <th scope="row">{{pedido.tableNum}}</th>
+            <th>{{pedido.date}}</th>
+        </tr>
+      </tbody>
+    </table></mat-tab>
+  <mat-tab label="Cuenta"> Content 3 </mat-tab>
+</mat-tab-group>
+
+

@@ -2,6 +2,8 @@ package com.eo.back.services;
 
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
+
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
@@ -18,14 +20,17 @@ public class PhoneServices {
 
         int verifyNumber = getVerifyNumber();
 
-        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-
         Message message = Message.creator(new PhoneNumber("+34" + phoneNumber),
             new PhoneNumber("+15174892996"),
             "El numero de verificación para hacer el peido es: " + verifyNumber).create();
     
         System.out.println(message.getSid());
         return verifyNumber;
+    }
+
+    @PostConstruct
+    private void initTwilio() {
+        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
     }
 
     public int getVerifyNumber() {

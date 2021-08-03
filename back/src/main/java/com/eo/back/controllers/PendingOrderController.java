@@ -24,12 +24,9 @@ public class PendingOrderController {
     @PostMapping("/madePendingOrder")
     public ResponseEntity<Boolean> madePedido(@RequestBody PedidoDTO dto) {
 
-        Boolean done = true;
-
-        // pendingOrderService.savePendingOrder(dto);
-        pendingOrderService.deletePendingOrder(2, 4);
+        pendingOrderService.savePendingOrder(dto);
         
-        return new ResponseEntity<Boolean>(done, HttpStatus.OK);
+        return new ResponseEntity<Boolean>(true, HttpStatus.OK);
     }
 
     @PostMapping("/allPendingOrder")
@@ -51,10 +48,9 @@ public class PendingOrderController {
     @PostMapping("/deletePendingOrder")
     public ResponseEntity<Boolean> deletePendingOrder(@RequestBody long restaurantId, int tableNum) {
 
-        Boolean done = true;
         pendingOrderService.deletePendingOrder(restaurantId, tableNum);
         
-        return new ResponseEntity<Boolean>(done, HttpStatus.OK);
+        return new ResponseEntity<Boolean>(true, HttpStatus.OK);
     }
     
 }

@@ -43,12 +43,10 @@ public class PedidoController {
         Boolean done = false;
 
         Pedido pedido = pedidoConverter.fromDTO(dto);
-        // PendingOrderService pendingOrder = 
+        
         if(pedido.getAmounts().size() > 0) {
             pedidoServices.addPedidoToAmount(pedido);
             pedidoServices.savePedido(pedido);
-            System.out.println(pedido);
-            // pendingOrderService.savePendingOrder(pendingOrder);
             done = true;
         }
         

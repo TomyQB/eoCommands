@@ -14,6 +14,8 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import org.springframework.data.relational.core.mapping.Embedded.Nullable;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,6 +32,8 @@ public class Plate {
     private String name;
     private String description;
     private double price;
+    @Nullable
+    private boolean drink;
 
     @OneToOne(mappedBy = "plate")
     @JsonIgnore

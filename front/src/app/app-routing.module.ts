@@ -1,3 +1,4 @@
+import { RestaurantPedidoBebidaComponent } from './components/restaurant-pedido-bebida/restaurant-pedido-bebida.component';
 import { RestaurantPedidoInfoComponent } from './components/restaurant-pedido-info/restaurant-pedido-info.component';
 import { CoreComponent } from './components/core/core.component';
 import { RestaurantPedidosComponent } from './components/restaurant-pedidos/restaurant-pedidos.component';
@@ -43,6 +44,10 @@ const routes: Routes = [
   {
     path: 'restaurantPedidosInfo',
     component: RestaurantPedidoInfoComponent
+  },
+  {
+    path: 'restaurantPedidosBebida',
+    component: RestaurantPedidoBebidaComponent
   },
 
 ];

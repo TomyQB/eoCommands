@@ -1,5 +1,5 @@
 <div *ngFor="let amount of pedido.amounts">
-  <div *ngIf="!amount.plate.drink">
+  <div *ngIf="amount.plate.drink">
     {{amount.plate.name}}
     {{amount.amount}}
     <div>
@@ -7,5 +7,3 @@
     </div>
   </div>
 </div>
-
-<button (click)="deletePedido(pedido.id)">Pedido terminado</button>
