@@ -1,3 +1,7 @@
+import { PaginaPrincipalComponent } from './components/pagina-principal/pagina-principal.component';
+import { LegalComponent } from './components/legal/legal.component';
+import { TerminosComponent } from './components/terminos/terminos.component';
+import { ConfirmacionComponent } from './components/confirmacion/confirmacion.component';
 import { RestaurantPedidoBebidaComponent } from './components/restaurant-pedido-bebida/restaurant-pedido-bebida.component';
 import { RestaurantPedidoInfoComponent } from './components/restaurant-pedido-info/restaurant-pedido-info.component';
 import { CoreComponent } from './components/core/core.component';
@@ -48,6 +52,18 @@ const routes: Routes = [
   {
     path: 'restaurantPedidosBebida',
     component: RestaurantPedidoBebidaComponent
+  },
+  {
+    path: 'terminos',
+    component: TerminosComponent
+  },
+  {
+    path: 'legal',
+    component: LegalComponent
+  },
+  {
+    path: 'home',
+    component: PaginaPrincipalComponent
   },
 
 ];

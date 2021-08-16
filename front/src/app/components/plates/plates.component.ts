@@ -14,7 +14,7 @@ import { DescAndAmount } from 'src/app/models/DescAndAmount';
 export class PlatesComponent implements OnInit {
 
   plates: Plate[] = history.state.plates
-  categoryName: string = history.state.category
+  category: Category = history.state.category
 
 
   dic: {[key: string]: DescAndAmount} = {}

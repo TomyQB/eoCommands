@@ -1,3 +1,4 @@
+import { RestaurantService } from './../../services/restaurant.service';
 import { Pedido } from '../../models/Pedido';
 import { Category } from './../../models/Category';
 import { Component, OnInit } from '@angular/core';
@@ -16,19 +17,19 @@ import { HashService } from '../../services/hash.service'
 export class CategoriesComponent implements OnInit {
 
   categories!: Category[]
+  image!: string
 
   restaurantName: string = this.activeRoute.snapshot.paramMap.get('name')!
 
-  constructor(private pedidoService: PedidoServicesService, private menuServices: MenuServicesService, private router: Router, private activeRoute: ActivatedRoute, private hashService: HashService) { }
+  constructor(private pedidoService: PedidoServicesService, private menuServices: MenuServicesService, private restaurantService: RestaurantService, private router: Router, private activeRoute: ActivatedRoute, private hashService: HashService) { }
 
   ngOnInit(): void {
     this.setUrlName();
 
-    this.menuServices.getMenu().subscribe(data => {
+    this.menuServices.getMenu(this.restaurantName).subscribe(data => {
       this.categories = data
+      this.image = data[0].restaurant.image  //ARREGLAR PARA QUE NO SE VEA FEO
       localStorage.setItem('idRestaurant', data[0].restaurant.id);
-      console.log(data[0].restaurant.id)
-      console.log(this.categories)
     })
   }
 
@@ -38,11 +39,11 @@ export class CategoriesComponent implements OnInit {
     }
   }
 
-  plateView(i: number, categoryName: string) {
+  plateView(i: number, category: Category) {
 
     this.categories[i].plates = this.duplicateFilter(this.categories[i].plates)
 
-    this.router.navigateByUrl("/plates", {state: {plates: this.categories[i].plates, category: categoryName}});
+    this.router.navigateByUrl("/plates", {state: {plates: this.categories[i].plates, category: category}});
   }
 
   duplicateFilter(plates: Plate[]): Plate[] {

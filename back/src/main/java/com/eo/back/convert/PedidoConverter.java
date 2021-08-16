@@ -1,6 +1,10 @@
 package com.eo.back.convert;
 
+import java.util.List;
+
 import com.eo.back.dto.PedidoDTO;
+import com.eo.back.models.Amount;
+import com.eo.back.models.Extra;
 import com.eo.back.models.Pedido;
 import com.eo.back.services.RestaurantServices;
 
@@ -26,7 +30,21 @@ public class PedidoConverter extends AbstractConverter<Pedido, PedidoDTO>{
         pedido.setTotal(dto.getTotal());
         pedido.setPhoneNumber(dto.getPhoneNumber());
 
+        addAmountToAdditionals(dto.getAmounts());
+        System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDD");
+
         return pedido;
+    }
+
+    private void addAmountToAdditionals(List<Amount> amounts) {
+        for (Amount amount : amounts) {
+            System.out.println(amount);
+            if(amount.getExtras() != null) {
+                for (Extra extra : amount.getExtras()) {
+                    extra.setAmount(amount);
+                }
+            }
+        }
     }
     
 }

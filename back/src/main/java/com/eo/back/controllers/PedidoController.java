@@ -6,8 +6,8 @@ import com.eo.back.convert.PedidoConverter;
 import com.eo.back.dto.PedidoDTO;
 import com.eo.back.models.Pedido;
 import com.eo.back.services.PedidoServices;
-import com.eo.back.services.PendingOrderService;
 import com.eo.back.services.RestaurantServices;
+import com.eo.back.services.Email.PedidoEmailService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,6 +29,9 @@ public class PedidoController {
 
     @Autowired
     private PedidoConverter pedidoConverter;
+    
+    @Autowired
+    private PedidoEmailService emailService;
 
     @PostMapping("/pedido")
     public ResponseEntity<List<Pedido>> getPedidos(@RequestBody long id) {
@@ -46,7 +49,10 @@ public class PedidoController {
         
         if(pedido.getAmounts().size() > 0) {
             pedidoServices.addPedidoToAmount(pedido);
+            System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+            System.out.println(pedido);
             pedidoServices.savePedido(pedido);
+            // emailService.sendEmail(pedido);
             done = true;
         }
         
@@ -54,7 +60,7 @@ public class PedidoController {
     }
 
     @PostMapping("/delete")
-    public void deletePedidos(@RequestBody long idPedido) {
-        pedidoServices.deletePedidosById(idPedido);
+    public void deletePedidos(@RequestBody PedidoDTO dto) {
+        pedidoServices.deletePedido(dto);
     }
 }

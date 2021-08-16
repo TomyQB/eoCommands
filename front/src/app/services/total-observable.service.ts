@@ -8,9 +8,12 @@ export class TotalObservableService {
 
   private totalSubject = new Subject<number>()
 
+  num: number = 0
+
   constructor() { }
 
   writeTotal(total: number) {
+    total = Math.round(total * 100) / 100
     this.totalSubject.next(total)
   }
 
@@ -18,7 +21,12 @@ export class TotalObservableService {
     this.totalSubject.next()
   }
 
-  getTotal(): Observable<number> {
-    return this.totalSubject.asObservable()
+  getTotal(): number {
+    this.totalSubject.subscribe(data => {
+      this.num = data
+      return this.num
+    })
+     return this.num
   }
+
 }

@@ -12,7 +12,10 @@ export class RestaurantPedidoBebidaComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.pedido)
+    localStorage.setItem('tab', "1");
+  }
+
+  deletePedido(id: number) {
   }
 
 }

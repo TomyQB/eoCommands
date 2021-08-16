@@ -1,5 +1,6 @@
 package com.eo.back.services;
 
+import com.eo.back.dto.PedidoDTO;
 import com.eo.back.models.Amount;
 import com.eo.back.models.Pedido;
 import com.eo.back.repositories.PedidoRepository;
@@ -13,8 +14,15 @@ public class PedidoServices {
     @Autowired
     private PedidoRepository repository;
     
+    @Autowired
+    private RestaurantServices restaurantServices;
+    
     public void savePedido(Pedido pedido) {
         repository.save(pedido);
+    }
+
+    public void deletePedido(PedidoDTO dto) {
+        this.repository.deleteAllPedidoByRestaurantIdAndTableNum(restaurantServices.getRestaurantIdByUserId(dto.getRestaurantId()), dto.getNumTable());
     }
 
     public void deletePedidosById(long idPedido) {

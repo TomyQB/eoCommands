@@ -21,7 +21,6 @@ export class ModalPhoneComponent implements OnInit {
   }
 
   acept() {
-    console.log(this.codeFormControl.value)
     if(this.codeFormControl.value == this.code) {
       this.dialog.close(true)
     } else {

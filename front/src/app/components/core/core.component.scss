@@ -1,6 +1,6 @@
 .core-container{
   height: 100%;
-  background-color: rgb(255, 255, 255);
+  // background-color: rgb(255, 255, 255);
 }
 
 .div-order{
@@ -11,10 +11,12 @@
 }
 
 .wrapper{
-  padding: 20px;
+  // padding: 20px;
 }
 
 .mat-toolbar{
   display: flex;
   justify-content: center;
+  background-color: white;
+  // margin-bottom: 10px;
 }

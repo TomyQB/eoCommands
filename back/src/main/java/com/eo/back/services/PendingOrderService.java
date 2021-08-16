@@ -24,8 +24,8 @@ public class PendingOrderService {
         return this.pendingOrderRepository.getPendingOrderByRestaurantIdAndTableNum(restaurantId, tableNum);
     }
 
-    public void deletePendingOrder(long restaurantId, int tableNum) {
-        this.pendingOrderRepository.deleteAllPendingOrderByRestaurantIdAndTableNum(restaurantId, tableNum);
+    public List<PendingOrder> deletePendingOrder(long restaurantId, int tableNum) {
+        return this.pendingOrderRepository.deleteAllPendingOrderByRestaurantIdAndTableNum(restaurantId, tableNum);
     }
 
     public PendingOrder getPendingOrderByMultiplePK(String plateName, long restaurantId, int tableNum) {
@@ -38,7 +38,6 @@ public class PendingOrderService {
             PendingOrder pendingOrder = getPendingOrderByMultiplePK(a.getPlate().getName(), dto.getRestaurantId(), dto.getNumTable());
             if(pendingOrder != null) {
                 pendingOrder.setAmount(pendingOrder.getAmount() + a.getAmount());
-                System.out.println(pendingOrder);
                 this.pendingOrderRepository.save(pendingOrder);
             } else {
                 PendingOrder pendingOrder2 = new PendingOrder();
@@ -46,6 +45,7 @@ public class PendingOrderService {
                 pendingOrder2.setPlateName(a.getPlate().getName());
                 pendingOrder2.setRestaurantId(dto.getRestaurantId());
                 pendingOrder2.setTableNum(dto.getNumTable());
+                pendingOrder2.setDate(dto.getDate());
                 this.pendingOrderRepository.save(pendingOrder2);
             }
         }

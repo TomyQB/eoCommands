@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { UserService } from 'src/app/services/user.service';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -16,22 +17,30 @@ export class LoginComponent implements OnInit {
     password: ""
   }
 
+  emailFormControl = new FormControl('', [
+    Validators.required,
+  ]);
+
+  passwordFormControl = new FormControl('', [
+    Validators.required,
+  ]);
+
   constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
   }
 
-  getUserName(event: any) {
-    this.userRestaurant.email = event.target.value
-  }
-
-  getPassword(event: any) {
-    this.userRestaurant.password = event.target.value
-  }
-
   onSignIn() {
+    this.userRestaurant.email = this.emailFormControl.value
+    this.userRestaurant.password = this.passwordFormControl.value
+
     this.userService.login(this.userRestaurant).subscribe(data => {
-      this.router.navigateByUrl("/restaurantPedidos", {state: {userId: data.id}});
+      if(data != null) {
+        this.router.navigateByUrl("/restaurantPedidos");
+        localStorage.setItem('userId', data.id.toString())
+      } else {
+        alert("email o contraseña incorectos")
+      }
     })
   }
 

@@ -1,0 +1,14 @@
+<mat-list class="content">
+  <div class="displayFlex">
+    <div class="center50">Mesa</div>
+    <div class="center50">Hora</div>
+  </div>
+
+  <div *ngFor="let pedido of pedidos; let i = index" (click)="drinkView(pedido)">
+    <div class="displayFlex tableTime">
+      <div class="center50">{{pedido.tableNum}}</div>
+      <div class="center50">{{pedido.date}}</div>
+    </div>
+    <mat-divider></mat-divider>
+  </div>
+</mat-list>

@@ -72,8 +72,7 @@ export class PedidoInfoComponent implements OnInit {
             this.hash.dic = {}
             this.totalObservableService.writeTotal(0)
             this.amountServices.amounts = []
-            this.router.navigateByUrl("/menu/" + name);
-
+            this.router.navigateByUrl("/confirmacion", {state: {nameRest: name}});
           }
         })
       }
@@ -83,27 +82,28 @@ export class PedidoInfoComponent implements OnInit {
   getHour() {
     let dateFormat = require('dateformat');
     let now = new Date()
-    return dateFormat(now, "h:MM:ss");
+    return dateFormat(now, "h:MM");
   }
 
   openDialog() {
     this.pedido.email = this.emailFormControl.value
     this.pedido.numTable = this.tableFormControl.value
     this.pedido.phoneNumber = this.phoneFormControl.value
+    this.finishPedido()
 
-    if(this.pedido.email && this.pedido.numTable && this.pedido.numTable) {
-      this.phoneService.sendSMS(this.pedido.phoneNumber).subscribe(data => {
-        const dialogRef = this.dialog.open(ModalPhoneComponent, this.dialogConfig)
-        dialogRef.componentInstance.code = data
-        dialogRef.afterClosed().subscribe(res => {
-          if(res) {
-            this.finishPedido()
-          } else {
-            console.log("NOOOOOOOOO")
-          }
-        })
-      })
-    }
+    // if(this.pedido.email && this.pedido.numTable && this.pedido.numTable) {
+    //   this.phoneService.sendSMS(this.pedido.phoneNumber).subscribe(data => {
+    //     const dialogRef = this.dialog.open(ModalPhoneComponent, this.dialogConfig)
+    //     dialogRef.componentInstance.code = data
+    //     dialogRef.afterClosed().subscribe(res => {
+    //       if(res) {
+    //         this.finishPedido()
+    //       }
+    //     })
+    //   })
+    // } else {
+    //   alert("Rellena todos los campos")
+    // }
 
   }
 

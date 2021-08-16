@@ -14,13 +14,10 @@ export class RestaurantPedidoInfoComponent implements OnInit {
   constructor(private pedidoServices: PedidoServicesService) { }
 
   ngOnInit(): void {
-    console.log(this.pedido)
+    localStorage.setItem('tab', "0");
   }
 
   deletePedido(id: number) {
-    this.pedidoServices.deletePedido(id).subscribe(data => {
-      console.log(data)
-    })
   }
 
 }

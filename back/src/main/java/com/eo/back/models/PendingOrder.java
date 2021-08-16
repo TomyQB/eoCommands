@@ -25,4 +25,5 @@ public class PendingOrder {
     private String plateName;
 
     private int amount;
+    private String date;
 }

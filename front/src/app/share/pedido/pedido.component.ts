@@ -1,5 +1,4 @@
-import { PedidoServicesService } from './../../services/pedido-services.service';
-import { HashService } from './../../services/hash.service';
+
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TotalObservableService } from './../../services/total-observable.service';
@@ -14,12 +13,12 @@ export class PedidoComponent implements OnInit {
 
   total: number = 0
 
-  subcriptor!: Subscription;
+  // subcriptor!: Subscription;
 
-  constructor(private router: Router, private hashService: HashService, private pedidoServices: PedidoServicesService, private totalObservableService: TotalObservableService) { }
+  constructor(private router: Router, private totalObservableService: TotalObservableService) { }
 
   ngOnInit(): void {
-    this.subcriptor = this.totalObservableService.getTotal().subscribe(message => { this.total = message; });
+    this.total = this.totalObservableService.getTotal()
   }
 
   goToPedido() {

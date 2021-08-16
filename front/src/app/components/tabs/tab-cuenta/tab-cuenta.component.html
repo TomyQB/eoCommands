@@ -1,0 +1,44 @@
+<div class="content">
+  <mat-form-field class="full-width">
+    <input matInput (keyup)="getPendingByTable($event)" placeholder="Filtrar mesa">
+  </mat-form-field>
+
+  <mat-list class="matList">
+    <div class="displayFlex headers">
+      <div class="center33">Mesa</div>
+      <div class="center33">Plato</div>
+      <div class="center33">Unidades</div>
+    </div>
+
+    <div *ngFor="let pending of pendingOrders">
+      <div class="displayFlex tableTime">
+        <div class="center33">{{pending.tableNum}}</div>
+        <div class="center33">{{pending.plateName}}</div>
+        <div class="center33">{{pending.amount}}</div>
+      </div>
+      <mat-divider></mat-divider>
+    </div>
+  </mat-list>
+
+
+  <div class="displayFlex">
+    <label>Eliminar pedidos mesa: </label>
+
+    <form>
+      <mat-form-field>
+        <mat-label>Nº de mesa</mat-label>
+        <input type="text" matInput [formControl]="tableFormControl" placeholder="Ej. 1010">
+        <mat-error *ngIf="tableFormControl.hasError('required')">
+          Código
+        </mat-error>
+      </mat-form-field>
+    </form>
+
+  </div>
+
+
+  <div class="center">
+    <button mat-raised-button class="primary" (click)="deletePendingOrder()">Eliminar pedido</button>
+  </div>
+
+</div>

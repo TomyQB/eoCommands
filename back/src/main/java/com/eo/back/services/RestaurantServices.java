@@ -22,6 +22,10 @@ public class RestaurantServices {
     public Restaurant getRestaurantByName(String name) {
         return repository.getRestaurantByName(name);
     }
+
+    public long getRestaurantIdByUserId(long userId) {
+        return repository.getRestaurantByUserRestaurantId(userId).getId();
+    }
     
     public List<Pedido> getAllPedidos(long id) {
         return repository.getRestaurantByUserRestaurantId(id).getOrders();

@@ -5,17 +5,32 @@
 }
 
 .info-amount_button{
+  font-size: 30px;
+  color: #9CCB3B;
+}
+
+.info-amount_amount{
   font-size: 25px;
 }
 
 .info-header{
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin: 10px 0;
 }
 
 .info-description{
-  margin: 20px 0 10px 0;
+  margin: 20px 0;
+}
+
+.infoPlate{
+  font-size: 17px;
+  font-weight: bold;
+  margin: 15px 10px 10px 10px;
+}
+
+.paddingGeneral{
+  padding: 0 20px;
 }
 
 .center {
@@ -24,4 +39,35 @@
 
 .space-amount{
   margin: 0 5px;
+}
+
+.border{
+  margin: 10px;
+  border: 1px solid;
+  border-color: #9CCB3B;
+}
+
+.list-item{
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.top{
+  margin-top: 10px;
+}
+
+.category-name{
+  text-align: center;
+  font-weight: 570;
+  font-size: 17px;
+}
+
+.listpriceAmount{
+  display: flex;
+  justify-content: center;
+}
+
+.listprice{
+  padding-right: 10px;
 }

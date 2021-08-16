@@ -1,24 +1,33 @@
 <mat-toolbar class="primary">
   <span>{{restaurantName}}</span>
 </mat-toolbar>
-<div class="peddido-content">
-  <mat-list>
-  <div *ngFor="let a of pedido.amounts">
-    <div class="list-item">
-      <div class="info-plate-price">
-        <div>{{a.plate.name}}</div>
-        <div>{{a.plate.price}}€ X {{a.amount}} = {{a.subTotal}}</div>
-      </div>
-      <div>{{a.description}}</div>
-    </div>
-  <mat-divider></mat-divider>
+
+<div class="paddingGeneral">
+  <div class="category-name">
+    Pedido
   </div>
+  <mat-divider class="border"></mat-divider>
+
+  <mat-list>
+    <div *ngFor="let a of pedido.amounts">
+      <div class="list-item">
+        <div class="info-plate-price">
+          <div>{{a.amount}} {{a.plate.name}}</div>
+          <div>{{a.subTotal}}€</div>
+        </div>
+        <div>{{a.description}}</div>
+      </div>
+      <mat-divider class="primary"></mat-divider>
+    </div>
+    <div class="info-total-price">
+      Total pedido {{pedido.total}}€
+    </div>
   </mat-list>
 
   <form class="example-form">
     <mat-form-field class="example-full-width">
       <mat-label>Email</mat-label>
-      <input type="email" matInput [formControl]="emailFormControl" placeholder="Ej. email@example.com">
+      <input type="email" matInput [formControl]="emailFormControl" placeholder="A este correo le llegará resguardo del pedido">
       <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
         Introduce un email correcto
       </mat-error>
@@ -36,7 +45,7 @@
     </mat-form-field>
 
     <mat-form-field class="example-full-width">
-      <mat-label>Numero de telefono</mat-label>
+      <mat-label>Numero de telefono*</mat-label>
       <input type="phone" matInput [formControl]="phoneFormControl" placeholder="Ej. 123123123">
       <mat-error *ngIf="phoneFormControl.hasError('required')">
         Teléfono obligatorio
@@ -44,8 +53,12 @@
     </mat-form-field>
   </form>
 
+  <div class="asterisk">
+    *Recibirá un código para verificar su teléfono, insertelo y será efectivo su pedido. Gracias
+  </div>
+
   <div class="button-end-order">
-    <button mat-raised-button class="primary" (click)="openDialog()" [disabled]="!(pedido.total > 0)">Hacer pedido</button>
+    <button mat-raised-button class="primary" (click)="openDialog()" [disabled]="!(pedido.total > 0)" >Hacer pedido</button>
   </div>
 
 </div>

@@ -3,8 +3,9 @@ package com.eo.back.controllers;
 import java.util.List;
 
 import com.eo.back.models.Category;
+import com.eo.back.models.Restaurant;
 import com.eo.back.services.CategoryServices;
-import com.eo.back.services.PhoneServices;
+import com.eo.back.services.RestaurantServices;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,14 +20,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class CategoryController {
 
     @Autowired
-    private CategoryServices services;
-
-    @Autowired
-    private PhoneServices phoneServices;
+    private CategoryServices categoryServices;
 
     @GetMapping("/menu/{restaurantName}")
     public ResponseEntity<List<Category>> getCategories(@PathVariable String restaurantName){
-        List<Category> categoriesList = services.getAllCategories(restaurantName);
+        List<Category> categoriesList = categoryServices.getAllCategories(restaurantName);
         return new ResponseEntity<List<Category>>(categoriesList, HttpStatus.OK);
     }
     

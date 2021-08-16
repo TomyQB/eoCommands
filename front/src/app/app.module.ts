@@ -20,6 +20,13 @@ import { RestaurantPedidoInfoComponent } from './components/restaurant-pedido-in
 import { NgxStripeModule } from 'ngx-stripe';
 import { ModalPhoneComponent } from './components/modal-phone/modal-phone.component';
 import { RestaurantPedidoBebidaComponent } from './components/restaurant-pedido-bebida/restaurant-pedido-bebida.component';
+import { TabComidaComponent } from './components/tabs/tab-comida/tab-comida.component';
+import { TabBebidaComponent } from './components/tabs/tab-bebida/tab-bebida.component';
+import { TabCuentaComponent } from './components/tabs/tab-cuenta/tab-cuenta.component';
+import { ConfirmacionComponent } from './components/confirmacion/confirmacion.component';
+import { PaginaPrincipalComponent } from './components/pagina-principal/pagina-principal.component';
+import { TerminosComponent } from './components/terminos/terminos.component';
+import { LegalComponent } from './components/legal/legal.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,6 +41,13 @@ import { RestaurantPedidoBebidaComponent } from './components/restaurant-pedido-
     RestaurantPedidoInfoComponent,
     ModalPhoneComponent,
     RestaurantPedidoBebidaComponent,
+    TabComidaComponent,
+    TabBebidaComponent,
+    TabCuentaComponent,
+    ConfirmacionComponent,
+    PaginaPrincipalComponent,
+    TerminosComponent,
+    LegalComponent,
   ],
   imports: [
     BrowserModule,

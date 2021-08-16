@@ -30,6 +30,7 @@ public class Category {
 
     @ManyToOne
     @JoinColumn(name = "idRestaurant")
+    // @JsonIgnore
     private Restaurant restaurant;
 
     @OneToMany(mappedBy = "category")

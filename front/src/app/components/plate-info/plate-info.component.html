@@ -1,5 +1,5 @@
 <div>
-  <div class="info-header">
+  <div class="info-header paddingGeneral">
     <div style="font-size: 20px;">
       {{amount.plate.name}}
     </div>
@@ -9,30 +9,64 @@
     </div>
 
   </div>
-  <mat-divider></mat-divider>
+  <mat-divider class="border"></mat-divider>
 
-  <div class="info-description">
-    {{amount.plate.description}}
-  </div>
-
-  <div *ngIf="amount.plate.additionals != undefined">
-    <div *ngFor="let a of amount.plate.additionals">
-      {{a.name}}
-      {{a.price}}
+  <div class="paddingGeneral">
+    <div class="info-description">
+      {{amount.plate.description}}
     </div>
-  </div>
 
-  <div class="e-float-input e-input-group">
-    <textarea style="width: 100%; height: 100px;" placeholder="1 poco hecha, 2 al punto... Sin cebolla..." ng-model="string" ng-name="text" #description>{{hash.description}}</textarea>
-  </div>
+    <mat-list *ngIf="amount.plate.additionals.length > 0">
+      <div class="category-name">Extras</div>
+      <mat-divider class="primary top" ></mat-divider>
+      <div *ngFor="let a of amount.plate.additionals let i = index">
+        <div class="list-item">
+          <div>{{a.name}}</div>
+          <div class="listpriceAmount">
+            <div class="listprice">{{a.price}}€</div>
+            <div>
+              <section class="example-section">
+                <mat-checkbox class="example-margin" (click)="addExtra(a)"></mat-checkbox>
+              </section>
 
-  <div class="info-amount center">
-    <button class="info-amount_button" (click)="takeOut()">-</button>
-    <span class="info-amount_button space-amount">{{amount.amount}}</span>
-    <button class="info-amount_button" (click)="add()">+</button>
+            </div>
+          </div>
+        </div>
+        <mat-divider class="primary" *ngIf="amount.plate.additionals.length>i+1"></mat-divider>
+      </div>
+    </mat-list>
+<!--
+    <div *ngIf="amount.plate.additionals != undefined">
+      <div *ngFor="let a of amount.plate.additionals">
+        {{a.name}}
+        {{a.price}}
+      </div>
+    </div> -->
+
+  <!-- <section class="example-section" *ngIf="amount.plate.additionals != undefined">
+    <div *ngFor="let a of amount.plate.additionals; let i = index">
+      <section class="example-section">
+        <mat-checkbox class="example-margin" [(ngModel)]="a.name">Checked</mat-checkbox>
+      </section>
+    </div>
+  </section> -->
+
+    <div class="e-float-input e-input-group" [hidden]="showTextarea">
+      <div class="infoPlate">
+        Preferencias
+      </div>
+      <textarea style="width: 100%; height: 100px;" placeholder="¿Algo que debamos saber de tu pedido? Alergias, ingredientes..." ng-model="string" ng-name="text" #description>{{hash.description}}</textarea>
+    </div>
+
+    <div class="info-amount center">
+      <button class="info-amount_button" (click)="takeOut()">-</button>
+      <span class="info-amount_amount space-amount">{{amount.amount}}</span>
+      <button class="info-amount_button" (click)="add()">+</button>
+    </div>
   </div>
 </div>
 
+
 <div class="center">
-  <button mat-raised-button class="primary" [disabled]="amount.amount == 0" (click)="addToPedido(description.value)">Añadir al pedido {{amount.plate.price * amount.amount}}€</button>
+  <button mat-raised-button class="primary" (click)="addToPedido(description.value)">Añadir al pedido {{amount.subTotal}}€</button>
 </div>

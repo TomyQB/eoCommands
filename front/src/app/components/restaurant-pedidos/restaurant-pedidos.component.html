@@ -1,36 +1,17 @@
-<mat-tab-group>
+<!-- <meta http-equiv="refresh" content="60" /> -->
+
+<mat-tab-group [selectedIndex]="selectedIndex" class="tab">
   <mat-tab label="Cocina">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col">Mesa</th>
-          <th scope="col">Hora</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let pedido of pedidos" (click)="plateView(pedido)">
-            <th scope="row">{{pedido.tableNum}}</th>
-            <th>{{pedido.date}}</th>
-        </tr>
-      </tbody>
-    </table>
+    <app-tab-comida [pedidos]="pedidos"></app-tab-comida>
   </mat-tab>
+
   <mat-tab label="Barra">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col">Mesa</th>
-          <th scope="col">Hora</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let pedido of pedidos" (click)="drinkView(pedido)">
-            <th scope="row">{{pedido.tableNum}}</th>
-            <th>{{pedido.date}}</th>
-        </tr>
-      </tbody>
-    </table></mat-tab>
-  <mat-tab label="Cuenta"> Content 3 </mat-tab>
+    <app-tab-bebida [pedidos]="pedidos"></app-tab-bebida>
+  </mat-tab>
+
+  <mat-tab label="Cuenta">
+    <app-tab-cuenta [pendingOrders]="pendingOrders" [pedidos]="pedidos" (pedidosOutput)="eliminarPedidosOutput($event)" (pendingOrdersOutput)="eliminarPendingOrdersOutput($event)"></app-tab-cuenta>
+  </mat-tab>
 </mat-tab-group>
 
 

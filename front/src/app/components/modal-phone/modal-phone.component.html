@@ -1,12 +1,14 @@
-<mat-form-field class="example-full-width">
-  <mat-label>Nº de mesa</mat-label>
-  <input type="table" matInput [formControl]="codeFormControl" placeholder="Ej. 1010">
-  <mat-error *ngIf="codeFormControl.hasError('required')">
-    Código
-  </mat-error>
-</mat-form-field>
+<form>
+  <mat-form-field class="example-full-width">
+    <mat-label>Código</mat-label>
+    <input type="table" matInput [formControl]="codeFormControl" placeholder="Ej. 1010">
+    <mat-error *ngIf="codeFormControl.hasError('required')">
+      Código obligatorio
+    </mat-error>
+  </mat-form-field>
+</form>
 
-<div>
-  <button (click)="acept()">Aceptar</button>
-  <button (click)="cancel()">Cancelar</button>
+<div class="button-content">
+  <button class="button-aceptar" (click)="acept()">Aceptar</button>
+  <button class="button-aceptar" (click)="cancel()">Cancelar</button>
 </div>

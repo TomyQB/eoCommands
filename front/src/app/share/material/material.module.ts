@@ -6,7 +6,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatTabsModule} from '@angular/material/tabs';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 
@@ -21,7 +22,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     FormsModule,
     ReactiveFormsModule,
     MatDialogModule,
-    MatTabsModule
+    MatTabsModule,
+    MatCheckboxModule
   ]
 })
 export class MaterialModule { }

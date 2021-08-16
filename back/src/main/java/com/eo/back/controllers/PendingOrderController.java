@@ -5,6 +5,8 @@ import java.util.List;
 import com.eo.back.dto.PedidoDTO;
 import com.eo.back.models.PendingOrder;
 import com.eo.back.services.PendingOrderService;
+import com.eo.back.services.RestaurantServices;
+import com.eo.back.services.Email.PendingOrderEmailService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,12 @@ public class PendingOrderController {
 
     @Autowired
     private PendingOrderService pendingOrderService;
+    
+    @Autowired
+    private RestaurantServices restaurantServices;
+    
+    @Autowired
+    private PendingOrderEmailService pendingOrderEmailService;
 
     @PostMapping("/madePendingOrder")
     public ResponseEntity<Boolean> madePedido(@RequestBody PedidoDTO dto) {
@@ -30,25 +38,26 @@ public class PendingOrderController {
     }
 
     @PostMapping("/allPendingOrder")
-    public ResponseEntity<List<PendingOrder>> getPendingOrder(@RequestBody long restaurantId) {
+    public ResponseEntity<List<PendingOrder>> getPendingOrder(@RequestBody long userId) {
 
-        List<PendingOrder> pendingOrders = pendingOrderService.getPendingOrderByRestaurantId(restaurantId);
+        List<PendingOrder> pendingOrders = pendingOrderService.getPendingOrderByRestaurantId(restaurantServices.getRestaurantIdByUserId(userId));
         
         return new ResponseEntity<List<PendingOrder>>(pendingOrders, HttpStatus.OK);
     }
 
     @PostMapping("/filterPendingOrder")
-    public ResponseEntity<List<PendingOrder>> filterPendingOrder(@RequestBody long restaurantId, int tableNum) {
-
-        List<PendingOrder> pendingOrders = pendingOrderService.getPendingOrderByRestaurantId(restaurantId);
+    public ResponseEntity<List<PendingOrder>> filterPendingOrder(@RequestBody PedidoDTO dto) {
+        
+        List<PendingOrder> pendingOrders = pendingOrderService.getPendingOrderByRestaurantIdAndTableNum(restaurantServices.getRestaurantIdByUserId(dto.getRestaurantId()), dto.getNumTable());
         
         return new ResponseEntity<List<PendingOrder>>(pendingOrders, HttpStatus.OK);
     }
 
     @PostMapping("/deletePendingOrder")
-    public ResponseEntity<Boolean> deletePendingOrder(@RequestBody long restaurantId, int tableNum) {
-
-        pendingOrderService.deletePendingOrder(restaurantId, tableNum);
+    public ResponseEntity<Boolean> deletePendingOrder(@RequestBody PedidoDTO dto) {
+        
+        List<PendingOrder> pendingOrders = pendingOrderService.deletePendingOrder(restaurantServices.getRestaurantIdByUserId(dto.getRestaurantId()), dto.getNumTable());
+        pendingOrderEmailService.sendEmail(pendingOrders);
         
         return new ResponseEntity<Boolean>(true, HttpStatus.OK);
     }

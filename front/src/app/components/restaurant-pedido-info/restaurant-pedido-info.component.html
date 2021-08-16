@@ -1,11 +1,23 @@
-<div *ngFor="let amount of pedido.amounts">
-  <div *ngIf="!amount.plate.drink">
-    {{amount.plate.name}}
-    {{amount.amount}}
-    <div>
+
+<mat-list class="content">
+  <div class="displayFlex">
+    <div class="center50">Plato</div>
+    <div class="center50">Unidades</div>
+  </div>
+
+  <div *ngFor="let amount of pedido.amounts">
+    <div class="displayFlex tableTime" *ngIf="!amount.plate.drink">
+      <div class="center50">{{amount.plate.name}}</div>
+      <div class="center50">{{amount.amount}}</div>
+    </div>
+    <div class="displayFlex description" *ngIf="!amount.plate.drink">
       {{amount.description}}
     </div>
+    <mat-divider></mat-divider>
   </div>
+</mat-list>
+
+<div class="button-end-order">
+  <button mat-raised-button class="primary" (click)="deletePedido(pedido.id)">Pedido terminado</button>
 </div>
 
-<button (click)="deletePedido(pedido.id)">Pedido terminado</button>

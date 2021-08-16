@@ -1,16 +1,22 @@
-<mat-list>
-  <div mat-subheader>{{categoryName}}</div>
+<div class="category-img" >
+  <img class="imgPlate" src={{category.image}} />
+</div>
+
+<mat-list style="padding: 20px;">
+  <div class="category-name">{{category.name}}</div>
+  <mat-divider class="border top" ></mat-divider>
   <div *ngFor="let p of plates; let i = index" (click)="plateInfoView(i)">
     <div class="list-item">
       <div>{{p.name}}</div>
       <div class="listpriceAmount">
         <div class="listprice">{{p.price}}€</div>
         <div>
-          {{dic[p.name].amount}}
+          {{dic[p.name].amount}} uds
         </div>
       </div>
     </div>
-  <mat-divider *ngIf="plates.length>i+1"></mat-divider>
+    <mat-divider class="border" *ngIf="plates.length>i+1"></mat-divider>
   </div>
 </mat-list>
+<div style="padding-bottom: 40px;"></div>
 <!-- *ngIf="dic[p.name].amount != 0" -->

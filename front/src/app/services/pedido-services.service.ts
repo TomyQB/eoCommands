@@ -17,7 +17,6 @@ export class PedidoServicesService {
   constructor(private http: HttpClient) { }
 
   madePedido(pedido: Pedido) {
-    console.log(pedido)
     return this.http.post<any>(this.Url + "madePedido", pedido)
   }
 
@@ -25,7 +24,7 @@ export class PedidoServicesService {
     return this.http.post<any>(this.Url + "pedido", idUser)
   }
 
-  deletePedido(idPedido: number) {
+  deletePedido(idPedido: Pedido) {
     return this.http.post<any>(this.Url + "delete", idPedido)
   }
 

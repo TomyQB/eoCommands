@@ -12,8 +12,8 @@ export class MenuServicesService {
 
   constructor(private http: HttpClient) { }
 
-  getMenu() {
-    const restaurantName = localStorage.getItem("name")
+  getMenu(restaurantName: string) {
+    // const restaurantName = localStorage.getItem("name")
     return this.http.get<any>(this.Url + "menu/" + restaurantName)
   }
 }
