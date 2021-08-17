@@ -1,3 +1,4 @@
+import { Additional } from './../models/Additional';
 import { Observable } from 'rxjs';
 import { DescAndAmount } from './../models/DescAndAmount';
 import { Injectable } from '@angular/core';
@@ -15,12 +16,14 @@ export class HashService {
   public createDictionary(plates: Plate[]) {
     for(let p of plates) {
       if(!(p.name in this.dic)) {
-        this.dic[p.name] = {amount: 0, description: ""}
+        this.dic[p.name] = {amount: 0, description: "", extras: []}
       }
     }
   }
 
   public getElementByName(name: string) {
+    console.log(this.dic[name]);
+
     return this.dic[name]
   }
 
@@ -28,8 +31,8 @@ export class HashService {
     return this.dic
   }
 
-  public setHashByName(name: string, amount: number, description: string) {
-    this.dic[name] = {amount: amount, description: description}
+  public setHashByName(name: string, amount: number, description: string, extras: Additional[]) {
+    this.dic[name] = {amount: amount, description: description, extras: extras}
   }
 
 }

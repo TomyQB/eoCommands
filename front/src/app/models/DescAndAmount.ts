@@ -1,4 +1,6 @@
+import { Additional } from './Additional';
 export interface DescAndAmount {
-  amount: number,
+  amount: number
   description: string
+  extras: Additional[]
 }

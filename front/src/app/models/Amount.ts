@@ -9,5 +9,5 @@ export class Amount {
   subTotal!: number
   plate!: Plate
   pedido?: Pedido
-  extras?: Additional[]
+  extras!: Additional[]
 }

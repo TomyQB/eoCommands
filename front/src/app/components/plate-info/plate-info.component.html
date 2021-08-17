@@ -26,9 +26,8 @@
             <div class="listprice">{{a.price}}€</div>
             <div>
               <section class="example-section">
-                <mat-checkbox class="example-margin" (click)="addExtra(a)"></mat-checkbox>
+                <mat-checkbox class="example-margin" [checked]="extrasChecked[i]" [disabled]="extrasDisable" (click)="addExtra(a)"></mat-checkbox>
               </section>
-
             </div>
           </div>
         </div>

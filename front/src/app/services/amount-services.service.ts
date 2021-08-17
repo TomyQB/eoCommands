@@ -18,6 +18,7 @@ export class AmountServicesService {
     } else {
       this.amounts.push(amount);
     }
+    console.log(this.amounts);
 
     return this.calculateTotal();
 }

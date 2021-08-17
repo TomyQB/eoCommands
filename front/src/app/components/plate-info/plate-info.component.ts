@@ -27,14 +27,17 @@ export class PlateInfoComponent implements OnInit {
   }
 
   extras = 0
-  first = true
-
+  extrasDisable = true
+  extrasChecked: boolean[] = []
 
   constructor(private amountServices: AmountServicesService,private hashService: HashService, private location: Location, private totalObservableService: TotalObservableService) { }
 
   ngOnInit(): void {
     this.hash = this.hashService.getElementByName(this.amount.plate.name)
     this.amount.amount = this.hash.amount;
+    this.amount.extras = this.hash.extras;
+    this.calculateExtras()
+    this.checkIfExtras()
     this.calculateSubTotal()
     this.showTextarea = this.amount.plate.drink
   }
@@ -46,7 +49,7 @@ export class PlateInfoComponent implements OnInit {
 
     this.totalObservableService.writeTotal(this.amountServices.addAmountToList(this.amount))
 
-    this.hashService.setHashByName(this.amount.plate.name, this.amount.amount, description)
+    this.hashService.setHashByName(this.amount.plate.name, this.amount.amount, description, this.amount.extras!);
 
     this.location.back();
 
@@ -58,15 +61,27 @@ export class PlateInfoComponent implements OnInit {
   }
 
   addExtra(additional: Additional){
-    if(this.amount.extras?.includes(additional)) {
-      this.amount.extras.splice(this.amount.extras?.indexOf(additional, 0), 1)
-      this.calculateSubTotalDeductExtras(additional.price)
-    } else {
-      this.amount.extras?.push(additional)
-      this.calculateSubTotalAddExtras(additional.price)
-    }
-    console.log(this.amount.extras);
+    if(this.extrasDisable === false){
+      console.log(this.amount.extras);
+      console.log(additional)
 
+      if(this.amount.extras.findIndex(extra => extra.id === additional.id) >= 0) {
+        for(let i = 0; i < this.amount.extras.length; i++) {
+          if(this.amount.extras[i].id == additional.id){
+            this.amount.extras.splice(i, 1)
+          }
+        }
+
+        this.calculateSubTotalDeductExtras(additional.price)
+      } else {
+        console.log("no existe")
+        this.amount.extras.push(additional)
+        this.calculateSubTotalAddExtras(additional.price)
+      }
+
+      // console.log(this.amount.extras.findIndex(extra => extra.id === additional.id))
+
+    }
   }
 
   takeOut() {
@@ -78,9 +93,16 @@ export class PlateInfoComponent implements OnInit {
 
   calculateSubTotal() {
     this.amount.subTotal = this.amount.amount * this.amount.plate.price + this.extras
+    if(this.amount.amount === 0) this.extrasDisable = true
+    else this.extrasDisable = false
     this.roundSubTotal()
   }
 
+  calculateExtras() {
+    this.amount.extras.forEach(extra => {
+      this.extras += extra.price
+    });
+  }
 
   calculateSubTotalAddExtras(price: number) {
     this.extras += price
@@ -94,6 +116,21 @@ export class PlateInfoComponent implements OnInit {
 
   roundSubTotal(){
     this.amount.subTotal = Math.round(this.amount.subTotal * 100) / 100
+  }
+
+  checkIfExtras(){
+    this.extrasChecked = []
+
+    this.amount.plate.additionals.map(extras => {
+      if(this.amount.extras.findIndex(extra => extra.id === extras.id) >= 0){
+        this.extrasChecked.push(true)
+      } else {
+        this.extrasChecked.push(false)
+      }
+    })
+
+    console.log(this.extrasChecked);
+
   }
 
 
