@@ -1,6 +1,6 @@
 package com.eo.back.controllers;
 
-import com.eo.back.services.PhoneServices;
+import com.eo.back.services.Email.CodeEmailService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,17 +12,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin
-public class PhoneController {
+public class EmailController {
 
     @Autowired
-    private PhoneServices phoneServices;
+    private CodeEmailService codeEmailService;
 
-    @PostMapping("/sms")
-    public ResponseEntity<Integer> getVerifyNumberByUser(@RequestBody String phoneNumber) {
+    @PostMapping("/code")
+    public ResponseEntity<Integer> getVerifyEmail(@RequestBody String email) {
         
-        int verifyNumber = phoneServices.sendSMS(phoneNumber);
+        int verifyNumber = Integer.parseInt(codeEmailService.sendEmail(email));
         
-        return new ResponseEntity<Integer>(verifyNumber, HttpStatus.OK);
+        return new ResponseEntity<>(verifyNumber, HttpStatus.OK);
     }
     
 }

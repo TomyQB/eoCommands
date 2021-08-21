@@ -5,7 +5,7 @@ import { Pedido } from '../../models/Pedido';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { PhoneService } from '../../services/phone.service'
+import { EmailService } from '../../services/email.service'
 import { PedidoServicesService } from '../../services/pedido-services.service'
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
@@ -20,6 +20,8 @@ declare var require: any
   styleUrls: ['./pedido-info.component.scss']
 })
 export class PedidoInfoComponent implements OnInit {
+
+  public showOverlay = false;
 
   restaurantName: string = localStorage.getItem("name")!;
 
@@ -51,13 +53,14 @@ export class PedidoInfoComponent implements OnInit {
 
 
   constructor(private pedidoService: PedidoServicesService, private pendingOrderService: PendingOrderService, public dialog: MatDialog, private amountServices: AmountServicesService, private router: Router,
-    private phoneService: PhoneService, private hash: HashService, private totalObservableService: TotalObservableService) { }
+    private emailService: EmailService, private hash: HashService, private totalObservableService: TotalObservableService) { }
 
   ngOnInit(): void {
     this.pedido.amounts = this.amountServices.amounts
   }
 
   finishPedido() {
+    this.showOverlay = true
     this.pedido.date = this.getHour()
     this.sendOrder();
 
@@ -72,6 +75,7 @@ export class PedidoInfoComponent implements OnInit {
             this.hash.dic = {}
             this.totalObservableService.writeTotal(0)
             this.amountServices.amounts = []
+            this.showOverlay = false
             this.router.navigateByUrl("/confirmacion", {state: {nameRest: name}});
           }
         })
@@ -89,21 +93,22 @@ export class PedidoInfoComponent implements OnInit {
     this.pedido.email = this.emailFormControl.value
     this.pedido.numTable = this.tableFormControl.value
     this.pedido.phoneNumber = this.phoneFormControl.value
-    this.finishPedido()
+    // this.finishPedido()
 
-    // if(this.pedido.email && this.pedido.numTable && this.pedido.numTable) {
-    //   this.phoneService.sendSMS(this.pedido.phoneNumber).subscribe(data => {
-    //     const dialogRef = this.dialog.open(ModalPhoneComponent, this.dialogConfig)
-    //     dialogRef.componentInstance.code = data
-    //     dialogRef.afterClosed().subscribe(res => {
-    //       if(res) {
-    //         this.finishPedido()
-    //       }
-    //     })
-    //   })
-    // } else {
-    //   alert("Rellena todos los campos")
-    // }
+    if(this.pedido.email && this.pedido.numTable && this.pedido.numTable) {
+      this.emailService.sendMessage(this.pedido.email).subscribe(data => {
+        console.log(data)
+        const dialogRef = this.dialog.open(ModalPhoneComponent, this.dialogConfig)
+        dialogRef.componentInstance.code = data
+        dialogRef.afterClosed().subscribe(res => {
+          if(res) {
+            this.finishPedido()
+          }
+        })
+      })
+    } else {
+      alert("Rellena todos los campos")
+    }
 
   }
 

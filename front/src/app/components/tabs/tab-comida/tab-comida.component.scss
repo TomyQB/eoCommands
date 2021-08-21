@@ -9,9 +9,9 @@
   justify-content: space-around;
 }
 
-.center50{
+.center33{
   text-align: center;
-  width: 50%;
+  width: 33%;
 }
 
 .tableTime{
@@ -21,5 +21,17 @@
 
 .tableTime:hover{
   background-color: #C9C9C9;
+}
+
+.estadonada{
+
+}
+
+.estadoempezado{
+  background-color: yellow;
+}
+
+.estadoterminado{
+  background-color: #7DE124;
 }
 

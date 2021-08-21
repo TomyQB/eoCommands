@@ -44,9 +44,9 @@ export class TabCuentaComponent implements OnInit {
   }
 
   getPendingByTable(event: any) {
-    this.pedido.numTable = event.target.value
 
-    if(this.pedido.numTable != 0) {
+    if(event.target.value != "") {
+      this.pedido.numTable = event.target.value
       this.pendingOrderService.getPendingOrderByTable(this.pedido).subscribe(data => {
         this.pendingOrders = data
       })
@@ -59,8 +59,10 @@ export class TabCuentaComponent implements OnInit {
   }
 
   deletePendingOrder() {
-    if(this.tableFormControl.value != 0) {
+    if(this.tableFormControl.value != "") {
       this.pedidoDelete.numTable = this.tableFormControl.value
+      console.log(this.pedidoDelete)
+      this.pedidoServices.deletePedidoObjeto(this.pedidoDelete.numTable)
       this.pendingOrderService.deletePendingOrder(this.pedidoDelete).subscribe(data => {
       })
 
@@ -69,6 +71,7 @@ export class TabCuentaComponent implements OnInit {
         window.location.reload();
       })
     }else {
+      alert("Indica que mesa quieres finalizar")
     }
   }
 

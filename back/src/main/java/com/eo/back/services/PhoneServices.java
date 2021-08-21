@@ -33,9 +33,7 @@ public class PhoneServices {
     }
 
     public int getVerifyNumber() {
-
-        int randomNumber = (int) Math.floor(Math.random() * (9999 - 1000 + 1) + 1000);
-        return randomNumber;
+        return (int) Math.floor(Math.random() * (9999 - 1000 + 1) + 1000);
     }
     
 }

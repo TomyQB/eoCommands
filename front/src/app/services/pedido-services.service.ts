@@ -12,6 +12,8 @@ import { Observable } from 'rxjs';
 })
 export class PedidoServicesService {
 
+  pedidoObjeto: any[] = []
+
   Url = environment.Url
 
   constructor(private http: HttpClient) { }
@@ -26,6 +28,16 @@ export class PedidoServicesService {
 
   deletePedido(idPedido: Pedido) {
     return this.http.post<any>(this.Url + "delete", idPedido)
+  }
+
+  deletePedidoObjeto(numTable: number) {
+    for(let i = 0; i < this.pedidoObjeto.length; i++) {
+      if(this.pedidoObjeto[i].tableNum == numTable) {
+        this.pedidoObjeto.splice(i, 1)
+        localStorage.setItem('pedidos', JSON.stringify(this.pedidoObjeto))
+      }
+    }
+    // console.log(this.pedidoObjeto.find(pedido => pedido.numTable == numTable))
   }
 
 }

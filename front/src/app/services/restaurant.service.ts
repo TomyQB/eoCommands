@@ -1,3 +1,4 @@
+import { RestaurantFormMainPage } from './../models/RestaurantFormMainPage';
 import { environment } from './../../environments/environment.prod';
 import { Injectable } from '@angular/core';
 
@@ -14,5 +15,9 @@ export class RestaurantService {
 
   getRestaurantImage(restaurantName: string) {
     return this.http.post<any>(this.Url + "restaurant", restaurantName)
+  }
+
+  sendFormMessage(dto: RestaurantFormMainPage) {
+    return this.http.post<any>(this.Url + "form", dto)
   }
 }

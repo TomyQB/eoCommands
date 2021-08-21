@@ -5,13 +5,13 @@ import { environment } from 'src/environments/environment.prod';
 @Injectable({
   providedIn: 'root'
 })
-export class PhoneService {
+export class EmailService {
 
   Url = environment.Url
 
   constructor(private http: HttpClient) { }
 
-  sendSMS(phone: string) {
-    return this.http.post<number>(this.Url + "sms", phone)
+  sendMessage(email: string) {
+    return this.http.post<number>(this.Url + "code", email)
   }
 }

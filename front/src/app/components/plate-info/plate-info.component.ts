@@ -74,7 +74,6 @@ export class PlateInfoComponent implements OnInit {
 
         this.calculateSubTotalDeductExtras(additional.price)
       } else {
-        console.log("no existe")
         this.amount.extras.push(additional)
         this.calculateSubTotalAddExtras(additional.price)
       }

@@ -38,6 +38,10 @@ const routes: Routes = [
     component: PedidoInfoComponent
   },
   {
+    path: 'confirmacion',
+    component: ConfirmacionComponent
+  },
+  {
     path: 'login',
     component: LoginComponent
   },

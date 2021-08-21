@@ -1,5 +1,92 @@
-<p>pagina-principal works!</p>
 
-<img src="https://res.cloudinary.com/dxxvcl5fe/image/upload/v1629055445/WhatsApp_Image_2021-08-11_at_17.59.15_1_ahetoi.jpg">
-<img src="https://res.cloudinary.com/dxxvcl5fe/image/upload/v1629055445/WhatsApp_Image_2021-08-11_at_17.59.15_jfv9tz.jpg">
-<img src="https://res.cloudinary.com/dxxvcl5fe/image/upload/v1629055445/WhatsApp_Image_2021-08-11_at_17.59.15_2_rl9zd6.jpg">
+<mat-toolbar class="primary toolbar">
+  <div class="mail">Info@eorestaurantes.com</div>
+  <div>
+    <button mat-button>Login</button>
+    <mat-icon>person_outline</mat-icon>
+  </div>
+</mat-toolbar>
+<div class="content">
+  <div>
+    <img class="imgMain" alt="cabecera" src="https://res.cloudinary.com/dxxvcl5fe/image/upload/v1629376046/imagen.1_ibaenl.png">
+  </div>
+  <div class="content2">
+    <div class="primary boxlef1">
+      <div class="boxLeft1 imgProperties">
+
+      </div>
+      <div class="textAlign big">
+        <label>
+          ¿Quires que tus
+          clientes hagan su
+          pedido desde la
+          mesa sin necesidad
+          de un camarero?
+        </label>
+      </div>
+    </div>
+    <div class="textAlign">
+      <label for="">
+        Ahora, con <strong>éo! restaurantes</strong>, tus clientes pueden scanear
+        tu código QR (que aparece en la mesa o en
+        una tarjetita) y hacer su encargo directamente
+        a barra o cocina desde la mesa
+      </label>
+    </div>
+  </div>
+
+  <div class="content2">
+    <div class="textAlign">
+      <label for="">
+        A través de <strong>éo! restaurantes</strong> puedes dar el
+        servicio a tus clientes que puedan ir pidiendo su
+        comanda a través del teléfono móvil o tablet.<br><br>
+        El pedido entra en barra o cocina dependiendo
+        de los artículos seleccionados, tan solo tienes
+        que servirlo y finalmente cobrar.
+      </label>
+    </div>
+    <div class="boxRight3 imgProperties">
+      <!-- <img src="https://res.cloudinary.com/dxxvcl5fe/image/upload/v1629055445/WhatsApp_Image_2021-08-11_at_17.59.15_2_rl9zd6.jpg"> -->
+    </div>
+  </div>
+
+  <div class="content2">
+    <div class="textAlign primary">
+      <label for="">
+        Si quieres tener este servicio en
+        tu local gastronómico, restaurante, bar, cafetería,
+        confitería, etc. envíanos este
+        formulario y contactaremos contigo...
+      </label>
+
+    </div>
+    <div class="textAlign">
+      <div style="width: 80%; text-align: center;">
+        <div class="formTitle">
+          Formulario
+        </div>
+        <mat-form-field class="matForm">
+          <mat-label>Nombre</mat-label>
+          <input matInput placeholder="Placeholder" [(ngModel)]="restaurant.name">
+        </mat-form-field>
+        <mat-form-field class="matForm">
+          <mat-label>Email</mat-label>
+          <input matInput placeholder="Placeholder" [(ngModel)]="restaurant.email">
+        </mat-form-field>
+        <mat-form-field class="matForm">
+          <mat-label>Teléfono</mat-label>
+          <input matInput placeholder="Placeholder" [(ngModel)]="restaurant.phone">
+        </mat-form-field>
+        <div style="text-align: right;">
+          <button class="primary"mat-flat-button (click)="sendMessage()" >Enviar</button>
+
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
+
+</div>

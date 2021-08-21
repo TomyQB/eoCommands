@@ -1,5 +1,6 @@
 package com.eo.back.services.Email;
 
+import com.eo.back.dto.FormMessageDTO;
 import com.eo.back.models.Amount;
 import com.eo.back.models.Pedido;
 
@@ -18,13 +19,13 @@ public class PedidoEmailService extends AbstractEmailService<Pedido> {
         SimpleMailMessage message = new SimpleMailMessage(); 
         message.setFrom("noreply@baeldung.com");
         message.setTo(pedido.getEmail()); 
-        message.setSubject(pedido.getRestaurant().getName()); 
+        message.setSubject(pedido.getRestaurant().getName());
         message.setText(createMessage(pedido));
 
         emailSender.send(message);
     }
 
-    private String createMessage(Pedido pedido) {
+    public String createMessage(Pedido pedido) {
         String message = "¡Hola!\n\nAquí puedes ver el resumen de tu pedido en " + pedido.getRestaurant().getName() + "\n\n";
 
         message += "______________________________\n\n";
@@ -39,4 +40,5 @@ public class PedidoEmailService extends AbstractEmailService<Pedido> {
         message += "Buen provecho ;)";
         return message;
     }
+
 }

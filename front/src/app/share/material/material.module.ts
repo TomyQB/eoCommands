@@ -8,6 +8,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTabsModule} from '@angular/material/tabs';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 
 
@@ -23,7 +25,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     ReactiveFormsModule,
     MatDialogModule,
     MatTabsModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatIconModule,
+    MatFormFieldModule
   ]
 })
 export class MaterialModule { }

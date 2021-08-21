@@ -41,7 +41,7 @@ export class ConfirmacionComponent implements OnInit {
   }
 
   continuar() {
-    this.router.navigateByUrl("/menu/" + history.state.nameRest);
+    this.router.navigateByUrl("/menu/" + localStorage.getItem("name"));
   }
 
 }

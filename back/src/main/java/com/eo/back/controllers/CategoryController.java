@@ -3,9 +3,7 @@ package com.eo.back.controllers;
 import java.util.List;
 
 import com.eo.back.models.Category;
-import com.eo.back.models.Restaurant;
 import com.eo.back.services.CategoryServices;
-import com.eo.back.services.RestaurantServices;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

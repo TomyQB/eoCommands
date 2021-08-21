@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
+import { PedidoServicesService } from 'src/app/services/pedido-services.service';
 
 @Component({
   selector: 'app-tab-comida',
@@ -7,15 +8,18 @@ import { Router } from '@angular/router';
   styleUrls: ['./tab-comida.component.scss']
 })
 export class TabComidaComponent implements OnInit {
-  @Input() pedidos: any
+  @Input() pedidos!: any[]
+  @Output() cambioCocina = new EventEmitter<number>();
 
-  constructor(private router: Router) { }
+  pedidoLocal = localStorage.getItem('pedidos')
+
+  constructor(private router: Router, public pedidoServices: PedidoServicesService) { }
 
   ngOnInit(): void {
   }
 
-  plateView(pedido: any) {
-    this.router.navigateByUrl("/restaurantPedidosInfo", {state: {pedido: pedido}});
+  plateView(pedido: any, index: number) {
+    this.router.navigateByUrl("/restaurantPedidosInfo", {state: {pedido: pedido, i: index}, });
   }
 
 }

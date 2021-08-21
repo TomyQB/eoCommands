@@ -49,10 +49,8 @@ public class PedidoController {
         
         if(pedido.getAmounts().size() > 0) {
             pedidoServices.addPedidoToAmount(pedido);
-            System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-            System.out.println(pedido);
             pedidoServices.savePedido(pedido);
-            // emailService.sendEmail(pedido);
+            emailService.sendEmail(pedido);
             done = true;
         }
         

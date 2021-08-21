@@ -31,7 +31,7 @@ public class PendingOrderEmailService extends AbstractEmailService<List<PendingO
         emailSender.send(message);
     }
 
-    private String createMessage(List<PendingOrder> pedido) {
+    public String createMessage(List<PendingOrder> pedido) {
         String message = "Pedido de la mesa: " + pedido.get(0).getTableNum() + " de las: " + pedido.get(0).getDate() + "\n\n";
 
         for (PendingOrder p : pedido) {

@@ -2,6 +2,10 @@
   <span>{{restaurantName}}</span>
 </mat-toolbar>
 
+<div class="my-overlay" *ngIf="showOverlay">
+  <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+</div>
+
 <div class="paddingGeneral">
   <div class="category-name">
     Pedido
@@ -24,7 +28,7 @@
     </div>
   </mat-list>
 
-  <form class="example-form">
+  <!-- <form class="example-form">
     <mat-form-field class="example-full-width">
       <mat-label>Email</mat-label>
       <input type="email" matInput [formControl]="emailFormControl" placeholder="A este correo le llegará resguardo del pedido">
@@ -34,7 +38,7 @@
       <mat-error *ngIf="emailFormControl.hasError('required')">
         Email obligatorio
       </mat-error>
-    </mat-form-field>
+    </mat-form-field> -->
 
     <mat-form-field class="example-full-width">
       <mat-label>Nº de mesa</mat-label>
@@ -44,17 +48,21 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field class="example-full-width">
-      <mat-label>Numero de telefono*</mat-label>
-      <input type="phone" matInput [formControl]="phoneFormControl" placeholder="Ej. 123123123">
-      <mat-error *ngIf="phoneFormControl.hasError('required')">
-        Teléfono obligatorio
-      </mat-error>
-    </mat-form-field>
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <mat-label>Email</mat-label>
+        <input type="email" matInput [formControl]="emailFormControl" placeholder="ex@example.com">
+        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+          Introduce un email correcto
+        </mat-error>
+        <mat-error *ngIf="emailFormControl.hasError('required')">
+          Email obligatorio
+        </mat-error>
+      </mat-form-field>
   </form>
 
   <div class="asterisk">
-    *Recibirá un código para verificar su teléfono, insertelo y será efectivo su pedido. Gracias
+    *Recibirá un código para verificar su email, insertelo y será efectivo su pedido. Gracias
   </div>
 
   <div class="button-end-order">

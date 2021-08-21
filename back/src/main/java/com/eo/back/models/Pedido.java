@@ -32,6 +32,8 @@ public class Pedido {
     private int tableNum;
     private String email;
     private String phoneNumber;
+    private String estado;
+    private int hechos;
 
     @ManyToOne
     @JsonIgnore

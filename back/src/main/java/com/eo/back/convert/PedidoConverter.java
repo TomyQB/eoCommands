@@ -31,14 +31,12 @@ public class PedidoConverter extends AbstractConverter<Pedido, PedidoDTO>{
         pedido.setPhoneNumber(dto.getPhoneNumber());
 
         addAmountToAdditionals(dto.getAmounts());
-        System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDD");
 
         return pedido;
     }
 
     private void addAmountToAdditionals(List<Amount> amounts) {
         for (Amount amount : amounts) {
-            System.out.println(amount);
             if(amount.getExtras() != null) {
                 for (Extra extra : amount.getExtras()) {
                     extra.setAmount(amount);

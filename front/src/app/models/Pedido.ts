@@ -11,4 +11,6 @@ export interface Pedido {
   phoneNumber: string
   restaurantId: number
   amounts?: Amount[]
+  estado?: string
+  hechos?: number
 }

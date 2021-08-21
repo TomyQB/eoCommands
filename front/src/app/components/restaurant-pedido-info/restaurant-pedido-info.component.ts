@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 
 import { PedidoServicesService } from '../../services/pedido-services.service'
 
@@ -10,14 +10,33 @@ import { PedidoServicesService } from '../../services/pedido-services.service'
 export class RestaurantPedidoInfoComponent implements OnInit {
 
   pedido: any = history.state.pedido
+  indexs: number = history.state.i
 
-  constructor(private pedidoServices: PedidoServicesService) { }
+  checked: boolean = false
+
+  constructor(public pedidoServices: PedidoServicesService) { }
 
   ngOnInit(): void {
     localStorage.setItem('tab', "0");
   }
 
-  deletePedido(id: number) {
+  marcarHecho(i: number){
+    console.log(this.pedidoServices.pedidoObjeto[this.indexs].amounts[i].servido)
+
+    if(!this.pedidoServices.pedidoObjeto[this.indexs].amounts[i].servido) this.pedidoServices.pedidoObjeto[this.indexs].hechos ++
+
+    if(this.pedidoServices.pedidoObjeto[this.indexs].amounts[i].servido) this.pedidoServices.pedidoObjeto[this.indexs].hechos --
+
+     /*= this.pedidoServices.pedidoObjeto[this.indexs].hechos + 1*/
+    this.pedidoServices.pedidoObjeto[this.indexs].estado = 'empezado'
+
+    if(this.pedidoServices.pedidoObjeto[this.indexs].hechos === this.pedidoServices.pedidoObjeto[this.indexs].amounts.length){
+
+      this.pedidoServices.pedidoObjeto[this.indexs].estado = 'terminado'
+    }
+
+    localStorage.setItem('pedidos', JSON.stringify(this.pedidoServices.pedidoObjeto))
+
   }
 
 }
