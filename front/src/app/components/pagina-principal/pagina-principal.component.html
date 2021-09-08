@@ -1,5 +1,5 @@
 
-<mat-toolbar class="primary toolbar">
+<mat-toolbar class="primary toolbar displayFM">
   <div class="mail">Info@eorestaurantes.com</div>
   <div>
     <button mat-button>Login</button>
@@ -83,10 +83,47 @@
 
         </div>
       </div>
-
     </div>
+  </div>
 
+  <div class="displayF primary footer">
+    <div class="displayF subFooter">
+      <div class="footerText">
+        <img class="imgMain" alt="cabecera" src="https://res.cloudinary.com/dxxvcl5fe/image/upload/v1630168384/WhatsApp_Image_2021-08-28_at_16.48.30_m6nvcc.jpg">
+      </div>
+      <div>
+        <div class="tveoCommunication">
+          Diseño TveoComunicación <br>
+          Todos los derechos reservados.
+        </div>
+        <div class="legalThings">
+          <span [routerLink]="['/terminos']">Terminios y condiciones</span> | <span [routerLink]="['/legal']">Aviso legal</span>
+        </div>
+      </div>
+    </div>
+    <div class="displayF subFooter">
+      <div class="displayFM">
+        <div>
+          <mat-icon>phone</mat-icon><span class="infoContact">+34 601 268 563</span>
 
+        </div>
+        <div>
+          <mat-icon>location_on</mat-icon><span class="infoContact">30009 Murcia. España</span>
+
+        </div>
+        <div>
+          <mat-icon>mail_outline</mat-icon><span class="infoContact">info@eorestaurantes.com</span>
+
+        </div>
+      </div>
+      <div class="displayFM">
+        <div class="hight100">
+          Síguenos en:
+          <img class="infoContact" src="../../../assets/facebook.png" alt="facebook">
+          <img class="infoContact" src="../../../assets/logotipo-de-instagram.png" alt="instagram">
+        </div>
+      </div>
+    </div>
   </div>
 
 </div>

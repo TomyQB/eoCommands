@@ -22,8 +22,6 @@ export class HashService {
   }
 
   public getElementByName(name: string) {
-    console.log(this.dic[name]);
-
     return this.dic[name]
   }
 

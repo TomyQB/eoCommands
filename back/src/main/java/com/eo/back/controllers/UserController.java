@@ -2,6 +2,7 @@ package com.eo.back.controllers;
 
 import java.text.ParseException;
 
+import com.eo.back.models.Restaurant;
 import com.eo.back.models.UserRestaurant;
 import com.eo.back.services.UserService;
 import com.stripe.exception.StripeException;
@@ -22,9 +23,9 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/login")
-    public ResponseEntity<UserRestaurant> login(@RequestBody UserRestaurant user) throws StripeException, ParseException {
-        UserRestaurant userLogged = userService.loginUser(user.getEmail(), user.getPassword());
-        return new ResponseEntity<UserRestaurant>(userLogged, HttpStatus.OK);
+    public ResponseEntity<Restaurant> login(@RequestBody UserRestaurant user) throws StripeException, ParseException {
+        Restaurant restaurant = userService.loginUser(user.getEmail(), user.getPassword());
+        return new ResponseEntity<>(restaurant, HttpStatus.OK);
     }
 
     

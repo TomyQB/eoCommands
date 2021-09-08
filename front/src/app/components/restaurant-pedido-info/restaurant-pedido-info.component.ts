@@ -21,19 +21,22 @@ export class RestaurantPedidoInfoComponent implements OnInit {
   }
 
   marcarHecho(i: number){
-    console.log(this.pedidoServices.pedidoObjeto[this.indexs].amounts[i].servido)
+    this.pedidoServices.pedidoObjeto[this.indexs].estado = 'empezado'
 
-    if(!this.pedidoServices.pedidoObjeto[this.indexs].amounts[i].servido) this.pedidoServices.pedidoObjeto[this.indexs].hechos ++
+    if(!this.pedidoServices.pedidoObjeto[this.indexs].amounts[i].servido) {
+      this.pedidoServices.pedidoObjeto[this.indexs].hechos ++
+    }
 
-    if(this.pedidoServices.pedidoObjeto[this.indexs].amounts[i].servido) this.pedidoServices.pedidoObjeto[this.indexs].hechos --
+    if(this.pedidoServices.pedidoObjeto[this.indexs].amounts[i].servido) {
+      this.pedidoServices.pedidoObjeto[this.indexs].hechos --
+    }
 
      /*= this.pedidoServices.pedidoObjeto[this.indexs].hechos + 1*/
-    this.pedidoServices.pedidoObjeto[this.indexs].estado = 'empezado'
 
     if(this.pedidoServices.pedidoObjeto[this.indexs].hechos === this.pedidoServices.pedidoObjeto[this.indexs].amounts.length){
 
       this.pedidoServices.pedidoObjeto[this.indexs].estado = 'terminado'
-    }
+    } else if(this.pedidoServices.pedidoObjeto[this.indexs].hechos === 0) this.pedidoServices.pedidoObjeto[this.indexs].estado = 'nada'
 
     localStorage.setItem('pedidos', JSON.stringify(this.pedidoServices.pedidoObjeto))
 

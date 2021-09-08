@@ -26,7 +26,6 @@ public class UserRestaurant {
     private String email;
     private String phone;
     private String password;
-    private String stripeId;
 
     @OneToOne(mappedBy = "userRestaurant")
     @JsonIgnore

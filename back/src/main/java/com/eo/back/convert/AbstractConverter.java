@@ -6,4 +6,5 @@ import org.springframework.stereotype.Service;
 public abstract class AbstractConverter<E,D> {
     
     public abstract E fromDTO(D dto);
+    public abstract D toDTO(E entity);
 }

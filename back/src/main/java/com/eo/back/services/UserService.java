@@ -1,5 +1,6 @@
 package com.eo.back.services;
 
+import com.eo.back.models.Restaurant;
 import com.eo.back.models.UserRestaurant;
 import com.eo.back.repositories.UserRepository;
 
@@ -11,12 +12,17 @@ public class UserService {
     
     @Autowired
     private UserRepository userRepository;
+    
+    @Autowired
+    private RestaurantServices restaurantServices;
 
-    public UserRestaurant loginUser(String email, String password) {
+    public Restaurant loginUser(String email, String password) {
 
         UserRestaurant user = userRepository.getUserRestaurantByEmailAndPassword(email, password);
 
-        return user;
+        Restaurant restaurant = restaurantServices.getRestaurantByUserId(user.getId());
+
+        return restaurant;
     }
 
 }

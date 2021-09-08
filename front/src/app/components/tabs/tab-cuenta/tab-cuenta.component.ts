@@ -35,7 +35,7 @@ export class TabCuentaComponent implements OnInit {
     numTable: 0,
     phoneNumber: "",
     restaurantId: parseInt(localStorage.getItem('userId')!),
-    total: 0
+    total: 0,
   }
 
   constructor(private pendingOrderService: PendingOrderService, private pedidoServices: PedidoServicesService) { }
@@ -61,7 +61,6 @@ export class TabCuentaComponent implements OnInit {
   deletePendingOrder() {
     if(this.tableFormControl.value != "") {
       this.pedidoDelete.numTable = this.tableFormControl.value
-      console.log(this.pedidoDelete)
       this.pedidoServices.deletePedidoObjeto(this.pedidoDelete.numTable)
       this.pendingOrderService.deletePendingOrder(this.pedidoDelete).subscribe(data => {
       })

@@ -27,11 +27,9 @@ export class RestaurantPedidosComponent implements OnInit {
     this.pedidoServices.getAllPedidos(this.userId).subscribe(data => {
     this.pedidos = data
     if(!localStorage.getItem('pedidos')){
-      console.log('a');
 
       this.pedidoServices.getAllPedidos(this.userId).subscribe(dataa => {
       this.pedidos = dataa
-      console.log(this.pedidos);
 
       //esto viene de la bd
       this.pedidos.forEach(hola=>{
@@ -48,38 +46,14 @@ export class RestaurantPedidosComponent implements OnInit {
       })
 
       localStorage.setItem('pedidos', JSON.stringify(this.pedidoServices.pedidoObjeto))
-
-      // console.log(this.pedidos);
-      // if(JSON.parse(localStorage.getItem('pedidos')!).length){
-      //   if(JSON.parse(localStorage.getItem('pedidos')!).length !== this.pedidos.length){
-      //     let pedidosHelp = JSON.parse(localStorage.getItem('pedidos')!)
-      //     for(let num = pedidosHelp.length - 1; num < this.pedidos.length; num++){
-      //       pedidosHelp.push(this.pedidos[num])
-      //     }
-      //     console.log('ho');
-
-      //     localStorage.setItem('pedidos', JSON.stringify(pedidosHelp))
-      //   } else {
-      //     console.log('holas');
-
-      //     localStorage.setItem('pedidos', JSON.stringify(this.pedidos))
-      //   }
-      // }
-
-
-
       })
+
     } else if(this.pedidoServices.pedidoObjeto.length === 0) {
       this.pedidoServices.pedidoObjeto = JSON.parse(localStorage.getItem('pedidos')!)
       if(this.pedidos.length != this.pedidoServices.pedidoObjeto.length){
-        console.log('h');
-        // for(let num = JSON.parse(localStorage.getItem('pedidos')!).length - 1; num < this.pedidos.length; num++){
-        //   this.pedidoServices.pedidoObjeto.push(this.pedidos[num])
-        // }
 
         this.pedidos.forEach(pedido => {
           let pedidoDistinto = this.pedidoServices.pedidoObjeto.findIndex(ped => pedido.id == ped.id)
-          console.log(pedidoDistinto)
           if(pedidoDistinto < 0) {
             this.pedidoServices.pedidoObjeto.push(pedido)
           }
@@ -91,9 +65,6 @@ export class RestaurantPedidosComponent implements OnInit {
 
     }
   })
-
-console.log(this.pedidoServices.pedidoObjeto);
-
 
     this.pendingOrderService.getAllPendingOrder(this.userId).subscribe(data => {
       this.pendingOrders = data

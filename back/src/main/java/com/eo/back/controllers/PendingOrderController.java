@@ -40,7 +40,7 @@ public class PendingOrderController {
     @PostMapping("/allPendingOrder")
     public ResponseEntity<List<PendingOrder>> getPendingOrder(@RequestBody long userId) {
 
-        List<PendingOrder> pendingOrders = pendingOrderService.getPendingOrderByRestaurantId(restaurantServices.getRestaurantIdByUserId(userId));
+        List<PendingOrder> pendingOrders = pendingOrderService.getPendingOrderByRestaurantId(restaurantServices.getRestaurantById(userId).getId());
         
         return new ResponseEntity<List<PendingOrder>>(pendingOrders, HttpStatus.OK);
     }
@@ -48,7 +48,7 @@ public class PendingOrderController {
     @PostMapping("/filterPendingOrder")
     public ResponseEntity<List<PendingOrder>> filterPendingOrder(@RequestBody PedidoDTO dto) {
         
-        List<PendingOrder> pendingOrders = pendingOrderService.getPendingOrderByRestaurantIdAndTableNum(restaurantServices.getRestaurantIdByUserId(dto.getRestaurantId()), dto.getNumTable());
+        List<PendingOrder> pendingOrders = pendingOrderService.getPendingOrderByRestaurantIdAndTableNum(restaurantServices.getRestaurantById(dto.getRestaurantId()).getId(), dto.getNumTable());
         
         return new ResponseEntity<List<PendingOrder>>(pendingOrders, HttpStatus.OK);
     }
@@ -56,8 +56,10 @@ public class PendingOrderController {
     @PostMapping("/deletePendingOrder")
     public ResponseEntity<Boolean> deletePendingOrder(@RequestBody PedidoDTO dto) {
         
-        List<PendingOrder> pendingOrders = pendingOrderService.deletePendingOrder(restaurantServices.getRestaurantIdByUserId(dto.getRestaurantId()), dto.getNumTable());
+        List<PendingOrder> pendingOrders = pendingOrderService.deletePendingOrder(restaurantServices.getRestaurantById(dto.getRestaurantId()).getId(), dto.getNumTable());
         pendingOrderEmailService.sendEmail(pendingOrders);
+
+        restaurantServices.updateOrdersAmount(dto.getRestaurantId());
         
         return new ResponseEntity<Boolean>(true, HttpStatus.OK);
     }

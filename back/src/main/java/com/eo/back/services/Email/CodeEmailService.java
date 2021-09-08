@@ -13,7 +13,6 @@ public class CodeEmailService {
 
     public String sendEmail(String email) {
         String code = generateVerifyCode();
-        System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
 
         SimpleMailMessage message = new SimpleMailMessage(); 
         message.setFrom("noreply@baeldung.com");
@@ -32,7 +31,6 @@ public class CodeEmailService {
 
     
     private String generateVerifyCode() {
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         return String.valueOf((int) Math.floor(Math.random() * (9999 - 1000 + 1) + 1000));
     }
     

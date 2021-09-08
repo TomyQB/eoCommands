@@ -74,6 +74,45 @@ label{
   font-size: 40px;
 }
 
+.displayF{
+  display: flex;
+  justify-content: space-between;
+}
+
+.displayF>div{
+  width: 45%;
+}
+
+.footer{
+  padding: 15px 30px;
+  margin-top: 20px;
+}
+
+.legalThings{
+  margin-top: 15px;
+}
+
+.displayFM>div{
+  display: flex;
+  align-items: center;
+}
+
+.infoContact{
+  margin-left: 10px;
+}
+
+.hight100{
+  height: 100%;
+}
+
+.subFooter{
+  width: 35%;
+}
+
+.tveoCommunication{
+  font-size: 17px;
+}
+
 @media (max-width: 600px) {
   .content2{
     flex-wrap: wrap;

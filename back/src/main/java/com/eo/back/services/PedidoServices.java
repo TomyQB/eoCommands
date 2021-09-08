@@ -22,7 +22,7 @@ public class PedidoServices {
     }
 
     public void deletePedido(PedidoDTO dto) {
-        this.repository.deleteAllPedidoByRestaurantIdAndTableNum(restaurantServices.getRestaurantIdByUserId(dto.getRestaurantId()), dto.getNumTable());
+        this.repository.deleteAllPedidoByRestaurantIdAndTableNum(restaurantServices.getRestaurantById(dto.getRestaurantId()).getId(), dto.getNumTable());
     }
 
     public void deletePedidosById(long idPedido) {

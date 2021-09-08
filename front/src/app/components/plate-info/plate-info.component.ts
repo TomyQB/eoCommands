@@ -62,8 +62,6 @@ export class PlateInfoComponent implements OnInit {
 
   addExtra(additional: Additional){
     if(this.extrasDisable === false){
-      console.log(this.amount.extras);
-      console.log(additional)
 
       if(this.amount.extras.findIndex(extra => extra.id === additional.id) >= 0) {
         for(let i = 0; i < this.amount.extras.length; i++) {
@@ -77,9 +75,6 @@ export class PlateInfoComponent implements OnInit {
         this.amount.extras.push(additional)
         this.calculateSubTotalAddExtras(additional.price)
       }
-
-      // console.log(this.amount.extras.findIndex(extra => extra.id === additional.id))
-
     }
   }
 
@@ -127,9 +122,6 @@ export class PlateInfoComponent implements OnInit {
         this.extrasChecked.push(false)
       }
     })
-
-    console.log(this.extrasChecked);
-
   }
 
 

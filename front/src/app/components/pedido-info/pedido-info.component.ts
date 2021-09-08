@@ -93,11 +93,9 @@ export class PedidoInfoComponent implements OnInit {
     this.pedido.email = this.emailFormControl.value
     this.pedido.numTable = this.tableFormControl.value
     this.pedido.phoneNumber = this.phoneFormControl.value
-    // this.finishPedido()
 
     if(this.pedido.email && this.pedido.numTable && this.pedido.numTable) {
       this.emailService.sendMessage(this.pedido.email).subscribe(data => {
-        console.log(data)
         const dialogRef = this.dialog.open(ModalPhoneComponent, this.dialogConfig)
         dialogRef.componentInstance.code = data
         dialogRef.afterClosed().subscribe(res => {

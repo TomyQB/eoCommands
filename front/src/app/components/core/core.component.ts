@@ -10,6 +10,7 @@ export class CoreComponent implements OnInit {
 
   restaurantName: string = localStorage.getItem("name")!;
   showOrder: boolean = true;
+  plateUrl: boolean = false;
 
   constructor(private router: Router) {
     router.events.subscribe((val) => {
@@ -18,6 +19,13 @@ export class CoreComponent implements OnInit {
       } else {
         this.showOrder = true;
       }
+
+      if(this.router.url === "/plates"){
+        this.plateUrl = true
+      } else {
+        this.plateUrl = false
+      }
+      console.log(this.plateUrl)
     });
   }
 

@@ -44,5 +44,11 @@ public class PedidoConverter extends AbstractConverter<Pedido, PedidoDTO>{
             }
         }
     }
+
+    @Override
+    public PedidoDTO toDTO(Pedido entity) {
+        // TODO Auto-generated method stub
+        return null;
+    }
     
 }

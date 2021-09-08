@@ -13,7 +13,6 @@ export class PedidoComponent implements OnInit {
 
   total: number = 0
 
-  // subcriptor!: Subscription;
 
   constructor(private router: Router, private totalObservableService: TotalObservableService) { }
 

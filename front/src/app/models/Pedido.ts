@@ -13,4 +13,5 @@ export interface Pedido {
   amounts?: Amount[]
   estado?: string
   hechos?: number
+  ordersAmount?: number
 }

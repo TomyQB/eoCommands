@@ -16,6 +16,7 @@ public class PedidoDTO {
     private long restaurantId;
     private String date;
     private String phoneNumber;
+    private int ordersAmount;
 
     private List<Amount> amounts;
     

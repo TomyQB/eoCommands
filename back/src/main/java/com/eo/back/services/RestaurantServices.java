@@ -23,11 +23,22 @@ public class RestaurantServices {
         return repository.getRestaurantByName(name);
     }
 
+    public Restaurant getRestaurantByUserId(long userId) {
+        return repository.getRestaurantByUserRestaurantId(userId);
+    }
+
     public long getRestaurantIdByUserId(long userId) {
         return repository.getRestaurantByUserRestaurantId(userId).getId();
     }
     
     public List<Pedido> getAllPedidos(long id) {
-        return repository.getRestaurantByUserRestaurantId(id).getOrders();
+        return this.getRestaurantById(id).getOrders();
+    }
+
+    public void updateOrdersAmount(long id) {
+        Restaurant restaurant = this.getRestaurantById(id);
+        int ordersAmount = restaurant.getOrdersAmount() + 1;
+        restaurant.setOrdersAmount(ordersAmount);
+        repository.save(restaurant);
     }
 }

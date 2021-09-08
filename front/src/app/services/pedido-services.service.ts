@@ -37,7 +37,6 @@ export class PedidoServicesService {
         localStorage.setItem('pedidos', JSON.stringify(this.pedidoObjeto))
       }
     }
-    // console.log(this.pedidoObjeto.find(pedido => pedido.numTable == numTable))
   }
 
 }
