@@ -8,5 +8,6 @@ export interface Plate {
   description: string,
   additionals: Additional[],
   amount: Amount,
-  drink: boolean
+  drink: boolean,
+  category?: number
 }

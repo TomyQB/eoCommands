@@ -1,2 +1,7 @@
 añadir categoria --> mandar objeto categoryDTO (menuService.createCategory)
 eliminar categoria --> mandar id de la categoria (menuService.deleteCategory)
+
+añadir plato --> mandar objeto plateDTO (plateService.createPlate)
+eliminar plato --> mandar id del plato (plateService.deletePlate)
+
+HAY UN EJEMPLO DE TODO EN components/admin/plates-admin/plates-admin.component.ts MÉTODO addCategoryAndPlates();

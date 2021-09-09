@@ -1,3 +1,5 @@
+import { PlateDTO } from './../../../models/PlateDTO';
+import { PlateService } from './../../../services/plate.service';
 import { MenuServicesService } from 'src/app/services/menu-services.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -15,13 +17,22 @@ export class PlatesAdminComponent implements OnInit {
   plates: Plate[] = history.state.plates
   category: Category = history.state.category
 
+  // Para hacer tests
   cat: CategoryDTO = {
     name: "",
-    type: "",
-    restaurant: 0
+    restaurant: 0,
+    type: ""
   }
 
-  constructor(private router: Router, private menuService: MenuServicesService) { }
+  plat: PlateDTO = {
+    category: 1,
+    description: "",
+    drink: true,
+    name: "",
+    price: 0
+  }
+
+  constructor(private router: Router, private menuService: MenuServicesService, private plateService: PlateService) { }
 
   ngOnInit(): void {
   }
@@ -36,11 +47,26 @@ export class PlatesAdminComponent implements OnInit {
 
   addCategoryAndPlates() {
     console.log("hola")
+
+    // AÑADIR CATEGORÍA
     // this.menuService.addCategory(this.cat).subscribe(data => {
 
     // })
 
-    this.menuService.deleteCategory(1).subscribe(data => {
+    // ELIMINAR CATEGORÍA
+    // this.menuService.deleteCategory(1).subscribe(data => {
+
+    // })
+
+
+
+    // AÑADIR PLATO
+    // this.plateService.addPlate(this.plat).subscribe(data => {
+
+    // })
+
+    // ELIMINAR PLATO
+    this.plateService.deletePlate(119).subscribe(data => {
 
     })
   }

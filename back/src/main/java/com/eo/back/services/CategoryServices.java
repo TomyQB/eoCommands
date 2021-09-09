@@ -18,6 +18,10 @@ public class CategoryServices {
         return repository.getCategoryByRestaurantNameOrderByName(restaurantName);
     }
 
+    public Category getCategoryById(long id) {
+        return repository.getById(id);
+    }
+
     public void saveCategory(Category category) {
         repository.save(category);
     }
