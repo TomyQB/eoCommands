@@ -1,3 +1,7 @@
+import { PlatesAdminComponent } from './components/admin/plates-admin/plates-admin.component';
+import { CategoriesAdminComponent } from './components/admin/categories-admin/categories-admin.component';
+import { PlatesCreateComponent } from './components/admin/plates-create/plates-create.component';
+import { CategoriesCreateComponent } from './components/admin/categories-create/categories-create.component';
 import { PaginaPrincipalComponent } from './components/pagina-principal/pagina-principal.component';
 import { LegalComponent } from './components/legal/legal.component';
 import { TerminosComponent } from './components/terminos/terminos.component';
@@ -68,6 +72,22 @@ const routes: Routes = [
   {
     path: 'home',
     component: PaginaPrincipalComponent
+  },
+  {
+    path: 'adminCategories',
+    component: CategoriesAdminComponent
+  },
+  {
+    path: 'adminCategoriesCreate',
+    component: CategoriesCreateComponent
+  },
+  {
+    path: 'adminPlates',
+    component: PlatesAdminComponent
+  },
+  {
+    path: 'adminPlatesCreate',
+    component: PlatesCreateComponent
   },
 
 ];

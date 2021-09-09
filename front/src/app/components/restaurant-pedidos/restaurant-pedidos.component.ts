@@ -71,17 +71,16 @@ export class RestaurantPedidosComponent implements OnInit {
     })
   }
 
-
-  ajusteCocina(){
-
-  }
-
   eliminarPedidosOutput(event: any) {
     this.pedidos = event
   }
 
   eliminarPendingOrdersOutput(event: any) {
     this.pendingOrders = event
+  }
+
+  crearMenu() {
+    this.router.navigateByUrl("/adminCategories");
   }
 
 }

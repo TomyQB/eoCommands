@@ -1,0 +1,37 @@
+.category-name{
+  text-align: center;
+  font-weight: 570;
+  font-size: 17px;
+}
+
+.category-img{
+  height: 200px;
+}
+
+.imgPlate{
+  width: 100%;
+  height: 100%;
+}
+
+.list-item{
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.listpriceAmount{
+  display: flex;
+  justify-content: center;
+}
+
+.listprice{
+  padding-right: 13px;
+}
+
+.border{
+  border-color: #9CCB3B;
+}
+
+.top{
+  margin-top: 10px;
+}

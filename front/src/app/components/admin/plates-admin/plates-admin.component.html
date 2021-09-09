@@ -1,0 +1,24 @@
+<div class="category-img" >
+  <img *ngIf="category" class="imgPlate" src={{category.image}} alt="" />
+</div>
+
+<mat-list style="padding: 20px;">
+  <div *ngIf="category" class="category-name">{{category.name}}</div>
+  <mat-divider class="border top" ></mat-divider>
+  <div *ngIf="category">
+    <div *ngFor="let p of plates; let i = index" (click)="plateInfoView(i)">
+      <div class="list-item">
+        <div>{{p.name}}</div>
+        <div class="listpriceAmount">
+          <div class="listprice">{{p.price}}€</div>
+        </div>
+      </div>
+      <mat-divider class="border"></mat-divider>
+    </div>
+  </div>
+  <div class="list-item" (click)="createPlate()">
+    <div>Añadir plato</div>
+  </div>
+  <mat-divider class="border"></mat-divider>
+</mat-list>
+<button (click)="addCategoryAndPlates()">Añadir</button>

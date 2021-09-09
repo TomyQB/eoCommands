@@ -1,0 +1,2 @@
+añadir categoria --> mandar objeto categoryDTO (menuService.createCategory)
+eliminar categoria --> mandar id de la categoria (menuService.deleteCategory)

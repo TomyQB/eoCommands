@@ -17,4 +17,12 @@ public class CategoryServices {
     public List<Category> getAllCategories(String restaurantName) {
         return repository.getCategoryByRestaurantNameOrderByName(restaurantName);
     }
+
+    public void saveCategory(Category category) {
+        repository.save(category);
+    }
+
+    public void deleteCategory(long id) {
+        repository.deleteById(id);
+    }
 }

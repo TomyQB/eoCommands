@@ -1,0 +1,20 @@
+<div class="content-img">
+  <img class="imgRestaurant" src={{image}} />
+  <img class="imgLogo" src="https://res.cloudinary.com/dxxvcl5fe/image/upload/v1628612145/logo_xpn8e3.png" />
+</div>
+
+<div class="content-title">
+  ¡Haz tu pedido a cocina!
+</div>
+<mat-divider class="border"></mat-divider>
+<div class="content-category">
+  <div class="card-category" *ngFor="let c of categories; let i = index" (click)="plateView(i, c)">
+    <img class="category-img" src={{c.image}}>
+      <label class="category-label">{{c.name}}</label>
+  </div>
+
+  <div class="card-category" (click)="createCategory()">
+    <img class="category-img" src="https://res.cloudinary.com/dxxvcl5fe/image/upload/v1631108999/a%C3%B1adir_r1sf5t.png">
+      <label class="category-label">Añade una nueva categoría</label>
+  </div>
+</div>

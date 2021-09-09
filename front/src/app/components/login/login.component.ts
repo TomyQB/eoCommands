@@ -35,9 +35,11 @@ export class LoginComponent implements OnInit {
     this.userRestaurant.password = this.passwordFormControl.value
 
     this.userService.login(this.userRestaurant).subscribe(data => {
+      console.log(data)
       if(data != null) {
         this.router.navigateByUrl("/restaurantPedidos");
         localStorage.setItem('userId', data.id.toString())
+        localStorage.setItem('rname', data.name)
       } else {
         alert("email o contraseña incorectos")
       }
