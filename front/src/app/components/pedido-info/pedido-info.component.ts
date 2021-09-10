@@ -107,7 +107,10 @@ export class PedidoInfoComponent implements OnInit {
     } else {
       alert("Rellena todos los campos")
     }
+  }
 
+  goCategoriesPage() {
+    this.router.navigateByUrl("/menu/" + localStorage.getItem("name"));
   }
 
 }

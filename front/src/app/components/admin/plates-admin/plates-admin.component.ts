@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { Category } from 'src/app/models/Category';
 import { Plate } from 'src/app/models/Plate';
 import { CategoryDTO } from 'src/app/models/CategoryDTO';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ModalDeleteComponent } from '../../modal-delete/modal-delete.component';
 
 @Component({
   selector: 'app-plates-admin',
@@ -14,8 +16,10 @@ import { CategoryDTO } from 'src/app/models/CategoryDTO';
 })
 export class PlatesAdminComponent implements OnInit {
 
-  plates: Plate[] = history.state.plates
-  category: Category = history.state.category
+  plates: Plate[] = JSON.parse(localStorage.getItem('plates')!)
+  category: Category = JSON.parse(localStorage.getItem('category')!)
+
+  isDisponible!: boolean
 
   // Para hacer tests
   cat: CategoryDTO = {
@@ -29,20 +33,45 @@ export class PlatesAdminComponent implements OnInit {
     description: "",
     drink: true,
     name: "",
-    price: 0
+    price: 0,
+    id: 1,
+    available: false
   }
 
-  constructor(private router: Router, private menuService: MenuServicesService, private plateService: PlateService) { }
+  dialogConfig: MatDialogConfig = {
+    width: '90%',
+  }
+
+  constructor(public dialog: MatDialog, private router: Router, private menuService: MenuServicesService, private plateService: PlateService) { }
 
   ngOnInit(): void {
   }
 
-  plateInfoView(i: number) {
-    this.router.navigateByUrl("/adminPlatesCreate", {state: {plate: this.plates[i]}});
-  }
-
   createPlate() {
     this.router.navigateByUrl("/adminPlatesCreate");
+  }
+
+
+  deletePlate(plate: Plate, index: number) {
+    console.log(plate)
+    const dialogRef = this.dialog.open(ModalDeleteComponent, this.dialogConfig)
+    dialogRef.afterClosed().subscribe(res => {
+      if(res) {
+        this.plates.splice(index, 1);
+        localStorage.setItem('plates', JSON.stringify(this.plates))
+        this.plateService.deletePlate(plate.id).subscribe(data => {
+          window.location.reload();
+        })
+      }
+    })
+  }
+
+  editPlate(plate: Plate) {
+    this.router.navigateByUrl("/adminPlatesCreate", {state: {plate: plate}});
+  }
+
+  updateDisponibility() {
+    console.log(this.isDisponible)
   }
 
   addCategoryAndPlates() {
@@ -54,7 +83,7 @@ export class PlatesAdminComponent implements OnInit {
     // })
 
     // ELIMINAR CATEGORÍA
-    // this.menuService.deleteCategory(1).subscribe(data => {
+    // this.menuService.deleteCategory(16).subscribe(data => {
 
     // })
 
@@ -67,6 +96,11 @@ export class PlatesAdminComponent implements OnInit {
 
     // ELIMINAR PLATO
     // this.plateService.deletePlate(119).subscribe(data => {
+
+    // })
+
+    // CAMBIAR DISPONIBILIDAD DEL PLATO
+    // this.plateService.updatePlate(this.plat).subscribe(data => {
 
     // })
   }

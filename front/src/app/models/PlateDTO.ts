@@ -1,8 +1,10 @@
 
 export interface PlateDTO {
+  id?: number,
   name: string,
   price: number,
   description: string,
   drink: boolean,
-  category: number
+  category: number,
+  available?: boolean
 }

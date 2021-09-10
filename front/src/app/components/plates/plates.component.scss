@@ -17,6 +17,7 @@
   display: flex;
   justify-content: space-between;
   padding: 10px;
+  // pointer-events: none;
 }
 
 .listpriceAmount{
@@ -34,4 +35,10 @@
 
 .top{
   margin-top: 10px;
+}
+
+.button-end-order{
+  text-align: center;
+  // margin-top: 10px;
+  padding-bottom: 70px;
 }

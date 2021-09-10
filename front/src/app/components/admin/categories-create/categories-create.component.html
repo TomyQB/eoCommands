@@ -1,3 +1,29 @@
-<div *ngFor="let i of images">
-  <img src={{i.image}}>
+
+<div class="content-title">
+  ¡Nueva categoría!
+</div>
+
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Nombre de la categoría</mat-label>
+      <input type="text" matInput [formControl]="nameFormControl">
+      <mat-error *ngIf="nameFormControl.hasError('required')">
+        Nombre obligatorio
+      </mat-error>
+    </mat-form-field>
+  </form>
+
+<div class="content-photo">
+  Elige la foto que mejor describa los platos que contiene esta categoría
+</div>
+<mat-divider class="border"></mat-divider>
+<div class="content-category">
+  <div class="space-category" *ngFor="let i of images">
+    <img (click)="chooseImage(i.image)" class="category-img" src={{i.image}} tabindex="0">
+  </div>
+</div>
+<mat-divider class="border"></mat-divider>
+
+<div class="button-end-order">
+  <button mat-raised-button class="primary" (click)="createCategory()">Crear categoría</button>
 </div>

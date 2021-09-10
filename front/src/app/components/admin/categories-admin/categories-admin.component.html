@@ -8,9 +8,11 @@
 </div>
 <mat-divider class="border"></mat-divider>
 <div class="content-category">
-  <div class="card-category" *ngFor="let c of categories; let i = index" (click)="plateView(i, c)">
-    <img class="category-img" src={{c.image}}>
-      <label class="category-label">{{c.name}}</label>
+  <div class="card-category" *ngFor="let c of categories; let i = index">
+    <img class="category-img" src={{c.image}} (click)="plateView(i, c)">
+    <label class="category-label">{{c.name}}</label>
+    <span (click)="deleteCategory(c)" class="material-icons"> delete</span>
+    <span (click)="editCategory(c)" class="material-icons">edit</span>
   </div>
 
   <div class="card-category" (click)="createCategory()">

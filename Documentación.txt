@@ -1,7 +1,19 @@
-añadir categoria --> mandar objeto categoryDTO (menuService.createCategory) (preguntame para el tema de la imagen la categoría)
-eliminar categoria --> mandar id de la categoria (menuService.deleteCategory)
-
 añadir plato --> mandar objeto plateDTO (plateService.createPlate)
-eliminar plato --> mandar id del plato (plateService.deletePlate)
+    rellenar los siguientes campos:
+        name: string,
+        price: number,
+        description: string,
+        drink: boolean,
+        category: number,
+    el campo category es de tipo number y hace referencia a la id de la categoria lo tienes en JSON.parse(localStorage.getItem('category')!)
+
+editar plato --> mandar objeto plateDTO (plateService.createPlate)
+    la unica diferencia con el anterior es que añades el campo:
+        id?: number,
+
+update available plato --> mandar objeto plateDTO (plateService.updatePlate)
+    rellenar los siguientes campos:
+        id?: number,
+        available?: boolean
 
 HAY UN EJEMPLO DE TODO EN components/admin/plates-admin/plates-admin.component.ts MÉTODO addCategoryAndPlates();

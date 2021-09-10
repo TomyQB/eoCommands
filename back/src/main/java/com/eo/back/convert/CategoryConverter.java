@@ -17,6 +17,7 @@ public class CategoryConverter extends AbstractConverter<Category, CategoryDTO> 
     public Category fromDTO(CategoryDTO dto) {
         Category category = new Category();
 
+        if(dto.getId() != 0) category.setId(dto.getId());
         category.setName(dto.getName());
         category.setImage(dto.getImage());
         category.setRestaurant(restaurantServices.getRestaurantById(dto.getRestaurant()));

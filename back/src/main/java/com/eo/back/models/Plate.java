@@ -34,6 +34,8 @@ public class Plate {
     private double price;
     @Nullable
     private boolean drink;
+    @Nullable
+    private boolean isAvailable;
 
     @OneToOne(mappedBy = "plate")
     @JsonIgnore
@@ -52,6 +54,5 @@ public class Plate {
         return "Plate [additionals=" + additionals + ", amount=" + amount + ", category=" + category + ", description="
                 + description + ", id=" + id + ", name=" + name + ", price=" + price + "]";
     }
-
     
 }

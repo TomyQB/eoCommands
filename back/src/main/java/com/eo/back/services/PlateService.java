@@ -12,6 +12,10 @@ public class PlateService {
     @Autowired
     private PlateRepository plateRepository;
 
+    public Plate getPlateById(long id) {
+        return plateRepository.getById(id);
+    }
+
     public void savePlate(Plate plate) {
         plateRepository.save(plate);
     }

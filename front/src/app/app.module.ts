@@ -31,6 +31,7 @@ import { CategoriesCreateComponent } from './components/admin/categories-create/
 import { PlatesCreateComponent } from './components/admin/plates-create/plates-create.component';
 import { PlatesAdminComponent } from './components/admin/plates-admin/plates-admin.component';
 import { CategoriesAdminComponent } from './components/admin/categories-admin/categories-admin.component';
+import { ModalDeleteComponent } from './components/modal-delete/modal-delete.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,6 +57,7 @@ import { CategoriesAdminComponent } from './components/admin/categories-admin/ca
     PlatesCreateComponent,
     PlatesAdminComponent,
     CategoriesAdminComponent,
+    ModalDeleteComponent,
   ],
   imports: [
     BrowserModule,

@@ -10,6 +10,7 @@ import { MatTabsModule} from '@angular/material/tabs';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 
 
@@ -27,7 +28,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatTabsModule,
     MatCheckboxModule,
     MatIconModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatButtonToggleModule
   ]
 })
 export class MaterialModule { }

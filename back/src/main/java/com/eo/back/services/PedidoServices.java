@@ -1,5 +1,7 @@
 package com.eo.back.services;
 
+import java.util.List;
+
 import com.eo.back.dto.PedidoDTO;
 import com.eo.back.models.Amount;
 import com.eo.back.models.Pedido;
@@ -21,8 +23,9 @@ public class PedidoServices {
         repository.save(pedido);
     }
 
-    public void deletePedido(PedidoDTO dto) {
-        this.repository.deleteAllPedidoByRestaurantIdAndTableNum(restaurantServices.getRestaurantById(dto.getRestaurantId()).getId(), dto.getNumTable());
+    public String deletePedido(PedidoDTO dto) {
+        List<Pedido> pedidos = repository.deleteAllPedidoByRestaurantIdAndTableNum(restaurantServices.getRestaurantById(dto.getRestaurantId()).getId(), dto.getNumTable());
+        return pedidos.get(0).getEmail();
     }
 
     public void deletePedidosById(long idPedido) {

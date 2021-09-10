@@ -30,4 +30,8 @@ export class PlatesComponent implements OnInit {
     this.router.navigateByUrl("/plateInfo", {state: {plate: this.plates[i]}});
   }
 
+  goCategoriesPage() {
+    this.router.navigateByUrl("/menu/" + localStorage.getItem("name"));
+  }
+
 }

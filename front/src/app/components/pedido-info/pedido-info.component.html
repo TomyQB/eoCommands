@@ -66,6 +66,10 @@
   </div>
 
   <div class="button-end-order">
+    <button mat-raised-button class="primary" (click)="goCategoriesPage()">Seguir pidiendo</button>
+  </div>
+
+  <div class="button-end-order">
     <button mat-raised-button class="primary" (click)="openDialog()" [disabled]="!(pedido.total > 0)" >Hacer pedido</button>
   </div>
 

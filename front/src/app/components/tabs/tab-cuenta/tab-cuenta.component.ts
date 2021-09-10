@@ -41,6 +41,7 @@ export class TabCuentaComponent implements OnInit {
   constructor(private pendingOrderService: PendingOrderService, private pedidoServices: PedidoServicesService) { }
 
   ngOnInit(): void {
+    console.log(this.pendingOrders)
   }
 
   getPendingByTable(event: any) {
@@ -63,12 +64,14 @@ export class TabCuentaComponent implements OnInit {
       this.pedidoDelete.numTable = this.tableFormControl.value
       this.pedidoServices.deletePedidoObjeto(this.pedidoDelete.numTable)
       this.pendingOrderService.deletePendingOrder(this.pedidoDelete).subscribe(data => {
-      })
-
-      this.pedidoServices.deletePedido(this.pedidoDelete).subscribe(data => {
         localStorage.setItem('tab', "2");
         window.location.reload();
       })
+
+      // this.pedidoServices.deletePedido(this.pedidoDelete).subscribe(data => {
+      //   localStorage.setItem('tab', "2");
+      //   window.location.reload();
+      // })
     }else {
       alert("Indica que mesa quieres finalizar")
     }

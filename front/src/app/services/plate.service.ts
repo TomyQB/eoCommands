@@ -14,8 +14,11 @@ export class PlateService {
   constructor(private http: HttpClient) { }
 
   addPlate(plate: PlateDTO) {
-    console.log(plate)
     return this.http.post<any>(this.Url + "createPlate", plate)
+  }
+
+  updatePlate(plate: PlateDTO) {
+    return this.http.post<any>(this.Url + "updatePlate", plate)
   }
 
   deletePlate(id: number) {

@@ -17,6 +17,7 @@ public class PlateConverter extends AbstractConverter<Plate, PlateDTO> {
     public Plate fromDTO(PlateDTO dto) {
         Plate plate = new Plate();
 
+        if(dto.getId() != 0) plate.setId(dto.getId());
         plate.setDescription(dto.getDescription());
         plate.setDrink(dto.isDrink());
         plate.setName(dto.getName());

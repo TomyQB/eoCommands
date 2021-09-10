@@ -23,18 +23,19 @@ public class PlateController {
 
     @PostMapping("/createPlate")
     public void createPlate(@RequestBody PlateDTO plateDTO) {
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-        plateDTO.setCategory(7);
-        plateDTO.setDescription("Lo estoy probando jeje va muy bien");
-        plateDTO.setDrink(true);
-        plateDTO.setName("Cervecita de la rica papi");
-        plateDTO.setPrice(1000);
         Plate plate = plateConverter.fromDTO(plateDTO);
         plateService.savePlate(plate);
     }
 
     @PostMapping("/deletePlate")
-    public void deleteCategory(@RequestBody long id) {
+    public void deletePlate(@RequestBody long id) {
         plateService.deletePlate(id);
+    }
+
+    @PostMapping("/updatePlate")
+    public void updatePlate(@RequestBody PlateDTO plateDTO) {
+        Plate plate = plateService.getPlateById(plateDTO.getId());
+        plate.setAvailable(plateDTO.isAvailable());
+        plateService.savePlate(plate);
     }
 }

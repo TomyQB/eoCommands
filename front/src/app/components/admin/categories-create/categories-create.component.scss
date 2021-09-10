@@ -1,0 +1,56 @@
+.example-full-width {
+  width: 30%;
+}
+
+.example-form{
+  text-align: center;
+  margin: 20px;
+}
+
+.content-title{
+  padding: 40px 20px 0px 20px;
+  font-size: 17px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.content-photo{
+  padding: 10px 20px 0px 20px;
+  font-size: 17px;
+  text-align: center;
+}
+
+.content-category{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.space-category{
+  padding: 5px;
+}
+
+.category-img:hover{
+  outline: 5px solid blue;
+}
+
+img:focus{
+  outline: 5px solid blue;
+}
+
+.category-img{
+  object-fit: cover; /*this makes the image in src fit to the size specified below*/
+  width: 140px; /* Here you can use wherever you want to specify the width and also the height of the <img>*/
+  height: 85px;
+}
+
+.border{
+  margin: 10px 10px 15px 10px;
+  border: 1px solid;
+  border-color: #9CCB3B;
+}
+
+.button-end-order{
+  text-align: center;
+  margin-top: 20px;
+  padding-bottom: 20px;
+}

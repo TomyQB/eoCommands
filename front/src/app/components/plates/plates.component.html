@@ -5,8 +5,8 @@
 <mat-list style="padding: 20px;">
   <div class="category-name">{{category.name}}</div>
   <mat-divider class="border top" ></mat-divider>
-  <div *ngFor="let p of plates; let i = index" (click)="plateInfoView(i)">
-    <div class="list-item">
+  <div *ngFor="let p of plates; let i = index">
+    <div class="list-item" (click)="plateInfoView(i)">
       <div>{{p.name}}</div>
       <div class="listpriceAmount">
         <div class="listprice">{{p.price}}€</div>
@@ -18,5 +18,9 @@
     <mat-divider class="border" *ngIf="plates.length>i+1"></mat-divider>
   </div>
 </mat-list>
-<div style="padding-bottom: 40px;"></div>
+<!-- <div style="padding-bottom: 10px;"></div> -->
+
+<div class="button-end-order">
+  <button mat-raised-button class="primary" (click)="goCategoriesPage()">Seguir pidiendo</button>
+</div>
 <!-- *ngIf="dic[p.name].amount != 0" -->

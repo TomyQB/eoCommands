@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.eo.back.dto.PedidoDTO;
 import com.eo.back.models.PendingOrder;
+import com.eo.back.services.PedidoServices;
 import com.eo.back.services.PendingOrderService;
 import com.eo.back.services.RestaurantServices;
 import com.eo.back.services.Email.PendingOrderEmailService;
@@ -28,6 +29,9 @@ public class PendingOrderController {
     
     @Autowired
     private PendingOrderEmailService pendingOrderEmailService;
+    
+    @Autowired
+    private PedidoServices pedidoServices;
 
     @PostMapping("/madePendingOrder")
     public ResponseEntity<Boolean> madePedido(@RequestBody PedidoDTO dto) {
@@ -57,7 +61,8 @@ public class PendingOrderController {
     public ResponseEntity<Boolean> deletePendingOrder(@RequestBody PedidoDTO dto) {
         
         List<PendingOrder> pendingOrders = pendingOrderService.deletePendingOrder(restaurantServices.getRestaurantById(dto.getRestaurantId()).getId(), dto.getNumTable());
-        pendingOrderEmailService.sendEmail(pendingOrders);
+        String email = pedidoServices.deletePedido(dto);
+        pendingOrderEmailService.sendEmail(pendingOrders, email);
 
         restaurantServices.updateOrdersAmount(dto.getRestaurantId());
         
