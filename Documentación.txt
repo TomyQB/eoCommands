@@ -1,4 +1,4 @@
-añadir categoria --> mandar objeto categoryDTO (menuService.createCategory)
+añadir categoria --> mandar objeto categoryDTO (menuService.createCategory) (preguntame para el tema de la imagen la categoría)
 eliminar categoria --> mandar id de la categoria (menuService.deleteCategory)
 
 añadir plato --> mandar objeto plateDTO (plateService.createPlate)

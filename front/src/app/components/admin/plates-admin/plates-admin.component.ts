@@ -21,7 +21,7 @@ export class PlatesAdminComponent implements OnInit {
   cat: CategoryDTO = {
     name: "",
     restaurant: 0,
-    type: ""
+    image: ""
   }
 
   plat: PlateDTO = {
@@ -66,9 +66,9 @@ export class PlatesAdminComponent implements OnInit {
     // })
 
     // ELIMINAR PLATO
-    this.plateService.deletePlate(119).subscribe(data => {
+    // this.plateService.deletePlate(119).subscribe(data => {
 
-    })
+    // })
   }
 
 }

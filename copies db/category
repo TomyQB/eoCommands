@@ -5,7 +5,7 @@
 -- Dumped from database version 12.5
 -- Dumped by pg_dump version 13.3
 
--- Started on 2021-08-24 22:01:34
+-- Started on 2021-09-09 12:52:55
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -23,22 +23,22 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- TOC entry 203 (class 1259 OID 33469)
+-- TOC entry 205 (class 1259 OID 41036)
 -- Name: category; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.category (
     id bigint NOT NULL,
+    image character varying(255),
     name character varying(255),
-    id_restaurant bigint,
-    image character varying(255)
+    id_restaurant bigint
 );
 
 
 ALTER TABLE public.category OWNER TO postgres;
 
 --
--- TOC entry 202 (class 1259 OID 33467)
+-- TOC entry 204 (class 1259 OID 41034)
 -- Name: category_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -53,8 +53,8 @@ CREATE SEQUENCE public.category_id_seq
 ALTER TABLE public.category_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3838 (class 0 OID 0)
--- Dependencies: 202
+-- TOC entry 3861 (class 0 OID 0)
+-- Dependencies: 204
 -- Name: category_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -62,7 +62,7 @@ ALTER SEQUENCE public.category_id_seq OWNED BY public.category.id;
 
 
 --
--- TOC entry 3701 (class 2604 OID 33472)
+-- TOC entry 3724 (class 2604 OID 41039)
 -- Name: category id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -70,31 +70,37 @@ ALTER TABLE ONLY public.category ALTER COLUMN id SET DEFAULT nextval('public.cat
 
 
 --
--- TOC entry 3832 (class 0 OID 33469)
--- Dependencies: 203
+-- TOC entry 3855 (class 0 OID 41036)
+-- Dependencies: 205
 -- Data for Name: category; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.category (id, name, id_restaurant, image) VALUES (1, 'Fresco y Verde', NULL, 'https://res.cloudinary.com/dxxvcl5fe/image/upload/v1626263645/ensalada_lxfeys.jpg');
-INSERT INTO public.category (id, name, id_restaurant, image) VALUES (2, 'Cosicas de Bocao', NULL, 'https://res.cloudinary.com/dxxvcl5fe/image/upload/v1626263674/tapas_nlz1yg.jpg');
-INSERT INTO public.category (id, name, id_restaurant, image) VALUES (3, 'Acabado en Caliente', NULL, 'https://res.cloudinary.com/dxxvcl5fe/image/upload/v1625650633/carne_lhlmgk.jpg');
-INSERT INTO public.category (id, name, id_restaurant, image) VALUES (4, 'Mejor en Compañía', NULL, 'https://res.cloudinary.com/dxxvcl5fe/image/upload/v1626268381/compa%C3%B1ia_vmrg5m.jpg');
-INSERT INTO public.category (id, name, id_restaurant, image) VALUES (5, 'Umani', NULL, 'https://res.cloudinary.com/dxxvcl5fe/image/upload/v1626263709/tataki_ththse.jpg');
-INSERT INTO public.category (id, name, id_restaurant, image) VALUES (6, 'Postres', NULL, 'https://res.cloudinary.com/dxxvcl5fe/image/upload/v1626268432/postres_frygbw.jpg');
-INSERT INTO public.category (id, name, id_restaurant, image) VALUES (7, 'Bebida', NULL, 'https://res.cloudinary.com/dxxvcl5fe/image/upload/v1625650745/bebida_zfgfhg.jpg');
+INSERT INTO public.category (id, image, name, id_restaurant) VALUES (1, 'https://res.cloudinary.com/dxxvcl5fe/image/upload/v1626263645/ensalada_lxfeys.jpg', 'Fresco y Verde', 2);
+INSERT INTO public.category (id, image, name, id_restaurant) VALUES (2, 'https://res.cloudinary.com/dxxvcl5fe/image/upload/v1626263674/tapas_nlz1yg.jpg', 'Cosicas de Bocao', 2);
+INSERT INTO public.category (id, image, name, id_restaurant) VALUES (3, 'https://res.cloudinary.com/dxxvcl5fe/image/upload/v1625650633/carne_lhlmgk.jpg', 'Acabado en Caliente', 2);
+INSERT INTO public.category (id, image, name, id_restaurant) VALUES (4, 'https://res.cloudinary.com/dxxvcl5fe/image/upload/v1626268381/compa%C3%B1ia_vmrg5m.jpg', 'Mejor en Compañía', 2);
+INSERT INTO public.category (id, image, name, id_restaurant) VALUES (5, 'https://res.cloudinary.com/dxxvcl5fe/image/upload/v1626263709/tataki_ththse.jpg', 'Umani', 2);
+INSERT INTO public.category (id, image, name, id_restaurant) VALUES (6, 'https://res.cloudinary.com/dxxvcl5fe/image/upload/v1626268432/postres_frygbw.jpg', 'Postres', 2);
+INSERT INTO public.category (id, image, name, id_restaurant) VALUES (7, 'https://res.cloudinary.com/dxxvcl5fe/image/upload/v1625650745/bebida_zfgfhg.jpg', 'Bebida', 2);
+INSERT INTO public.category (id, image, name, id_restaurant) VALUES (8, 'https://res.cloudinary.com/dxxvcl5fe/image/upload/v1626263674/tapas_nlz1yg.jpg', 'Entrantes', 3);
+INSERT INTO public.category (id, image, name, id_restaurant) VALUES (9, 'https://res.cloudinary.com/dxxvcl5fe/image/upload/v1626263645/ensalada_lxfeys.jpg', 'Ensaladas', 3);
+INSERT INTO public.category (id, image, name, id_restaurant) VALUES (10, 'https://res.cloudinary.com/dxxvcl5fe/image/upload/v1626268381/compa%C3%B1ia_vmrg5m.jpg', 'Revueltos', 3);
+INSERT INTO public.category (id, image, name, id_restaurant) VALUES (11, 'https://res.cloudinary.com/dxxvcl5fe/image/upload/v1629920859/quesos_ea1waw.jpg', 'Tablas', 3);
+INSERT INTO public.category (id, image, name, id_restaurant) VALUES (12, 'https://res.cloudinary.com/dxxvcl5fe/image/upload/v1629920906/bocadillos_db41vm.jpg', 'Bocadillos', 3);
+INSERT INTO public.category (id, image, name, id_restaurant) VALUES (13, 'https://res.cloudinary.com/dxxvcl5fe/image/upload/v1625650745/bebida_zfgfhg.jpg', 'Bebida', 3);
 
 
 --
--- TOC entry 3839 (class 0 OID 0)
--- Dependencies: 202
+-- TOC entry 3862 (class 0 OID 0)
+-- Dependencies: 204
 -- Name: category_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.category_id_seq', 7, true);
+SELECT pg_catalog.setval('public.category_id_seq', 18, true);
 
 
 --
--- TOC entry 3703 (class 2606 OID 33474)
+-- TOC entry 3726 (class 2606 OID 41044)
 -- Name: category category_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -103,7 +109,7 @@ ALTER TABLE ONLY public.category
 
 
 --
--- TOC entry 3704 (class 2606 OID 33565)
+-- TOC entry 3727 (class 2606 OID 41117)
 -- Name: category fkn2i2nfjnws67hctcl4bavswjg; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -111,7 +117,7 @@ ALTER TABLE ONLY public.category
     ADD CONSTRAINT fkn2i2nfjnws67hctcl4bavswjg FOREIGN KEY (id_restaurant) REFERENCES public.restaurant(id);
 
 
--- Completed on 2021-08-24 22:01:36
+-- Completed on 2021-09-09 12:53:02
 
 --
 -- PostgreSQL database dump complete

@@ -1,7 +1,7 @@
 import { Plate } from "./Plate";
 
 export interface CategoryDTO {
-  type: string,
+  image: string,
   name: string,
   restaurant: number
 }

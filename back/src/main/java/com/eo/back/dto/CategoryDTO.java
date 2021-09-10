@@ -10,7 +10,7 @@ import lombok.Setter;
 public class CategoryDTO {
 
     private String name;
-    private String type;
+    private String image;
     private long restaurant;
     
 }

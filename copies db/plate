@@ -1,0 +1,178 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 12.5
+-- Dumped by pg_dump version 13.3
+
+-- Started on 2021-09-09 12:53:40
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 211 (class 1259 OID 41071)
+-- Name: plate; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.plate (
+    id bigint NOT NULL,
+    description character varying(255),
+    drink boolean NOT NULL,
+    name character varying(255),
+    price double precision NOT NULL,
+    id_category bigint
+);
+
+
+ALTER TABLE public.plate OWNER TO postgres;
+
+--
+-- TOC entry 210 (class 1259 OID 41069)
+-- Name: plate_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.plate_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.plate_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3861 (class 0 OID 0)
+-- Dependencies: 210
+-- Name: plate_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.plate_id_seq OWNED BY public.plate.id;
+
+
+--
+-- TOC entry 3724 (class 2604 OID 41074)
+-- Name: plate id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.plate ALTER COLUMN id SET DEFAULT nextval('public.plate_id_seq'::regclass);
+
+
+--
+-- TOC entry 3855 (class 0 OID 41071)
+-- Dependencies: 211
+-- Data for Name: plate; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (82, NULL, false, 'Marinera', 1.5, 8);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (83, NULL, false, 'Marinero', 1.5, 8);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (84, NULL, false, 'Ensaladilla rusa', 2, 8);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (85, NULL, false, 'Ensaladilla de marisco', 3, 8);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (86, NULL, false, 'Matrimonio', 1.5, 8);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (87, NULL, false, 'Olivas', 1.5, 8);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (88, NULL, false, 'Boquerones (6 unidades)', 2.5, 8);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (89, NULL, false, 'Anchoas (6 unidades)', 3, 8);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (90, 'Pechuga, pan de ajo, queso y salsa Cesar', false, 'Ensalada cesar', 7, 9);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (91, 'Lechuga, tomate, huevo, atún y salsa rosa', false, 'Ensalada Rosa', 7, 9);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (92, 'Jamón York, queso, pollo, salsa rosa y nueces', false, 'Ensalada de Pollo y Piña', 7, 9);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (93, 'Tomate, lechuga, queso fresco, nueces, pasas, huevo codorniz', false, 'Ensalada Romana', 7, 9);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (94, NULL, false, 'Tomate Partido', 2.5, 9);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (95, NULL, false, 'Tomate y Olivas', 3.5, 9);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (96, NULL, false, 'Tomate, Olivas y Boquerones', 5, 9);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (97, NULL, false, 'Esparragos, ajos, setas y jamón', 7.5, 10);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (98, NULL, false, 'Setas, jamón, pimientos', 7.5, 10);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (99, NULL, false, 'Patatas, bacon, huevo', 7.5, 10);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (100, NULL, false, 'Patatas, huevo y salchicha', 7.5, 10);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (101, NULL, false, 'Setas, gambas y jamón', 8, 10);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (102, NULL, false, 'Gulas, gambas y pimiento', 8, 10);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (103, NULL, false, 'Morcilla, patatas y jamón', 8, 10);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (104, NULL, false, 'Queso fresco aliñado', 6, 11);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (105, NULL, false, 'Surtido de quesos', 10, 11);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (106, NULL, false, 'Jamón de Jabugo', 15, 11);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (107, NULL, false, 'Jamón Serrano', 7.5, 11);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (108, NULL, false, 'Jamón y queso', 7.5, 11);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (109, NULL, false, 'Jamón', 6, 12);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (110, NULL, false, 'Jamón y queso', 7, 12);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (111, NULL, false, 'Jamón de Jabugo', 10, 12);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (112, NULL, false, 'Chorizo picante y queso', 8, 12);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (113, NULL, false, 'Bacon, lomo, queso y tomate', 8, 12);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (114, NULL, false, 'Lomo, tomate y mahonesa', 8, 12);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (115, NULL, true, 'Estrella de levate', 1.2, 13);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (116, NULL, true, 'Mahou', 1.2, 13);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (117, NULL, true, 'Mahou 5 estrellas', 1.6, 13);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (118, NULL, true, 'Agua', 1.5, 13);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (55, NULL, false, 'Ensalada César', 8, 1);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (56, NULL, false, 'Ensalada Pepita', 10, 1);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (57, NULL, false, 'Ensalada Romana', 8, 1);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (58, NULL, false, 'Marinera', 1.6, 2);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (59, NULL, false, 'Croqueta XL rabo de toro', 2.4, 2);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (60, NULL, false, 'Son Bravas', 5.5, 2);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (61, 'Mini hamburguesa de carne de buey acompañada tomate, lechuga bacon y cebolla caramelizada.', false, 'Hamburguesa "Pepita"', 4, 2);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (62, 'Montadito de ternera con pimiento verde.', false, 'Pepito de ternera', 2.2, 2);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (63, 'La pluma ibérica es una pieza de la canal del cerdo ibérico que se encuentra en la parte anterior del lomo, junto a la presa, y tiene una característica forma triangular.', false, 'Pluma ibérica', 18, 3);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (64, 'En primer lugar, preparamos el magret. Le quitamos la grasa y le hacemos unos cortes. Cocinamos en una sartén a fuego medio.', false, 'Magret de pato con couscous', 16, 3);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (65, 'El lomo alto de buey es una pieza obtenida de la parte delantera del lomo del buey. ... Para preparar esta deliciosa pieza de carne de buey gourmet, realizamos un corte de 550 gramos, sin huesos.', false, 'Lomo alto de buey (400gr)', 20, 3);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (66, NULL, false, 'Rissoto de setas y parmesano', 13, 4);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (67, NULL, false, 'Huevos rotos crujientes', 8, 4);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (68, NULL, false, 'Tabulé', 7, 4);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (69, NULL, false, 'Carrillera estofada de "la yaya"', 12, 4);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (70, NULL, false, 'Parmiggiana', 9, 4);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (71, NULL, false, 'Tataki de atún', 12, 5);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (72, NULL, false, 'Tartar de salmón', 14, 5);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (73, NULL, false, 'Tarta de queso "Pepita"', 3.5, 6);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (74, NULL, false, 'Coulant de chocolate', 5, 6);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (75, NULL, false, 'Bola de helado frita con miel de caña', 4.3, 6);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (76, NULL, false, 'Brownie casero', 3.6, 6);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (77, NULL, true, 'Agua (1,5L)', 2, 7);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (78, NULL, true, 'Estrella de levante', 1.4, 7);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (79, NULL, true, 'Cocacola', 2, 7);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (80, NULL, true, 'Fanta de naranja', 2, 7);
+INSERT INTO public.plate (id, description, drink, name, price, id_category) VALUES (81, NULL, true, 'Acuarius', 2, 7);
+
+
+--
+-- TOC entry 3862 (class 0 OID 0)
+-- Dependencies: 210
+-- Name: plate_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.plate_id_seq', 119, true);
+
+
+--
+-- TOC entry 3726 (class 2606 OID 41079)
+-- Name: plate plate_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.plate
+    ADD CONSTRAINT plate_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3727 (class 2606 OID 41132)
+-- Name: plate fkt3gg0wgu2wi5k3aaml8q1ye1j; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.plate
+    ADD CONSTRAINT fkt3gg0wgu2wi5k3aaml8q1ye1j FOREIGN KEY (id_category) REFERENCES public.category(id);
+
+
+-- Completed on 2021-09-09 12:53:46
+
+--
+-- PostgreSQL database dump complete
+--
+

@@ -4,7 +4,6 @@ import com.eo.back.dto.CategoryDTO;
 import com.eo.back.models.Category;
 import com.eo.back.services.RestaurantServices;
 
-import org.springframework.beans.factory.annotation.Autowire;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +18,7 @@ public class CategoryConverter extends AbstractConverter<Category, CategoryDTO> 
         Category category = new Category();
 
         category.setName(dto.getName());
+        category.setImage(dto.getImage());
         category.setRestaurant(restaurantServices.getRestaurantById(dto.getRestaurant()));
 
         return category;
