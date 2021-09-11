@@ -13,6 +13,10 @@ export class PlateService {
 
   constructor(private http: HttpClient) { }
 
+  getPlatesByCategoryId(categoryId: number) {
+    return this.http.post<any>(this.Url + "getPlates", categoryId)
+  }
+
   addPlate(plate: PlateDTO) {
     return this.http.post<any>(this.Url + "createPlate", plate)
   }

@@ -16,10 +16,8 @@ import { ModalDeleteComponent } from '../../modal-delete/modal-delete.component'
 })
 export class PlatesAdminComponent implements OnInit {
 
-  plates: Plate[] = JSON.parse(localStorage.getItem('plates')!)
+  plates!: Plate[] /*= JSON.parse(localStorage.getItem('plates')!)*/
   category: Category = JSON.parse(localStorage.getItem('category')!)
-
-  isDisponible!: boolean
 
   // Para hacer tests
   cat: CategoryDTO = {
@@ -28,7 +26,7 @@ export class PlatesAdminComponent implements OnInit {
     image: ""
   }
 
-  plat: PlateDTO = {
+  plateDTO: PlateDTO = {
     category: 1,
     description: "",
     drink: true,
@@ -45,10 +43,14 @@ export class PlatesAdminComponent implements OnInit {
   constructor(public dialog: MatDialog, private router: Router, private menuService: MenuServicesService, private plateService: PlateService) { }
 
   ngOnInit(): void {
+    this.plateService.getPlatesByCategoryId(this.category.id).subscribe(data => {
+      this.plates = data
+    })
+    console.log(this.plates)
   }
 
   createPlate() {
-    this.router.navigateByUrl("/adminPlatesCreate");
+    this.router.navigateByUrl("/adminPlatesCreate", {state: {category: this.category.id}});
   }
 
 
@@ -67,11 +69,20 @@ export class PlatesAdminComponent implements OnInit {
   }
 
   editPlate(plate: Plate) {
-    this.router.navigateByUrl("/adminPlatesCreate", {state: {plate: plate}});
+    this.router.navigateByUrl("/adminPlatesCreate", {state: {plate: plate, category: this.category.id}});
   }
 
-  updateDisponibility() {
-    console.log(this.isDisponible)
+  updateDisponibility(id: number, isDisponible: boolean, index: number) {
+    this.plateDTO.id = id
+    this.plateDTO.available = isDisponible
+    this.plateService.updatePlate(this.plateDTO).subscribe(data => {
+      this.plates[index].available = isDisponible
+      localStorage.setItem('plates', JSON.stringify(this.plates))
+    })
+  }
+
+  goCategoriesAdmin() {
+    this.router.navigateByUrl("/adminCategories");
   }
 
   addCategoryAndPlates() {

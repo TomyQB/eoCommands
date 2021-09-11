@@ -1,5 +1,7 @@
 package com.eo.back.controllers;
 
+import java.util.List;
+
 import com.eo.back.convert.PlateConverter;
 import com.eo.back.dto.PlateDTO;
 import com.eo.back.models.Plate;
@@ -20,6 +22,11 @@ public class PlateController {
     
     @Autowired
     private PlateConverter plateConverter;
+    
+    @PostMapping("/getPlates")
+    public List<Plate> getPlates(@RequestBody long categoryId) {
+        return plateService.getPlateByCategoryId(categoryId);
+    }
 
     @PostMapping("/createPlate")
     public void createPlate(@RequestBody PlateDTO plateDTO) {

@@ -30,7 +30,12 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  ngOnDestroy(): void {
+    window.location.reload()
+  }
+
   onSignIn() {
+    localStorage.clear();
     this.userRestaurant.email = this.emailFormControl.value
     this.userRestaurant.password = this.passwordFormControl.value
 
@@ -40,6 +45,8 @@ export class LoginComponent implements OnInit {
         this.router.navigateByUrl("/restaurantPedidos");
         localStorage.setItem('userId', data.id.toString())
         localStorage.setItem('rname', data.name)
+        localStorage.setItem('image', data.image)
+        localStorage.setItem('contadorPedidos', data.ordersAmount.toString())
       } else {
         alert("email o contraseña incorectos")
       }

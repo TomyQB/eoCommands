@@ -10,4 +10,5 @@ export interface Plate {
   amount: Amount,
   drink: boolean,
   category?: number
+  available?: boolean
 }

@@ -8,20 +8,25 @@
   <div *ngIf="category">
     <div *ngFor="let p of plates; let i = index">
       <div class="list-item">
-        <div>{{p.name}}</div>
-        <div class="listpriceAmount">
-          <div class="listprice">{{p.price}}€</div>
+        <div style="width: 40%;">{{p.name}}</div>
+        <div class="list-item-noname">
+          <div class="listpriceAmount">
+            <div class="listprice">{{p.price}}€</div>
+          </div>
+
+          <p class="estado-item" *ngIf="p.available">Disponible</p>
+          <p class="estado-item" *ngIf="!p.available">Agotado</p>
+
+          <div>
+            <button mat-raised-button class="primary" (click)="updateDisponibility(p.id, true, i)">Disponible</button>
+          </div>
+
+          <div>
+            <button mat-raised-button class="primary" (click)="updateDisponibility(p.id, false, i)">Agotado</button>
+          </div>
+          <span (click)="deletePlate(p, i)" class="material-icons"> delete</span>
+          <span (click)="editPlate(p)" class="material-icons">edit</span>
         </div>
-        <mat-button-toggle-group [(ngModel)]="isDisponible" (click)="updateDisponibility()">
-          <mat-button-toggle value=true aria-label="Text align left">
-            <p>Disponible</p>
-          </mat-button-toggle>
-          <mat-button-toggle value=false aria-label="Text align center">
-            <p>Agotado</p>
-          </mat-button-toggle>
-        </mat-button-toggle-group>
-        <span (click)="deletePlate(p, i)" class="material-icons"> delete</span>
-        <span (click)="editPlate(p)" class="material-icons">edit</span>
       </div>
       <mat-divider class="border"></mat-divider>
     </div>
@@ -31,3 +36,7 @@
   </div>
   <mat-divider class="border"></mat-divider>
 </mat-list>
+
+<div class="button-end-order">
+  <button mat-raised-button class="primary" (click)="goCategoriesAdmin()">Volver a categorías</button>
+</div>

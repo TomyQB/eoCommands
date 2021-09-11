@@ -19,6 +19,8 @@ export class TabComidaComponent implements OnInit {
   }
 
   plateView(pedido: any, index: number) {
+    localStorage.setItem('pedidoInfoPlates', JSON.stringify(pedido))
+    localStorage.setItem('index', index.toString())
     this.router.navigateByUrl("/restaurantPedidosInfo", {state: {pedido: pedido, i: index}, });
   }
 

@@ -19,10 +19,13 @@ export class RestaurantPedidosComponent implements OnInit {
   pedidos!: any[]
   pendingOrders!: any[]
 
+  contadorPedidos: number = parseInt(localStorage.getItem('contadorPedidos')!)
+
   constructor(private pedidoServices: PedidoServicesService, private router: Router, private pendingOrderService: PendingOrderService) { }
 
   ngOnInit(): void {
 
+    console.log(this.contadorPedidos)
     this.selectedIndex = parseInt(localStorage.getItem('tab')!)
     this.pedidoServices.getAllPedidos(this.userId).subscribe(data => {
     this.pedidos = data
@@ -71,6 +74,11 @@ export class RestaurantPedidosComponent implements OnInit {
     })
   }
 
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+  }
+
   eliminarPedidosOutput(event: any) {
     this.pedidos = event
   }
@@ -81,6 +89,9 @@ export class RestaurantPedidosComponent implements OnInit {
 
   crearMenu() {
     this.router.navigateByUrl("/adminCategories");
+    setTimeout(function reload() {
+      window.location.reload()
+    }, 20)
   }
 
 }

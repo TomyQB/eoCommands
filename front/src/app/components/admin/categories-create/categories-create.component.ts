@@ -20,23 +20,32 @@ export class CategoriesCreateComponent implements OnInit {
     image: ""
   }
 
+  nameFormControl = new FormControl('', [
+    Validators.required,
+  ]);
+
   constructor(private imageService: ImageService, private menuService: MenuServicesService, private router: Router) { }
 
   ngOnInit(): void {
-    if(history.state.category) {
-      this.nameFormControl.setValue(history.state.category.name)
-      this.category.image = history.state.category.image
-      this.category.id = history.state.category.id
+    if(JSON.parse(localStorage.getItem('editCategory')!)) {
+      this.category.image = JSON.parse(localStorage.getItem('editCategory')!).image
+      this.nameFormControl.setValue(JSON.parse(localStorage.getItem('editCategory')!).name)
+      this.category.id = JSON.parse(localStorage.getItem('editCategory')!).id
+      console.log(this.category)
     }
+      // this.category.image = history.state.category.image
+      // this.category.id = history.state.category.id
+
     this.imageService.getImages().subscribe(data => {
       this.images = data
     })
   }
 
-
-  nameFormControl = new FormControl('', [
-    Validators.required,
-  ]);
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    localStorage.removeItem('editCategory')
+  }
 
   chooseImage(image: string) {
     this.category.image = image

@@ -65,6 +65,9 @@ export class TabCuentaComponent implements OnInit {
       this.pedidoServices.deletePedidoObjeto(this.pedidoDelete.numTable)
       this.pendingOrderService.deletePendingOrder(this.pedidoDelete).subscribe(data => {
         localStorage.setItem('tab', "2");
+        var cont = parseInt(localStorage.getItem('contadorPedidos')!)
+        cont++
+        localStorage.setItem('contadorPedidos', cont.toString())
         window.location.reload();
       })
 

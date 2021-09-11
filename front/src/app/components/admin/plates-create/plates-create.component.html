@@ -1,1 +1,49 @@
-<p>plates-create works!</p>
+<div class="info-header paddingGeneral">
+  <div style="font-size: 20px;">
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <mat-label>Nombre del plato</mat-label>
+        <input type="text" matInput [formControl]="nameFormControl">
+        <mat-error *ngIf="nameFormControl.hasError('required')">
+          Nombre obligatorio
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Precio</mat-label>
+        <input type="number" matInput [formControl]="priceFormControl">
+        <mat-error *ngIf="nameFormControl.hasError('required')">
+          Precio obligatorio
+        </mat-error>
+      </mat-form-field>
+    </form>
+  </div>
+</div>
+<mat-divider class="border"></mat-divider>
+
+<div class="content-description">
+  <div class="infoPlate">
+    Descripción
+  </div>
+  <textarea style="width: 80%; height: 100px; margin-bottom: 20px;" placeholder="Escribe algo relevante del plato, ingredientes, alergias, elaboración..." ng-model="string" ng-name="text" #description>{{plate.description}}</textarea>
+</div>
+
+<div style="text-align: center;">
+  <mat-radio-group
+    aria-labelledby="example-radio-group-label"
+    class="example-radio-group"
+    [(ngModel)]="plate.drink">
+    <mat-radio-button class="example-radio-button" [value]=false>Comida (Este plato irá solo a cocina)</mat-radio-button>
+  </mat-radio-group>
+
+  <mat-radio-group
+    aria-labelledby="example-radio-group-label"
+    class="example-radio-group"
+    [(ngModel)]="plate.drink">
+    <mat-radio-button class="example-radio-button" [value]=true>Bebida (Este plato irá solo a barra)</mat-radio-button>
+  </mat-radio-group>
+</div>
+
+<div class="button-end-order">
+  <button mat-raised-button class="primary" (click)="createPlate(description.value)">Crear plato</button>
+</div>

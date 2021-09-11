@@ -2,6 +2,7 @@ package com.eo.back.models;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -37,9 +38,9 @@ public class Plate {
     @Nullable
     private boolean isAvailable;
 
-    @OneToOne(mappedBy = "plate")
-    @JsonIgnore
-    private Amount amount;
+    // @OneToOne(mappedBy = "plate")
+    // @JsonIgnore
+    // private Amount amount;
     
     @ManyToOne
     @JsonIgnore
@@ -51,7 +52,7 @@ public class Plate {
 
     @Override
     public String toString() {
-        return "Plate [additionals=" + additionals + ", amount=" + amount + ", category=" + category + ", description="
+        return "Plate [additionals=" + additionals /*+ ", amount=" + amount*/ + ", category=" + category + ", description="
                 + description + ", id=" + id + ", name=" + name + ", price=" + price + "]";
     }
     

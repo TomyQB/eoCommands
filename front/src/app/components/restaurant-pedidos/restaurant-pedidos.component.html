@@ -1,25 +1,31 @@
-<!-- <meta http-equiv="refresh" content="5" /> -->
 
-<mat-tab-group [selectedIndex]="selectedIndex" class="tab">
-  <mat-tab label="Cocina">
-    <app-tab-comida></app-tab-comida>
-  </mat-tab>
+<body onload="setTimeout('self.location.reload()', 60000)">
 
-  <mat-tab label="Barra">
-    <app-tab-bebida></app-tab-bebida>
-  </mat-tab>
+  <mat-tab-group [selectedIndex]="selectedIndex" class="tab">
+    <mat-tab label="Cocina">
+      <app-tab-comida></app-tab-comida>
+    </mat-tab>
 
-  <mat-tab label="Cuenta">
-    <app-tab-cuenta [pendingOrders]="pendingOrders" [pedidos]="pedidos" (pedidosOutput)="eliminarPedidosOutput($event)" (pendingOrdersOutput)="eliminarPendingOrdersOutput($event)"></app-tab-cuenta>
-  </mat-tab>
+    <mat-tab label="Barra">
+      <app-tab-bebida></app-tab-bebida>
+    </mat-tab>
 
-  <mat-tab label="administración">
-    <div style="text-align: center; padding: 30px;">
-      <button mat-raised-button class="primary" (click)="crearMenu()">Administrar menu</button>
+    <mat-tab label="Cuenta">
+      <app-tab-cuenta [pendingOrders]="pendingOrders" [pedidos]="pedidos" (pedidosOutput)="eliminarPedidosOutput($event)" (pendingOrdersOutput)="eliminarPendingOrdersOutput($event)"></app-tab-cuenta>
+    </mat-tab>
 
-    </div>
-  </mat-tab>
+    <mat-tab label="administración">
+      <div style="text-align: center; padding-top: 30px; font-size: 30px;">
+        <p style="padding-bottom: 10px;">Pedidos de este mes</p>
+        <p>{{contadorPedidos}}</p>
+      </div>
+      <div style="text-align: center; padding: 30px;">
+        <button mat-raised-button class="primary" (click)="crearMenu()">Administrar menu</button>
+      </div>
+    </mat-tab>
 
-</mat-tab-group>
+  </mat-tab-group>
+
+</body>
 
 

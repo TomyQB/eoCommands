@@ -1,5 +1,7 @@
 package com.eo.back.services;
 
+import java.util.List;
+
 import com.eo.back.models.Plate;
 import com.eo.back.repositories.PlateRepository;
 
@@ -14,6 +16,10 @@ public class PlateService {
 
     public Plate getPlateById(long id) {
         return plateRepository.getById(id);
+    }
+    
+    public List<Plate> getPlateByCategoryId(long id) {
+        return plateRepository.getPlatesByCategoryId(id);
     }
 
     public void savePlate(Plate plate) {

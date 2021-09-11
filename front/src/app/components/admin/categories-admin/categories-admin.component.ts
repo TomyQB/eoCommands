@@ -17,7 +17,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 export class CategoriesAdminComponent implements OnInit {
 
   categories!: Category[]
-  image!: string
+  image: string = localStorage.getItem("image")!
 
   restaurantName: string = localStorage.getItem("rname")!
 
@@ -32,9 +32,12 @@ export class CategoriesAdminComponent implements OnInit {
 
     this.menuService.getMenu(this.restaurantName).subscribe(data => {
       this.categories = data
-      this.image = data[0].restaurant.image
       localStorage.setItem('idRestaurant', data[0].restaurant.id);
     })
+  }
+
+  ngOnDestroy(): void {
+    window.location.reload()
   }
 
   private setUrlName() {
@@ -59,6 +62,7 @@ export class CategoriesAdminComponent implements OnInit {
   }
 
   createCategory() {
+    console.log("new")
     this.router.navigateByUrl("/adminCategoriesCreate");
   }
 
@@ -75,7 +79,12 @@ export class CategoriesAdminComponent implements OnInit {
 
   editCategory(category: Category) {
     // console.log(category)
+    localStorage.setItem('editCategory', JSON.stringify(category))
     this.router.navigateByUrl("/adminCategoriesCreate", {state: {category: category}});
+  }
+
+  goPedidos() {
+    this.router.navigateByUrl("/restaurantPedidos");
   }
 
 }

@@ -6,8 +6,9 @@
   <div class="category-name">{{category.name}}</div>
   <mat-divider class="border top" ></mat-divider>
   <div *ngFor="let p of plates; let i = index">
-    <div class="list-item" (click)="plateInfoView(i)">
+    <div class="list-item-{{p.available}}" (click)="plateInfoView(i)">
       <div>{{p.name}}</div>
+      <div *ngIf="!p.available">Agotado</div>
       <div class="listpriceAmount">
         <div class="listprice">{{p.price}}€</div>
         <div>

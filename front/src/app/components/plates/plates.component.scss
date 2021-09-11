@@ -13,11 +13,18 @@
   height: 100%;
 }
 
-.list-item{
+.list-item-true{
   display: flex;
   justify-content: space-between;
   padding: 10px;
-  // pointer-events: none;
+}
+
+.list-item-false{
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: grey;
+  pointer-events: none;
 }
 
 .listpriceAmount{

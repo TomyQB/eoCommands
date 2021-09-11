@@ -22,6 +22,7 @@ public class PlateConverter extends AbstractConverter<Plate, PlateDTO> {
         plate.setDrink(dto.isDrink());
         plate.setName(dto.getName());
         plate.setPrice(dto.getPrice());
+        plate.setAvailable(dto.isAvailable());
         plate.setCategory(categoryServices.getCategoryById(dto.getCategory()));
 
         return plate;
