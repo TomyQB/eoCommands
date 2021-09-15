@@ -2,7 +2,7 @@
 <mat-toolbar class="primary toolbar displayFM">
   <div class="mail">Info@eorestaurantes.com</div>
   <div>
-    <button mat-button>Login</button>
+    <button (click)="login()" mat-button>Restaurant login</button>
     <mat-icon>person_outline</mat-icon>
   </div>
 </mat-toolbar>
@@ -25,7 +25,10 @@
         </label>
       </div>
     </div>
-    <div class="textAlign">
+    <div class="textAlign notSoBig">
+      <div style="text-align: center;">
+        <img class="imgQR" alt="cabecera" src="https://res.cloudinary.com/dxxvcl5fe/image/upload/v1631639435/qr_home_sd1ytq.png">
+      </div>
       <label for="">
         Ahora, con <strong>éo! restaurantes</strong>, tus clientes pueden scanear
         tu código QR (que aparece en la mesa o en
@@ -36,7 +39,7 @@
   </div>
 
   <div class="content2">
-    <div class="textAlign">
+    <div class="textAlign notSoBig">
       <label for="">
         A través de <strong>éo! restaurantes</strong> puedes dar el
         servicio a tus clientes que puedan ir pidiendo su
@@ -47,12 +50,11 @@
       </label>
     </div>
     <div class="boxRight3 imgProperties">
-      <!-- <img src="https://res.cloudinary.com/dxxvcl5fe/image/upload/v1629055445/WhatsApp_Image_2021-08-11_at_17.59.15_2_rl9zd6.jpg"> -->
     </div>
   </div>
 
   <div class="content2">
-    <div class="textAlign primary">
+    <div class="textAlign big primary">
       <label for="">
         Si quieres tener este servicio en
         tu local gastronómico, restaurante, bar, cafetería,
@@ -89,7 +91,7 @@
   <div class="displayF primary footer">
     <div class="displayF subFooter">
       <div class="footerText">
-        <img class="imgMain" alt="cabecera" src="https://res.cloudinary.com/dxxvcl5fe/image/upload/v1630168384/WhatsApp_Image_2021-08-28_at_16.48.30_m6nvcc.jpg">
+        <img class="imgEnd" alt="cabecera" src="https://res.cloudinary.com/dxxvcl5fe/image/upload/v1631639432/logo_bueno_para_web_zdlhkn.png">
       </div>
       <div>
         <div class="tveoCommunication">
@@ -119,8 +121,8 @@
       <div class="displayFM">
         <div class="hight100">
           Síguenos en:
-          <img class="infoContact" src="../../../assets/facebook.png" alt="facebook">
-          <img class="infoContact" src="../../../assets/logotipo-de-instagram.png" alt="instagram">
+          <img class="infoContact" src="https://res.cloudinary.com/dxxvcl5fe/image/upload/v1631640425/facebook_eoomc1.png" alt="facebook">
+          <img class="infoContact" src="https://res.cloudinary.com/dxxvcl5fe/image/upload/v1631640432/logotipo-de-instagram_jgl7lz.png" alt="instagram">
         </div>
       </div>
     </div>

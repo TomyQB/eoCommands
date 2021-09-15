@@ -13,8 +13,10 @@ import { DescAndAmount } from 'src/app/models/DescAndAmount';
 })
 export class PlatesComponent implements OnInit {
 
-  plates: Plate[] = history.state.plates
-  category: Category = history.state.category
+  // plates: Plate[] = history.state.plates
+  // category: Category = history.state.category
+  plates: Plate[] = JSON.parse(localStorage.getItem('plat')!)
+  category: Category = JSON.parse(localStorage.getItem('cat')!)
 
 
   dic: {[key: string]: DescAndAmount} = {}
@@ -31,6 +33,8 @@ export class PlatesComponent implements OnInit {
   }
 
   goCategoriesPage() {
+    localStorage.removeItem('plat')
+    localStorage.removeItem('cat')
     this.router.navigateByUrl("/menu/" + localStorage.getItem("name"));
   }
 

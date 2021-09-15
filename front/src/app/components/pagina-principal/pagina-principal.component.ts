@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { RestaurantService } from './../../services/restaurant.service';
 import { RestaurantFormMainPage } from './../../models/RestaurantFormMainPage';
 import { Component, OnInit } from '@angular/core';
@@ -11,7 +12,7 @@ export class PaginaPrincipalComponent implements OnInit {
 
   restaurant: RestaurantFormMainPage;
 
-  constructor(private restaurantService: RestaurantService) {
+  constructor(private restaurantService: RestaurantService, private router: Router) {
     this.restaurant = {
       name: '',
       email: '',
@@ -31,6 +32,10 @@ export class PaginaPrincipalComponent implements OnInit {
         phone: ''
       }
     })
+  }
+
+  login() {
+    this.router.navigateByUrl('login')
   }
 
 }

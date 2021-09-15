@@ -94,4 +94,8 @@ export class RestaurantPedidosComponent implements OnInit {
     }, 20)
   }
 
+  logOut() {
+    this.router.navigateByUrl('login')
+  }
+
 }

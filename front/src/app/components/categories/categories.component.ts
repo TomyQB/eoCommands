@@ -43,6 +43,9 @@ export class CategoriesComponent implements OnInit {
 
     this.categories[i].plates = this.duplicateFilter(this.categories[i].plates)
 
+    localStorage.setItem('cat', JSON.stringify(category))
+    localStorage.setItem('plat', JSON.stringify(this.categories[i].plates))
+
     this.router.navigateByUrl("/plates", {state: {plates: this.categories[i].plates, category: category}});
   }
 

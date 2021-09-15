@@ -42,7 +42,7 @@
 
     <mat-form-field class="example-full-width">
       <mat-label>Nº de mesa</mat-label>
-      <input type="table" matInput [formControl]="tableFormControl" placeholder="Ej. 10">
+      <input type="number" matInput [formControl]="tableFormControl" placeholder="Ej. 10">
       <mat-error *ngIf="tableFormControl.hasError('required')">
         Nº de mesa obligatorio
       </mat-error>
