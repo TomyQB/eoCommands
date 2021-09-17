@@ -14,13 +14,13 @@ export class CoreComponent implements OnInit {
 
   constructor(private router: Router) {
     router.events.subscribe((val) => {
-      if(this.router.url === "/plateInfo") {
+      if(this.router.url === "/restaurant/plateInfo") {
         this.showOrder = false;
       } else {
         this.showOrder = true;
       }
 
-      if(this.router.url === "/plates"){
+      if(this.router.url === "/restaurant/plates"){
         this.plateUrl = true
       } else {
         this.plateUrl = false

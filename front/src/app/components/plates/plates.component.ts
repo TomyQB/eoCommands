@@ -29,13 +29,13 @@ export class PlatesComponent implements OnInit {
   }
 
   plateInfoView(i: number) {
-    this.router.navigateByUrl("/plateInfo", {state: {plate: this.plates[i]}});
+    this.router.navigateByUrl("/restaurant/plateInfo", {state: {plate: this.plates[i]}});
   }
 
   goCategoriesPage() {
     localStorage.removeItem('plat')
     localStorage.removeItem('cat')
-    this.router.navigateByUrl("/menu/" + localStorage.getItem("name"));
+    this.router.navigateByUrl("/restaurant/menu/" + localStorage.getItem("name"));
   }
 
 }

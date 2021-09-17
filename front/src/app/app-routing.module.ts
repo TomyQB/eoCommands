@@ -20,7 +20,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'restaurant',
     component: CoreComponent,
     children: [
       {
@@ -70,7 +70,7 @@ const routes: Routes = [
     component: LegalComponent
   },
   {
-    path: 'home',
+    path: '',
     component: PaginaPrincipalComponent
   },
   {

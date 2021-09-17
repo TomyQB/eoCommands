@@ -108,7 +108,7 @@ export class PedidoInfoComponent implements OnInit {
   }
 
   goCategoriesPage() {
-    this.router.navigateByUrl("/menu/" + localStorage.getItem("name"));
+    this.router.navigateByUrl("/restaurant/menu/" + localStorage.getItem("name"));
   }
 
 }
