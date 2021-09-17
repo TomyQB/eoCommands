@@ -1,68 +1,37 @@
-
 <mat-toolbar class="primary toolbar displayFM">
   <div class="mail">Info@eorestaurantes.com</div>
-  <div>
-    <button (click)="login()" mat-button>Restaurant login</button>
+  <div class="content-login" (click)="login()">
+    <button mat-button>Login para restaurantes</button>
     <mat-icon>person_outline</mat-icon>
   </div>
 </mat-toolbar>
-<div class="content">
-  <div>
-    <img class="imgMain" alt="cabecera" src="https://res.cloudinary.com/dxxvcl5fe/image/upload/v1629376046/imagen.1_ibaenl.png">
-  </div>
-  <div class="content2">
-    <div class="primary boxlef1">
-      <div class="boxLeft1 imgProperties">
 
-      </div>
-      <div class="textAlign big">
-        <label>
-          ¿Quires que tus
-          clientes hagan su
-          pedido desde la
-          mesa sin necesidad
-          de un camarero?
-        </label>
-      </div>
-    </div>
-    <div class="textAlign notSoBig">
-      <div style="text-align: center;">
-        <img class="imgQR" alt="cabecera" src="https://res.cloudinary.com/dxxvcl5fe/image/upload/v1631639435/qr_home_sd1ytq.png">
-      </div>
-      <label for="">
-        Ahora, con <strong>éo! restaurantes</strong>, tus clientes pueden scanear
-        tu código QR (que aparece en la mesa o en
-        una tarjetita) y hacer su encargo directamente
-        a barra o cocina desde la mesa
-      </label>
-    </div>
+<div style="width: 100%;">
+  <img style="width: 100%;" alt="cabecera" src="https://res.cloudinary.com/dxxvcl5fe/image/upload/v1629376046/imagen.1_ibaenl.png">
+</div>
+
+<div class="content-body">
+  <div class="imageBody">
+    <img src="https://res.cloudinary.com/dxxvcl5fe/image/upload/v1631871136/foto1_ajvza6.png">
   </div>
 
-  <div class="content2">
-    <div class="textAlign notSoBig">
-      <label for="">
-        A través de <strong>éo! restaurantes</strong> puedes dar el
-        servicio a tus clientes que puedan ir pidiendo su
-        comanda a través del teléfono móvil o tablet.<br><br>
-        El pedido entra en barra o cocina dependiendo
-        de los artículos seleccionados, tan solo tienes
-        que servirlo y finalmente cobrar.
-      </label>
-    </div>
-    <div class="boxRight3 imgProperties">
-    </div>
+  <div class="imageBody">
+    <img alt="cabecera" src="https://res.cloudinary.com/dxxvcl5fe/image/upload/v1631871854/foto2_wak2mv.png">
   </div>
 
-  <div class="content2">
-    <div class="textAlign big primary">
-      <label for="">
-        Si quieres tener este servicio en
-        tu local gastronómico, restaurante, bar, cafetería,
-        confitería, etc. envíanos este
-        formulario y contactaremos contigo...
-      </label>
+  <div class="imageBody">
+    <img alt="cabecera" src="https://res.cloudinary.com/dxxvcl5fe/image/upload/v1631871143/foto3_axfhni.png">
+  </div>
 
-    </div>
+  <div class="imageBody">
+    <img alt="cabecera" src="https://res.cloudinary.com/dxxvcl5fe/image/upload/v1631871146/foto4_dxupad.png">
+  </div>
+
+  <div class="imageBody">
+    <img alt="cabecera" src="https://res.cloudinary.com/dxxvcl5fe/image/upload/v1631871149/foto5_dau7go.png">
+  </div>
+
+  <div class="imageBody">
     <div class="textAlign">
       <div style="width: 80%; text-align: center;">
         <div class="formTitle">
@@ -70,62 +39,27 @@
         </div>
         <mat-form-field class="matForm">
           <mat-label>Nombre</mat-label>
-          <input matInput placeholder="Placeholder" [(ngModel)]="restaurant.name">
+          <input matInput [(ngModel)]="restaurant.name">
         </mat-form-field>
         <mat-form-field class="matForm">
           <mat-label>Email</mat-label>
-          <input matInput placeholder="Placeholder" [(ngModel)]="restaurant.email">
+          <input matInput [(ngModel)]="restaurant.email">
         </mat-form-field>
         <mat-form-field class="matForm">
           <mat-label>Teléfono</mat-label>
-          <input matInput placeholder="Placeholder" [(ngModel)]="restaurant.phone">
+          <input matInput [(ngModel)]="restaurant.phone">
         </mat-form-field>
         <div style="text-align: right;">
           <button class="primary"mat-flat-button (click)="sendMessage()" >Enviar</button>
-
         </div>
       </div>
     </div>
   </div>
+</div>
 
-  <div class="displayF primary footer">
-    <div class="displayF subFooter">
-      <div class="footerText">
-        <img class="imgEnd" alt="cabecera" src="https://res.cloudinary.com/dxxvcl5fe/image/upload/v1631639432/logo_bueno_para_web_zdlhkn.png">
-      </div>
-      <div>
-        <div class="tveoCommunication">
-          Diseño TveoComunicación <br>
-          Todos los derechos reservados.
-        </div>
-        <div class="legalThings">
-          <span [routerLink]="['/terminos']">Terminios y condiciones</span> | <span [routerLink]="['/legal']">Aviso legal</span>
-        </div>
-      </div>
-    </div>
-    <div class="displayF subFooter">
-      <div class="displayFM">
-        <div>
-          <mat-icon>phone</mat-icon><span class="infoContact">+34 601 268 563</span>
-
-        </div>
-        <div>
-          <mat-icon>location_on</mat-icon><span class="infoContact">30009 Murcia. España</span>
-
-        </div>
-        <div>
-          <mat-icon>mail_outline</mat-icon><span class="infoContact">info@eorestaurantes.com</span>
-
-        </div>
-      </div>
-      <div class="displayFM">
-        <div class="hight100">
-          Síguenos en:
-          <img class="infoContact" src="https://res.cloudinary.com/dxxvcl5fe/image/upload/v1631640425/facebook_eoomc1.png" alt="facebook">
-          <img class="infoContact" src="https://res.cloudinary.com/dxxvcl5fe/image/upload/v1631640432/logotipo-de-instagram_jgl7lz.png" alt="instagram">
-        </div>
-      </div>
-    </div>
+<div class="pieWeb-content">
+  <img style="width: 100%;" alt="cabecera" src="https://res.cloudinary.com/dxxvcl5fe/image/upload/v1631887807/pie_de_pagina_nlsjk0.png">
+  <div class="legalThings">
+    <span [routerLink]="['/terminos']">Terminios y condiciones</span> | <span [routerLink]="['/legal']">Aviso legal</span>
   </div>
-
 </div>

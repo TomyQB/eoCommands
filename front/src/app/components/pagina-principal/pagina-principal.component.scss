@@ -1,141 +1,81 @@
 .toolbar{
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
-  padding: 0 50px;
-}
-
-.content{
-  width: 100%;
-  height: 100%;
-}
-
-.imgMain {
+  height: 80px;
   width: 100%;
 }
 
-.content2{
+.mail{
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+}
+
+.content-login{
   display: flex;
-  height: 40%;
-}
-
-.content2>div{
-  width: 50%;
-}
-
-.imgClients{
-  height: 100%;
-}
-
-.boxlef1{
-  display: flex;
-  justify-content: center;
   align-items: center;
 }
+
+.content-body{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  // width: 100%;
+}
+
+.imageBody{
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  // max-width: 500px;
+  width: clamp(20rem, 30.0625vw, 31.25rem);
+}
+
+
+@media screen and (min-width: 500px) {
+  .imageBody{
+    width: clamp(250, 50%, 2000px);
+    flex: 1;
+    padding: 10px;
+  }
+}
+
+// @media screen and (min-width: 1000px) {
+//   .imageBody{
+//     width: clamp(100px, 50%, 2000px);
+//     flex: 1;
+//     padding: 10px;
+//   }
+// }
 
 .textAlign{
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  padding-top: 20px;
 }
 
-.big{
+.formTitle{
   font-size: 30px;
-  line-height: 1.3;
-}
-
-.notSoBig{
-  font-size: 20px;
-  line-height: 1.3;
-}
-
-.boxRight3{
-  background: url(https://res.cloudinary.com/dxxvcl5fe/image/upload/v1629376046/imagen.3_usrf4s.png) no-repeat center ;
-}
-
-.boxLeft1{
-  background: url(https://res.cloudinary.com/dxxvcl5fe/image/upload/v1629376132/imagen.2_cs9jx2.png) no-repeat center ;
-  width: 45%;
-  height: 100%;
-
-}
-.imgProperties{
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
-
-label{
-  width: 60%;
-  text-align: center;
 }
 
 .matForm{
   width: 100%;
 }
 
-.formTitle{
-  font-size: 40px;
-}
-
-.displayF{
-  display: flex;
-  justify-content: space-between;
-}
-
-.displayF>div{
-  width: 45%;
-}
-
-.footer{
-  padding: 15px 30px;
-  margin-top: 20px;
+.pieWeb-content{
+  width: 100%;
+  padding: 10px;
+  position: relative;
+  display: inline-block;
 }
 
 .legalThings{
-  margin-top: 15px;
-}
-
-.displayFM>div{
-  display: flex;
-  align-items: center;
-}
-
-.infoContact{
-  margin-left: 10px;
-}
-
-.hight100{
-  height: 100%;
-}
-
-.subFooter{
-  width: 35%;
-}
-
-.tveoCommunication{
-  font-size: 17px;
-}
-
-@media (max-width: 600px) {
-  .content2{
-    flex-wrap: wrap;
-    height: 300px;
-  }
-
-  .content2>div{
-    width: 100%;
-    height: 150px;
-  }
-}
-
-.imgEnd{
-  width: 35%;
-}
-
-.imgQR{
-  width: 25%;
+  font-size: 1.25vw;
+  color: white;
+  position: absolute;
+  top: 55%;
+  left: 21.5%
 }
 
 
