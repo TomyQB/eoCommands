@@ -17,6 +17,8 @@ public class PedidoDTO {
     private String date;
     private String phoneNumber;
     private int ordersAmount;
+    private boolean haveDrink;
+    private boolean haveFood;
 
     private List<Amount> amounts;
     

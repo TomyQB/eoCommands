@@ -1,5 +1,4 @@
 import { Amount } from "./Amount";
-import { Plate } from "./Plate";
 
 export interface Pedido {
 
@@ -14,4 +13,6 @@ export interface Pedido {
   estado?: string
   hechos?: number
   ordersAmount?: number
+  haveDrink?: boolean
+  haveFood?: boolean
 }

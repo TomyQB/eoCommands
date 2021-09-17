@@ -57,6 +57,9 @@ export class PedidoInfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.pedido.amounts = this.amountServices.amounts
+    this.pedido.haveDrink = this.pedidoService.haveDrink(this.pedido.amounts)
+    this.pedido.haveFood = this.pedidoService.haveFood(this.pedido.amounts)
+    console.log(this.pedido)
   }
 
   finishPedido() {

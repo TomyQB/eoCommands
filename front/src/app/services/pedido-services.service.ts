@@ -1,3 +1,4 @@
+import { Amount } from './../models/Amount';
 import { userRestaurant } from './../models/userRestaurant';
 import { Pedido } from '../models/Pedido';
 import { environment } from './../../environments/environment.prod';
@@ -31,12 +32,29 @@ export class PedidoServicesService {
   }
 
   deletePedidoObjeto(numTable: number) {
-    for(let i = 0; i < this.pedidoObjeto.length; i++) {
+    var i = 0;
+    while(i < this.pedidoObjeto.length) {
       if(this.pedidoObjeto[i].tableNum == numTable) {
         this.pedidoObjeto.splice(i, 1)
-        localStorage.setItem('pedidos', JSON.stringify(this.pedidoObjeto))
-      }
+      } else i++
     }
+    localStorage.setItem('pedidos', JSON.stringify(this.pedidoObjeto))
+  }
+
+  haveDrink(amounts: Amount[]): boolean {
+    for(let a of amounts) {
+      if(a.plate.drink) return true
+    }
+
+    return false
+  }
+
+  haveFood(amounts: Amount[]): boolean {
+    for(let a of amounts) {
+      if(!a.plate.drink) return true
+    }
+
+    return false
   }
 
 }

@@ -20,7 +20,7 @@ export class AmountServicesService {
     }
 
     return this.calculateTotal();
-}
+  }
 
   private comprobateAmountExist(amount: Amount) {
       let repeAmount: Amount
@@ -60,6 +60,6 @@ export class AmountServicesService {
     });
 
     return total;
-}
+  }
 
 }

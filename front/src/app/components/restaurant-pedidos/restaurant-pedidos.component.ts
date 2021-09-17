@@ -1,3 +1,4 @@
+import { AmountServicesService } from './../../services/amount-services.service';
 import { Pedido } from './../../models/Pedido';
 import { PendingOrderService } from './../../services/pending-order.service';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
@@ -21,53 +22,54 @@ export class RestaurantPedidosComponent implements OnInit {
 
   contadorPedidos: number = parseInt(localStorage.getItem('contadorPedidos')!)
 
-  constructor(private pedidoServices: PedidoServicesService, private router: Router, private pendingOrderService: PendingOrderService) { }
+  constructor(private pedidoServices: PedidoServicesService, private router: Router, private pendingOrderService: PendingOrderService, private amountService: AmountServicesService) { }
 
   ngOnInit(): void {
 
-    console.log(this.contadorPedidos)
     this.selectedIndex = parseInt(localStorage.getItem('tab')!)
     this.pedidoServices.getAllPedidos(this.userId).subscribe(data => {
-    this.pedidos = data
-    if(!localStorage.getItem('pedidos')){
+      this.pedidos = data
+      console.log(this.pedidos)
 
-      this.pedidoServices.getAllPedidos(this.userId).subscribe(dataa => {
-      this.pedidos = dataa
+      if(!localStorage.getItem('pedidos')){
 
-      //esto viene de la bd
-      this.pedidos.forEach(hola=>{
-        hola.hechos = 0
-        hola.estado = 'nada'
-        hola.amounts.forEach((element: { servido: boolean; }) => {
-          element.servido = false
-        });
-      })
-      this.pedidoServices.pedidoObjeto = dataa
-      this.pedidoServices.pedidoObjeto.forEach(hola=>{
-        hola.hechos = 0
-        hola.estado = 'nada'
-      })
+        this.pedidoServices.getAllPedidos(this.userId).subscribe(dataa => {
+        this.pedidos = dataa
 
-      localStorage.setItem('pedidos', JSON.stringify(this.pedidoServices.pedidoObjeto))
-      })
+        //esto viene de la bd
+        this.pedidos.forEach(hola=>{
+          hola.hechos = 0
+          hola.estado = 'nada'
+          hola.amounts.forEach((element: { servido: boolean; }) => {
+            element.servido = false
+          });
+        })
+        this.pedidoServices.pedidoObjeto = dataa
+        this.pedidoServices.pedidoObjeto.forEach(hola=>{
+          hola.hechos = 0
+          hola.estado = 'nada'
+        })
 
-    } else if(this.pedidoServices.pedidoObjeto.length === 0) {
-      this.pedidoServices.pedidoObjeto = JSON.parse(localStorage.getItem('pedidos')!)
-      if(this.pedidos.length != this.pedidoServices.pedidoObjeto.length){
+        localStorage.setItem('pedidos', JSON.stringify(this.pedidoServices.pedidoObjeto))
+        })
 
-        this.pedidos.forEach(pedido => {
-          let pedidoDistinto = this.pedidoServices.pedidoObjeto.findIndex(ped => pedido.id == ped.id)
-          if(pedidoDistinto < 0) {
-            this.pedidoServices.pedidoObjeto.push(pedido)
+      } else if(this.pedidoServices.pedidoObjeto.length === 0) {
+        this.pedidoServices.pedidoObjeto = JSON.parse(localStorage.getItem('pedidos')!)
+        if(this.pedidos.length != this.pedidoServices.pedidoObjeto.length){
+
+          this.pedidos.forEach(pedido => {
+            let pedidoDistinto = this.pedidoServices.pedidoObjeto.findIndex(ped => pedido.id == ped.id)
+            if(pedidoDistinto < 0) {
+              this.pedidoServices.pedidoObjeto.push(pedido)
+            }
+          });
+
+            localStorage.setItem('pedidos', JSON.stringify(this.pedidoServices.pedidoObjeto))
+
           }
-        });
 
-          localStorage.setItem('pedidos', JSON.stringify(this.pedidoServices.pedidoObjeto))
-
-        }
-
-    }
-  })
+      }
+    })
 
     this.pendingOrderService.getAllPendingOrder(this.userId).subscribe(data => {
       this.pendingOrders = data

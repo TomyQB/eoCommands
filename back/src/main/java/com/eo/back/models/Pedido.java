@@ -34,6 +34,8 @@ public class Pedido {
     private String phoneNumber;
     private String estado;
     private int hechos;
+    private boolean haveDrink;
+    private boolean haveFood;
 
     @ManyToOne
     @JsonIgnore

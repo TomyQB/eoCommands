@@ -9,7 +9,7 @@
   </div>
 
   <div *ngFor="let pedido of pedidoServices.pedidoObjeto; let i = index" (click)="plateView(pedido, i)" class="estado{{pedido.estado}}">
-    <div class="displayFlex tableTime">
+    <div class="displayFlex tableTime" *ngIf="pedido.haveFood">
       <div class="center33">{{pedido.tableNum}}</div>
       <div class="center33">{{pedido.date}}</div>
       <div class="center33">{{pedido.hechos}}/{{pedido.amounts.length}}</div>
