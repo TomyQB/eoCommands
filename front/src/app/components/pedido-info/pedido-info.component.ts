@@ -94,7 +94,7 @@ export class PedidoInfoComponent implements OnInit {
     this.pedido.numTable = this.tableFormControl.value
     this.pedido.phoneNumber = this.phoneFormControl.value
 
-    if(this.pedido.email && this.pedido.numTable && this.pedido.numTable) {
+    if(this.pedido.email && this.pedido.numTable && !isNaN(this.pedido.numTable)) {
       this.emailService.sendMessage(this.pedido.email).subscribe(data => {
         const dialogRef = this.dialog.open(ModalPhoneComponent, this.dialogConfig)
         dialogRef.componentInstance.code = data
@@ -104,9 +104,7 @@ export class PedidoInfoComponent implements OnInit {
           }
         })
       })
-    } else {
-      alert("Rellena todos los campos")
-    }
+    } else alert("Rellena todos los campos correctamente")
   }
 
   goCategoriesPage() {

@@ -20,6 +20,7 @@ public class CategoryConverter extends AbstractConverter<Category, CategoryDTO> 
         if(dto.getId() != 0) category.setId(dto.getId());
         category.setName(dto.getName());
         category.setImage(dto.getImage());
+        category.setIdImage(dto.getIdImage());
         category.setRestaurant(restaurantServices.getRestaurantById(dto.getRestaurant()));
 
         return category;

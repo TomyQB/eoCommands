@@ -1,9 +1,11 @@
+import { Image } from './../../../models/image';
 import { MenuServicesService } from './../../../services/menu-services.service';
 import { ImageService } from './../../../services/image.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { CategoryDTO } from 'src/app/models/CategoryDTO';
 import { Router } from '@angular/router';
+// import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-categories-create',
@@ -12,29 +14,32 @@ import { Router } from '@angular/router';
 })
 export class CategoriesCreateComponent implements OnInit {
 
+  @ViewChild('imagenInputFile', {static: false}) imagenFile!: ElementRef
+
   images: any
+  imagen: File | undefined
+  imagenMin: File | undefined
 
   category: CategoryDTO = {
     name: "",
     restaurant: parseInt(localStorage.getItem('userId')!),
-    image: ""
+    image: "",
+    idImage: ""
   }
 
   nameFormControl = new FormControl('', [
     Validators.required,
   ]);
 
-  constructor(private imageService: ImageService, private menuService: MenuServicesService, private router: Router) { }
+  constructor(private imageService: ImageService, private menuService: MenuServicesService, private router: Router/*, private spinner: NgxSpinnerService*/) { }
 
   ngOnInit(): void {
+    console.log(this.category.restaurant)
     if(JSON.parse(localStorage.getItem('editCategory')!)) {
       this.category.image = JSON.parse(localStorage.getItem('editCategory')!).image
       this.nameFormControl.setValue(JSON.parse(localStorage.getItem('editCategory')!).name)
       this.category.id = JSON.parse(localStorage.getItem('editCategory')!).id
-      console.log(this.category)
     }
-      // this.category.image = history.state.category.image
-      // this.category.id = history.state.category.id
 
     this.imageService.getImages().subscribe(data => {
       this.images = data
@@ -51,13 +56,45 @@ export class CategoriesCreateComponent implements OnInit {
     this.category.image = image
   }
 
+  uploadPhoto() {
+    if(this.imagen != undefined) {
+      this.imageService.upload(this.imagen!).subscribe(data => {
+        this.category.image = data.image
+        this.category.idImage = data.idImage
+        this.createCategory();
+      })
+    } else this.createCategory();
+
+  }
+
   createCategory() {
-    if(this.category.image != "" && this.nameFormControl.value != "") {
+    if((this.category.image != "" || this.imagen != undefined) && this.nameFormControl.value != "") {
       this.category.name = this.nameFormControl.value
       this.menuService.addCategory(this.category).subscribe(data => {
         this.router.navigateByUrl("/adminCategories");
       })
+    } else alert("Nombre y foto obligatios")
+  }
+
+  onUpload() {
+
+  }
+
+  onFileChange(event: any) {
+    console.log("estoy")
+    this.imagen = event.target.files[0]
+    console.log(this.imagen)
+    const fr = new FileReader();
+    fr.onload = (evento: any) => {
+      this.imagenMin = evento.target.result
     }
+    fr.readAsDataURL(this.imagen!)
+  }
+
+  reset() {
+    this.imagen = undefined
+    this.imagenMin = undefined
+    this.imagenFile.nativeElement.value = ""
   }
 
 }

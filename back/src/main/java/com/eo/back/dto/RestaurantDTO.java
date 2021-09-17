@@ -9,4 +9,7 @@ public class RestaurantDTO {
     
     private long id;
     private int ordersAmount;
+    private String image;
+    private String idImage;
+    private String name;
 }

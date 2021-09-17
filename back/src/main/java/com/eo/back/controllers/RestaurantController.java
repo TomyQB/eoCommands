@@ -1,7 +1,12 @@
 package com.eo.back.controllers;
 
+import java.io.IOException;
+
+import com.eo.back.convert.RestaurantConverter;
 import com.eo.back.dto.FormMessageDTO;
+import com.eo.back.dto.RestaurantDTO;
 import com.eo.back.models.Restaurant;
+import com.eo.back.services.CloudinaryService;
 import com.eo.back.services.RestaurantServices;
 import com.eo.back.services.Email.FormEmailService;
 import com.eo.back.services.Email.PedidoEmailService;
@@ -22,7 +27,7 @@ public class RestaurantController {
     private RestaurantServices restaurantServices;
     
     @Autowired
-    private PedidoEmailService pedidoEmailService;
+    private CloudinaryService cloudinaryService;
     
     @Autowired
     private FormEmailService formEmailService;
@@ -32,6 +37,15 @@ public class RestaurantController {
         Restaurant restaurant = restaurantServices.getRestaurantByName(restaurantName);
         restaurant.setOrders(null);
         return new ResponseEntity<Restaurant>(restaurant, HttpStatus.OK);
+    }
+
+    @PostMapping("/photoRestaurant")
+    public void uploadPhotoRestaurant(@RequestBody RestaurantDTO restaurantDTO) throws IOException {
+        Restaurant restaurant = restaurantServices.getRestaurantById(restaurantDTO.getId());
+        if(restaurant.getIdImage() != null) cloudinaryService.delete(restaurant.getIdImage());
+        restaurant.setImage(restaurantDTO.getImage());
+        restaurant.setIdImage(restaurantDTO.getIdImage());
+        restaurantServices.saveRestaurant(restaurant);
     }
 
     @PostMapping("/form")

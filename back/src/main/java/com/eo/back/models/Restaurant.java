@@ -28,6 +28,7 @@ public class Restaurant {
 
     private String name;
     private String image;
+    private String idImage;
     private int ordersAmount;
 
     @OneToOne

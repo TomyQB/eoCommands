@@ -20,11 +20,11 @@ export class PlatesAdminComponent implements OnInit {
   category: Category = JSON.parse(localStorage.getItem('category')!)
 
   // Para hacer tests
-  cat: CategoryDTO = {
-    name: "",
-    restaurant: 0,
-    image: ""
-  }
+  // cat: CategoryDTO = {
+  //   name: "",
+  //   restaurant: 0,
+  //   image: ""
+  // }
 
   plateDTO: PlateDTO = {
     category: 1,

@@ -35,6 +35,10 @@ public class RestaurantServices {
         return this.getRestaurantById(id).getOrders();
     }
 
+    public void saveRestaurant(Restaurant restaurant) {
+        repository.save(restaurant);
+    }
+
     public void updateOrdersAmount(long id) {
         Restaurant restaurant = this.getRestaurantById(id);
         int ordersAmount = restaurant.getOrdersAmount() + 1;

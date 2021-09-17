@@ -1,11 +1,14 @@
 package com.eo.back.controllers;
 
 import java.util.List;
+import java.io.IOException;
+import java.util.Map;
 
 import com.eo.back.convert.CategoryConverter;
 import com.eo.back.dto.CategoryDTO;
 import com.eo.back.models.Category;
 import com.eo.back.services.CategoryServices;
+import com.eo.back.services.CloudinaryService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,6 +30,10 @@ public class CategoryController {
     
     @Autowired
     private CategoryConverter categoryConverter;
+    
+    @Autowired
+    private CloudinaryService cloudinaryService;
+
 
     @GetMapping("/menu/{restaurantName}")
     public ResponseEntity<List<Category>> getCategories(@PathVariable String restaurantName){
@@ -41,9 +48,9 @@ public class CategoryController {
     }
 
     @PostMapping("/deleteCategory")
-    public void deleteCategory(@RequestBody long id) {
-        categoryServices.deleteCategory(id);
+    public void deleteCategory(@RequestBody CategoryDTO categoryDTO) throws IOException {
+        categoryServices.deleteCategory(categoryDTO.getId());
+        if(!categoryDTO.getIdImage().equals("")) cloudinaryService.delete(categoryDTO.getIdImage());
     }
-    
     
 }

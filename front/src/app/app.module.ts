@@ -32,6 +32,7 @@ import { PlatesCreateComponent } from './components/admin/plates-create/plates-c
 import { PlatesAdminComponent } from './components/admin/plates-admin/plates-admin.component';
 import { CategoriesAdminComponent } from './components/admin/categories-admin/categories-admin.component';
 import { ModalDeleteComponent } from './components/modal-delete/modal-delete.component';
+// import { NgxSpinnerModule} from 'ngx-spinner';
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,7 +66,7 @@ import { ModalDeleteComponent } from './components/modal-delete/modal-delete.com
     HttpClientModule,
     BrowserAnimationsModule,
     MaterialModule,
-    NgxStripeModule.forRoot('pk_test_51HZwJtDRmiSLFsD4v5RcApqDX0kKokCoEQzNnnYhwydPSAjF2kqDDX0jYVaz3FOLU1rLbqvAh81QY7xahTxev1Io004DUUbSbT')
+    // NgxSpinnerModule,
   ],
   entryComponents: [ModalPhoneComponent],
   providers: [],

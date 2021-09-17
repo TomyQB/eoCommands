@@ -1,4 +1,5 @@
-import { CategoryDTO } from './../models/CategoryDTO';
+import { CategoryDTO } from 'src/app/models/CategoryDTO';
+import { Observable } from 'rxjs';
 import { environment } from './../../environments/environment.prod';
 import { Injectable } from '@angular/core';
 
@@ -18,11 +19,18 @@ export class MenuServicesService {
     return this.http.get<any>(this.Url + "menu/" + restaurantName)
   }
 
-  addCategory(category: CategoryDTO) {
+  addCategory(category: CategoryDTO): Observable<any> {
     return this.http.post<any>(this.Url + "createCategory", category)
   }
 
-  deleteCategory(id: number) {
-    return this.http.post<any>(this.Url + "deleteCategory", id)
+  deleteCategory(id: number, idImage: string) {
+    const category: CategoryDTO = {
+      id: id,
+      idImage: idImage,
+      image: "",
+      name: "",
+      restaurant: 0
+    }
+    return this.http.post<any>(this.Url + "deleteCategory", category)
   }
 }

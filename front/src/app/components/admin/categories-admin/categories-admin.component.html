@@ -1,7 +1,26 @@
 <div class="content-img">
-  <img class="imgRestaurant" src={{image}} />
+  <img class="imgRestaurant" src={{restaurant.image}} alt="Su restaurante aun no tiene foto" />
   <img class="imgLogo" src="https://res.cloudinary.com/dxxvcl5fe/image/upload/v1628612145/logo_xpn8e3.png" />
 </div>
+
+<form (ngSubmit)="onUpload()" novalidate enctype="multipart/form-data" class="uploadImg">
+  <div class="custom-file">
+    <div class="file-text">
+      <label class="custom-file-label" for="imagen">Elige una imagen en formato png o jpg</label>
+    </div>
+    <input type="file" class="custom-file-input" id="imagen" #imagenInputFile
+    (change)="onFileChange($event)" accept="image/png, image/jpeg">
+  </div>
+  <div *ngIf="imagen" class="mt-5">
+    <div>
+      <img class="image-thumbnail imagenMin" [src]="imagenMin">
+    </div>
+  </div>
+  <div class="form-group d-flex justify-content-between buttonPhoto">
+    <button mat-raised-button class="primary left" [disabled]="!imagen" (click)="uploadPhoto()">Subir foto</button>
+    <button mat-raised-button class="primary right" [disabled]="!imagen" (click)="reset()">Cancelar</button>
+  </div>
+</form>
 
 <div class="content-title">
   ¡Haz tu pedido a cocina!

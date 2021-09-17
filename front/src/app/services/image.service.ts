@@ -15,4 +15,11 @@ export class ImageService {
   getImages() {
     return this.http.get<any>(this.Url + "getImages")
   }
+
+  public upload(imagen: File) {
+    const formData = new FormData();
+    formData.append('multipartFile', imagen);
+    console.log("foto va")
+    return this.http.post<any>(this.Url + 'uploadCloudinary', formData);
+  }
 }

@@ -44,9 +44,11 @@ export class LoginComponent implements OnInit {
       console.log(data)
       if(data != null) {
         this.router.navigateByUrl("/restaurantPedidos");
+        console.log(data)
         localStorage.setItem('userId', data.id.toString())
         localStorage.setItem('rname', data.name)
         localStorage.setItem('image', data.image)
+        localStorage.setItem('idImage', data.idImage)
         localStorage.setItem('contadorPedidos', data.ordersAmount.toString())
       } else {
         alert("email o contraseña incorectos")
