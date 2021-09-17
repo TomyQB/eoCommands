@@ -19,33 +19,21 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  // width: 100%;
 }
 
 .imageBody{
   display: flex;
   flex-direction: column;
   flex-basis: 100%;
-  // max-width: 500px;
-  width: clamp(20rem, 30.0625vw, 31.25rem);
+  width: clamp(20rem, 30.0625vw, 700px);
 }
 
 
-@media screen and (min-width: 500px) {
+@media screen and (min-width: 650px) {
   .imageBody{
-    width: clamp(250, 50%, 2000px);
-    flex: 1;
-    padding: 10px;
+    flex-basis: 50%;
   }
 }
-
-// @media screen and (min-width: 1000px) {
-//   .imageBody{
-//     width: clamp(100px, 50%, 2000px);
-//     flex: 1;
-//     padding: 10px;
-//   }
-// }
 
 .textAlign{
   display: flex;
