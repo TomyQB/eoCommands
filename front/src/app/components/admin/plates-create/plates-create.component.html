@@ -28,6 +28,35 @@
   <textarea style="width: 80%; height: 100px; margin-bottom: 20px;" placeholder="Escribe algo relevante del plato, ingredientes, alergias, elaboración..." ng-model="string" ng-name="text" #description>{{plate.description}}</textarea>
 </div>
 
+<div class="infoPlate" style="text-align: center;">
+  Extras
+</div>
+
+<div style="padding-left: 20px;" *ngIf="isDisable == 'true'">Antes de añadir extras debe crear el plato</div>
+
+<mat-list style="padding: 20px;">
+  <div>
+    <div *ngFor="let a of additional; let i = index">
+      <div class="list-item">
+        <div style="width: 40%;">{{a.name}}</div>
+        <div class="list-item-noname">
+          <div class="listpriceAmount">
+            <div class="listprice">{{a.price}}€</div>
+          </div>
+
+          <span (click)="deleteAdditional(a.id!)" class="material-icons"> delete</span>
+          <span (click)="editAdditional(a)" class="material-icons">edit</span>
+        </div>
+      </div>
+      <mat-divider class="border"></mat-divider>
+    </div>
+  </div>
+  <div class="list-item {{isDisable}}" (click)="createAdditional()">
+    <div>Añadir extra</div>
+  </div>
+  <mat-divider class="border"></mat-divider>
+</mat-list>
+
 <div style="text-align: center;">
   <mat-radio-group
     aria-labelledby="example-radio-group-label"

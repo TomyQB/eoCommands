@@ -19,8 +19,14 @@
         </div>
       </div>
 
-      <div class="displayFlex description" *ngIf="!amount.plate.drink">
-        {{amount.description}}
+      <div class="description">
+        <div *ngFor="let e of amount.extras">
+          {{e.name}}
+        </div>
+        <br>
+        <div>
+          {{amount.description}}
+        </div>
       </div>
       <mat-divider></mat-divider>
     </div>

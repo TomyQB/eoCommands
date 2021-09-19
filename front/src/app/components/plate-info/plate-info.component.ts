@@ -33,6 +33,7 @@ export class PlateInfoComponent implements OnInit {
   constructor(private amountServices: AmountServicesService,private hashService: HashService, private location: Location, private totalObservableService: TotalObservableService) { }
 
   ngOnInit(): void {
+    console.log(this.amount)
     this.hash = this.hashService.getElementByName(this.amount.plate.name)
     this.amount.amount = this.hash.amount;
     this.amount.extras = this.hash.extras;
@@ -63,16 +64,20 @@ export class PlateInfoComponent implements OnInit {
   addExtra(additional: Additional){
     if(this.extrasDisable === false){
 
-      if(this.amount.extras.findIndex(extra => extra.id === additional.id) >= 0) {
+      if(this.amount.extras.findIndex(extra => extra.name === additional.name) >= 0) {
         for(let i = 0; i < this.amount.extras.length; i++) {
-          if(this.amount.extras[i].id == additional.id){
+          if(this.amount.extras[i].name == additional.name){
             this.amount.extras.splice(i, 1)
           }
         }
 
         this.calculateSubTotalDeductExtras(additional.price)
       } else {
-        this.amount.extras.push(additional)
+        const extraTemp = {
+          name: additional.name,
+          price: additional.price
+        }
+        this.amount.extras.push(extraTemp)
         this.calculateSubTotalAddExtras(additional.price)
       }
     }

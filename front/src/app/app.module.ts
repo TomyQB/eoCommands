@@ -32,6 +32,7 @@ import { PlatesCreateComponent } from './components/admin/plates-create/plates-c
 import { PlatesAdminComponent } from './components/admin/plates-admin/plates-admin.component';
 import { CategoriesAdminComponent } from './components/admin/categories-admin/categories-admin.component';
 import { ModalDeleteComponent } from './components/modal-delete/modal-delete.component';
+import { ExtrasCreateComponent } from './components/admin/extras-create/extras-create.component';
 // import { NgxSpinnerModule} from 'ngx-spinner';
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { ModalDeleteComponent } from './components/modal-delete/modal-delete.com
     PlatesAdminComponent,
     CategoriesAdminComponent,
     ModalDeleteComponent,
+    ExtrasCreateComponent,
   ],
   imports: [
     BrowserModule,

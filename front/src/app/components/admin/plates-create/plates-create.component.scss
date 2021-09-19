@@ -1,3 +1,7 @@
+.true{
+  background-color: grey;
+  pointer-events: none;
+}
 
 .info-header{
   display: flex;
@@ -31,4 +35,32 @@
   text-align: center;
   margin-top: 20px;
   padding-bottom: 20px;
+}
+
+.list-item{
+  display: flex;
+  // justify-content: space-between;
+  padding: 10px;
+  // width: 20%;
+}
+
+.list-item-noname{
+  display: flex;
+  width: 100%;
+  // align-items: right;
+  justify-content: right;
+  // padding: 10px;
+}
+
+.listpriceAmount{
+  display: flex;
+  justify-content: center;
+}
+
+.listprice{
+  padding-right: 13px;
+}
+
+.border{
+  border-color: #9CCB3B;
 }

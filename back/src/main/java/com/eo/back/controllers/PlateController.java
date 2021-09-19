@@ -22,7 +22,12 @@ public class PlateController {
     
     @Autowired
     private PlateConverter plateConverter;
-    
+        
+    @PostMapping("/getPlate")
+    public Plate getPlateById(@RequestBody long id) {
+        return plateService.getPlateById(id);
+    }
+
     @PostMapping("/getPlates")
     public List<Plate> getPlates(@RequestBody long categoryId) {
         return plateService.getPlateByCategoryId(categoryId);

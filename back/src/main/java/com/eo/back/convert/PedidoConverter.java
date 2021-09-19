@@ -42,6 +42,7 @@ public class PedidoConverter extends AbstractConverter<Pedido, PedidoDTO>{
             if(amount.getExtras() != null) {
                 for (Extra extra : amount.getExtras()) {
                     extra.setAmount(amount);
+                    System.out.println(extra);
                 }
             }
         }

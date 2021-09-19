@@ -2,6 +2,7 @@ package com.eo.back.services.Email;
 
 import com.eo.back.dto.FormMessageDTO;
 import com.eo.back.models.Amount;
+import com.eo.back.models.Extra;
 import com.eo.back.models.Pedido;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,10 @@ public class PedidoEmailService extends AbstractEmailService<Pedido> {
         message += "______________________________\n\n";
 
         for (Amount a : pedido.getAmounts()) {
-            message += a.getAmount() + " " + a.getPlate().getName() + " " + a.getPlate().getPrice() + "€" + " = " + a.getSubTotal() + "€\n";
+            message += a.getAmount() + " " + a.getPlate().getName() + " " + a.getPlate().getPrice() + "€ " + " = " + a.getSubTotal() + "€\n";
+            for(Extra e : a.getExtras()) {
+                message += "\t" + e.getName() + " " + e.getPrice() + "€\n";
+            }
         }
         
         message += "\nTotal = " + pedido.getTotal() + "€\n\n";

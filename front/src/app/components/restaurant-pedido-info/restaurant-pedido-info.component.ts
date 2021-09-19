@@ -16,6 +16,7 @@ export class RestaurantPedidoInfoComponent implements OnInit {
   constructor(public pedidoServices: PedidoServicesService) { }
 
   ngOnInit(): void {
+    console.log(this.pedido)
     this.pedidoServices.pedidoObjeto = JSON.parse(localStorage.getItem('pedidos')!)
     localStorage.setItem('tab', "0");
   }

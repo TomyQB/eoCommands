@@ -16,18 +16,11 @@ import { ModalDeleteComponent } from '../../modal-delete/modal-delete.component'
 })
 export class PlatesAdminComponent implements OnInit {
 
-  plates!: Plate[] /*= JSON.parse(localStorage.getItem('plates')!)*/
+  plates!: Plate[]
   category: Category = JSON.parse(localStorage.getItem('category')!)
 
-  // Para hacer tests
-  // cat: CategoryDTO = {
-  //   name: "",
-  //   restaurant: 0,
-  //   image: ""
-  // }
-
   plateDTO: PlateDTO = {
-    category: 1,
+    category: 0,
     description: "",
     drink: true,
     name: "",
@@ -50,17 +43,16 @@ export class PlatesAdminComponent implements OnInit {
   }
 
   createPlate() {
+    localStorage.setItem('categoryIdAdmin', this.category.id.toString())
     this.router.navigateByUrl("/adminPlatesCreate", {state: {category: this.category.id}});
   }
 
 
-  deletePlate(plate: Plate, index: number) {
+  deletePlate(plate: Plate) {
     console.log(plate)
     const dialogRef = this.dialog.open(ModalDeleteComponent, this.dialogConfig)
     dialogRef.afterClosed().subscribe(res => {
       if(res) {
-        this.plates.splice(index, 1);
-        localStorage.setItem('plates', JSON.stringify(this.plates))
         this.plateService.deletePlate(plate.id).subscribe(data => {
           window.location.reload();
         })
@@ -69,6 +61,8 @@ export class PlatesAdminComponent implements OnInit {
   }
 
   editPlate(plate: Plate) {
+    localStorage.setItem('plateIdAdmin', plate.id.toString())
+    localStorage.setItem('categoryIdAdmin', this.category.id.toString())
     this.router.navigateByUrl("/adminPlatesCreate", {state: {plate: plate, category: this.category.id}});
   }
 
@@ -83,37 +77,6 @@ export class PlatesAdminComponent implements OnInit {
 
   goCategoriesAdmin() {
     this.router.navigateByUrl("/adminCategories");
-  }
-
-  addCategoryAndPlates() {
-    console.log("hola")
-
-    // AÑADIR CATEGORÍA
-    // this.menuService.addCategory(this.cat).subscribe(data => {
-
-    // })
-
-    // ELIMINAR CATEGORÍA
-    // this.menuService.deleteCategory(16).subscribe(data => {
-
-    // })
-
-
-
-    // AÑADIR PLATO
-    // this.plateService.addPlate(this.plat).subscribe(data => {
-
-    // })
-
-    // ELIMINAR PLATO
-    // this.plateService.deletePlate(119).subscribe(data => {
-
-    // })
-
-    // CAMBIAR DISPONIBILIDAD DEL PLATO
-    // this.plateService.updatePlate(this.plat).subscribe(data => {
-
-    // })
   }
 
 }

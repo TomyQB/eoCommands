@@ -1,0 +1,25 @@
+<div class="info-header paddingGeneral">
+  <div style="font-size: 20px;">
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <mat-label>Nombre del extra</mat-label>
+        <input type="text" matInput [formControl]="nameFormControl">
+        <mat-error *ngIf="nameFormControl.hasError('required')">
+          Nombre obligatorio
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Precio</mat-label>
+        <input type="number" matInput [formControl]="priceFormControl">
+        <mat-error *ngIf="nameFormControl.hasError('required')">
+          Precio obligatorio
+        </mat-error>
+      </mat-form-field>
+    </form>
+  </div>
+</div>
+
+<div class="button-end-order">
+  <button mat-raised-button class="primary" (click)="createAdditional()">Crear extra</button>
+</div>

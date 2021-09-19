@@ -1,3 +1,4 @@
+import { ExtrasCreateComponent } from './components/admin/extras-create/extras-create.component';
 import { PlatesAdminComponent } from './components/admin/plates-admin/plates-admin.component';
 import { CategoriesAdminComponent } from './components/admin/categories-admin/categories-admin.component';
 import { PlatesCreateComponent } from './components/admin/plates-create/plates-create.component';
@@ -88,6 +89,10 @@ const routes: Routes = [
   {
     path: 'adminPlatesCreate',
     component: PlatesCreateComponent
+  },
+  {
+    path: 'adminExtrasCreate',
+    component: ExtrasCreateComponent
   },
 
 ];
