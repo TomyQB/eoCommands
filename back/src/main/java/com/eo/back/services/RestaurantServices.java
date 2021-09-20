@@ -15,6 +15,10 @@ public class RestaurantServices {
     @Autowired
     private RestaurantRepository repository;
 
+    public List<Restaurant> getAllRestaurants() {
+        return repository.findAll();
+    }
+
     public Restaurant getRestaurantById(long id) {
         return repository.getById(id);
     }

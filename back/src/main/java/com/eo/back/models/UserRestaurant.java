@@ -26,14 +26,15 @@ public class UserRestaurant {
     private String email;
     private String phone;
     private String password;
+    private String iban;
 
     @OneToOne(mappedBy = "userRestaurant")
     @JsonIgnore
     private Restaurant restaurant;
 
-    @Override
-    public String toString() {
-        return "UserRestaurant [id=" + id + ", name=" + name + "]";
-    }
+    // @Override
+    // public String toString() {
+    //     return "UserRestaurant [id=" + id + ", name=" + name + ", email=" + email + ", IBAN=" + IBAN + "]";
+    // }
 
 }

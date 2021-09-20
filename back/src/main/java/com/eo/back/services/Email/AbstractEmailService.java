@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 @Service
 public abstract class AbstractEmailService<E> {
 
-    public abstract void sendEmail(E pedido);
+    public abstract void sendEmail(E e);
     
-    public abstract String createMessage(E pedido);
+    public abstract String createMessage(E e);
     
 }
