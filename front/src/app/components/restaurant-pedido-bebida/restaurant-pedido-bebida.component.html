@@ -22,7 +22,7 @@
       <div class="displayFlex description" *ngIf="amount.plate.drink">
         {{amount.description}}
       </div>
-      <mat-divider></mat-divider>
+      <mat-divider *ngIf="amount.plate.drink"></mat-divider>
     </div>
   </div>
 </mat-list>

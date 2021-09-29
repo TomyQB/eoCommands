@@ -19,7 +19,7 @@
         </div>
       </div>
 
-      <div class="description">
+      <div class="description" *ngIf="!amount.plate.drink">
         <div *ngFor="let e of amount.extras">
           {{e.name}}
         </div>
@@ -28,7 +28,7 @@
           {{amount.description}}
         </div>
       </div>
-      <mat-divider></mat-divider>
+      <mat-divider *ngIf="!amount.plate.drink"></mat-divider>
     </div>
 
   </div>
