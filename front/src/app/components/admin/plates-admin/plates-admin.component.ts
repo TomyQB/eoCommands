@@ -17,7 +17,7 @@ import { ModalDeleteComponent } from '../../modal-delete/modal-delete.component'
 export class PlatesAdminComponent implements OnInit {
 
   plates!: Plate[]
-  category: Category = JSON.parse(localStorage.getItem('category')!)
+  category: Category = JSON.parse(sessionStorage .getItem('category')!)
 
   plateDTO: PlateDTO = {
     category: 0,
@@ -43,7 +43,7 @@ export class PlatesAdminComponent implements OnInit {
   }
 
   createPlate() {
-    localStorage.setItem('categoryIdAdmin', this.category.id.toString())
+    sessionStorage .setItem('categoryIdAdmin', this.category.id.toString())
     this.router.navigateByUrl("/adminPlatesCreate", {state: {category: this.category.id}});
   }
 
@@ -61,8 +61,8 @@ export class PlatesAdminComponent implements OnInit {
   }
 
   editPlate(plate: Plate) {
-    localStorage.setItem('plateIdAdmin', plate.id.toString())
-    localStorage.setItem('categoryIdAdmin', this.category.id.toString())
+    sessionStorage .setItem('plateIdAdmin', plate.id.toString())
+    sessionStorage .setItem('categoryIdAdmin', this.category.id.toString())
     this.router.navigateByUrl("/adminPlatesCreate", {state: {plate: plate, category: this.category.id}});
   }
 
@@ -71,7 +71,7 @@ export class PlatesAdminComponent implements OnInit {
     this.plateDTO.available = isDisponible
     this.plateService.updatePlate(this.plateDTO).subscribe(data => {
       this.plates[index].available = isDisponible
-      localStorage.setItem('plates', JSON.stringify(this.plates))
+      sessionStorage .setItem('plates', JSON.stringify(this.plates))
     })
   }
 

@@ -4,6 +4,7 @@ import { environment } from './../../environments/environment.prod';
 import { Injectable } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http'
+import { RestaurantLogin } from '../models/RestaurantLogin';
 
 @Injectable({
   providedIn: 'root'
@@ -24,5 +25,9 @@ export class RestaurantService {
 
   sendFormMessage(dto: RestaurantFormMainPage) {
     return this.http.post<any>(this.Url + "form", dto)
+  }
+
+  login(user: RestaurantLogin) {
+    return this.http.post<any>(this.Url + "login", user)
   }
 }

@@ -10,15 +10,15 @@ import { PedidoServicesService } from '../../services/pedido-services.service'
 export class RestaurantPedidoInfoComponent implements OnInit {
 
 
-  pedido: any = JSON.parse(localStorage.getItem('pedidoInfoPlates')!)
-  indexs: number = parseInt(localStorage.getItem('index')!)
+  pedido: any = JSON.parse(sessionStorage .getItem('pedidoInfoPlates')!)
+  indexs: number = parseInt(sessionStorage .getItem('index')!)
 
   constructor(public pedidoServices: PedidoServicesService) { }
 
   ngOnInit(): void {
     console.log(this.pedido)
-    this.pedidoServices.pedidoObjeto = JSON.parse(localStorage.getItem('pedidos')!)
-    localStorage.setItem('tab', "0");
+    this.pedidoServices.pedidoObjeto = JSON.parse(sessionStorage .getItem('pedidos')!)
+    sessionStorage .setItem('tab', "0");
   }
 
   ngOnDestroy(): void {
@@ -45,9 +45,9 @@ export class RestaurantPedidoInfoComponent implements OnInit {
 
     this.pedidoServices.pedidoObjeto[this.indexs].amounts[i].servido = !servido
     console.log(this.pedidoServices.pedidoObjeto[this.indexs].amounts[i].servido)
-    localStorage.setItem('pedidos', JSON.stringify(this.pedidoServices.pedidoObjeto))
+    sessionStorage .setItem('pedidos', JSON.stringify(this.pedidoServices.pedidoObjeto))
 
-    console.log(JSON.parse(localStorage.getItem('pedidos')!))
+    console.log(JSON.parse(sessionStorage .getItem('pedidos')!))
 
   }
 

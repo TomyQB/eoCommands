@@ -24,21 +24,21 @@ public class AdminEmailService extends AbstractEmailService<List<Restaurant>> {
         SimpleMailMessage message = new SimpleMailMessage(); 
         message.setFrom("noreply@baeldung.com");
         for (Restaurant restaurant : restaurants) {
-            message.setTo(restaurant.getUserRestaurant().getEmail());
+            message.setTo(restaurant.getEmail());
             message.setSubject("Factura de eorestaurantes en el mes de " + getMonth());
-            message.setText(createMessageCount(restaurant));
-            // emailSender.send(message);
+            // message.setText(createMessageCount(restaurant));
+            emailSender.send(message);
             doPayment();
         } 
         
     }
 
-    private String createMessageCount(Restaurant restaurant) {
-        String message = "En el mes de " + getMonth() + " ha realizado " + restaurant.getOrdersAmount() + " pedidos, se cobra 0.10€ el pedido: \n\n";
-        message += restaurant.getOrdersAmount() + " x 0.10 = " + Math.floor(restaurant.getOrdersAmount()*0.10 * 100) / 100  + "€\n\n";
-        message += "En un plazo máximo de 5 dias le llegara el cargo a su banco a la cuenta: " + restaurant.getUserRestaurant().getIban();
-        return message;
-    } 
+    // private String createMessageCount(Restaurant restaurant) {
+    //     String message = "En el mes de " + getMonth() + " ha realizado " + restaurant.getOrdersAmount() + " pedidos, se cobra 0.10€ el pedido: \n\n";
+    //     message += restaurant.getOrdersAmount() + " x 0.10 = " + Math.floor(restaurant.getOrdersAmount()*0.10 * 100) / 100  + "€\n\n";
+    //     message += "En un plazo máximo de 5 dias le llegara el cargo a su banco a la cuenta: " + restaurant.getIban();
+    //     return message;
+    // } 
 
     private String getMonth() {
         Date date= new Date();

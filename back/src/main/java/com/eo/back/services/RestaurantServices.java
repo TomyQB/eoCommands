@@ -2,6 +2,7 @@ package com.eo.back.services;
 
 import java.util.List;
 
+import com.eo.back.dto.RestaurantLoginDTO;
 import com.eo.back.models.Pedido;
 import com.eo.back.models.Restaurant;
 import com.eo.back.repositories.RestaurantRepository;
@@ -27,12 +28,8 @@ public class RestaurantServices {
         return repository.getRestaurantByName(name);
     }
 
-    public Restaurant getRestaurantByUserId(long userId) {
-        return repository.getRestaurantByUserRestaurantId(userId);
-    }
-
-    public long getRestaurantIdByUserId(long userId) {
-        return repository.getRestaurantByUserRestaurantId(userId).getId();
+    public Restaurant getRestaurantByRestaurantLogin(RestaurantLoginDTO restaurantLoginDTO) {
+        return repository.getRestaurantByEmailAndPassword(restaurantLoginDTO.getEmail(), restaurantLoginDTO.getPassword());
     }
     
     public List<Pedido> getAllPedidos(long id) {
@@ -43,10 +40,10 @@ public class RestaurantServices {
         repository.save(restaurant);
     }
 
-    public void updateOrdersAmount(long id) {
-        Restaurant restaurant = this.getRestaurantById(id);
-        int ordersAmount = restaurant.getOrdersAmount() + 1;
-        restaurant.setOrdersAmount(ordersAmount);
-        repository.save(restaurant);
-    }
+    // public void updateOrdersAmount(long id) {
+    //     Restaurant restaurant = this.getRestaurantById(id);
+    //     int ordersAmount = restaurant.getOrdersAmount() + 1;
+    //     restaurant.setOrdersAmount(ordersAmount);
+    //     repository.save(restaurant);
+    // }
 }

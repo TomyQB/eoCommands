@@ -13,13 +13,13 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Table(name = "restaurant")
-@Setter
-@Getter
+@Data
 public class Restaurant {
     
     @Id
@@ -29,11 +29,11 @@ public class Restaurant {
     private String name;
     private String image;
     private String idImage;
-    private int ordersAmount;
-
-    @OneToOne
-    @JoinColumn(name = "idUserrestaurant")
-    private UserRestaurant userRestaurant;
+    private String userName;
+    private String email;
+    private String phone;
+    private String password;
+    private String iban;
 
     @OneToMany(mappedBy = "restaurant")
     @JsonIgnore
@@ -41,11 +41,5 @@ public class Restaurant {
 
     @OneToMany(mappedBy = "restaurant")
     private List<Pedido> orders;
-
-    @Override
-    public String toString() {
-        return "Restaurant [id=" + id + ", name=" + name + ", ordersAmount=" + ordersAmount + ", userRestaurant="
-                + userRestaurant + "]";
-    }
         
 }

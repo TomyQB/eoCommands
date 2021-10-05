@@ -4,16 +4,16 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import com.eo.back.models.PendingOrder;
+import com.eo.back.models.PendingOrderPlate;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface PendingOrderRepository extends JpaRepository<PendingOrder, Long> {
+public interface PendingOrderRepository extends JpaRepository<PendingOrderPlate, Long> {
 
-    List<PendingOrder> getPendingOrderByRestaurantId(long restaurantId);
-    List<PendingOrder> getPendingOrderByRestaurantIdAndTableNum(long restaurantId, int tableNum);
+    List<PendingOrderPlate> getPendingOrderByRestaurantId(long restaurantId);
+    List<PendingOrderPlate> getPendingOrderByRestaurantIdAndTableNum(long restaurantId, int tableNum);
 
     @Transactional
-    List<PendingOrder> deleteAllPendingOrderByRestaurantIdAndTableNum(long restaurantId, int tableNum);
-    PendingOrder getPendingOrderByPlateNameAndRestaurantIdAndTableNum(String plateName, long restaurantId, int tableNum);
+    List<PendingOrderPlate> deleteAllPendingOrderByRestaurantIdAndTableNum(long restaurantId, int tableNum);
+    PendingOrderPlate getPendingOrderByPlateNameAndRestaurantIdAndTableNum(String plateName, long restaurantId, int tableNum);
 }

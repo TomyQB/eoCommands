@@ -25,7 +25,7 @@ export class TabCuentaComponent implements OnInit {
     email: "",
     numTable: 0,
     phoneNumber: "",
-    restaurantId: parseInt(localStorage.getItem('userId')!),
+    restaurantId: parseInt(sessionStorage .getItem('userId')!),
     total: 0
   }
 
@@ -34,7 +34,7 @@ export class TabCuentaComponent implements OnInit {
     email: "",
     numTable: 0,
     phoneNumber: "",
-    restaurantId: parseInt(localStorage.getItem('userId')!),
+    restaurantId: parseInt(sessionStorage .getItem('userId')!),
     total: 0,
   }
 
@@ -63,10 +63,10 @@ export class TabCuentaComponent implements OnInit {
       this.pedidoDelete.numTable = this.tableFormControl.value
       this.pedidoServices.deletePedidoObjeto(this.pedidoDelete.numTable)
       this.pendingOrderService.deletePendingOrder(this.pedidoDelete).subscribe(data => {
-        localStorage.setItem('tab', "2");
-        var cont = parseInt(localStorage.getItem('contadorPedidos')!)
+        sessionStorage .setItem('tab', "2");
+        var cont = parseInt(sessionStorage .getItem('contadorPedidos')!)
         cont++
-        localStorage.setItem('contadorPedidos', cont.toString())
+        sessionStorage .setItem('contadorPedidos', cont.toString())
         window.location.reload();
       })
     }else {

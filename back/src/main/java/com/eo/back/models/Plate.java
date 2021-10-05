@@ -36,10 +36,6 @@ public class Plate {
     private boolean drink;
     @Nullable
     private boolean isAvailable;
-
-    // @OneToOne(mappedBy = "plate")
-    // @JsonIgnore
-    // private Amount amount;
     
     @ManyToOne
     @JsonIgnore
@@ -51,7 +47,7 @@ public class Plate {
 
     @Override
     public String toString() {
-        return "Plate [additionals=" + additionals /*+ ", amount=" + amount*/ + ", category=" + category + ", description="
+        return "Plate [additionals=" + additionals + ", category=" + category + ", description="
                 + description + ", id=" + id + ", name=" + name + ", price=" + price + "]";
     }
     

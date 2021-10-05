@@ -8,7 +8,7 @@ import { NavigationEnd, Router } from '@angular/router';
 })
 export class CoreComponent implements OnInit {
 
-  restaurantName: string = localStorage.getItem("name")!;
+  restaurantName: string = sessionStorage .getItem("name")!;
   showOrder: boolean = true;
   plateUrl: boolean = false;
 

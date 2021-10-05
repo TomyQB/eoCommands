@@ -5,7 +5,7 @@ añadir plato --> mandar objeto plateDTO (plateService.createPlate)
         description: string,
         drink: boolean,
         category: number,
-    el campo category es de tipo number y hace referencia a la id de la categoria lo tienes en JSON.parse(localStorage.getItem('category')!)
+    el campo category es de tipo number y hace referencia a la id de la categoria lo tienes en JSON.parse(sessionStorage .getItem('category')!)
 
 editar plato --> mandar objeto plateDTO (plateService.createPlate)
     la unica diferencia con el anterior es que añades el campo:

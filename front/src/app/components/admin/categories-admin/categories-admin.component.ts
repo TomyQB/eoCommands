@@ -19,21 +19,21 @@ export class CategoriesAdminComponent implements OnInit {
   @ViewChild('imagenInputFile', {static: false}) imagenFile!: ElementRef
 
   categories!: Category[]
-  // image: string = localStorage.getItem("image")!
-  // idImage: string = localStorage.getItem("idImage")!
+  // image: string = sessionStorage .getItem("image")!
+  // idImage: string = sessionStorage .getItem("idImage")!
 
   restaurant: RestaurantDTO = {
-    id: parseInt(localStorage.getItem('userId')!),
+    id: parseInt(sessionStorage .getItem('userId')!),
     name: "",
     ordersAmount: 0,
-    image: localStorage.getItem("image")!,
-    idImage: localStorage.getItem("idImage")!
+    image: sessionStorage .getItem("image")!,
+    idImage: sessionStorage .getItem("idImage")!
   }
 
   imagen: File | undefined
   imagenMin: File | undefined
 
-  restaurantName: string = localStorage.getItem("rname")!
+  restaurantName: string = sessionStorage .getItem("rname")!
 
   dialogConfig: MatDialogConfig = {
     width: '90%',
@@ -46,7 +46,7 @@ export class CategoriesAdminComponent implements OnInit {
 
     this.menuService.getMenu(this.restaurantName).subscribe(data => {
       this.categories = data
-      localStorage.setItem('idRestaurant', data[0].restaurant.id);
+      sessionStorage .setItem('idRestaurant', data[0].restaurant.id);
     })
   }
 
@@ -56,15 +56,15 @@ export class CategoriesAdminComponent implements OnInit {
 
   private setUrlName() {
     if(this.restaurantName != null) {
-      localStorage.setItem('name', this.restaurantName);
+      sessionStorage .setItem('name', this.restaurantName);
     }
   }
 
   plateView(i: number, category: Category) {
 
     this.categories[i].plates = this.duplicateFilter(this.categories[i].plates)
-    localStorage.setItem('plates', JSON.stringify(this.categories[i].plates))
-    localStorage.setItem('category', JSON.stringify(category))
+    sessionStorage .setItem('plates', JSON.stringify(this.categories[i].plates))
+    sessionStorage .setItem('category', JSON.stringify(category))
     this.router.navigateByUrl("/adminPlates"/*, {state: {plates: this.categories[i].plates, category: category}}*/);
   }
 
@@ -93,7 +93,7 @@ export class CategoriesAdminComponent implements OnInit {
   }
 
   editCategory(category: Category) {
-    localStorage.setItem('editCategory', JSON.stringify(category))
+    sessionStorage .setItem('editCategory', JSON.stringify(category))
     this.router.navigateByUrl("/adminCategoriesCreate", {state: {category: category}});
   }
 
@@ -128,8 +128,8 @@ export class CategoriesAdminComponent implements OnInit {
 
   updateRestaurant() {
       this.restaurantService.updateRestaurantPhoto(this.restaurant).subscribe(data => {
-        localStorage.setItem("image", this.restaurant.image)
-        localStorage.setItem("idImage", this.restaurant.idImage)
+        sessionStorage .setItem("image", this.restaurant.image)
+        sessionStorage .setItem("idImage", this.restaurant.idImage)
         this.reset()
       })
   }

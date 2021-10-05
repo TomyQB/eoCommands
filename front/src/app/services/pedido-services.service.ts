@@ -1,5 +1,4 @@
 import { Amount } from './../models/Amount';
-import { userRestaurant } from './../models/userRestaurant';
 import { Pedido } from '../models/Pedido';
 import { environment } from './../../environments/environment.prod';
 import { Injectable } from '@angular/core';
@@ -38,7 +37,7 @@ export class PedidoServicesService {
         this.pedidoObjeto.splice(i, 1)
       } else i++
     }
-    localStorage.setItem('pedidos', JSON.stringify(this.pedidoObjeto))
+    sessionStorage .setItem('pedidos', JSON.stringify(this.pedidoObjeto))
   }
 
   haveDrink(amounts: Amount[]): boolean {

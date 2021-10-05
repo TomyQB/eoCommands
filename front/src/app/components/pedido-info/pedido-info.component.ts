@@ -23,7 +23,7 @@ export class PedidoInfoComponent implements OnInit {
 
   public showOverlay = false;
 
-  restaurantName: string = localStorage.getItem("name")!;
+  restaurantName: string = sessionStorage .getItem("name")!;
 
   dialogConfig: MatDialogConfig = {
     width: '90%',
@@ -32,7 +32,7 @@ export class PedidoInfoComponent implements OnInit {
   pedido: Pedido = {
     numTable: -1,
     email: "",
-    restaurantId: parseInt(localStorage.getItem("idRestaurant")!),
+    restaurantId: parseInt(sessionStorage .getItem("idRestaurant")!),
     total: history.state.total,
     date: "",
     phoneNumber: ""
@@ -74,7 +74,7 @@ export class PedidoInfoComponent implements OnInit {
       if(data) {
         this.pendingOrderService.madePendingOrder(this.pedido).subscribe(data2 => {
           if(data2 = true) {
-            const name = localStorage.getItem("name")
+            const name = sessionStorage .getItem("name")
             this.hash.dic = {}
             this.totalObservableService.writeTotal(0)
             this.amountServices.amounts = []
@@ -111,7 +111,7 @@ export class PedidoInfoComponent implements OnInit {
   }
 
   goCategoriesPage() {
-    this.router.navigateByUrl("/restaurant/menu/" + localStorage.getItem("name"));
+    this.router.navigateByUrl("/restaurant/menu/" + sessionStorage .getItem("name"));
   }
 
 }

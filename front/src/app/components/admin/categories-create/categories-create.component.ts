@@ -22,7 +22,7 @@ export class CategoriesCreateComponent implements OnInit {
 
   category: CategoryDTO = {
     name: "",
-    restaurant: parseInt(localStorage.getItem('userId')!),
+    restaurant: parseInt(sessionStorage .getItem('userId')!),
     image: "",
     idImage: ""
   }
@@ -35,10 +35,10 @@ export class CategoriesCreateComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.category.restaurant)
-    if(JSON.parse(localStorage.getItem('editCategory')!)) {
-      this.category.image = JSON.parse(localStorage.getItem('editCategory')!).image
-      this.nameFormControl.setValue(JSON.parse(localStorage.getItem('editCategory')!).name)
-      this.category.id = JSON.parse(localStorage.getItem('editCategory')!).id
+    if(JSON.parse(sessionStorage .getItem('editCategory')!)) {
+      this.category.image = JSON.parse(sessionStorage .getItem('editCategory')!).image
+      this.nameFormControl.setValue(JSON.parse(sessionStorage .getItem('editCategory')!).name)
+      this.category.id = JSON.parse(sessionStorage .getItem('editCategory')!).id
     }
 
     this.imageService.getImages().subscribe(data => {
@@ -49,7 +49,7 @@ export class CategoriesCreateComponent implements OnInit {
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
-    localStorage.removeItem('editCategory')
+    sessionStorage .removeItem('editCategory')
   }
 
   chooseImage(image: string) {

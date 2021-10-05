@@ -29,13 +29,13 @@ export class CategoriesComponent implements OnInit {
     this.menuServices.getMenu(this.restaurantName).subscribe(data => {
       this.categories = data
       this.image = data[0].restaurant.image  //ARREGLAR PARA QUE NO SE VEA FEO
-      localStorage.setItem('idRestaurant', data[0].restaurant.id);
+      sessionStorage .setItem('idRestaurant', data[0].restaurant.id);
     })
   }
 
   private setUrlName() {
     if(this.restaurantName != null) {
-      localStorage.setItem('name', this.restaurantName);
+      sessionStorage .setItem('name', this.restaurantName);
     }
   }
 
@@ -43,8 +43,8 @@ export class CategoriesComponent implements OnInit {
 
     this.categories[i].plates = this.duplicateFilter(this.categories[i].plates)
 
-    localStorage.setItem('cat', JSON.stringify(category))
-    localStorage.setItem('plat', JSON.stringify(this.categories[i].plates))
+    sessionStorage .setItem('cat', JSON.stringify(category))
+    sessionStorage .setItem('plat', JSON.stringify(this.categories[i].plates))
 
     this.router.navigateByUrl("/restaurant/plates", {state: {plates: this.categories[i].plates, category: category}});
   }

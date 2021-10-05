@@ -25,7 +25,7 @@ public class RestaurantConverter extends AbstractConverter<Restaurant, Restauran
         RestaurantDTO dto = new RestaurantDTO();
 
         dto.setId(entity.getId());
-        dto.setOrdersAmount(entity.getOrdersAmount());
+        // dto.setOrdersAmount(entity.getOrdersAmount());
 
         return dto;
     }

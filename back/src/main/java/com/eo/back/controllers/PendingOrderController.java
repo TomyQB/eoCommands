@@ -3,7 +3,7 @@ package com.eo.back.controllers;
 import java.util.List;
 
 import com.eo.back.dto.PedidoDTO;
-import com.eo.back.models.PendingOrder;
+import com.eo.back.models.PendingOrderPlate;
 import com.eo.back.services.PedidoServices;
 import com.eo.back.services.PendingOrderService;
 import com.eo.back.services.RestaurantServices;
@@ -42,29 +42,29 @@ public class PendingOrderController {
     }
 
     @PostMapping("/allPendingOrder")
-    public ResponseEntity<List<PendingOrder>> getPendingOrder(@RequestBody long userId) {
+    public ResponseEntity<List<PendingOrderPlate>> getPendingOrder(@RequestBody long userId) {
 
-        List<PendingOrder> pendingOrders = pendingOrderService.getPendingOrderByRestaurantId(restaurantServices.getRestaurantById(userId).getId());
+        List<PendingOrderPlate> pendingOrders = pendingOrderService.getPendingOrderByRestaurantId(restaurantServices.getRestaurantById(userId).getId());
         
-        return new ResponseEntity<List<PendingOrder>>(pendingOrders, HttpStatus.OK);
+        return new ResponseEntity<List<PendingOrderPlate>>(pendingOrders, HttpStatus.OK);
     }
 
     @PostMapping("/filterPendingOrder")
-    public ResponseEntity<List<PendingOrder>> filterPendingOrder(@RequestBody PedidoDTO dto) {
+    public ResponseEntity<List<PendingOrderPlate>> filterPendingOrder(@RequestBody PedidoDTO dto) {
         
-        List<PendingOrder> pendingOrders = pendingOrderService.getPendingOrderByRestaurantIdAndTableNum(restaurantServices.getRestaurantById(dto.getRestaurantId()).getId(), dto.getNumTable());
+        List<PendingOrderPlate> pendingOrders = pendingOrderService.getPendingOrderByRestaurantIdAndTableNum(restaurantServices.getRestaurantById(dto.getRestaurantId()).getId(), dto.getNumTable());
         
-        return new ResponseEntity<List<PendingOrder>>(pendingOrders, HttpStatus.OK);
+        return new ResponseEntity<List<PendingOrderPlate>>(pendingOrders, HttpStatus.OK);
     }
 
     @PostMapping("/deletePendingOrder")
     public ResponseEntity<Boolean> deletePendingOrder(@RequestBody PedidoDTO dto) {
         
-        List<PendingOrder> pendingOrders = pendingOrderService.deletePendingOrder(restaurantServices.getRestaurantById(dto.getRestaurantId()).getId(), dto.getNumTable());
+        List<PendingOrderPlate> pendingOrders = pendingOrderService.deletePendingOrder(restaurantServices.getRestaurantById(dto.getRestaurantId()).getId(), dto.getNumTable());
         String email = pedidoServices.deletePedido(dto);
         pendingOrderEmailService.sendEmail(pendingOrders, email);
 
-        restaurantServices.updateOrdersAmount(dto.getRestaurantId());
+        // restaurantServices.updateOrdersAmount(dto.getRestaurantId());
         
         return new ResponseEntity<Boolean>(true, HttpStatus.OK);
     }

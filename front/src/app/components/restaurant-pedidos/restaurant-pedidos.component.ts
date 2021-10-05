@@ -1,3 +1,4 @@
+import { RestaurantStoreService } from './../../store/admin/restaurant-store.service';
 import { AmountServicesService } from './../../services/amount-services.service';
 import { Pedido } from './../../models/Pedido';
 import { PendingOrderService } from './../../services/pending-order.service';
@@ -15,23 +16,41 @@ export class RestaurantPedidosComponent implements OnInit {
 
   public selectedIndex: number = 0;
 
-  userId: number = parseInt(localStorage.getItem('userId')!)
+  userId: number = parseInt(sessionStorage .getItem('userId')!)
 
   pedidos!: any[]
   pendingOrders!: any[]
 
-  contadorPedidos: number = parseInt(localStorage.getItem('contadorPedidos')!)
+  contadorPedidos: number = parseInt(sessionStorage .getItem('contadorPedidos')!)
 
-  constructor(private pedidoServices: PedidoServicesService, private router: Router, private pendingOrderService: PendingOrderService, private amountService: AmountServicesService) { }
+  constructor(private RestaurantStoreService: RestaurantStoreService, private pedidoServices: PedidoServicesService, private router: Router, private pendingOrderService: PendingOrderService, private amountService: AmountServicesService) { }
 
   ngOnInit(): void {
 
-    this.selectedIndex = parseInt(localStorage.getItem('tab')!)
+    console.log(this.RestaurantStoreService.restaurant)
+
+    this.selectedIndex = parseInt(sessionStorage .getItem('tab')!)
+
+
+    this.pendingOrderService.getAllPendingOrder(this.userId).subscribe(data => {
+      this.pendingOrders = data
+    })
+    setInterval(() => {
+      this.getPedidos();
+      }, 1000);
+  }
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+  }
+
+  getPedidos() {
     this.pedidoServices.getAllPedidos(this.userId).subscribe(data => {
       this.pedidos = data
       console.log(this.pedidos)
 
-      if(!localStorage.getItem('pedidos')){
+      if(!sessionStorage .getItem('pedidos')){
 
         this.pedidoServices.getAllPedidos(this.userId).subscribe(dataa => {
         this.pedidos = dataa
@@ -50,11 +69,11 @@ export class RestaurantPedidosComponent implements OnInit {
           hola.estado = 'nada'
         })
 
-        localStorage.setItem('pedidos', JSON.stringify(this.pedidoServices.pedidoObjeto))
+        sessionStorage .setItem('pedidos', JSON.stringify(this.pedidoServices.pedidoObjeto))
         })
 
       } else if(this.pedidoServices.pedidoObjeto.length === 0) {
-        this.pedidoServices.pedidoObjeto = JSON.parse(localStorage.getItem('pedidos')!)
+        this.pedidoServices.pedidoObjeto = JSON.parse(sessionStorage .getItem('pedidos')!)
         if(this.pedidos.length != this.pedidoServices.pedidoObjeto.length){
 
           this.pedidos.forEach(pedido => {
@@ -64,21 +83,12 @@ export class RestaurantPedidosComponent implements OnInit {
             }
           });
 
-            localStorage.setItem('pedidos', JSON.stringify(this.pedidoServices.pedidoObjeto))
+            sessionStorage .setItem('pedidos', JSON.stringify(this.pedidoServices.pedidoObjeto))
 
           }
 
       }
     })
-
-    this.pendingOrderService.getAllPendingOrder(this.userId).subscribe(data => {
-      this.pendingOrders = data
-    })
-  }
-
-  ngOnDestroy(): void {
-    //Called once, before the instance is destroyed.
-    //Add 'implements OnDestroy' to the class.
   }
 
   eliminarPedidosOutput(event: any) {
@@ -97,6 +107,7 @@ export class RestaurantPedidosComponent implements OnInit {
   }
 
   logOut() {
+    sessionStorage .clear();
     this.router.navigateByUrl('login')
   }
 

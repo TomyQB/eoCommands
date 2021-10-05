@@ -5,6 +5,7 @@ import java.io.IOException;
 import com.eo.back.convert.RestaurantConverter;
 import com.eo.back.dto.FormMessageDTO;
 import com.eo.back.dto.RestaurantDTO;
+import com.eo.back.dto.RestaurantLoginDTO;
 import com.eo.back.models.Restaurant;
 import com.eo.back.services.CloudinaryService;
 import com.eo.back.services.RestaurantServices;
@@ -51,6 +52,11 @@ public class RestaurantController {
     @PostMapping("/form")
     public void getFormMessage(@RequestBody FormMessageDTO dto) {
         formEmailService.sendEmail(dto);
+    }
+
+    @PostMapping("/login")
+    public Restaurant login(@RequestBody RestaurantLoginDTO restaurantLoginDTO) {
+        return restaurantServices.getRestaurantByRestaurantLogin(restaurantLoginDTO);
     }
     
 }

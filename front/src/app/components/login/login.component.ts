@@ -1,8 +1,9 @@
-import { userRestaurant } from './../../models/userRestaurant';
+import { RestaurantStoreService } from './../../store/admin/restaurant-store.service';
+import { RestaurantLogin } from './../../models/RestaurantLogin';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { UserService } from 'src/app/services/user.service';
+import { RestaurantService } from 'src/app/services/restaurant.service';
 import { FormControl, Validators } from '@angular/forms';
 
 @Component({
@@ -12,7 +13,7 @@ import { FormControl, Validators } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  userRestaurant: userRestaurant = {
+  restaurantLogin: RestaurantLogin = {
     email: "",
     password: ""
   }
@@ -25,34 +26,31 @@ export class LoginComponent implements OnInit {
     Validators.required,
   ]);
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private RestaurantService: RestaurantService, private router: Router, private restaurantStoreService: RestaurantStoreService) { }
 
   ngOnInit(): void {
-    localStorage.clear();
   }
 
   ngOnDestroy(): void {
-    window.location.reload()
+    // window.location.reload()
   }
 
   onSignIn() {
-    localStorage.clear();
-    this.userRestaurant.email = this.emailFormControl.value
-    this.userRestaurant.password = this.passwordFormControl.value
+    this.restaurantLogin.email = this.emailFormControl.value
+    this.restaurantLogin.password = this.passwordFormControl.value
 
-    this.userService.login(this.userRestaurant).subscribe(data => {
-      console.log(data)
+    this.RestaurantService.login(this.restaurantLogin).subscribe(data => {
+
       if(data != null) {
+        this.restaurantStoreService.restaurant = data;
+        console.log(this.restaurantStoreService)
         this.router.navigateByUrl("/restaurantPedidos");
-        console.log(data)
-        localStorage.setItem('userId', data.id.toString())
-        localStorage.setItem('rname', data.name)
-        localStorage.setItem('image', data.image)
-        localStorage.setItem('idImage', data.idImage)
-        localStorage.setItem('contadorPedidos', data.ordersAmount.toString())
-      } else {
-        alert("email o contraseña incorectos")
-      }
+        sessionStorage.setItem('userId', data.id.toString())
+        sessionStorage.setItem('rname', data.name)
+        sessionStorage.setItem('image', data.image)
+        sessionStorage.setItem('idImage', data.idImage)
+
+      } else alert("email o contraseña incorectos")
     })
   }
 
