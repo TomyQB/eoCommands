@@ -32,7 +32,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    // window.location.reload()
   }
 
   onSignIn() {
