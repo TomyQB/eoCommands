@@ -6,12 +6,12 @@ public class PendingOrderPlateIds implements Serializable{
 
     private long restaurantId;
     private int tableNum;
-    private Plate plate;
+    private long plateId;
 
-    public PendingOrderPlateIds(long restaurantId, int tableNum, Plate plate) {
+    public PendingOrderPlateIds(long restaurantId, int tableNum, long plateId) {
         this.restaurantId = restaurantId;
         this.tableNum = tableNum;
-        this.plate = plate;
+        this.plateId = plateId;
     }
 
     public PendingOrderPlateIds() {

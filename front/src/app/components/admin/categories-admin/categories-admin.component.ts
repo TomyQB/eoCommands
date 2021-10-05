@@ -51,7 +51,7 @@ export class CategoriesAdminComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    window.location.reload()
+    // window.location.reload()
   }
 
   private setUrlName() {

@@ -12,6 +12,10 @@ public class AdditionalService {
     @Autowired
     private AdditionalRepository additionalRepository;
 
+    public Additional getAdditionalByNameAndPlateId(String name, long plateId) {
+        return this.additionalRepository.getAdditionalByNameAndPlateId(name, plateId);
+    }
+
     public void saveAdditional(Additional additional) {
         additionalRepository.save(additional);
     }

@@ -23,21 +23,24 @@ export class RestaurantPedidosComponent implements OnInit {
 
   contadorPedidos: number = parseInt(sessionStorage .getItem('contadorPedidos')!)
 
-  constructor(private RestaurantStoreService: RestaurantStoreService, private pedidoServices: PedidoServicesService, private router: Router, private pendingOrderService: PendingOrderService, private amountService: AmountServicesService) { }
+  constructor(private restaurantStoreService: RestaurantStoreService, private pedidoServices: PedidoServicesService, private router: Router, private pendingOrderService: PendingOrderService, private amountService: AmountServicesService) { }
 
   ngOnInit(): void {
 
-    console.log(this.RestaurantStoreService.restaurant)
+    this.restaurantStoreService.restaurant = JSON.parse(sessionStorage.getItem('restaurant')!)
+    console.log(this.restaurantStoreService.restaurant)
 
     this.selectedIndex = parseInt(sessionStorage .getItem('tab')!)
 
+    this.getPedidos();
 
     this.pendingOrderService.getAllPendingOrder(this.userId).subscribe(data => {
       this.pendingOrders = data
     })
+
     setInterval(() => {
       this.getPedidos();
-      }, 1000);
+      }, 10000);
   }
 
   ngOnDestroy(): void {
@@ -101,9 +104,9 @@ export class RestaurantPedidosComponent implements OnInit {
 
   crearMenu() {
     this.router.navigateByUrl("/adminCategories");
-    setTimeout(function reload() {
-      window.location.reload()
-    }, 20)
+    // setTimeout(function reload() {
+    //   window.location.reload()
+    // }, 20)
   }
 
   logOut() {

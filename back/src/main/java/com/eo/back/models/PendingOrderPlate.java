@@ -1,5 +1,6 @@
 package com.eo.back.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
@@ -23,6 +24,9 @@ public class PendingOrderPlate {
     private int tableNum;
 
     @Id
+    @Column(name = "plateref")
+    private long plateId;
+
     @OneToOne
     private Plate plate;
 

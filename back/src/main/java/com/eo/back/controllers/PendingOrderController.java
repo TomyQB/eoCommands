@@ -5,9 +5,10 @@ import java.util.List;
 import com.eo.back.dto.PedidoDTO;
 import com.eo.back.models.PendingOrderPlate;
 import com.eo.back.services.PedidoServices;
-import com.eo.back.services.PendingOrderService;
 import com.eo.back.services.RestaurantServices;
 import com.eo.back.services.Email.PendingOrderEmailService;
+import com.eo.back.services.PendingOrder.PendingOrderAdditionalService;
+import com.eo.back.services.PendingOrder.PendingOrderPlateService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +23,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class PendingOrderController {
 
     @Autowired
-    private PendingOrderService pendingOrderService;
+    private PendingOrderPlateService pendingOrderPlateService;
+    
+    @Autowired
+    private PendingOrderAdditionalService pendingOrderAdditionalService;
     
     @Autowired
     private RestaurantServices restaurantServices;
@@ -36,7 +40,8 @@ public class PendingOrderController {
     @PostMapping("/madePendingOrder")
     public ResponseEntity<Boolean> madePedido(@RequestBody PedidoDTO dto) {
 
-        pendingOrderService.savePendingOrder(dto);
+        pendingOrderPlateService.savePendingOrder(dto);
+        pendingOrderAdditionalService.savePendingOrder(dto);
         
         return new ResponseEntity<Boolean>(true, HttpStatus.OK);
     }
@@ -44,7 +49,7 @@ public class PendingOrderController {
     @PostMapping("/allPendingOrder")
     public ResponseEntity<List<PendingOrderPlate>> getPendingOrder(@RequestBody long userId) {
 
-        List<PendingOrderPlate> pendingOrders = pendingOrderService.getPendingOrderByRestaurantId(restaurantServices.getRestaurantById(userId).getId());
+        List<PendingOrderPlate> pendingOrders = pendingOrderPlateService.getPendingOrderByRestaurantId(restaurantServices.getRestaurantById(userId).getId());
         
         return new ResponseEntity<List<PendingOrderPlate>>(pendingOrders, HttpStatus.OK);
     }
@@ -52,7 +57,7 @@ public class PendingOrderController {
     @PostMapping("/filterPendingOrder")
     public ResponseEntity<List<PendingOrderPlate>> filterPendingOrder(@RequestBody PedidoDTO dto) {
         
-        List<PendingOrderPlate> pendingOrders = pendingOrderService.getPendingOrderByRestaurantIdAndTableNum(restaurantServices.getRestaurantById(dto.getRestaurantId()).getId(), dto.getNumTable());
+        List<PendingOrderPlate> pendingOrders = pendingOrderPlateService.getPendingOrderByRestaurantIdAndTableNum(restaurantServices.getRestaurantById(dto.getRestaurantId()).getId(), dto.getNumTable());
         
         return new ResponseEntity<List<PendingOrderPlate>>(pendingOrders, HttpStatus.OK);
     }
@@ -60,7 +65,7 @@ public class PendingOrderController {
     @PostMapping("/deletePendingOrder")
     public ResponseEntity<Boolean> deletePendingOrder(@RequestBody PedidoDTO dto) {
         
-        List<PendingOrderPlate> pendingOrders = pendingOrderService.deletePendingOrder(restaurantServices.getRestaurantById(dto.getRestaurantId()).getId(), dto.getNumTable());
+        List<PendingOrderPlate> pendingOrders = pendingOrderPlateService.deletePendingOrder(restaurantServices.getRestaurantById(dto.getRestaurantId()).getId(), dto.getNumTable());
         String email = pedidoServices.deletePedido(dto);
         pendingOrderEmailService.sendEmail(pendingOrders, email);
 

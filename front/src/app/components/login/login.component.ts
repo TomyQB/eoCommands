@@ -43,6 +43,7 @@ export class LoginComponent implements OnInit {
       if(data != null) {
         this.restaurantStoreService.restaurant = data;
         console.log(this.restaurantStoreService)
+        sessionStorage.setItem('restaurant', JSON.stringify(data))
         this.router.navigateByUrl("/restaurantPedidos");
         sessionStorage.setItem('userId', data.id.toString())
         sessionStorage.setItem('rname', data.name)

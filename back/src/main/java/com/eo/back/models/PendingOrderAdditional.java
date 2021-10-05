@@ -1,5 +1,6 @@
 package com.eo.back.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
@@ -14,7 +15,6 @@ import lombok.Setter;
 @Table(name = "pendingorderadditional")
 @Setter
 @Getter
-
 public class PendingOrderAdditional {
     
     @Id
@@ -24,6 +24,9 @@ public class PendingOrderAdditional {
     private int tableNum;
 
     @Id
+    @Column(name = "additionalref")
+    private long additionalId;
+
     @OneToOne
     private Additional additional;
 

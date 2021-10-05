@@ -31,6 +31,7 @@ public class Plate {
 
     private String name;
     private String description;
+    private String estado;
     private double price;
     @Nullable
     private boolean drink;
