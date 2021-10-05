@@ -1,5 +1,4 @@
 import { AdditionalService } from './../../../services/additional.service';
-import { Additional } from './../../../models/Additional';
 import { Router } from '@angular/router';
 import { PlateService } from './../../../services/plate.service';
 import { PlateDTO } from './../../../models/PlateDTO';
@@ -16,6 +15,14 @@ import { AdditionalDTO } from 'src/app/models/AdditionalDTO';
   styleUrls: ['./plates-create.component.scss']
 })
 export class PlatesCreateComponent implements OnInit {
+
+  alergenos: string[] = ['Cereales que contengan gluten', 'Crustáceos y productos a base de crustáceos', 'Huevos y productos a base de huevo',
+                          'Pescado y productos a base de pescado', 'Cacahuetes y productos a base de cacahuetes', 'Soja y productos a base de soja',
+                          'Leche y sus derivados (incluida la lactosa)', 'Frutos de cáscara y productos derivados', 'Apio y productos derivados',
+                          'Mostaza y productos derivados', 'Granos de sésamo y productos a base de granos de sésamo', 'Dióxido de azufre y sulfitos',
+                          'Altramuces y productos a base de altramuces', 'Moluscos y productos a base de moluscos']
+
+  alergenosOnDescription: string[] = [""]
 
   additional!: AdditionalDTO[]
 
@@ -46,7 +53,6 @@ export class PlatesCreateComponent implements OnInit {
   constructor(private plateService: PlateService, private router: Router, private additionalService: AdditionalService, public dialog: MatDialog,) { }
 
   ngOnInit(): void {
-    console.log(localStorage.getItem('categoryIdAdmin')!)
     if(localStorage.getItem('plateIdAdmin')!) {
       console.log("dentro")
       this.plateService.getPlateById(parseInt(localStorage.getItem('plateIdAdmin')!)).subscribe(data => {
@@ -61,18 +67,6 @@ export class PlatesCreateComponent implements OnInit {
         this.priceFormControl.setValue(data.price)
       })
     }
-    // console.log(history.state.plate)
-    // if(JSON.parse(localStorage.getItem('plateAdmin')!)) {
-    //   this.isDisable = "false"
-    //   this.additional = JSON.parse(localStorage.getItem('plateAdmin')!).additionals
-    //   this.nameFormControl.setValue(JSON.parse(localStorage.getItem('plateAdmin')!).name)
-    //   this.plate.id = JSON.parse(localStorage.getItem('plateAdmin')!).id
-    //   this.plate.description = JSON.parse(localStorage.getItem('plateAdmin')!).description
-    //   this.plate.drink = JSON.parse(localStorage.getItem('plateAdmin')!).drink
-    //   this.plate.name = JSON.parse(localStorage.getItem('plateAdmin')!).name
-    //   this.priceFormControl.setValue(JSON.parse(localStorage.getItem('plateAdmin')!).price)
-    // }
-    // console.log(this.plate)
   }
 
   ngOnDestroy(): void {
@@ -85,15 +79,25 @@ export class PlatesCreateComponent implements OnInit {
     if(this.priceFormControl.value != "" && this.nameFormControl.value != "") {
       this.plate.name = this.nameFormControl.value
       this.plate.price = this.priceFormControl.value
+
+      // this.alergenosOnDescription.forEach(alergeno => {
+      //   description += "\n" + alergeno
+      // });
+
+      if(this.alergenosOnDescription.length > 1) description += "\n\n- ALERGENOS:"
+
+      for(let i = 1; i < this.alergenosOnDescription.length; i++) {
+        description += "\n- " + this.alergenosOnDescription[i]
+      }
+
       this.plate.description = description
 
-      console.log(this.plate.name)
-      console.log(this.plate.price)
+      // console.log(this.plate.name)
+      // console.log(this.plate.price)
       console.log(this.plate.description)
-      console.log(this.plate.drink)
-      console.log(this.plate.category)
+      // console.log(this.plate.drink)
+      // console.log(this.plate.category)
       this.plateService.addPlate(this.plate).subscribe(data => {
-        // this.updatePlateList(this.plate.id!)
         this.router.navigateByUrl("/adminPlates");
       })
     }
@@ -154,6 +158,15 @@ export class PlatesCreateComponent implements OnInit {
         this.ngOnInit()
       })
     })
+  }
+
+  addAlergeno(i: number) {
+    if(this.alergenosOnDescription.includes(this.alergenos[i])){
+      let index = this.alergenosOnDescription.indexOf(this.alergenos[i])
+      this.alergenosOnDescription.splice(index, 1)
+    } else {
+      this.alergenosOnDescription.push(this.alergenos[i])
+    }
   }
 
 }

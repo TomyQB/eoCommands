@@ -18,6 +18,8 @@ export class PlateInfoComponent implements OnInit {
   hash!: DescAndAmount
   showTextarea = false;
 
+  descriptionAdapte!: string
+
   amount: Amount = {
     amount: 0,
     description: "",
@@ -34,6 +36,8 @@ export class PlateInfoComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.amount)
+    console.log(this.amount.plate.description)
+    this.prepareDescription();
     this.hash = this.hashService.getElementByName(this.amount.plate.name)
     this.amount.amount = this.hash.amount;
     this.amount.extras = this.hash.extras;
@@ -41,6 +45,11 @@ export class PlateInfoComponent implements OnInit {
     this.checkIfExtras()
     this.calculateSubTotal()
     this.showTextarea = this.amount.plate.drink
+  }
+
+  prepareDescription() {
+    console.log("hi")
+    this.descriptionAdapte = this.amount.plate.description.split("\n").join("<br>");
   }
 
   addToPedido(description: string) {

@@ -12,8 +12,7 @@
   <mat-divider class="border"></mat-divider>
 
   <div class="paddingGeneral">
-    <div class="info-description">
-      {{amount.plate.description}}
+    <div class="info-description" [innerHTML]="descriptionAdapte">
     </div>
 
     <mat-list *ngIf="amount.plate.additionals.length > 0">

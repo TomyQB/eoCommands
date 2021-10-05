@@ -29,6 +29,19 @@
 </div>
 
 <div class="infoPlate" style="text-align: center;">
+  Alergenos
+</div>
+<div style="padding-bottom: 20px;">
+  <div style="padding-left: 10%;" *ngFor="let alergeno of alergenos; let i = index">
+      <mat-checkbox (click)="addAlergeno(i)">
+        {{alergeno}}
+      </mat-checkbox>
+  </div>
+</div>
+
+<mat-divider class="border"></mat-divider>
+
+<div class="infoPlate" style="text-align: center;">
   Extras
 </div>
 
@@ -69,7 +82,7 @@
     aria-labelledby="example-radio-group-label"
     class="example-radio-group"
     [(ngModel)]="plate.drink">
-    <mat-radio-button class="example-radio-button" [value]=true>Este plato irá solo a barraS</mat-radio-button>
+    <mat-radio-button class="example-radio-button" [value]=true>Este plato irá solo a barra</mat-radio-button>
   </mat-radio-group>
 </div>
 
