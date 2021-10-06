@@ -1,4 +1,3 @@
-import { RestaurantStoreService } from './../../store/admin/restaurant-store.service';
 import { RestaurantLogin } from './../../models/RestaurantLogin';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -26,7 +25,7 @@ export class LoginComponent implements OnInit {
     Validators.required,
   ]);
 
-  constructor(private RestaurantService: RestaurantService, private router: Router, private restaurantStoreService: RestaurantStoreService) { }
+  constructor(private restaurantService: RestaurantService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -38,17 +37,15 @@ export class LoginComponent implements OnInit {
     this.restaurantLogin.email = this.emailFormControl.value
     this.restaurantLogin.password = this.passwordFormControl.value
 
-    this.RestaurantService.login(this.restaurantLogin).subscribe(data => {
+    this.restaurantService.login(this.restaurantLogin).subscribe(data => {
 
       if(data != null) {
-        this.restaurantStoreService.restaurant = data;
-        console.log(this.restaurantStoreService)
         sessionStorage.setItem('restaurant', JSON.stringify(data))
         this.router.navigateByUrl("/restaurantPedidos");
-        sessionStorage.setItem('userId', data.id.toString())
-        sessionStorage.setItem('rname', data.name)
-        sessionStorage.setItem('image', data.image)
-        sessionStorage.setItem('idImage', data.idImage)
+        // sessionStorage.setItem('userId', data.id.toString())
+        // sessionStorage.setItem('rname', data.name)
+        // sessionStorage.setItem('image', data.image)
+        // sessionStorage.setItem('idImage', data.idImage)
 
       } else alert("email o contraseña incorectos")
     })

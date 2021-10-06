@@ -1,4 +1,7 @@
+import { Pedido } from 'src/app/models/Pedido';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment.prod';
 import { Amount } from '../models/Amount';
 
 @Injectable({
@@ -8,7 +11,13 @@ export class AmountServicesService {
 
   public amounts: Amount[] = []
 
-  constructor() { }
+  Url = environment.Url
+
+  constructor(private http: HttpClient) { }
+
+  changeEstadoAmount(amount: Amount) {
+    return this.http.post<any>(this.Url + "changeEstadoAmount", amount)
+  }
 
   public addAmountToList(amount: Amount) {
     if(this.amounts.length > 0) {
@@ -27,7 +36,7 @@ export class AmountServicesService {
       let exist: boolean = false
 
       for(let i = 0; i < this.amounts.length; i++){
-        if(this.amounts[i].plate.name == amount.plate.name) {
+        if(this.amounts[i].plate!.name == amount.plate!.name) {
           repeAmount = this.amounts[i];
           exist = true;
 

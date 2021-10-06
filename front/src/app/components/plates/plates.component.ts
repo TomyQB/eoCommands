@@ -15,8 +15,8 @@ export class PlatesComponent implements OnInit {
 
   // plates: Plate[] = history.state.plates
   // category: Category = history.state.category
-  plates: Plate[] = JSON.parse(sessionStorage .getItem('plat')!)
-  category: Category = JSON.parse(sessionStorage .getItem('cat')!)
+  plates: Plate[] = JSON.parse(sessionStorage.getItem('plat')!)
+  category: Category = JSON.parse(sessionStorage.getItem('cat')!)
 
 
   dic: {[key: string]: DescAndAmount} = {}
@@ -33,9 +33,9 @@ export class PlatesComponent implements OnInit {
   }
 
   goCategoriesPage() {
-    sessionStorage .removeItem('plat')
-    sessionStorage .removeItem('cat')
-    this.router.navigateByUrl("/restaurant/menu/" + sessionStorage .getItem("name"));
+    sessionStorage.removeItem('plat')
+    sessionStorage.removeItem('cat')
+    this.router.navigateByUrl("/restaurant/menu/" + sessionStorage.getItem("name"));
   }
 
 }

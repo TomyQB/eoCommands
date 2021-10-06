@@ -8,15 +8,15 @@ import { PedidoServicesService } from 'src/app/services/pedido-services.service'
 })
 export class RestaurantPedidoBebidaComponent implements OnInit {
 
-  pedido = JSON.parse(sessionStorage .getItem('pedidoInfoPlates')!)
-  indexs = parseInt(sessionStorage .getItem('index')!)
+  pedido = JSON.parse(sessionStorage.getItem('pedidoInfoPlates')!)
+  indexs = parseInt(sessionStorage.getItem('index')!)
 
   constructor(public pedidoServices: PedidoServicesService) { }
 
   ngOnInit(): void {
-    this.pedidoServices.pedidoObjeto = JSON.parse(sessionStorage .getItem('pedidos')!)
+    this.pedidoServices.pedidoObjeto = JSON.parse(sessionStorage.getItem('pedidos')!)
 
-    sessionStorage .setItem('tab', "1");
+    sessionStorage.setItem('tab', "1");
   }
 
   ngOnDestroy(): void {
@@ -43,9 +43,9 @@ export class RestaurantPedidoBebidaComponent implements OnInit {
 
     this.pedidoServices.pedidoObjeto[this.indexs].amounts[i].servido = !servido
     console.log(this.pedidoServices.pedidoObjeto[this.indexs].amounts[i].servido)
-    sessionStorage .setItem('pedidos', JSON.stringify(this.pedidoServices.pedidoObjeto))
+    sessionStorage.setItem('pedidos', JSON.stringify(this.pedidoServices.pedidoObjeto))
 
-    console.log(JSON.parse(sessionStorage .getItem('pedidos')!))
+    console.log(JSON.parse(sessionStorage.getItem('pedidos')!))
 
   }
 

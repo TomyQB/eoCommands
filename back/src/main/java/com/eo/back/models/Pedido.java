@@ -32,10 +32,12 @@ public class Pedido {
     private int tableNum;
     private String email;
     private String phoneNumber;
-    private String estado;
-    private int hechos;
-    private boolean haveDrink;
-    private boolean haveFood;
+    private String estadoFood;
+    private String estadoDrink;
+    private int hechosFood;
+    private int hechosDrink;
+    private int drinkCount;
+    private int foodCount;
 
     @ManyToOne
     @JsonIgnore

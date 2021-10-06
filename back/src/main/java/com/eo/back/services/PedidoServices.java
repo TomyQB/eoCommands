@@ -18,6 +18,10 @@ public class PedidoServices {
     
     @Autowired
     private RestaurantServices restaurantServices;
+
+    public Pedido getPedidoById(long id) {
+        return repository.getById(id);
+    }
     
     public void savePedido(Pedido pedido) {
         repository.save(pedido);

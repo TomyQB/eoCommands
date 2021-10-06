@@ -2,9 +2,17 @@
   <span>{{restaurantName}}</span>
 </mat-toolbar>
 
-<div class="my-overlay" *ngIf="showOverlay">
+<!-- <div class="my-overlay" *ngIf="showOverlay">
   <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
-</div>
+</div> -->
+
+<div class="overlay" *ngIf="showOverlay">
+
+  <div class="spinner ">
+      <img src="https://res.cloudinary.com/dxxvcl5fe/image/upload/v1633504473/loading_or0jw6.gif"/>
+    </div>
+
+  </div>
 
 <div class="paddingGeneral">
   <div class="category-name">
@@ -16,7 +24,7 @@
     <div *ngFor="let a of pedido.amounts">
       <div class="list-item">
         <div class="info-plate-price">
-          <div>{{a.amount}} {{a.plate.name}}</div>
+          <div>{{a.amount}} {{a.plate!.name}}</div>
           <div>{{a.subTotal}}€</div>
         </div>
         <div>{{a.description}}</div>

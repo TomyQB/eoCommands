@@ -1,11 +1,11 @@
 <div>
   <div class="info-header paddingGeneral">
     <div style="font-size: 20px;">
-      {{amount.plate.name}}
+      {{amount.plate!.name}}
     </div>
 
     <div>
-      {{amount.plate.price}}€
+      {{amount.plate!.price}}€
     </div>
 
   </div>
@@ -15,10 +15,10 @@
     <div class="info-description" [innerHTML]="descriptionAdapte">
     </div>
 
-    <mat-list *ngIf="amount.plate.additionals.length > 0">
+    <mat-list *ngIf="amount.plate!.additionals.length > 0">
       <div class="category-name">Extras</div>
       <mat-divider class="primary top" ></mat-divider>
-      <div *ngFor="let a of amount.plate.additionals let i = index">
+      <div *ngFor="let a of amount.plate!.additionals let i = index">
         <div class="list-item">
           <div>{{a.name}}</div>
           <div class="listpriceAmount">
@@ -30,7 +30,7 @@
             </div>
           </div>
         </div>
-        <mat-divider class="primary" *ngIf="amount.plate.additionals.length>i+1"></mat-divider>
+        <mat-divider class="primary" *ngIf="amount.plate!.additionals.length>i+1"></mat-divider>
       </div>
     </mat-list>
 <!--

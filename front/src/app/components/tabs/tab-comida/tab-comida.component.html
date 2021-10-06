@@ -1,20 +1,36 @@
 
-<!-- <meta http-equiv="refresh" content="5" /> -->
-
 <mat-list class="content">
   <div class="displayFlex">
-    <div class="center33">Mesa</div>
-    <div class="center33">Hora</div>
-    <div class="center33">Platos</div>
+    <div class="center25">
+      <h1 class="primary">Mesa</h1>
+    </div>
+    <div class="center25">
+      <h1 class="primary">Hora</h1>
+    </div>
+    <div class="center25">
+      <h1 class="primary">Platos</h1>
+    </div>
+    <div class="center25">
+      <h1 class="primary">Estado del pedido</h1>
+    </div>
   </div>
 
-  <div *ngFor="let pedido of pedidoServices.pedidoObjeto; let i = index" (click)="plateView(pedido, i)" class="estado{{pedido.estado}}">
-    <div class="displayFlex tableTime" *ngIf="pedido.haveFood">
-      <div class="center33">{{pedido.tableNum}}</div>
-      <div class="center33">{{pedido.date}}</div>
-      <div class="center33">{{pedido.hechos}}/{{pedido.amounts.length}}</div>
+  <div>
+    <div *ngFor="let pedido of pedidos; let i = index" (click)="plateView(pedido, i)">
+      <div class="displayFlex tableTime {{pedido.estadoFood}}" *ngIf="pedido.foodCount > 0 && i % 2 != 0">
+        <div class="center25">{{pedido.tableNum}}</div>
+        <div class="center25">{{pedido.date}}</div>
+        <div class="center25">{{pedido.hechosFood}}/{{pedido.foodCount}}</div>
+        <div class="center25">{{pedido.estadoFood}}</div>
+      </div>
 
+      <div class="displayFlex tableTime {{pedido.estadoFood}}" *ngIf="pedido.foodCount > 0 && i % 2 == 0">
+        <div class="center25 green">{{pedido.tableNum}}</div>
+        <div class="center25 green">{{pedido.date}}</div>
+        <div class="center25 green">{{pedido.hechosFood}}/{{pedido.foodCount}}</div>
+        <div class="center25 green">{{pedido.estadoFood}}</div>
+      </div>
+      <mat-divider class="border"></mat-divider>
     </div>
-    <mat-divider></mat-divider>
   </div>
 </mat-list>

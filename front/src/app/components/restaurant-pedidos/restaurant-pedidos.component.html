@@ -1,13 +1,13 @@
 
 <!-- <body onload="setTimeout('self.location.reload()', 60000)"> -->
 
-  <mat-tab-group [selectedIndex]="selectedIndex" class="tab">
+  <mat-tab-group [selectedIndex]="selectedIndex" class="tab" *ngIf="pedidos">
     <mat-tab label="Cocina">
-      <app-tab-comida></app-tab-comida>
+      <app-tab-comida [pedidos]="pedidos"></app-tab-comida>
     </mat-tab>
 
     <mat-tab label="Barra">
-      <app-tab-bebida></app-tab-bebida>
+      <app-tab-bebida [pedidos]="pedidos"></app-tab-bebida>
     </mat-tab>
 
     <mat-tab label="Cuenta">
@@ -17,7 +17,7 @@
     <mat-tab label="administración">
       <div style="text-align: center; padding-top: 30px; font-size: 30px;">
         <p style="padding-bottom: 10px;">Pedidos de este mes</p>
-        <p>{{contadorPedidos}}</p>
+        <!-- <p>{{contadorPedidos}}</p> -->
       </div>
       <div style="text-align: center; padding: 30px;">
         <button mat-raised-button class="primary" (click)="crearMenu()">Administrar menu</button>

@@ -47,7 +47,7 @@ public class PendingOrderAdditionalService extends AbstractPendingOrderService<P
                     PendingOrderAdditional pendingOrderAdditional= getPendingOrderByMultiplePK(e.getName(), dto.getRestaurantId(), dto.getNumTable());
 
                     if(pendingOrderAdditional != null) {
-                        pendingOrderAdditional.setAmount(pendingOrderAdditional.getAmount() + a.getAmount());
+                        pendingOrderAdditional.setAmount(pendingOrderAdditional.getAmount() + 1);
                         this.pendingOrderAdditionalRepository.save(pendingOrderAdditional);
 
                     } else createNewPendingOrderAdditional(dto, e, a);
@@ -59,7 +59,7 @@ public class PendingOrderAdditionalService extends AbstractPendingOrderService<P
 
     private void createNewPendingOrderAdditional(PedidoDTO dto, Extra e, Amount a) {
         PendingOrderAdditional pendingOrderAdditional2 = new PendingOrderAdditional();
-        pendingOrderAdditional2.setAmount(0);
+        pendingOrderAdditional2.setAmount(1);
         Additional additional = additionalService.getAdditionalByNameAndPlateId(e.getName(), a.getPlate().getId());
         pendingOrderAdditional2.setAdditional(additional);
         pendingOrderAdditional2.setAdditionalId(additional.getId());

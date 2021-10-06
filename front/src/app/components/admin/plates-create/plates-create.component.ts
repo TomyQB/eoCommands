@@ -29,7 +29,7 @@ export class PlatesCreateComponent implements OnInit {
   isDisable: string = "true"
 
   plate: PlateDTO = {
-    category: parseInt(sessionStorage .getItem('categoryIdAdmin')!),
+    category: parseInt(sessionStorage.getItem('categoryIdAdmin')!),
     description: "",
     drink: false,
     name: "",
@@ -53,9 +53,9 @@ export class PlatesCreateComponent implements OnInit {
   constructor(private plateService: PlateService, private router: Router, private additionalService: AdditionalService, public dialog: MatDialog,) { }
 
   ngOnInit(): void {
-    if(sessionStorage .getItem('plateIdAdmin')!) {
+    if(sessionStorage.getItem('plateIdAdmin')!) {
       console.log("dentro")
-      this.plateService.getPlateById(parseInt(sessionStorage .getItem('plateIdAdmin')!)).subscribe(data => {
+      this.plateService.getPlateById(parseInt(sessionStorage.getItem('plateIdAdmin')!)).subscribe(data => {
         console.log("dentro1")
         this.isDisable = "false"
         this.additional = data.additionals
@@ -72,7 +72,7 @@ export class PlatesCreateComponent implements OnInit {
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
-    sessionStorage .removeItem('plateIdAdmin')
+    sessionStorage.removeItem('plateIdAdmin')
   }
 
   createPlate(description: string) {
@@ -104,7 +104,7 @@ export class PlatesCreateComponent implements OnInit {
   }
 
   updatePlateList(id: number) {
-    var localPlates = JSON.parse(sessionStorage .getItem('plates')!)
+    var localPlates = JSON.parse(sessionStorage.getItem('plates')!)
     if(localPlates.findIndex((plate: { id: number; }) => plate.id === id) >= 0) {
       console.log("si")
       for(let i = 0; i < localPlates.length; i++) {
@@ -119,7 +119,7 @@ export class PlatesCreateComponent implements OnInit {
     } else {
       localPlates.push(this.plate)
     }
-    sessionStorage .setItem('plates', JSON.stringify(localPlates))
+    sessionStorage.setItem('plates', JSON.stringify(localPlates))
   }
 
   createAdditional() {

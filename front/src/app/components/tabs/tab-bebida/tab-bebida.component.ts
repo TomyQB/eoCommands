@@ -11,7 +11,7 @@ export class TabBebidaComponent implements OnInit {
   @Input() pedidos!: any[]
   @Output() cambioBarra = new EventEmitter<number>();
 
-  // pedidoLocal = sessionStorage .getItem('pedidos')
+  // pedidoLocal = sessionStorage.getItem('pedidos')
 
   constructor(private router: Router, public pedidoServices: PedidoServicesService) { }
 
@@ -19,8 +19,8 @@ export class TabBebidaComponent implements OnInit {
   }
 
   drinkView(pedido: any, index: number) {
-    sessionStorage .setItem('pedidoInfoPlates', JSON.stringify(pedido))
-    sessionStorage .setItem('index', index.toString())
+    sessionStorage.setItem('pedidoInfoPlates', JSON.stringify(pedido))
+    sessionStorage.setItem('index', index.toString())
     this.router.navigateByUrl("/restaurantPedidosBebida", {state: {pedido: pedido, i: index}});
   }
 

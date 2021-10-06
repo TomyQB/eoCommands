@@ -22,6 +22,22 @@ export class PedidoServicesService {
     return this.http.post<any>(this.Url + "madePedido", pedido)
   }
 
+  changeEstadoFoodPedido(pedido: Pedido) {
+    return this.http.post<any>(this.Url + "changeEstadoFoodPedido", pedido)
+  }
+
+  changeEstadoDrinkPedido(pedido: Pedido) {
+    return this.http.post<any>(this.Url + "changeEstadoDrinkPedido", pedido)
+  }
+
+  changeFoodCount(pedido: Pedido) {
+    return this.http.post<any>(this.Url + "changeFoodCount", pedido)
+  }
+
+  changeDrinkCount(pedido: Pedido) {
+    return this.http.post<any>(this.Url + "changeFoodCount", pedido)
+  }
+
   getAllPedidos(idUser: number): Observable<any[]> {
     return this.http.post<any>(this.Url + "pedido", idUser)
   }
@@ -37,23 +53,18 @@ export class PedidoServicesService {
         this.pedidoObjeto.splice(i, 1)
       } else i++
     }
-    sessionStorage .setItem('pedidos', JSON.stringify(this.pedidoObjeto))
+    sessionStorage.setItem('pedidos', JSON.stringify(this.pedidoObjeto))
   }
 
-  haveDrink(amounts: Amount[]): boolean {
+  countFoodAndDrink(amounts: Amount[]): number[] {
+    let count: number[] = [0, 0]
     for(let a of amounts) {
-      if(a.plate.drink) return true
+      console.log(a.estado)
+      if(!a.plate!.drink) count[0]++
+      else count[1]++
     }
 
-    return false
-  }
-
-  haveFood(amounts: Amount[]): boolean {
-    for(let a of amounts) {
-      if(!a.plate.drink) return true
-    }
-
-    return false
+    return count
   }
 
 }

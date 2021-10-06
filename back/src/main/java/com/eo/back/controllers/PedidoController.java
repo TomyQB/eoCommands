@@ -56,6 +56,35 @@ public class PedidoController {
         
         return new ResponseEntity<Boolean>(done, HttpStatus.OK);
     }
+        
+    @PostMapping("/changeEstadoFoodPedido")
+    public void changeEstadoFoodPedido(@RequestBody PedidoDTO dto) {
+        System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBB");
+        Pedido pedido = pedidoServices.getPedidoById(dto.getId());
+        pedido.setEstadoFood(dto.getEstadoFood());
+        pedidoServices.savePedido(pedido);
+    }
+            
+    @PostMapping("/changeEstadoDrinkPedido")
+    public void changeEstadoDrinkPedido(@RequestBody PedidoDTO dto) {
+        Pedido pedido = pedidoServices.getPedidoById(dto.getId());
+        pedido.setEstadoDrink(dto.getEstadoDrink());
+        pedidoServices.savePedido(pedido);
+    }
+                
+    @PostMapping("/changeFoodCount")
+    public void changeFoodCount(@RequestBody PedidoDTO dto) {
+        Pedido pedido = pedidoServices.getPedidoById(dto.getId());
+        pedido.setHechosFood(dto.getHechosFood());
+        pedidoServices.savePedido(pedido);
+    }
+                    
+    @PostMapping("/changeDrinkCount")
+    public void changeDrinkCount(@RequestBody PedidoDTO dto) {
+        Pedido pedido = pedidoServices.getPedidoById(dto.getId());
+        pedido.setEstadoDrink(dto.getEstadoDrink());
+        pedidoServices.savePedido(pedido);
+    }
 
     @PostMapping("/delete")
     public void deletePedidos(@RequestBody PedidoDTO dto) {

@@ -6,17 +6,24 @@
 
 .displayFlex{
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
 }
 
-.center33{
+.center25{
   text-align: center;
-  width: 33%;
+  width: 25%;
+  padding: 10px;
+}
+
+h1{
+  max-width: 90%;
+  margin: auto;
 }
 
 .tableTime{
-  padding: 20px 0px;
+  padding: 10px 0px;
   font-size: 20px;
+  font-weight: bold;
 }
 
 .tableTime:hover{
@@ -24,7 +31,7 @@
 }
 
 .estadonada{
-
+  background-color: white;
 }
 
 .estadoempezado{
@@ -33,4 +40,14 @@
 
 .estadoterminado{
   background-color: #7DE124;
+}
+
+.green{
+  color: grey;;
+}
+
+.border{
+  margin: 10px 10px 15px 10px;
+  border: 1px solid;
+  border-color: #9CCB3B;
 }

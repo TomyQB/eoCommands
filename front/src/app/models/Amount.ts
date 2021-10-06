@@ -7,7 +7,8 @@ export class Amount {
   amount!: number
   description!: string
   subTotal!: number
-  plate!: Plate
+  plate?: Plate
   pedido?: Pedido
   extras!: Additional[]
+  estado!: string
 }

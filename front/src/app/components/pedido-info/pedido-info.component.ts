@@ -23,7 +23,7 @@ export class PedidoInfoComponent implements OnInit {
 
   public showOverlay = false;
 
-  restaurantName: string = sessionStorage .getItem("name")!;
+  restaurantName: string = sessionStorage.getItem("name")!;
 
   dialogConfig: MatDialogConfig = {
     width: '90%',
@@ -32,10 +32,12 @@ export class PedidoInfoComponent implements OnInit {
   pedido: Pedido = {
     numTable: -1,
     email: "",
-    restaurantId: parseInt(sessionStorage .getItem("idRestaurant")!),
+    restaurantId: parseInt(sessionStorage.getItem("idRestaurant")!),
     total: history.state.total,
     date: "",
-    phoneNumber: ""
+    phoneNumber: "",
+    estado: "Pendiente",
+    amounts: this.amountServices.amounts
   }
 
   emailFormControl = new FormControl('', [
@@ -56,9 +58,9 @@ export class PedidoInfoComponent implements OnInit {
     private emailService: EmailService, private hash: HashService, private totalObservableService: TotalObservableService) { }
 
   ngOnInit(): void {
-    this.pedido.amounts = this.amountServices.amounts
-    this.pedido.haveDrink = this.pedidoService.haveDrink(this.pedido.amounts)
-    this.pedido.haveFood = this.pedidoService.haveFood(this.pedido.amounts)
+    let count = this.pedidoService.countFoodAndDrink(this.pedido.amounts!)
+    this.pedido.foodCount = count[0]
+    this.pedido.drinkCount = count[1]
     console.log(this.pedido)
   }
 
@@ -74,7 +76,7 @@ export class PedidoInfoComponent implements OnInit {
       if(data) {
         this.pendingOrderService.madePendingOrder(this.pedido).subscribe(data2 => {
           if(data2 = true) {
-            const name = sessionStorage .getItem("name")
+            const name = sessionStorage.getItem("name")
             this.hash.dic = {}
             this.totalObservableService.writeTotal(0)
             this.amountServices.amounts = []
@@ -98,7 +100,9 @@ export class PedidoInfoComponent implements OnInit {
     this.pedido.phoneNumber = this.phoneFormControl.value
 
     if(this.pedido.email && this.pedido.numTable && !isNaN(this.pedido.numTable)) {
+      this.showOverlay = true
       this.emailService.sendMessage(this.pedido.email).subscribe(data => {
+        this.showOverlay = false
         const dialogRef = this.dialog.open(ModalPhoneComponent, this.dialogConfig)
         dialogRef.componentInstance.code = data
         dialogRef.afterClosed().subscribe(res => {
@@ -111,7 +115,7 @@ export class PedidoInfoComponent implements OnInit {
   }
 
   goCategoriesPage() {
-    this.router.navigateByUrl("/restaurant/menu/" + sessionStorage .getItem("name"));
+    this.router.navigateByUrl("/restaurant/menu/" + sessionStorage.getItem("name"));
   }
 
 }

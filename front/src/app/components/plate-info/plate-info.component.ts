@@ -25,7 +25,8 @@ export class PlateInfoComponent implements OnInit {
     description: "",
     subTotal: 0,
     plate: history.state.plate,
-    extras: []
+    extras: [],
+    estado: "Pendiente"
   }
 
   extras = 0
@@ -36,20 +37,19 @@ export class PlateInfoComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.amount)
-    console.log(this.amount.plate.description)
+    console.log(this.amount.plate!.description)
     this.prepareDescription();
-    this.hash = this.hashService.getElementByName(this.amount.plate.name)
+    this.hash = this.hashService.getElementByName(this.amount.plate!.name)
     this.amount.amount = this.hash.amount;
     this.amount.extras = this.hash.extras;
     this.calculateExtras()
     this.checkIfExtras()
     this.calculateSubTotal()
-    this.showTextarea = this.amount.plate.drink
+    this.showTextarea = this.amount.plate!.drink
   }
 
   prepareDescription() {
-    console.log("hi")
-    this.descriptionAdapte = this.amount.plate.description.split("\n").join("<br>");
+    this.descriptionAdapte = this.amount.plate!.description.split("\n").join("<br>");
   }
 
   addToPedido(description: string) {
@@ -59,7 +59,7 @@ export class PlateInfoComponent implements OnInit {
 
     this.totalObservableService.writeTotal(this.amountServices.addAmountToList(this.amount))
 
-    this.hashService.setHashByName(this.amount.plate.name, this.amount.amount, description, this.amount.extras!);
+    this.hashService.setHashByName(this.amount.plate!.name, this.amount.amount, description, this.amount.extras!);
 
     this.location.back();
 
@@ -100,7 +100,7 @@ export class PlateInfoComponent implements OnInit {
   }
 
   calculateSubTotal() {
-    this.amount.subTotal = this.amount.amount * this.amount.plate.price + this.extras
+    this.amount.subTotal = this.amount.amount * this.amount.plate!.price + this.extras
     if(this.amount.amount === 0) this.extrasDisable = true
     else this.extrasDisable = false
     this.roundSubTotal()
@@ -129,7 +129,7 @@ export class PlateInfoComponent implements OnInit {
   checkIfExtras(){
     this.extrasChecked = []
 
-    this.amount.plate.additionals.map(extras => {
+    this.amount.plate!.additionals.map(extras => {
       if(this.amount.extras.findIndex(extra => extra.id === extras.id) >= 0){
         this.extrasChecked.push(true)
       } else {

@@ -13,6 +13,6 @@ export interface Pedido {
   estado?: string
   hechos?: number
   ordersAmount?: number
-  haveDrink?: boolean
-  haveFood?: boolean
+  drinkCount?: number
+  foodCount?: number
 }

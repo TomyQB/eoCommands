@@ -31,6 +31,7 @@ public class Amount {
     private int amount;
     private String description;
     private double subTotal;
+    private String estado;
 
     
     @OneToMany(mappedBy = "amount", cascade = CascadeType.ALL)

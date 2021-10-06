@@ -10,15 +10,20 @@ import lombok.Setter;
 @Setter
 public class PedidoDTO {
     
+    private long id;
     private int numTable;
     private String email;
     private double total;
     private long restaurantId;
     private String date;
     private String phoneNumber;
+    private String estadoFood;
+    private String estadoDrink;
     private int ordersAmount;
-    private boolean haveDrink;
-    private boolean haveFood;
+    private int drinkCount;
+    private int foodCount;
+    private int hechosFood;
+    private int hechosDrink;
 
     private List<Amount> amounts;
     
