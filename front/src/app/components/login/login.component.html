@@ -13,7 +13,7 @@
 
     <mat-form-field class="example-full-width">
       <mat-label>Contraseña</mat-label>
-      <input type="password" matInput [formControl]="passwordFormControl">
+      <input type="password" matInput [formControl]="passwordFormControl" autocomplete="off">
       <mat-error *ngIf="passwordFormControl.hasError('required')">
         Contraseña obligatoria
       </mat-error>

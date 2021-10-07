@@ -27,9 +27,8 @@ public class PedidoServices {
         repository.save(pedido);
     }
 
-    public String deletePedido(PedidoDTO dto) {
-        List<Pedido> pedidos = repository.deleteAllPedidoByRestaurantIdAndTableNum(restaurantServices.getRestaurantById(dto.getRestaurantId()).getId(), dto.getNumTable());
-        return pedidos.get(0).getEmail();
+    public void deletePedido(PedidoDTO dto) {
+        repository.deleteAllPedidoByRestaurantIdAndTableNum(restaurantServices.getRestaurantById(dto.getRestaurantId()).getId(), dto.getNumTable());
     }
 
     public void deletePedidosById(long idPedido) {

@@ -1,7 +1,7 @@
 <form>
   <mat-form-field class="example-full-width">
     <mat-label>Código</mat-label>
-    <input type="table" matInput [formControl]="codeFormControl" placeholder="Ej. 1010">
+    <input type="table" matInput [formControl]="codeFormControl" placeholder="Ej. 1010" autocomplete="off">
     <mat-error *ngIf="codeFormControl.hasError('required')">
       Código obligatorio
     </mat-error>

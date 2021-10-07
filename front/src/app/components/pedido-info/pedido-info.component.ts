@@ -62,7 +62,6 @@ export class PedidoInfoComponent implements OnInit {
     let count = this.pedidoService.countFoodAndDrink(this.pedido.amounts!)
     this.pedido.foodCount = count[0]
     this.pedido.drinkCount = count[1]
-    console.log(this.pedido)
   }
 
   finishPedido() {

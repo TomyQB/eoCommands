@@ -1,8 +1,14 @@
 package com.eo.back.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.eo.back.convert.PendingOrderAdditionalConverter;
+import com.eo.back.convert.PendingOrderPlateConverter;
 import com.eo.back.dto.PedidoDTO;
+import com.eo.back.dto.pendingOrders.PendingOrderDTO;
+import com.eo.back.dto.pendingOrders.PendingOrderPlateDTO;
+import com.eo.back.models.PendingOrderAdditional;
 import com.eo.back.models.PendingOrderPlate;
 import com.eo.back.services.PedidoServices;
 import com.eo.back.services.RestaurantServices;
@@ -37,6 +43,12 @@ public class PendingOrderController {
     @Autowired
     private PedidoServices pedidoServices;
 
+    @Autowired
+    private PendingOrderPlateConverter pendingOrderPlateConverter;
+
+    @Autowired
+    private PendingOrderAdditionalConverter pendingOrderAdditionalConverter;
+
     @PostMapping("/madePendingOrder")
     public ResponseEntity<Boolean> madePedido(@RequestBody PedidoDTO dto) {
 
@@ -47,11 +59,19 @@ public class PendingOrderController {
     }
 
     @PostMapping("/allPendingOrder")
-    public ResponseEntity<List<PendingOrderPlate>> getPendingOrder(@RequestBody long userId) {
+    public List<PendingOrderDTO> getPendingOrder(@RequestBody long restaurantId) {
 
-        List<PendingOrderPlate> pendingOrders = pendingOrderPlateService.getPendingOrderByRestaurantId(restaurantServices.getRestaurantById(userId).getId());
+        List<PendingOrderPlate> pendingOrdersPlate = pendingOrderPlateService.getPendingOrderByRestaurantId(restaurantId);
+        List<PendingOrderDTO> pendingOrderPlateDTOs = pendingOrderPlateConverter.toDTO(pendingOrdersPlate);
         
-        return new ResponseEntity<List<PendingOrderPlate>>(pendingOrders, HttpStatus.OK);
+        List<PendingOrderAdditional> pendingOrderAdditionals = pendingOrderAdditionalService.getPendingOrderByRestaurantId(restaurantId);
+        List<PendingOrderDTO> pendingOrderAdditionalDTOs = pendingOrderAdditionalConverter.toDTO(pendingOrderAdditionals);
+
+        List<PendingOrderDTO> pendingOrderDTOs = new ArrayList<>();
+        pendingOrderDTOs.addAll(pendingOrderPlateDTOs);
+        pendingOrderDTOs.addAll(pendingOrderAdditionalDTOs);
+        
+        return pendingOrderDTOs;
     }
 
     @PostMapping("/filterPendingOrder")
@@ -63,15 +83,9 @@ public class PendingOrderController {
     }
 
     @PostMapping("/deletePendingOrder")
-    public ResponseEntity<Boolean> deletePendingOrder(@RequestBody PedidoDTO dto) {
-        
-        List<PendingOrderPlate> pendingOrders = pendingOrderPlateService.deletePendingOrder(restaurantServices.getRestaurantById(dto.getRestaurantId()).getId(), dto.getNumTable());
-        String email = pedidoServices.deletePedido(dto);
-        pendingOrderEmailService.sendEmail(pendingOrders, email);
-
-        // restaurantServices.updateOrdersAmount(dto.getRestaurantId());
-        
-        return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+    public void deletePendingOrder(@RequestBody PedidoDTO dto) {        
+        pendingOrderPlateService.deletePendingOrder(dto.getRestaurantId(), dto.getNumTable());
+        pendingOrderAdditionalService.deletePendingOrder(dto.getRestaurantId(), dto.getNumTable());
     }
     
 }

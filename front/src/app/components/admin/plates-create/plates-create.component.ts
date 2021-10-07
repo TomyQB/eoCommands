@@ -54,9 +54,7 @@ export class PlatesCreateComponent implements OnInit {
 
   ngOnInit(): void {
     if(sessionStorage.getItem('plateIdAdmin')!) {
-      console.log("dentro")
       this.plateService.getPlateById(parseInt(sessionStorage.getItem('plateIdAdmin')!)).subscribe(data => {
-        console.log("dentro1")
         this.isDisable = "false"
         this.additional = data.additionals
         this.nameFormControl.setValue(data.name)
@@ -89,14 +87,8 @@ export class PlatesCreateComponent implements OnInit {
       for(let i = 1; i < this.alergenosOnDescription.length; i++) {
         description += "\n- " + this.alergenosOnDescription[i]
       }
-
       this.plate.description = description
 
-      // console.log(this.plate.name)
-      // console.log(this.plate.price)
-      console.log(this.plate.description)
-      // console.log(this.plate.drink)
-      // console.log(this.plate.category)
       this.plateService.addPlate(this.plate).subscribe(data => {
         this.router.navigateByUrl("/adminPlates");
       })
@@ -106,7 +98,6 @@ export class PlatesCreateComponent implements OnInit {
   updatePlateList(id: number) {
     var localPlates = JSON.parse(sessionStorage.getItem('plates')!)
     if(localPlates.findIndex((plate: { id: number; }) => plate.id === id) >= 0) {
-      console.log("si")
       for(let i = 0; i < localPlates.length; i++) {
         if(localPlates[i].id == id){
           localPlates[i].name = this.plate.name
@@ -126,9 +117,7 @@ export class PlatesCreateComponent implements OnInit {
     const dialogRef = this.dialog.open(ExtrasCreateComponent, this.dialogConfig)
     dialogRef.componentInstance.idPlate = this.plate.id!
     dialogRef.afterClosed().subscribe(res => {
-      console.log(this.plate.id)
       if(res){
-        console.log(res)
         this.additionalService.addAdditional(res).subscribe(data => {
           this.ngOnInit()
         })

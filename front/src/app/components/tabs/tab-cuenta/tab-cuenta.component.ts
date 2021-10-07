@@ -11,67 +11,100 @@ import { PendingOrderService } from 'src/app/services/pending-order.service';
 })
 export class TabCuentaComponent implements OnInit {
   @Input() pendingOrders: any
-  @Input() pedidos: any
 
-  @Output() pendingOrdersOutput = new EventEmitter<any>();
-  @Output() pedidosOutput = new EventEmitter<any>();
+  @Output() pedidosOutput = new EventEmitter<String>();
 
   tableFormControl = new FormControl('', [
     Validators.required,
   ]);
-
-  pedido: Pedido = {
-    date: "",
-    email: "",
-    numTable: 0,
-    phoneNumber: "",
-    restaurantId: parseInt(sessionStorage.getItem('userId')!),
-    total: 0
-  }
 
   pedidoDelete: Pedido = {
     date: "",
     email: "",
     numTable: 0,
     phoneNumber: "",
-    restaurantId: parseInt(sessionStorage.getItem('userId')!),
+    restaurantId: JSON.parse(sessionStorage.getItem('restaurant')!).id,
     total: 0,
   }
+
+  tableNum: string = ""
 
   constructor(private pendingOrderService: PendingOrderService, private pedidoServices: PedidoServicesService) { }
 
   ngOnInit(): void {
+    this.getPendingOrders();
+
+    setInterval(() => {
+      if(this.tableNum == "") this.getPendingOrders();
+      else this.filtrarPendigOrdersByNumTable(this.tableNum);
+      }, 10000);
   }
 
-  getPendingByTable(event: any) {
+  getPendingOrders() {
+    this.pendingOrderService.getAllPendingOrder(JSON.parse(sessionStorage.getItem('restaurant')!).id).subscribe(data => {
+      this.pendingOrders = data
+      sessionStorage.setItem('pendingOrders', JSON.stringify(data))
+    })
+  }
 
-    if(event.target.value != "") {
-      this.pedido.numTable = event.target.value
-      this.pendingOrderService.getPendingOrderByTable(this.pedido).subscribe(data => {
-        this.pendingOrders = data
-      })
+  getPendingByTable() {
+    if(this.tableNum == "") this.getPendingOrders();
+    else this.filtrarPendigOrdersByNumTable(this.tableNum)
+  }
 
-    } else {
-      this.pendingOrderService.getAllPendingOrder(this.pedido.restaurantId).subscribe(data => {
-        this.pendingOrders = data
-      })
+  private filtrarPendigOrdersByNumTable(tableNum: string) {
+    let i = 0;
+    while(i < this.pendingOrders.length) {
+      if(this.pendingOrders[i].tableNum != parseInt(tableNum)) this.pendingOrders.splice(i, 1)
+      else i++
     }
   }
 
-  deletePendingOrder() {
-    if(this.tableFormControl.value != "") {
-      this.pedidoDelete.numTable = this.tableFormControl.value
-      this.pedidoServices.deletePedidoObjeto(this.pedidoDelete.numTable)
-      this.pendingOrderService.deletePendingOrder(this.pedidoDelete).subscribe(data => {
-        sessionStorage.setItem('tab', "2");
-        var cont = parseInt(sessionStorage.getItem('contadorPedidos')!)
-        cont++
-        sessionStorage.setItem('contadorPedidos', cont.toString())
-        window.location.reload();
-      })
-    }else {
-      alert("Indica que mesa quieres finalizar")
-    }
+  // deletePendingOrder() {
+  //   if(this.tableFormControl.value != "") {
+  //     this.pedidoDelete.numTable = this.tableFormControl.value
+  //     this.pedidoServices.deletePedidoObjeto(this.pedidoDelete.numTable)
+  //     this.pendingOrderService.deletePendingOrder(this.pedidoDelete).subscribe(data => {
+  //       sessionStorage.setItem('tab', "2");
+  //       var cont = parseInt(sessionStorage.getItem('contadorPedidos')!)
+  //       cont++
+  //       sessionStorage.setItem('contadorPedidos', cont.toString())
+  //       window.location.reload();
+  //     })
+  //   }else {
+  //     alert("Indica que mesa quieres finalizar")
+  //   }
+  // }
+
+  sendCuenta() {
+    if(this.tableNum != "") {
+    } else alert("Selecciona una mesa")
+  }
+
+  deleteCuenta() {
+    if(this.tableNum != "") {
+      this.pedidosOutput.emit("fin")
+      this.pedidoDelete.numTable = parseInt(this.tableNum)
+      this.deletePedido();
+      this.deletePendingOrders();
+    } else alert("Selecciona una mesa")
+  }
+
+  private deletePedido() {
+    this.pedidoServices.deletePedido(this.pedidoDelete).subscribe(data => {
+    })
+  }
+
+  private deletePendingOrders() {
+    this.pendingOrderService.deletePendingOrder(this.pedidoDelete).subscribe(data => {
+      this.tableNum = "";
+      this.getPendingByTable()
+      this.pedidosOutput.emit()
+    })
+  }
+
+  saveOrdersRecord() {
+
   }
 
 }

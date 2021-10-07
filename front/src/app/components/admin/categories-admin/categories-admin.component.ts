@@ -76,12 +76,10 @@ export class CategoriesAdminComponent implements OnInit {
   }
 
   createCategory() {
-    console.log("new")
     this.router.navigateByUrl("/adminCategoriesCreate");
   }
 
   deleteCategory(category: Category) {
-    console.log(category)
     const dialogRef = this.dialog.open(ModalDeleteComponent, this.dialogConfig)
     dialogRef.afterClosed().subscribe(res => {
       if(res) {
@@ -107,9 +105,7 @@ export class CategoriesAdminComponent implements OnInit {
   }
 
   onFileChange(event: any) {
-    console.log("estoy")
     this.imagen = event.target.files[0]
-    console.log(this.imagen)
     const fr = new FileReader();
     fr.onload = (evento: any) => {
       this.imagenMin = evento.target.result
@@ -119,7 +115,6 @@ export class CategoriesAdminComponent implements OnInit {
 
   uploadPhoto() {
       this.imageService.upload(this.imagen!).subscribe(data => {
-        console.log(data)
         this.restaurant.image = data.image
         this.restaurant.idImage = data.idImage
         this.updateRestaurant();

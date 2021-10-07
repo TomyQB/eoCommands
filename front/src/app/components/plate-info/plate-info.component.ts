@@ -36,8 +36,6 @@ export class PlateInfoComponent implements OnInit {
   constructor(private amountServices: AmountServicesService,private hashService: HashService, private location: Location, private totalObservableService: TotalObservableService) { }
 
   ngOnInit(): void {
-    console.log(this.amount)
-    console.log(this.amount.plate!.description)
     this.prepareDescription();
     this.hash = this.hashService.getElementByName(this.amount.plate!.name)
     this.amount.amount = this.hash.amount;

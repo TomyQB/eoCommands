@@ -89,7 +89,7 @@ public class PedidoController {
         pedidoServices.savePedido(pedido);
     }
 
-    @PostMapping("/delete")
+    @PostMapping("/deletePedido")
     public void deletePedidos(@RequestBody PedidoDTO dto) {
         pedidoServices.deletePedido(dto);
     }

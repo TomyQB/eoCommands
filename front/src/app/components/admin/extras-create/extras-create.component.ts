@@ -34,8 +34,6 @@ export class ExtrasCreateComponent implements OnInit {
   constructor(private additionalService: AdditionalService, private router: Router, public dialog: MatDialogRef<ExtrasCreateComponent>) { }
 
   ngOnInit(): void {
-    // console.log(this.additional)
-    console.log(this.idPlate)
     if(this.name != undefined) {
       this.nameFormControl.setValue(this.name)
       this.priceFormControl.setValue(this.price)

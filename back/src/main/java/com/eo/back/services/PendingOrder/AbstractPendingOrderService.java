@@ -10,7 +10,7 @@ public abstract class AbstractPendingOrderService<T> {
 
     public abstract List<T> getPendingOrderByRestaurantIdAndTableNum(long restaurantId, int tableNum);
 
-    public abstract List<T> deletePendingOrder(long restaurantId, int tableNum);
+    public abstract void deletePendingOrder(long restaurantId, int tableNum);
 
     public abstract T getPendingOrderByMultiplePK(String plateName, long restaurantId, int tableNum);
 

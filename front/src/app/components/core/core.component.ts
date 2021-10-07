@@ -25,7 +25,6 @@ export class CoreComponent implements OnInit {
       } else {
         this.plateUrl = false
       }
-      // console.log(this.plateUrl)
     });
   }
 

@@ -39,7 +39,6 @@ export class PlatesAdminComponent implements OnInit {
     this.plateService.getPlatesByCategoryId(this.category.id).subscribe(data => {
       this.plates = data
     })
-    console.log(this.plates)
   }
 
   createPlate() {
@@ -49,7 +48,6 @@ export class PlatesAdminComponent implements OnInit {
 
 
   deletePlate(plate: Plate) {
-    console.log(plate)
     const dialogRef = this.dialog.open(ModalDeleteComponent, this.dialogConfig)
     dialogRef.afterClosed().subscribe(res => {
       if(res) {

@@ -30,8 +30,8 @@ public class PendingOrderAdditionalService extends AbstractPendingOrderService<P
         return this.pendingOrderAdditionalRepository.getPendingOrderAdditionalByRestaurantIdAndTableNum(restaurantId, tableNum);
     }
 
-    public List<PendingOrderAdditional> deletePendingOrder(long restaurantId, int tableNum) {
-        return this.pendingOrderAdditionalRepository.deleteAllPendingOrderAdditionalByRestaurantIdAndTableNum(restaurantId, tableNum);
+    public void deletePendingOrder(long restaurantId, int tableNum) {
+        this.pendingOrderAdditionalRepository.deleteAllPendingOrderAdditionalByRestaurantIdAndTableNum(restaurantId, tableNum);
     }
 
     public PendingOrderAdditional getPendingOrderByMultiplePK(String additionalName, long restaurantId, int tableNum) {

@@ -36,21 +36,9 @@
     </div>
   </mat-list>
 
-  <!-- <form class="example-form">
-    <mat-form-field class="example-full-width">
-      <mat-label>Email</mat-label>
-      <input type="email" matInput [formControl]="emailFormControl" placeholder="A este correo le llegará resguardo del pedido">
-      <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-        Introduce un email correcto
-      </mat-error>
-      <mat-error *ngIf="emailFormControl.hasError('required')">
-        Email obligatorio
-      </mat-error>
-    </mat-form-field> -->
-
     <mat-form-field class="example-full-width">
       <mat-label>Nº de mesa</mat-label>
-      <input type="number" matInput [formControl]="tableFormControl" placeholder="Ej. 10">
+      <input type="number" matInput [formControl]="tableFormControl" placeholder="Ej. 10" autocomplete="off">
       <mat-error *ngIf="tableFormControl.hasError('required')">
         Nº de mesa obligatorio
       </mat-error>

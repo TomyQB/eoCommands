@@ -1,44 +1,56 @@
 <div class="content">
-  <mat-form-field class="full-width">
-    <input matInput (keyup)="getPendingByTable($event)" placeholder="Filtrar mesa">
-  </mat-form-field>
+  <div class="box">
+    Ver cuenta mesa
+    <mat-form-field style="padding-left: 10px; max-width: 110px;">
+      <input matInput [(ngModel)]="tableNum" (keyup)="getPendingByTable()" placeholder="numero de mesa" autocomplete="off">
+    </mat-form-field>
+  </div>
 
   <mat-list class="matList">
-    <div class="displayFlex headers">
-      <div class="center33">Mesa</div>
-      <div class="center33">Plato</div>
-      <div class="center33">Unidades</div>
+    <div class="displayFlex">
+      <div class="center20">
+        <h1 class="primary">Mesa</h1>
+      </div>
+      <div class="center20">
+        <h1 class="primary">Platos</h1>
+      </div>
+      <div class="center20">
+        <h1 class="primary">Unidades</h1>
+      </div>
+      <div class="center20">
+        <h1 class="primary">Precio</h1>
+      </div>
+      <div class="center20">
+        <h1 class="primary">Total</h1>
+      </div>
     </div>
 
     <div *ngFor="let pending of pendingOrders">
       <div class="displayFlex tableTime">
-        <div class="center33">{{pending.tableNum}}</div>
-        <div class="center33">{{pending.plateName}}</div>
-        <div class="center33">{{pending.amount}}</div>
+        <div class="center20">{{pending.tableNum}}</div>
+
+        <div class="center20" *ngIf="pending.plate">{{pending.plate.name}}</div>
+        <div class="center20" *ngIf="pending.additional">{{pending.additional.name}}</div>
+
+        <div class="center20">{{pending.amount}}</div>
+
+        <div class="center20" *ngIf="pending.plate">{{pending.plate.price}}</div>
+        <div class="center20" *ngIf="pending.additional">{{pending.additional.price}}</div>
+
+        <div class="center20" *ngIf="pending.plate">{{pending.amount * pending.plate.price}}</div>
+        <div class="center20" *ngIf="pending.additional">{{pending.amount * pending.additional.price}}</div>
       </div>
       <mat-divider></mat-divider>
     </div>
   </mat-list>
 
-
-  <div class="displayFlex">
-    <label>Eliminar pedidos mesa: </label>
-
-    <form>
-      <mat-form-field>
-        <mat-label>Nº de mesa</mat-label>
-        <input type="number" matInput [formControl]="tableFormControl" placeholder="Ej. 10">
-        <mat-error *ngIf="tableFormControl.hasError('required')">
-          Código
-        </mat-error>
-      </mat-form-field>
-    </form>
-
-  </div>
-
-
-  <div class="center">
-    <button mat-raised-button class="primary" (click)="deletePendingOrder()">Eliminar pedido</button>
+  <div class="displayFlex" style="gap: 50px; padding-top: 20px;">
+    <div class="center">
+      <button mat-raised-button class="primary" (click)="sendCuenta()">Enviar cuenta al cliente</button>
+    </div>
+    <div class="center">
+      <button mat-raised-button class="primary" (click)="deleteCuenta()">Eliminar cuenta</button>
+    </div>
   </div>
 
 </div>

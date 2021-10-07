@@ -18,20 +18,12 @@ export class RestaurantPedidosComponent implements OnInit {
   restaurant: Restaurant = JSON.parse(sessionStorage.getItem('restaurant')!)
   pedidos!: any[]
   pendingOrders!: any[]
-  isDrinkZone: boolean = true;
-
-  // contadorPedidos: number = parseInt(sessionStorage.getItem('contadorPedidos')!)
 
   constructor(private pedidoServices: PedidoServicesService, private router: Router, private pendingOrderService: PendingOrderService) { }
 
   ngOnInit(): void {
-    console.log(this.restaurant)
     this.selectedIndex = parseInt(sessionStorage.getItem('tab')!)
     this.getPedidos();
-
-    this.pendingOrderService.getAllPendingOrder(this.restaurant.id).subscribe(data => {
-      this.pendingOrders = data
-    })
 
     setInterval(() => {
       this.getPedidos();
@@ -46,14 +38,13 @@ export class RestaurantPedidosComponent implements OnInit {
   getPedidos() {
     this.pedidoServices.getAllPedidos(this.restaurant.id).subscribe(data => {
       this.pedidos = data
-      console.log(this.pedidos)
     })
   }
+
 
   // getPedidos() {
   //   this.pedidoServices.getAllPedidos(this.userId).subscribe(data => {
   //     this.pedidos = data
-  //     console.log(this.pedidos)
 
   //     if(!sessionStorage.getItem('pedidos')){
 
@@ -96,12 +87,8 @@ export class RestaurantPedidosComponent implements OnInit {
   //   })
   // }
 
-  eliminarPedidosOutput(event: any) {
-    this.pedidos = event
-  }
-
-  eliminarPendingOrdersOutput(event: any) {
-    this.pendingOrders = event
+  eliminarPedidosOutput() {
+    this.getPedidos();
   }
 
   crearMenu() {

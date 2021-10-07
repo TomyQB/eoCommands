@@ -19,7 +19,6 @@ export class ImageService {
   public upload(imagen: File) {
     const formData = new FormData();
     formData.append('multipartFile', imagen);
-    console.log("foto va")
     return this.http.post<any>(this.Url + 'uploadCloudinary', formData);
   }
 }

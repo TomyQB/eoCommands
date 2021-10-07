@@ -11,12 +11,9 @@ export class TabBebidaComponent implements OnInit {
   @Input() pedidos!: any[]
   @Output() cambioBarra = new EventEmitter<number>();
 
-  // pedidoLocal = sessionStorage.getItem('pedidos')
-
   constructor(private router: Router, public pedidoServices: PedidoServicesService) { }
 
   ngOnInit(): void {
-    console.log(this.pedidos)
     this.comprobarPlatosHechos()
   }
 
@@ -33,7 +30,6 @@ export class TabBebidaComponent implements OnInit {
         this.pedidoServices.changeEstadoDrinkPedido(pedido).subscribe(data => {})
 
       } else if(pedido.hechosDrink != pedido.drinkCount && pedido.hechosDrink != "Pendiente") {
-        console.log("HOLA!!!")
           pedido.estadoDrink = "Pendiente"
           this.pedidoServices.changeEstadoDrinkPedido(pedido).subscribe(data => {})
       }

@@ -10,7 +10,7 @@
   <form class="example-form">
     <mat-form-field class="example-full-width">
       <mat-label>Nombre de la categoría</mat-label>
-      <input type="text" matInput [formControl]="nameFormControl">
+      <input type="text" matInput [formControl]="nameFormControl" autocomplete="off">
       <mat-error *ngIf="nameFormControl.hasError('required')">
         Nombre obligatorio
       </mat-error>

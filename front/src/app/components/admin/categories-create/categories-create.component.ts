@@ -34,7 +34,6 @@ export class CategoriesCreateComponent implements OnInit {
   constructor(private imageService: ImageService, private menuService: MenuServicesService, private router: Router/*, private spinner: NgxSpinnerService*/) { }
 
   ngOnInit(): void {
-    console.log(this.category.restaurant)
     if(JSON.parse(sessionStorage.getItem('editCategory')!)) {
       this.category.image = JSON.parse(sessionStorage.getItem('editCategory')!).image
       this.nameFormControl.setValue(JSON.parse(sessionStorage.getItem('editCategory')!).name)
@@ -81,9 +80,7 @@ export class CategoriesCreateComponent implements OnInit {
   }
 
   onFileChange(event: any) {
-    console.log("estoy")
     this.imagen = event.target.files[0]
-    console.log(this.imagen)
     const fr = new FileReader();
     fr.onload = (evento: any) => {
       this.imagenMin = evento.target.result

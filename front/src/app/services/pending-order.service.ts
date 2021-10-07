@@ -24,8 +24,8 @@ export class PendingOrderService {
     return this.http.post<any>(this.Url + "filterPendingOrder", idTable)
   }
 
-  deletePendingOrder(idTable: Pedido) {
-    return this.http.post<any>(this.Url + "deletePendingOrder", idTable)
+  deletePendingOrder(pedido: Pedido) {
+    return this.http.post<any>(this.Url + "deletePendingOrder", pedido)
   }
 
 }

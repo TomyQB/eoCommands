@@ -25,8 +25,8 @@ public class PendingOrderPlateService extends AbstractPendingOrderService<Pendin
         return this.pendingOrderRepository.getPendingOrderPlateByRestaurantIdAndTableNum(restaurantId, tableNum);
     }
 
-    public List<PendingOrderPlate> deletePendingOrder(long restaurantId, int tableNum) {
-        return this.pendingOrderRepository.deleteAllPendingOrderPlateByRestaurantIdAndTableNum(restaurantId, tableNum);
+    public void deletePendingOrder(long restaurantId, int tableNum) {
+        this.pendingOrderRepository.deleteAllPendingOrderPlateByRestaurantIdAndTableNum(restaurantId, tableNum);
     }
 
     public PendingOrderPlate getPendingOrderByMultiplePK(String plateName, long restaurantId, int tableNum) {

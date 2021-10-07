@@ -14,6 +14,6 @@ public interface PendingOrderPlateRepository extends JpaRepository<PendingOrderP
     List<PendingOrderPlate> getPendingOrderPlateByRestaurantIdAndTableNum(long restaurantId, int tableNum);
 
     @Transactional
-    List<PendingOrderPlate> deleteAllPendingOrderPlateByRestaurantIdAndTableNum(long restaurantId, int tableNum);
+    void deleteAllPendingOrderPlateByRestaurantIdAndTableNum(long restaurantId, int tableNum);
     PendingOrderPlate getPendingOrderPlateByPlateNameAndRestaurantIdAndTableNum(String plateName, long restaurantId, int tableNum);
 }

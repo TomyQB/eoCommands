@@ -25,8 +25,6 @@ export class RestaurantPedidoBebidaComponent implements OnInit {
   ngOnInit(): void {
     // this.pedidoServices.pedidoObjeto = JSON.parse(sessionStorage.getItem('pedidos')!)
     sessionStorage.setItem('tab', "1");
-    console.log(this.pedido[this.index])
-    console.log(this.index)
   }
 
   ngOnDestroy(): void {
@@ -35,7 +33,6 @@ export class RestaurantPedidoBebidaComponent implements OnInit {
   }
 
   marcarHecho(i: number, estado: string){
-    console.log(estado)
 
     if(estado === "Pendiente") {
       this.changesEstadoLocal(i, "Servido")

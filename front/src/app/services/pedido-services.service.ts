@@ -42,8 +42,8 @@ export class PedidoServicesService {
     return this.http.post<any>(this.Url + "pedido", idUser)
   }
 
-  deletePedido(idPedido: Pedido) {
-    return this.http.post<any>(this.Url + "delete", idPedido)
+  deletePedido(pedido: Pedido) {
+    return this.http.post<any>(this.Url + "deletePedido", pedido)
   }
 
   deletePedidoObjeto(numTable: number) {
@@ -59,7 +59,6 @@ export class PedidoServicesService {
   countFoodAndDrink(amounts: Amount[]): number[] {
     let count: number[] = [0, 0]
     for(let a of amounts) {
-      console.log(a.estado)
       if(!a.plate!.drink) count[0]++
       else count[1]++
     }

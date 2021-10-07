@@ -3,7 +3,7 @@
     <form class="example-form">
       <mat-form-field class="example-full-width">
         <mat-label>Nombre del plato</mat-label>
-        <input type="text" matInput [formControl]="nameFormControl">
+        <input type="text" matInput [formControl]="nameFormControl" autocomplete="off">
         <mat-error *ngIf="nameFormControl.hasError('required')">
           Nombre obligatorio
         </mat-error>
@@ -11,7 +11,7 @@
 
       <mat-form-field class="example-full-width">
         <mat-label>Precio</mat-label>
-        <input type="number" matInput [formControl]="priceFormControl">
+        <input type="number" matInput [formControl]="priceFormControl" autocomplete="off">
         <mat-error *ngIf="nameFormControl.hasError('required')">
           Precio obligatorio
         </mat-error>
