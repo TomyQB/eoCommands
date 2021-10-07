@@ -1,28 +1,32 @@
-
 <mat-list class="content">
   <div class="displayFlex">
-    <div class="center33">Plato</div>
-    <div class="center33">Unidades</div>
-    <div class="center33">Servido</div>
+    <div class="center33">
+      <h1 class="primary">Plato</h1>
+    </div>
+    <div class="center33">
+      <h1 class="primary">Unidades</h1>
+    </div>
+    <div class="center33">
+      <h1 class="primary">Estado del plato</h1>
+    </div>
   </div>
 
-  <div>
-    <div *ngFor="let amount of pedido.amounts; let i = index" class="servido{{pedidoServices.pedidoObjeto[indexs].amounts[i].servido}}">
-      <div class="displayFlex tableTime" *ngIf="amount.plate.drink">
+  <div *ngIf="pedido">
+    <div *ngFor="let amount of pedido.amounts; let i = index">
+      <div class="displayFlex tableTime {{amount.estado}}" *ngIf="amount.plate.drink" (click)="marcarHecho(i, amount.estado)">
         <div class="center33">{{amount.plate.name}}</div>
         <div class="center33">{{amount.amount}}</div>
         <div class="center33">
-          <p (click)="marcarHecho(i, pedidoServices.pedidoObjeto[indexs].amounts[i].servido)">servido</p>
-          <!-- <section class="example-section">
-            <mat-checkbox (click)="marcarHecho(i, pedidoServices.pedidoObjeto[indexs].amounts[i].servido)" >servido</mat-checkbox>
-          </section> -->
+          <p>{{amount.estado}}</p>
         </div>
       </div>
 
-      <div class="displayFlex description" *ngIf="amount.plate.drink">
-        {{amount.description}}
+      <div class="description {{amount.estado}}" *ngIf="amount.plate.drink && amount.description != ''">
+        <div>
+          {{amount.description}}
+        </div>
       </div>
-      <mat-divider *ngIf="amount.plate.drink"></mat-divider>
+      <mat-divider *ngIf="amount.plate.drink" class="border"></mat-divider>
     </div>
   </div>
 </mat-list>

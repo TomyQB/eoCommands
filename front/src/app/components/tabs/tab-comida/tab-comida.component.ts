@@ -17,7 +17,6 @@ export class TabComidaComponent implements OnInit {
   constructor(private router: Router, public pedidoServices: PedidoServicesService) { }
 
   ngOnInit(): void {
-    console.log(this.pedidos)
     this.comprobarPlatosHechos()
   }
 
@@ -27,7 +26,7 @@ export class TabComidaComponent implements OnInit {
     this.router.navigateByUrl("/restaurantPedidosInfo");
   }
 
-  comprobarPlatosHechos() {
+  private comprobarPlatosHechos() {
     this.pedidos.forEach(pedido => {
       if(pedido.hechosFood == pedido.foodCount && pedido.estadoFood != "Servido") {
         pedido.estadoFood = "Servido"

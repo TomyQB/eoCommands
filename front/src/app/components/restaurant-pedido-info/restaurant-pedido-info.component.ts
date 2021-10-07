@@ -26,10 +26,7 @@ export class RestaurantPedidoInfoComponent implements OnInit {
   constructor(public pedidoServices: PedidoServicesService, private amountService: AmountServicesService) { }
 
   ngOnInit(): void {
-    // this.pedidoServices.pedidoObjeto = JSON.parse(sessionStorage.getItem('pedidos')!)
     sessionStorage.setItem('tab', "0");
-    console.log(this.pedido[this.index])
-    console.log(this.index)
   }
 
   ngOnDestroy(): void {
@@ -38,7 +35,6 @@ export class RestaurantPedidoInfoComponent implements OnInit {
   }
 
   marcarHecho(i: number, estado: string){
-    console.log(estado)
 
     if(estado === "Pendiente") {
       this.changesEstadoLocal(i, "Cocinando")
@@ -58,29 +54,6 @@ export class RestaurantPedidoInfoComponent implements OnInit {
       this.changeEstadoBBDD(i, "Pendiente")
       this.takeOutFoodCount()
     }
-
-    // this.pedidoServices.pedidoObjeto[this.indexs].estado = 'empezado'
-
-    // if(!this.pedidoServices.pedidoObjeto[this.indexs].amounts[i].servido) {
-    //   this.pedidoServices.pedidoObjeto[this.indexs].hechos ++
-
-    // }
-
-    // if(this.pedidoServices.pedidoObjeto[this.indexs].amounts[i].servido) {
-    //   this.pedidoServices.pedidoObjeto[this.indexs].hechos --
-    // }
-
-    // if(this.pedidoServices.pedidoObjeto[this.indexs].hechos === this.pedidoServices.pedidoObjeto[this.indexs].amounts.length){
-    //   this.pedidoServices.pedidoObjeto[this.indexs].estado = 'terminado'
-
-    // } else if(this.pedidoServices.pedidoObjeto[this.indexs].hechos === 0) this.pedidoServices.pedidoObjeto[this.indexs].estado = 'nada'
-
-    // this.pedidoServices.pedidoObjeto[this.indexs].amounts[i].servido = !servido
-    // console.log(this.pedidoServices.pedidoObjeto[this.indexs].amounts[i].servido)
-    // sessionStorage.setItem('pedidos', JSON.stringify(this.pedidoServices.pedidoObjeto))
-
-    // console.log(JSON.parse(sessionStorage.getItem('pedidos')!))
-
   }
 
   private changeEstadoBBDD(i: number, estado: string) {
@@ -90,7 +63,6 @@ export class RestaurantPedidoInfoComponent implements OnInit {
   }
 
   private changesEstadoLocal(i: number, estado: string) {
-    console.log("hola")
     this.pedido.amounts[i].estado = estado
     sessionStorage.setItem('pedidoInfoPlates', JSON.stringify(this.pedido))
   }

@@ -15,19 +15,19 @@
     </div>
   </div>
 
-  <div>
-    <div *ngFor="let pedido of pedidos; let i = index" (click)="drinkView(pedido, i)" class="estado{{pedido.estado}}">
-      <div class="displayFlex tableTime" *ngIf="pedido.drinkCount > 0 && i % 2 != 0">
+  <div *ngFor="let pedido of pedidos; let i = index">
+    <div *ngIf="pedido.drinkCount > 0"  (click)="drinkView(pedido, i)">
+      <div class="displayFlex tableTime {{pedido.estadoDrink}}" *ngIf="i % 2 != 0">
         <div class="center25">{{pedido.tableNum}}</div>
         <div class="center25">{{pedido.date}}</div>
-        <div class="center25">{{pedido.hechos}}/{{pedido.drinkCount}}</div>
+        <div class="center25">{{pedido.hechosDrink}}/{{pedido.drinkCount}}</div>
         <div class="center25">{{pedido.estadoDrink}}</div>
       </div>
 
-      <div class="displayFlex tableTime" *ngIf="pedido.drinkCount > 0 && i % 2 == 0">
+      <div class="displayFlex tableTime {{pedido.estadoDrink}}" *ngIf="i % 2 == 0">
         <div class="center25 green">{{pedido.tableNum}}</div>
         <div class="center25 green">{{pedido.date}}</div>
-        <div class="center25 green">{{pedido.hechos}}/{{pedido.drinkCount}}</div>
+        <div class="center25 green">{{pedido.hechosDrink}}/{{pedido.drinkCount}}</div>
         <div class="center25 green">{{pedido.estadoDrink}}</div>
       </div>
       <mat-divider class="border"></mat-divider>

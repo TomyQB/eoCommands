@@ -6,12 +6,18 @@
 
 .displayFlex{
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
 }
 
 .center33{
   text-align: center;
   width: 33%;
+  padding: 10px;
+}
+
+h1{
+  max-width: 90%;
+  margin: auto;
 }
 
 .tableTime{
@@ -21,6 +27,8 @@
 
 .description{
   font-size: 20px;
+  padding-bottom: 20px;
+  text-align: center;
 }
 
 .button-end-order{
@@ -28,6 +36,16 @@
   margin-top: 10px;
 }
 
-.servidotrue{
+.Pendiente{
+  background-color: white;
+}
+
+.Servido{
   background-color: #7DE124;
+}
+
+.border{
+  margin: 10px 10px 15px 10px;
+  border: 1px solid;
+  border-color: #9CCB3B;
 }

@@ -36,7 +36,8 @@ export class PedidoInfoComponent implements OnInit {
     total: history.state.total,
     date: "",
     phoneNumber: "",
-    estado: "Pendiente",
+    estadoFood: "Pendiente",
+    estadoDrink: "Pendiente",
     amounts: this.amountServices.amounts
   }
 

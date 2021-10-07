@@ -10,8 +10,10 @@ export interface Pedido {
   phoneNumber: string
   restaurantId: number
   amounts?: Amount[]
-  estado?: string
-  hechos?: number
+  estadoFood?: string
+  estadoDrink?: string
+  hechosFood?: number
+  hechosDrink?: number
   ordersAmount?: number
   drinkCount?: number
   foodCount?: number

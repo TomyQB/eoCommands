@@ -15,16 +15,16 @@
     </div>
   </div>
 
-  <div>
-    <div *ngFor="let pedido of pedidos; let i = index" (click)="plateView(pedido, i)">
-      <div class="displayFlex tableTime {{pedido.estadoFood}}" *ngIf="pedido.foodCount > 0 && i % 2 != 0">
+  <div *ngFor="let pedido of pedidos; let i = index">
+    <div *ngIf="pedido.foodCount > 0" (click)="plateView(pedido, i)">
+      <div class="displayFlex tableTime {{pedido.estadoFood}}" *ngIf="i % 2 != 0">
         <div class="center25">{{pedido.tableNum}}</div>
         <div class="center25">{{pedido.date}}</div>
         <div class="center25">{{pedido.hechosFood}}/{{pedido.foodCount}}</div>
         <div class="center25">{{pedido.estadoFood}}</div>
       </div>
 
-      <div class="displayFlex tableTime {{pedido.estadoFood}}" *ngIf="pedido.foodCount > 0 && i % 2 == 0">
+      <div class="displayFlex tableTime {{pedido.estadoFood}}" *ngIf="i % 2 == 0">
         <div class="center25 green">{{pedido.tableNum}}</div>
         <div class="center25 green">{{pedido.date}}</div>
         <div class="center25 green">{{pedido.hechosFood}}/{{pedido.foodCount}}</div>

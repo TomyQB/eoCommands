@@ -16,12 +16,28 @@ export class TabBebidaComponent implements OnInit {
   constructor(private router: Router, public pedidoServices: PedidoServicesService) { }
 
   ngOnInit(): void {
+    console.log(this.pedidos)
+    this.comprobarPlatosHechos()
   }
 
   drinkView(pedido: any, index: number) {
     sessionStorage.setItem('pedidoInfoPlates', JSON.stringify(pedido))
     sessionStorage.setItem('index', index.toString())
-    this.router.navigateByUrl("/restaurantPedidosBebida", {state: {pedido: pedido, i: index}});
+    this.router.navigateByUrl("/restaurantPedidosBebida");
+  }
+
+  comprobarPlatosHechos() {
+    this.pedidos.forEach(pedido => {
+      if(pedido.hechosDrink == pedido.drinkCount && pedido.hechosDrink != "Servido") {
+        pedido.estadoDrink = "Servido"
+        this.pedidoServices.changeEstadoDrinkPedido(pedido).subscribe(data => {})
+
+      } else if(pedido.hechosDrink != pedido.drinkCount && pedido.hechosDrink != "Pendiente") {
+        console.log("HOLA!!!")
+          pedido.estadoDrink = "Pendiente"
+          this.pedidoServices.changeEstadoDrinkPedido(pedido).subscribe(data => {})
+      }
+    });
   }
 
 }

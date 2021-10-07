@@ -14,18 +14,15 @@
 
   <div *ngIf="pedido">
     <div *ngFor="let amount of pedido.amounts; let i = index">
-      <div class="displayFlex tableTime {{amount.estado}}" *ngIf="!amount.plate.drink">
+      <div class="displayFlex tableTime {{amount.estado}}" *ngIf="!amount.plate.drink" (click)="marcarHecho(i, amount.estado)">
         <div class="center33">{{amount.plate.name}}</div>
         <div class="center33">{{amount.amount}}</div>
         <div class="center33">
-          <p (click)="marcarHecho(i, amount.estado)">{{amount.estado}}</p>
-          <!-- <section class="example-section">
-            <mat-checkbox (click)="marcarHecho(i, pedidoServices.pedidoObjeto[indexs].amounts[i].servido)" >servido</mat-checkbox>
-          </section> -->
+          <p>{{amount.estado}}</p>
         </div>
       </div>
 
-      <div class="description {{amount.estado}}" *ngIf="!amount.plate.drink">
+      <div class="description {{amount.estado}}" *ngIf="!amount.plate.drink && (amount.extras.length > 0 || amount.description != '')">
         <div *ngFor="let e of amount.extras">
           {{e.name}}
         </div>
@@ -39,4 +36,3 @@
 
   </div>
 </mat-list>
-<!-- [(ngModel)]="pedidoServices.pedidoObjeto[indexs].amounts[i].servido" -->

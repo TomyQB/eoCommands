@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Amount } from 'src/app/models/Amount';
+import { AmountServicesService } from 'src/app/services/amount-services.service';
 import { PedidoServicesService } from 'src/app/services/pedido-services.service';
 
 @Component({
@@ -7,46 +9,65 @@ import { PedidoServicesService } from 'src/app/services/pedido-services.service'
   styleUrls: ['./restaurant-pedido-bebida.component.scss']
 })
 export class RestaurantPedidoBebidaComponent implements OnInit {
+  pedido: any = JSON.parse(sessionStorage.getItem('pedidoInfoPlates')!)
+  index: number = parseInt(sessionStorage.getItem('index')!)
 
-  pedido = JSON.parse(sessionStorage.getItem('pedidoInfoPlates')!)
-  indexs = parseInt(sessionStorage.getItem('index')!)
+  amount: Amount = {
+    amount: 0,
+    description: '',
+    subTotal: 0,
+    extras: [],
+    estado: ''
+  }
 
-  constructor(public pedidoServices: PedidoServicesService) { }
+  constructor(public pedidoServices: PedidoServicesService, private amountService: AmountServicesService) { }
 
   ngOnInit(): void {
-    this.pedidoServices.pedidoObjeto = JSON.parse(sessionStorage.getItem('pedidos')!)
-
+    // this.pedidoServices.pedidoObjeto = JSON.parse(sessionStorage.getItem('pedidos')!)
     sessionStorage.setItem('tab', "1");
+    console.log(this.pedido[this.index])
+    console.log(this.index)
   }
 
   ngOnDestroy(): void {
-    window.location.reload()
+    sessionStorage.removeItem('pedidoInfoPlates')
+    sessionStorage.removeItem('index')
   }
 
-  marcarHecho(i: number, servido: boolean){
+  marcarHecho(i: number, estado: string){
+    console.log(estado)
 
-    this.pedidoServices.pedidoObjeto[this.indexs].estado = 'empezado'
+    if(estado === "Pendiente") {
+      this.changesEstadoLocal(i, "Servido")
+      this.changeEstadoBBDD(i, "Servido")
+      this.addDrinkCount()
 
-    if(!this.pedidoServices.pedidoObjeto[this.indexs].amounts[i].servido) {
-      this.pedidoServices.pedidoObjeto[this.indexs].hechos ++
-
+    }else if(estado === "Servido") {
+      this.changesEstadoLocal(i, "Pendiente")
+      this.changeEstadoBBDD(i, "Pendiente")
+      this.takeOutDrinkCount()
     }
+  }
 
-    if(this.pedidoServices.pedidoObjeto[this.indexs].amounts[i].servido) {
-      this.pedidoServices.pedidoObjeto[this.indexs].hechos --
-    }
+  private changeEstadoBBDD(i: number, estado: string) {
+    this.amount.estado = estado;
+    this.amount.id = this.pedido.amounts[i].id;
+    this.amountService.changeEstadoAmount(this.amount).subscribe(data => {});
+  }
 
-    if(this.pedidoServices.pedidoObjeto[this.indexs].hechos === this.pedidoServices.pedidoObjeto[this.indexs].amounts.length){
-      this.pedidoServices.pedidoObjeto[this.indexs].estado = 'terminado'
+  private changesEstadoLocal(i: number, estado: string) {
+    this.pedido.amounts[i].estado = estado
+    sessionStorage.setItem('pedidoInfoPlates', JSON.stringify(this.pedido))
+  }
 
-    } else if(this.pedidoServices.pedidoObjeto[this.indexs].hechos === 0) this.pedidoServices.pedidoObjeto[this.indexs].estado = 'nada'
+  private addDrinkCount() {
+    this.pedido.hechosDrink++
+    this.pedidoServices.changeDrinkCount(this.pedido).subscribe(data => {})
+  }
 
-    this.pedidoServices.pedidoObjeto[this.indexs].amounts[i].servido = !servido
-    console.log(this.pedidoServices.pedidoObjeto[this.indexs].amounts[i].servido)
-    sessionStorage.setItem('pedidos', JSON.stringify(this.pedidoServices.pedidoObjeto))
-
-    console.log(JSON.parse(sessionStorage.getItem('pedidos')!))
-
+  private takeOutDrinkCount() {
+    this.pedido.hechosDrink--
+    this.pedidoServices.changeDrinkCount(this.pedido).subscribe(data => {})
   }
 
 }

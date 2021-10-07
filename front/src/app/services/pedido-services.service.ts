@@ -35,7 +35,7 @@ export class PedidoServicesService {
   }
 
   changeDrinkCount(pedido: Pedido) {
-    return this.http.post<any>(this.Url + "changeFoodCount", pedido)
+    return this.http.post<any>(this.Url + "changeDrinkCount", pedido)
   }
 
   getAllPedidos(idUser: number): Observable<any[]> {
