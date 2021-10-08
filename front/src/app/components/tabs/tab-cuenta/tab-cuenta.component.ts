@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Pedido } from 'src/app/models/Pedido';
 import { PendingOrderService } from 'src/app/services/pending-order.service';
+import { PendingOrdersRecord } from 'src/app/models/PendingOrdersRecord';
 
 @Component({
   selector: 'app-tab-cuenta',
@@ -100,11 +101,17 @@ export class TabCuentaComponent implements OnInit {
       this.tableNum = "";
       this.getPendingByTable()
       this.pedidosOutput.emit()
+      let pendingOrder: PendingOrdersRecord[] = data
+      this.saveOrdersRecord(pendingOrder)
     })
   }
 
-  saveOrdersRecord() {
-
+  saveOrdersRecord(pendingOrders: PendingOrdersRecord[]) {
+    console.log(pendingOrders)
+    pendingOrders.forEach(po => {
+      if(po.additional != null) this.pendingOrderService.madePendingOrderAdditionalRecord(po).subscribe(data => {})
+      if(po.plate != null) this.pendingOrderService.madePendingOrderPlateRecord(po).subscribe(data => {})
+    });
   }
 
 }

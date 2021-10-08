@@ -59,7 +59,6 @@ public class PedidoController {
         
     @PostMapping("/changeEstadoFoodPedido")
     public void changeEstadoFoodPedido(@RequestBody PedidoDTO dto) {
-        System.out.println("Cambiando estado comida");
         Pedido pedido = pedidoServices.getPedidoById(dto.getId());
         pedido.setEstadoFood(dto.getEstadoFood());
         pedidoServices.savePedido(pedido);
@@ -67,7 +66,6 @@ public class PedidoController {
             
     @PostMapping("/changeEstadoDrinkPedido")
     public void changeEstadoDrinkPedido(@RequestBody PedidoDTO dto) {
-        System.out.println("Cambiando estado bebida");
         Pedido pedido = pedidoServices.getPedidoById(dto.getId());
         pedido.setEstadoDrink(dto.getEstadoDrink());
         pedidoServices.savePedido(pedido);
@@ -75,7 +73,6 @@ public class PedidoController {
                 
     @PostMapping("/changeFoodCount")
     public void changeFoodCount(@RequestBody PedidoDTO dto) {
-        System.out.println("Cambiando contador comida");
         Pedido pedido = pedidoServices.getPedidoById(dto.getId());
         pedido.setHechosFood(dto.getHechosFood());
         pedidoServices.savePedido(pedido);
@@ -83,7 +80,6 @@ public class PedidoController {
                     
     @PostMapping("/changeDrinkCount")
     public void changeDrinkCount(@RequestBody PedidoDTO dto) {
-        System.out.println("Cambiando contador bebida");
         Pedido pedido = pedidoServices.getPedidoById(dto.getId());
         pedido.setHechosDrink(dto.getHechosDrink());
         pedidoServices.savePedido(pedido);

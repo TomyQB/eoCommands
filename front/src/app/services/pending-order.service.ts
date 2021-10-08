@@ -20,12 +20,28 @@ export class PendingOrderService {
     return this.http.post<any>(this.Url + "allPendingOrder", restaurantId)
   }
 
+  getAllOrdersRecord(restaurantId: number) {
+    return this.http.post<any>(this.Url + "allOrderRecord", restaurantId)
+  }
+
   getPendingOrderByTable(idTable: Pedido) {
     return this.http.post<any>(this.Url + "filterPendingOrder", idTable)
   }
 
   deletePendingOrder(pedido: Pedido) {
     return this.http.post<any>(this.Url + "deletePendingOrder", pedido)
+  }
+
+  deleteOrdersRecord(restaurantId: number) {
+    return this.http.post<any>(this.Url + "deleteOrdersRecord", restaurantId)
+  }
+
+  madePendingOrderAdditionalRecord(pendingOrder: any) {
+    return this.http.post<any>(this.Url + "madePendingOrderAdditionalRecord", pendingOrder)
+  }
+
+  madePendingOrderPlateRecord(pendingOrder: any) {
+    return this.http.post<any>(this.Url + "madePendingOrderPlateRecord", pendingOrder)
   }
 
 }

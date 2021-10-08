@@ -20,7 +20,6 @@ public class AmountController {
             
     @PostMapping("/changeEstadoAmount")
     public void changeEstadoAmount(@RequestBody AmountDTO dto) {
-        System.out.println("Cambiando estado amount");
         Amount amount = amountService.getAmountById(dto.getId());
         amount.setEstado(dto.getEstado());
         amountService.saveAmount(amount);

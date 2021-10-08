@@ -25,7 +25,6 @@ public class AdminController {
     public void senEmailAdmin() {
         List<Restaurant> restaurants = restaurantServices.getAllRestaurants();
         for (Restaurant restaurant : restaurants) {
-            System.out.println(restaurant.toString());
         }
 
         adminEmailService.sendEmail(restaurants);

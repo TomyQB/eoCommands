@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab-admin',
@@ -7,9 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TabAdminComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+
+  adminMenu() {
+    this.router.navigateByUrl("/adminCategories");
+  }
+
+  adminCaja() {
+    this.router.navigateByUrl("/adminCaja");
+  }
+
+  logOut() {
+    sessionStorage.clear();
+    this.router.navigateByUrl('login')
   }
 
 }

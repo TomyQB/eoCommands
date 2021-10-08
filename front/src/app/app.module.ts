@@ -23,6 +23,7 @@ import { RestaurantPedidoBebidaComponent } from './components/restaurant-pedido-
 import { TabComidaComponent } from './components/tabs/tab-comida/tab-comida.component';
 import { TabBebidaComponent } from './components/tabs/tab-bebida/tab-bebida.component';
 import { TabCuentaComponent } from './components/tabs/tab-cuenta/tab-cuenta.component';
+import { TabAdminComponent } from './components/tabs/tab-admin/tab-admin.component';
 import { ConfirmacionComponent } from './components/confirmacion/confirmacion.component';
 import { PaginaPrincipalComponent } from './components/pagina-principal/pagina-principal.component';
 import { TerminosComponent } from './components/terminos/terminos.component';
@@ -33,6 +34,7 @@ import { PlatesAdminComponent } from './components/admin/plates-admin/plates-adm
 import { CategoriesAdminComponent } from './components/admin/categories-admin/categories-admin.component';
 import { ModalDeleteComponent } from './components/modal-delete/modal-delete.component';
 import { ExtrasCreateComponent } from './components/admin/extras-create/extras-create.component';
+import { AdminCajaComponent } from './components/admin-caja/admin-caja.component';
 // import { NgxSpinnerModule} from 'ngx-spinner';
 @NgModule({
   declarations: [
@@ -51,6 +53,7 @@ import { ExtrasCreateComponent } from './components/admin/extras-create/extras-c
     TabComidaComponent,
     TabBebidaComponent,
     TabCuentaComponent,
+    TabAdminComponent,
     ConfirmacionComponent,
     PaginaPrincipalComponent,
     TerminosComponent,
@@ -61,6 +64,7 @@ import { ExtrasCreateComponent } from './components/admin/extras-create/extras-c
     CategoriesAdminComponent,
     ModalDeleteComponent,
     ExtrasCreateComponent,
+    AdminCajaComponent,
   ],
   imports: [
     BrowserModule,

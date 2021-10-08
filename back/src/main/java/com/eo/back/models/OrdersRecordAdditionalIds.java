@@ -5,11 +5,11 @@ import java.io.Serializable;
 public class OrdersRecordAdditionalIds implements Serializable {
 
     private long restaurantId;
-    private Additional additional;
+    private long additionalId;
 
-    public OrdersRecordAdditionalIds(long restaurantId, Additional additional) {
+    public OrdersRecordAdditionalIds(long restaurantId, long additionalId) {
         this.restaurantId = restaurantId;
-        this.additional = additional;
+        this.additionalId = additionalId;
     }
 
     public OrdersRecordAdditionalIds() {

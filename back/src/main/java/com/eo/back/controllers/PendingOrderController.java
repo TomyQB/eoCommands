@@ -3,16 +3,21 @@ package com.eo.back.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.eo.back.convert.OrdersRecordAdditionalConverter;
+import com.eo.back.convert.OrdersRecordPlateConverter;
 import com.eo.back.convert.PendingOrderAdditionalConverter;
 import com.eo.back.convert.PendingOrderPlateConverter;
 import com.eo.back.dto.PedidoDTO;
+import com.eo.back.dto.OrdersRecord.OrdersRecordDTO;
+import com.eo.back.dto.pendingOrders.PendingOrderAdditionalDTO;
 import com.eo.back.dto.pendingOrders.PendingOrderDTO;
 import com.eo.back.dto.pendingOrders.PendingOrderPlateDTO;
+import com.eo.back.models.OrdersRecordAdditional;
+import com.eo.back.models.OrdersRecordPlate;
 import com.eo.back.models.PendingOrderAdditional;
 import com.eo.back.models.PendingOrderPlate;
-import com.eo.back.services.PedidoServices;
-import com.eo.back.services.RestaurantServices;
-import com.eo.back.services.Email.PendingOrderEmailService;
+import com.eo.back.services.OrdersRecord.OrdersRecordAdditionalService;
+import com.eo.back.services.OrdersRecord.OrdersRecordPlateService;
 import com.eo.back.services.PendingOrder.PendingOrderAdditionalService;
 import com.eo.back.services.PendingOrder.PendingOrderPlateService;
 
@@ -33,15 +38,6 @@ public class PendingOrderController {
     
     @Autowired
     private PendingOrderAdditionalService pendingOrderAdditionalService;
-    
-    @Autowired
-    private RestaurantServices restaurantServices;
-    
-    @Autowired
-    private PendingOrderEmailService pendingOrderEmailService;
-    
-    @Autowired
-    private PedidoServices pedidoServices;
 
     @Autowired
     private PendingOrderPlateConverter pendingOrderPlateConverter;
@@ -49,8 +45,21 @@ public class PendingOrderController {
     @Autowired
     private PendingOrderAdditionalConverter pendingOrderAdditionalConverter;
 
+    @Autowired
+    private OrdersRecordAdditionalService ordersRecordAdditionalService;
+    
+    @Autowired
+    private OrdersRecordPlateService ordersRecordPlateService;
+
+    
+    @Autowired
+    private OrdersRecordAdditionalConverter ordersRecordAdditionalConverter;
+
+    @Autowired
+    private OrdersRecordPlateConverter ordersRecordPlateConverter;
+
     @PostMapping("/madePendingOrder")
-    public ResponseEntity<Boolean> madePedido(@RequestBody PedidoDTO dto) {
+    public ResponseEntity<Boolean> madePendingOrder(@RequestBody PedidoDTO dto) {
 
         pendingOrderPlateService.savePendingOrder(dto);
         pendingOrderAdditionalService.savePendingOrder(dto);
@@ -62,30 +71,71 @@ public class PendingOrderController {
     public List<PendingOrderDTO> getPendingOrder(@RequestBody long restaurantId) {
 
         List<PendingOrderPlate> pendingOrdersPlate = pendingOrderPlateService.getPendingOrderByRestaurantId(restaurantId);
-        List<PendingOrderDTO> pendingOrderPlateDTOs = pendingOrderPlateConverter.toDTO(pendingOrdersPlate);
-        
         List<PendingOrderAdditional> pendingOrderAdditionals = pendingOrderAdditionalService.getPendingOrderByRestaurantId(restaurantId);
-        List<PendingOrderDTO> pendingOrderAdditionalDTOs = pendingOrderAdditionalConverter.toDTO(pendingOrderAdditionals);
-
-        List<PendingOrderDTO> pendingOrderDTOs = new ArrayList<>();
-        pendingOrderDTOs.addAll(pendingOrderPlateDTOs);
-        pendingOrderDTOs.addAll(pendingOrderAdditionalDTOs);
         
-        return pendingOrderDTOs;
-    }
-
-    @PostMapping("/filterPendingOrder")
-    public ResponseEntity<List<PendingOrderPlate>> filterPendingOrder(@RequestBody PedidoDTO dto) {
-        
-        List<PendingOrderPlate> pendingOrders = pendingOrderPlateService.getPendingOrderByRestaurantIdAndTableNum(restaurantServices.getRestaurantById(dto.getRestaurantId()).getId(), dto.getNumTable());
-        
-        return new ResponseEntity<List<PendingOrderPlate>>(pendingOrders, HttpStatus.OK);
+        return mergeTwoPendingOrderList(pendingOrdersPlate, pendingOrderAdditionals);
     }
 
     @PostMapping("/deletePendingOrder")
-    public void deletePendingOrder(@RequestBody PedidoDTO dto) {        
-        pendingOrderPlateService.deletePendingOrder(dto.getRestaurantId(), dto.getNumTable());
-        pendingOrderAdditionalService.deletePendingOrder(dto.getRestaurantId(), dto.getNumTable());
+    public List<PendingOrderDTO> deletePendingOrder(@RequestBody PedidoDTO dto) {        
+        List<PendingOrderPlate> pendingOrdersPlate = pendingOrderPlateService.deletePendingOrder(dto.getRestaurantId(), dto.getNumTable());
+        List<PendingOrderAdditional> pendingOrderAdditionals = pendingOrderAdditionalService.deletePendingOrder(dto.getRestaurantId(), dto.getNumTable());
+
+        return mergeTwoPendingOrderList(pendingOrdersPlate, pendingOrderAdditionals);
+    }
+
+    private List<PendingOrderDTO> mergeTwoPendingOrderList(List<PendingOrderPlate> pendingOrdersPlate, List<PendingOrderAdditional> pendingOrderAdditionals) {
+
+        List<PendingOrderDTO> pendingOrderDTOs = new ArrayList<>();
+
+        List<PendingOrderDTO> pendingOrderPlateDTOs = pendingOrderPlateConverter.toDTO(pendingOrdersPlate);
+        List<PendingOrderDTO> pendingOrderAdditionalDTOs = pendingOrderAdditionalConverter.toDTO(pendingOrderAdditionals);
+
+        pendingOrderDTOs.addAll(pendingOrderPlateDTOs);
+        pendingOrderDTOs.addAll(pendingOrderAdditionalDTOs);
+
+        return pendingOrderDTOs;
+    }
+
+    
+    @PostMapping("/madePendingOrderPlateRecord")
+    public void madePendingOrderRecord(@RequestBody PendingOrderPlateDTO dto) {
+
+        ordersRecordPlateService.saveOrderRecord(dto);
+    }
+    
+    @PostMapping("/madePendingOrderAdditionalRecord")
+    public void madePendingOrderRecord(@RequestBody PendingOrderAdditionalDTO dto) {
+
+        ordersRecordAdditionalService.saveOrderRecord(dto);
+    }
+    
+    @PostMapping("/allOrderRecord")
+    public List<OrdersRecordDTO> getOrderRecord(@RequestBody long restaurantId) {
+
+        List<OrdersRecordPlate> ordersRecordPlates = ordersRecordPlateService.getAllOrdersRecordByRestaurantId(restaurantId);
+        List<OrdersRecordAdditional> ordersRecordAdditionals = ordersRecordAdditionalService.getAllOrdersRecordByRestaurantId(restaurantId);
+        
+        return mergeTwoOrderRecordList(ordersRecordPlates, ordersRecordAdditionals);
+    }
+    
+    @PostMapping("/deleteOrdersRecord")
+    public void deleteOrdersRecord(@RequestBody long restaurantId) {        
+        ordersRecordPlateService.deleteOrdersRecord(restaurantId);
+        ordersRecordAdditionalService.deleteOrdersRecord(restaurantId);
+    }
+    
+    private List<OrdersRecordDTO> mergeTwoOrderRecordList(List<OrdersRecordPlate> ordersRecordPlate, List<OrdersRecordAdditional> ordersRecordAdditionals) {
+
+        List<OrdersRecordDTO> ordersRecordDTOs= new ArrayList<>();
+
+        List<OrdersRecordDTO> ordersRecordPlateDTOs = ordersRecordPlateConverter.toDTO(ordersRecordPlate);
+        List<OrdersRecordDTO> ordersRecordAdditionalDTOs = ordersRecordAdditionalConverter.toDTO(ordersRecordAdditionals);
+
+        ordersRecordDTOs.addAll(ordersRecordPlateDTOs);
+        ordersRecordDTOs.addAll(ordersRecordAdditionalDTOs);
+
+        return ordersRecordDTOs;
     }
     
 }

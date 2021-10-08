@@ -1,5 +1,4 @@
 import { Restaurant } from './../../models/Restaurant';
-import { AmountServicesService } from './../../services/amount-services.service';
 import { PendingOrderService } from './../../services/pending-order.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -19,7 +18,7 @@ export class RestaurantPedidosComponent implements OnInit {
   pedidos!: any[]
   pendingOrders!: any[]
 
-  constructor(private pedidoServices: PedidoServicesService, private router: Router, private pendingOrderService: PendingOrderService) { }
+  constructor(private pedidoServices: PedidoServicesService, private pendingOrderService: PendingOrderService) { }
 
   ngOnInit(): void {
     this.selectedIndex = parseInt(sessionStorage.getItem('tab')!)
@@ -30,77 +29,14 @@ export class RestaurantPedidosComponent implements OnInit {
       }, 10000);
   }
 
-  ngOnDestroy(): void {
-    //Called once, before the instance is destroyed.
-    //Add 'implements OnDestroy' to the class.
-  }
-
   getPedidos() {
     this.pedidoServices.getAllPedidos(this.restaurant.id).subscribe(data => {
       this.pedidos = data
     })
   }
 
-
-  // getPedidos() {
-  //   this.pedidoServices.getAllPedidos(this.userId).subscribe(data => {
-  //     this.pedidos = data
-
-  //     if(!sessionStorage.getItem('pedidos')){
-
-  //       this.pedidoServices.getAllPedidos(this.userId).subscribe(dataa => {
-  //       this.pedidos = dataa
-
-  //       //esto viene de la bd
-  //       this.pedidos.forEach(hola=>{
-  //         hola.hechos = 0
-  //         hola.estado = 'nada'
-  //         hola.amounts.forEach((element: { servido: boolean; }) => {
-  //           element.servido = false
-  //         });
-  //       })
-  //       this.pedidoServices.pedidoObjeto = dataa
-  //       this.pedidoServices.pedidoObjeto.forEach(hola=>{
-  //         hola.hechos = 0
-  //         hola.estado = 'nada'
-  //       })
-
-  //       sessionStorage.setItem('pedidos', JSON.stringify(this.pedidoServices.pedidoObjeto))
-  //       })
-
-  //     } else if(this.pedidoServices.pedidoObjeto.length === 0) {
-  //       this.pedidoServices.pedidoObjeto = JSON.parse(sessionStorage.getItem('pedidos')!)
-  //       if(this.pedidos.length != this.pedidoServices.pedidoObjeto.length){
-
-  //         this.pedidos.forEach(pedido => {
-  //           let pedidoDistinto = this.pedidoServices.pedidoObjeto.findIndex(ped => pedido.id == ped.id)
-  //           if(pedidoDistinto < 0) {
-  //             this.pedidoServices.pedidoObjeto.push(pedido)
-  //           }
-  //         });
-
-  //           sessionStorage.setItem('pedidos', JSON.stringify(this.pedidoServices.pedidoObjeto))
-
-  //         }
-
-  //     }
-  //   })
-  // }
-
   eliminarPedidosOutput() {
     this.getPedidos();
-  }
-
-  crearMenu() {
-    this.router.navigateByUrl("/adminCategories");
-    // setTimeout(function reload() {
-    //   window.location.reload()
-    // }, 20)
-  }
-
-  logOut() {
-    sessionStorage.clear();
-    this.router.navigateByUrl('login')
   }
 
 }

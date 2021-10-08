@@ -1,3 +1,4 @@
+import { AdminCajaComponent } from './components/admin-caja/admin-caja.component';
 import { ExtrasCreateComponent } from './components/admin/extras-create/extras-create.component';
 import { PlatesAdminComponent } from './components/admin/plates-admin/plates-admin.component';
 import { CategoriesAdminComponent } from './components/admin/categories-admin/categories-admin.component';
@@ -93,6 +94,10 @@ const routes: Routes = [
   {
     path: 'adminExtrasCreate',
     component: ExtrasCreateComponent
+  },
+  {
+    path: 'adminCaja',
+    component: AdminCajaComponent
   },
 
 ];
