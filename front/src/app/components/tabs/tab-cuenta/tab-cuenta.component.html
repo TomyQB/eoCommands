@@ -1,7 +1,7 @@
 <div class="content">
   <div class="box">
     Ver cuenta mesa
-    <mat-form-field style="padding-left: 10px; max-width: 110px;">
+    <mat-form-field class="inputContent">
       <input matInput [(ngModel)]="tableNum" (keyup)="getPendingByTable()" placeholder="numero de mesa" autocomplete="off">
     </mat-form-field>
   </div>
@@ -28,21 +28,23 @@
     <div *ngFor="let pending of pendingOrders">
       <div class="displayFlex tableTime">
         <div class="center20">{{pending.tableNum}}</div>
-
-        <div class="center20" *ngIf="pending.plate">{{pending.plate.name}}</div>
-        <div class="center20" *ngIf="pending.additional">{{pending.additional.name}}</div>
-
+        <div class="center20">{{(pending.plate) ? pending.plate.name : pending.additional.name}}</div>
         <div class="center20">{{pending.amount}}</div>
-
-        <div class="center20" *ngIf="pending.plate">{{pending.plate.price}}</div>
-        <div class="center20" *ngIf="pending.additional">{{pending.additional.price}}</div>
-
-        <div class="center20" *ngIf="pending.plate">{{pending.amount * pending.plate.price}}</div>
-        <div class="center20" *ngIf="pending.additional">{{pending.amount * pending.additional.price}}</div>
+        <div class="center20">{{(pending.plate) ? pending.plate.price : pending.additional.price}}€</div>
+        <div class="center20">{{(pending.plate) ? pending.amount * pending.plate.price : pending.amount * pending.additional.price}}€</div>
       </div>
       <mat-divider></mat-divider>
     </div>
   </mat-list>
+
+  <div style="font-size: 18px;">
+    <div class="totalIva">
+      Total con iva incluido
+    </div>
+    <div class="littleBox">
+      {{total}}
+    </div>
+  </div>
 
   <div class="displayFlex" style="gap: 50px; padding-top: 20px;">
     <div class="center">

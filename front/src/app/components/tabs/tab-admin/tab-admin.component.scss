@@ -1,3 +1,54 @@
+.content{
+  padding: 20px;
+  margin: auto;
+  font-size: 25px;
+}
+
+.displayFlex{
+  display: flex;
+  justify-content: center;
+}
+
+.center33{
+  text-align: center;
+  width: 33%;
+  padding: 10px;
+}
+
+h1{
+  max-width: 90%;
+  margin: auto;
+}
+
+.tableTime{
+  padding: 10px 0px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.tableTime:hover{
+  background-color: #C9C9C9;
+}
+
+.Pendiente{
+  background-color: white;
+}
+
+.Servido{
+  background-color: #7DE124;
+}
+
+.green{
+  color: grey;;
+}
+
+.border{
+  margin: 10px 10px 15px 10px;
+  border: 1px solid;
+  border-color: #9CCB3B;
+}
+
+
 .button{
   text-align: center;
   padding: 30px;

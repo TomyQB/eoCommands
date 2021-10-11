@@ -22,7 +22,7 @@ export class CategoriesCreateComponent implements OnInit {
 
   category: CategoryDTO = {
     name: "",
-    restaurant: parseInt(sessionStorage.getItem('userId')!),
+    restaurant: JSON.parse(sessionStorage.getItem("restaurant")!).id,
     image: "",
     idImage: ""
   }
@@ -41,6 +41,7 @@ export class CategoriesCreateComponent implements OnInit {
     }
 
     this.imageService.getImages().subscribe(data => {
+      console.log(data)
       this.images = data
     })
   }
@@ -73,10 +74,6 @@ export class CategoriesCreateComponent implements OnInit {
         this.router.navigateByUrl("/adminCategories");
       })
     } else alert("Nombre y foto obligatios")
-  }
-
-  onUpload() {
-
   }
 
   onFileChange(event: any) {

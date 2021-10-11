@@ -15,7 +15,7 @@ public class ImageService {
     private ImageRepository imageRepository;
 
     public List<Image> getAllImages() {
-        return imageRepository.findAll();
+        return imageRepository.findImageByIdLessThanOrderByCategory(59);
     }
 
 }

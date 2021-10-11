@@ -5,11 +5,13 @@ import java.io.Serializable;
 public class TotalOrdersRecordIds implements Serializable{
 
     private long restaurantId;
-    private String date;
+    private String month;
+    private String year;
 
-    public TotalOrdersRecordIds(long restaurantId, String date) {
+    public TotalOrdersRecordIds(long restaurantId, String month, String year) {
         this.restaurantId = restaurantId;
-        this.date = date;
+        this.month = month;
+        this.year = year;
     }
 
     public TotalOrdersRecordIds() {

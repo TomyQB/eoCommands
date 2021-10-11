@@ -19,21 +19,16 @@ export class CategoriesAdminComponent implements OnInit {
   @ViewChild('imagenInputFile', {static: false}) imagenFile!: ElementRef
 
   categories!: Category[]
-  // image: string = sessionStorage.getItem("image")!
-  // idImage: string = sessionStorage.getItem("idImage")!
 
   restaurant: RestaurantDTO = {
-    id: parseInt(sessionStorage.getItem('userId')!),
-    name: "",
-    ordersAmount: 0,
-    image: sessionStorage.getItem("image")!,
-    idImage: sessionStorage.getItem("idImage")!
+    id: JSON.parse(sessionStorage.getItem("restaurant")!).id,
+    name: JSON.parse(sessionStorage.getItem("restaurant")!).name,
+    image: JSON.parse(sessionStorage.getItem("restaurant")!).image,
+    idImage: JSON.parse(sessionStorage.getItem("restaurant")!).idImage
   }
 
   imagen: File | undefined
   imagenMin: File | undefined
-
-  restaurantName: string = sessionStorage.getItem("rname")!
 
   dialogConfig: MatDialogConfig = {
     width: '90%',
@@ -42,22 +37,12 @@ export class CategoriesAdminComponent implements OnInit {
   constructor(private imageService: ImageService, public dialog: MatDialog, private menuService: MenuServicesService, private router: Router, private restaurantService: RestaurantService) { }
 
   ngOnInit(): void {
-    this.setUrlName();
 
-    this.menuService.getMenu(this.restaurantName).subscribe(data => {
+    console.log(this.restaurant)
+
+    this.menuService.getMenu(this.restaurant.name).subscribe(data => {
       this.categories = data
-      sessionStorage.setItem('idRestaurant', data[0].restaurant.id);
     })
-  }
-
-  ngOnDestroy(): void {
-    // window.location.reload()
-  }
-
-  private setUrlName() {
-    if(this.restaurantName != null) {
-      sessionStorage.setItem('name', this.restaurantName);
-    }
   }
 
   plateView(i: number, category: Category) {
@@ -99,11 +84,6 @@ export class CategoriesAdminComponent implements OnInit {
     this.router.navigateByUrl("/restaurantPedidos");
   }
 
-
-  onUpload() {
-
-  }
-
   onFileChange(event: any) {
     this.imagen = event.target.files[0]
     const fr = new FileReader();
@@ -123,8 +103,7 @@ export class CategoriesAdminComponent implements OnInit {
 
   updateRestaurant() {
       this.restaurantService.updateRestaurantPhoto(this.restaurant).subscribe(data => {
-        sessionStorage.setItem("image", this.restaurant.image)
-        sessionStorage.setItem("idImage", this.restaurant.idImage)
+        sessionStorage.setItem('restaurant', JSON.stringify(this.restaurant))
         this.reset()
       })
   }

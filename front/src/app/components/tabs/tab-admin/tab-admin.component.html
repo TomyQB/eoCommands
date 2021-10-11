@@ -1,11 +1,31 @@
 
-      <div class="button" style="font-size: 30px;">
-        <p style="padding-bottom: 10px;">Pedidos de este mes</p>
+<div class="button flexBox">
+  <button mat-raised-button class="primary" (click)="adminMenu()">Administrar menu</button>
+  <button mat-raised-button class="primary" (click)="adminCaja()">Administrar caja</button>
+</div>
+<div class="button gap">
+  <button mat-raised-button class="primary" (click)="logOut()">Cerrar sesión</button>
+</div>
+
+<mat-list class="content">
+  <div class="displayFlex">
+    <div class="center33">
+      <h1 class="primary">Mes</h1>
+    </div>
+    <div class="center33">
+      <h1 class="primary">Año</h1>
+    </div>
+    <div class="center33">
+      <h1 class="primary">Pedidos</h1>
+    </div>
+  </div>
+
+  <div *ngFor="let pedido of totalOrdersRecordService.orderRecord; let i = index">
+      <div class="displayFlex tableTime">
+        <div class="center33">{{pedido.month}}</div>
+        <div class="center33">{{pedido.year}}</div>
+        <div class="center33">{{pedido.amountOrders}}</div>
       </div>
-      <div class="button flexBox">
-        <button mat-raised-button class="primary" (click)="adminMenu()">Administrar menu</button>
-        <button mat-raised-button class="primary" (click)="adminCaja()">Administrar caja</button>
-      </div>
-      <div class="button gap">
-        <button mat-raised-button class="primary" (click)="logOut()">Cerrar sesión</button>
-      </div>
+      <mat-divider class="border"></mat-divider>
+  </div>
+</mat-list>

@@ -23,11 +23,32 @@
   margin-bottom: 20px;
 }
 
-// .displayFlex{
-//   display: flex;
-//   justify-content: space-around;
-//   align-items: center;
-// }
+.inputContent{
+  max-width: 110px;
+  text-align: center;
+}
+
+.totalIva{
+  color: white;
+  text-align: center;
+  max-width: 220px;
+  height: 30px;
+  background-color: #9CCB3B;
+  margin-bottom: 5px;
+  margin-top: 15px;
+  padding-top: 8px;
+}
+
+.littleBox{
+  text-align: center;
+  max-width: 216px;
+  height: 30px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #9CCB3B;
+  font-weight: bold;
+  padding-top: 10px;
+}
 
 .headers{
   font-size: 25px;

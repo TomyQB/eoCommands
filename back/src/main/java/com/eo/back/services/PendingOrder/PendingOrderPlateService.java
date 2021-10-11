@@ -41,7 +41,7 @@ public class PendingOrderPlateService extends AbstractPendingOrderService<Pendin
 
             if(pendingOrderPlate != null) {
                 pendingOrderPlate.setAmount(pendingOrderPlate.getAmount() + a.getAmount());
-                this.pendingOrderRepository.save(pendingOrderPlate);
+                pendingOrderRepository.save(pendingOrderPlate);
 
             } else createNewPendingOrderPlate(dto, a);
         }

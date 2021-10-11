@@ -28,7 +28,6 @@ public class AdminEmailService extends AbstractEmailService<List<Restaurant>> {
             message.setSubject("Factura de eorestaurantes en el mes de " + getMonth());
             // message.setText(createMessageCount(restaurant));
             emailSender.send(message);
-            doPayment();
         } 
         
     }
@@ -46,10 +45,6 @@ public class AdminEmailService extends AbstractEmailService<List<Restaurant>> {
         cal.setTime(date);
         int month = cal.get(Calendar.MONTH);
         return Month.intToMonth(month);
-    }
-
-    private void doPayment() {
-
     }
 
     @Override

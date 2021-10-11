@@ -1,3 +1,4 @@
+import { TotalOrdersRecordService } from './../../../services/total-orders-record.service';
 import { PedidoServicesService } from './../../../services/pedido-services.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
@@ -28,9 +29,10 @@ export class TabCuentaComponent implements OnInit {
     total: 0,
   }
 
+  total: number = 0;
   tableNum: string = ""
 
-  constructor(private pendingOrderService: PendingOrderService, private pedidoServices: PedidoServicesService) { }
+  constructor(private pendingOrderService: PendingOrderService, private pedidoServices: PedidoServicesService, private totalOrdersRecordService: TotalOrdersRecordService) { }
 
   ngOnInit(): void {
     this.getPendingOrders();
@@ -41,9 +43,21 @@ export class TabCuentaComponent implements OnInit {
       }, 10000);
   }
 
+  calculateTotal() {
+    this.total = 0;
+    for(let i = 0; i < this.pendingOrders.length; i++) {
+      let amount = this.pendingOrders[i].amount
+      let price = (this.pendingOrders[i].additional) ? this.pendingOrders[i].additional.price : this.pendingOrders[i].plate.price
+      this.total += amount * price;
+      this.total = Math.round(this.total * 100) / 100;
+    }
+    console.log(this.total)
+  }
+
   getPendingOrders() {
-    this.pendingOrderService.getAllPendingOrder(JSON.parse(sessionStorage.getItem('restaurant')!).id).subscribe(data => {
+    this.pendingOrderService.getAllPendingOrder(this.pedidoDelete.restaurantId).subscribe(data => {
       this.pendingOrders = data
+      this.calculateTotal()
       sessionStorage.setItem('pendingOrders', JSON.stringify(data))
     })
   }
@@ -59,23 +73,8 @@ export class TabCuentaComponent implements OnInit {
       if(this.pendingOrders[i].tableNum != parseInt(tableNum)) this.pendingOrders.splice(i, 1)
       else i++
     }
+    this.calculateTotal();
   }
-
-  // deletePendingOrder() {
-  //   if(this.tableFormControl.value != "") {
-  //     this.pedidoDelete.numTable = this.tableFormControl.value
-  //     this.pedidoServices.deletePedidoObjeto(this.pedidoDelete.numTable)
-  //     this.pendingOrderService.deletePendingOrder(this.pedidoDelete).subscribe(data => {
-  //       sessionStorage.setItem('tab', "2");
-  //       var cont = parseInt(sessionStorage.getItem('contadorPedidos')!)
-  //       cont++
-  //       sessionStorage.setItem('contadorPedidos', cont.toString())
-  //       window.location.reload();
-  //     })
-  //   }else {
-  //     alert("Indica que mesa quieres finalizar")
-  //   }
-  // }
 
   sendCuenta() {
     if(this.tableNum != "") {
@@ -86,6 +85,7 @@ export class TabCuentaComponent implements OnInit {
     if(this.tableNum != "") {
       this.pedidosOutput.emit("fin")
       this.pedidoDelete.numTable = parseInt(this.tableNum)
+      this.updateTotalOrdersRecord()
       this.deletePedido();
       this.deletePendingOrders();
     } else alert("Selecciona una mesa")
@@ -106,12 +106,18 @@ export class TabCuentaComponent implements OnInit {
     })
   }
 
-  saveOrdersRecord(pendingOrders: PendingOrdersRecord[]) {
-    console.log(pendingOrders)
-    pendingOrders.forEach(po => {
-      if(po.additional != null) this.pendingOrderService.madePendingOrderAdditionalRecord(po).subscribe(data => {})
-      if(po.plate != null) this.pendingOrderService.madePendingOrderPlateRecord(po).subscribe(data => {})
+  private saveOrdersRecord(pendingOrders: PendingOrdersRecord[]) {
+    pendingOrders.forEach(pendingOrder => {
+      if(pendingOrder.additional != null) this.pendingOrderService.madePendingOrderAdditionalRecord(pendingOrder).subscribe(data => {})
+      if(pendingOrder.plate != null) this.pendingOrderService.madePendingOrderPlateRecord(pendingOrder).subscribe(data => {})
     });
+  }
+
+  private updateTotalOrdersRecord() {
+    this.totalOrdersRecordService.updateTotalOrdersRecord(this.pedidoDelete.restaurantId!).subscribe(data => {
+      console.log(data)
+      this.totalOrdersRecordService.orderRecord = data
+    })
   }
 
 }

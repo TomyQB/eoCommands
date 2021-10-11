@@ -4,5 +4,4 @@ export interface RestaurantDTO {
   image: string,
   idImage: string,
   name: string,
-  ordersAmount: number
 }
