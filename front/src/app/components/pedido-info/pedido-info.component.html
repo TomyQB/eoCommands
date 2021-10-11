@@ -2,17 +2,11 @@
   <span>{{restaurantName}}</span>
 </mat-toolbar>
 
-<!-- <div class="my-overlay" *ngIf="showOverlay">
-  <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
-</div> -->
-
 <div class="overlay" *ngIf="showOverlay">
-
   <div class="spinner ">
-      <img src="https://res.cloudinary.com/dxxvcl5fe/image/upload/v1633504473/loading_or0jw6.gif"/>
-    </div>
-
+    <img src="https://res.cloudinary.com/dxxvcl5fe/image/upload/v1633504473/loading_or0jw6.gif"/>
   </div>
+</div>
 
 <div class="paddingGeneral">
   <div class="category-name">
@@ -28,6 +22,12 @@
           <div>{{a.subTotal}}€</div>
         </div>
         <div>{{a.description}}</div>
+        <div *ngFor="let e of a.extras">
+          <div class="info-plate-price">
+            <div>{{e.name}}</div>
+            <div>{{e.price}}€</div>
+          </div>
+        </div>
       </div>
       <mat-divider class="primary"></mat-divider>
     </div>
@@ -43,6 +43,18 @@
         Nº de mesa obligatorio
       </mat-error>
     </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Teléfono</mat-label>
+      <input type="number" matInput [formControl]="phoneFormControl" placeholder="Ej. 34123456789" autocomplete="off">
+      <mat-error *ngIf="phoneFormControl.hasError('required')">
+        Numero de telefono obligatorio
+      </mat-error>
+    </mat-form-field>
+
+    <div class="asterisk">
+      *Se debe añadir el prefijo del pais (ES +34), a este numero llegará la cuenta. Gracias
+    </div>
 
     <form class="example-form">
       <mat-form-field class="example-full-width">

@@ -1,3 +1,5 @@
+import { WhatsAppDTO } from './../../../models/WhatsAppDTO';
+import { WhatsappService } from './../../../services/whatsapp.service';
 import { TotalOrdersRecordService } from './../../../services/total-orders-record.service';
 import { PedidoServicesService } from './../../../services/pedido-services.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
@@ -13,8 +15,10 @@ import { PendingOrdersRecord } from 'src/app/models/PendingOrdersRecord';
 })
 export class TabCuentaComponent implements OnInit {
   @Input() pendingOrders: any
-
   @Output() pedidosOutput = new EventEmitter<String>();
+
+  urlWhatsapp: string = ""
+  disableUrl: string = "disable"
 
   tableFormControl = new FormControl('', [
     Validators.required,
@@ -29,10 +33,15 @@ export class TabCuentaComponent implements OnInit {
     total: 0,
   }
 
+  whatsAppDTO: WhatsAppDTO = {
+    restaurantId: JSON.parse(sessionStorage.getItem('restaurant')!).id,
+    tableNum: 0
+  }
+
   total: number = 0;
   tableNum: string = ""
 
-  constructor(private pendingOrderService: PendingOrderService, private pedidoServices: PedidoServicesService, private totalOrdersRecordService: TotalOrdersRecordService) { }
+  constructor(private pendingOrderService: PendingOrderService, private pedidoServices: PedidoServicesService, private totalOrdersRecordService: TotalOrdersRecordService, private whatsappService: WhatsappService) { }
 
   ngOnInit(): void {
     this.getPendingOrders();
@@ -51,7 +60,6 @@ export class TabCuentaComponent implements OnInit {
       this.total += amount * price;
       this.total = Math.round(this.total * 100) / 100;
     }
-    console.log(this.total)
   }
 
   getPendingOrders() {
@@ -63,8 +71,15 @@ export class TabCuentaComponent implements OnInit {
   }
 
   getPendingByTable() {
-    if(this.tableNum == "") this.getPendingOrders();
-    else this.filtrarPendigOrdersByNumTable(this.tableNum)
+    if(this.tableNum == "") {
+      this.whatsappService.message = ""
+      this.disableUrl = "disable"
+      this.getPendingOrders();
+    }
+    else {
+      this.filtrarPendigOrdersByNumTable(this.tableNum)
+      this.disableUrl = ""
+    }
   }
 
   private filtrarPendigOrdersByNumTable(tableNum: string) {
@@ -74,10 +89,21 @@ export class TabCuentaComponent implements OnInit {
       else i++
     }
     this.calculateTotal();
+    this.prepareMessage()
+  }
+
+  prepareMessage() {
+    this.whatsAppDTO.tableNum = parseInt(this.tableNum)
+    this.pedidoServices.enviarCuentaWhatsapp(this.whatsAppDTO).subscribe(data => {
+      this.whatsappService.singletonMessage(this.pendingOrders, this.total, data)
+      this.urlWhatsapp = this.whatsappService.message
+      console.log(this.urlWhatsapp)
+    })
   }
 
   sendCuenta() {
     if(this.tableNum != "") {
+      // this.urlWhatsapp!.href = ""
     } else alert("Selecciona una mesa")
   }
 
@@ -115,7 +141,6 @@ export class TabCuentaComponent implements OnInit {
 
   private updateTotalOrdersRecord() {
     this.totalOrdersRecordService.updateTotalOrdersRecord(this.pedidoDelete.restaurantId!).subscribe(data => {
-      console.log(data)
       this.totalOrdersRecordService.orderRecord = data
     })
   }

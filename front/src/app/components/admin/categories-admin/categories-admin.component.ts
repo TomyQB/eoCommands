@@ -38,8 +38,6 @@ export class CategoriesAdminComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log(this.restaurant)
-
     this.menuService.getMenu(this.restaurant.name).subscribe(data => {
       this.categories = data
     })

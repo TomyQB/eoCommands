@@ -8,7 +8,9 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class ModalDeleteComponent implements OnInit {
 
-  constructor(public dialog: MatDialogRef<ModalDeleteComponent>) { }
+  constructor(public dialog: MatDialogRef<ModalDeleteComponent>) {
+    dialog.disableClose = true;
+  }
 
   ngOnInit(): void {
   }

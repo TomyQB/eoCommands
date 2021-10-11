@@ -21,8 +21,12 @@
         </div>
       </div>
 
-      <div class="description {{amount.estado}}" *ngIf="amount.plate.drink && amount.description != ''">
-        <div>
+      <div class="description {{amount.estado}}" *ngIf="amount.plate.drink">
+        <div *ngFor="let e of amount.extras">
+          {{e.name}}
+        </div>
+        <br>
+        <div *ngIf="amount.description != ''">
           {{amount.description}}
         </div>
       </div>

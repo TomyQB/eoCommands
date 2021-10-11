@@ -15,7 +15,9 @@ export class ModalPhoneComponent implements OnInit {
     Validators.required,
   ]);
 
-  constructor(public dialog: MatDialogRef<ModalPhoneComponent>) { }
+  constructor(public dialog: MatDialogRef<ModalPhoneComponent>) {
+    dialog.disableClose = true;
+  }
 
   ngOnInit(): void {
   }

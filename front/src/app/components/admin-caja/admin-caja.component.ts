@@ -19,7 +19,6 @@ export class AdminCajaComponent implements OnInit {
 
   getOrdersRecord() {
     this.pendingOrderService.getAllOrdersRecord(this.restaurantId).subscribe(data => {
-      console.log(data)
       this.ordersRecord = data
     })
   }

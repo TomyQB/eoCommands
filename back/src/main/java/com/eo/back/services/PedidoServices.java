@@ -3,6 +3,7 @@ package com.eo.back.services;
 import java.util.List;
 
 import com.eo.back.dto.PedidoDTO;
+import com.eo.back.dto.WhatsAppDTO;
 import com.eo.back.models.Amount;
 import com.eo.back.models.Pedido;
 import com.eo.back.repositories.PedidoRepository;
@@ -21,6 +22,20 @@ public class PedidoServices {
 
     public Pedido getPedidoById(long id) {
         return repository.getById(id);
+    }
+
+    public WhatsAppDTO getPedidoByRestaurantIdAndTableNum(long id, int tableNum) {
+        return createWhatsAppDTO(repository.getAllPedidoByRestaurantIdAndTableNum(id, tableNum));
+    }
+
+    private WhatsAppDTO createWhatsAppDTO(List<Pedido> pedidos) {
+        WhatsAppDTO whatsAppDTO = new WhatsAppDTO();
+
+        whatsAppDTO.setRestaurantName(pedidos.get(0).getRestaurant().getName());
+        whatsAppDTO.setTableNum(pedidos.get(0).getTableNum());
+        whatsAppDTO.setPhone(pedidos.get(0).getPhoneNumber());
+
+        return whatsAppDTO;
     }
     
     public void savePedido(Pedido pedido) {

@@ -1,3 +1,4 @@
+import { WhatsAppDTO } from './../models/WhatsAppDTO';
 import { Amount } from './../models/Amount';
 import { Pedido } from '../models/Pedido';
 import { environment } from './../../environments/environment.prod';
@@ -40,6 +41,10 @@ export class PedidoServicesService {
 
   getAllPedidos(idUser: number): Observable<any[]> {
     return this.http.post<any>(this.Url + "pedido", idUser)
+  }
+
+  enviarCuentaWhatsapp(whatsAppDTO: WhatsAppDTO): Observable<WhatsAppDTO> {
+    return this.http.post<any>(this.Url + "enviarCuentaWhatsapp", whatsAppDTO)
   }
 
   deletePedido(pedido: Pedido) {

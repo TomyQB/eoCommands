@@ -48,7 +48,10 @@
 
   <div class="displayFlex" style="gap: 50px; padding-top: 20px;">
     <div class="center">
-      <button mat-raised-button class="primary" (click)="sendCuenta()">Enviar cuenta al cliente</button>
+
+      <button mat-raised-button class="primary" (click)="sendCuenta()">
+        <a href="{{urlWhatsapp}}" class="{{disableUrl}}">Enviar cuenta al cliente</a>
+      </button>
     </div>
     <div class="center">
       <button mat-raised-button class="primary" (click)="deleteCuenta()">Eliminar cuenta</button>

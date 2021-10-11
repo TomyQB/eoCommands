@@ -41,7 +41,6 @@ export class CategoriesCreateComponent implements OnInit {
     }
 
     this.imageService.getImages().subscribe(data => {
-      console.log(data)
       this.images = data
     })
   }

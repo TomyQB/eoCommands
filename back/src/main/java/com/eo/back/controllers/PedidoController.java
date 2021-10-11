@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.eo.back.convert.PedidoConverter;
 import com.eo.back.dto.PedidoDTO;
+import com.eo.back.dto.WhatsAppDTO;
 import com.eo.back.models.Pedido;
 import com.eo.back.services.PedidoServices;
 import com.eo.back.services.RestaurantServices;
@@ -38,6 +39,11 @@ public class PedidoController {
         List<Pedido> pedidos = restaurantServices.getAllPedidos(id);
 
         return new ResponseEntity<List<Pedido>>(pedidos, HttpStatus.OK);
+    }
+    
+    @PostMapping("/enviarCuentaWhatsapp")
+    public WhatsAppDTO enviarCuentaWhatsapp(@RequestBody WhatsAppDTO dto) {
+        return pedidoServices.getPedidoByRestaurantIdAndTableNum(dto.getRestaurantId(), dto.getTableNum());
     }
     
     @PostMapping("/madePedido")
