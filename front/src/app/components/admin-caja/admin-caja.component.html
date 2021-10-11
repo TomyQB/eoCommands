@@ -25,8 +25,8 @@
         <div class="center25" *ngIf="or.plate">{{or.plate.price}}</div>
         <div class="center25" *ngIf="or.additional">{{or.additional.price}}</div>
 
-        <div class="center25" *ngIf="or.plate">{{or.amount * or.plate.price}}</div>
-        <div class="center25" *ngIf="or.additional">{{or.amount * or.additional.price}}</div>
+        <div class="center25" *ngIf="or.plate">{{or.amount * or.plate.price | number}}</div>
+        <div class="center25" *ngIf="or.additional">{{or.amount * or.additional.price | number}}</div>
       </div>
       <mat-divider></mat-divider>
     </div>
