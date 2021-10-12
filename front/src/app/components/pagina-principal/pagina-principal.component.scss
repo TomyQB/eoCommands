@@ -4,15 +4,30 @@
   justify-content: space-between;
   height: 80px;
   width: 100%;
+  background-color:  #242424 ;
 }
 
+// .content-header{
+//   position: relative;
+//   display: inline-block;
+//   text-align: center;
+//   width: 100%;
+// }
+
 .mail{
-  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  color: white;
+  font-size: clamp(1rem, 1.25vw, 10px);
+  // position: absolute;
+  // top: 50px;
+  // left: 80px;
 }
 
 .content-login{
   display: flex;
   align-items: center;
+  // position: absolute;
+  // top: 50px;
+  // right: 80px;
 }
 
 .content-body{
@@ -40,7 +55,7 @@
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  padding-top: 20px;
+  padding-top: 10vw;
 }
 
 .formTitle{
@@ -59,11 +74,11 @@
 }
 
 .legalThings{
-  font-size: 1.25vw;
+  font-size: 1vw;
   color: white;
   position: absolute;
-  top: 55%;
-  left: 21.5%
+  bottom: 22%;
+  right: 5.5%
 }
 
 
