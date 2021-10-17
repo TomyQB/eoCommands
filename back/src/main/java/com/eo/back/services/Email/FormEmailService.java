@@ -18,7 +18,7 @@ public class FormEmailService extends AbstractEmailService<FormMessageDTO> {
         
         SimpleMailMessage message = new SimpleMailMessage(); 
         message.setFrom("noreply@baeldung.com");
-        message.setTo("info@eorestaurantes.com"); 
+        message.setTo("eorestaurantes@gmail.com"); 
         message.setSubject("Nuevo restaurante interesado en eo!");
         message.setText(createMessage(dto));
 
@@ -30,7 +30,8 @@ public class FormEmailService extends AbstractEmailService<FormMessageDTO> {
     public String createMessage(FormMessageDTO dto) {
         return "Nombre: " + dto.getName() +
                 "\nEmail: " + dto.getEmail() +
-                "\nTeléfono: " + dto.getPhone();
+                "\nTeléfono: " + dto.getPhone() +
+                "\nComentarios: " + dto.getComents();
     }
     
 }

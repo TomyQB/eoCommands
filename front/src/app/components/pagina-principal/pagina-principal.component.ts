@@ -10,14 +10,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PaginaPrincipalComponent implements OnInit {
 
-  restaurant: RestaurantFormMainPage;
+  restaurant: RestaurantFormMainPage = {
+    name: '',
+    email: '',
+    phone: '',
+    coments: ''
+
+  };
 
   constructor(private restaurantService: RestaurantService, private router: Router) {
-    this.restaurant = {
-      name: '',
-      email: '',
-      phone: ''
-    }
   }
 
   ngOnInit(): void {
@@ -29,7 +30,8 @@ export class PaginaPrincipalComponent implements OnInit {
       this.restaurant = {
         name: '',
         email: '',
-        phone: ''
+        phone: '',
+        coments: ''
       }
     })
   }
