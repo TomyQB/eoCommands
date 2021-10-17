@@ -7,12 +7,10 @@
   background-color:  #242424 ;
 }
 
-// .content-header{
-//   position: relative;
-//   display: inline-block;
-//   text-align: center;
-//   width: 100%;
-// }
+.content-header{
+  text-align: center;
+  width: 100%;
+}
 
 .mail{
   color: white;
@@ -55,7 +53,8 @@
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  padding-top: 10vw;
+  padding-top: 5vw;
+  // padding-top: 30px;
 }
 
 .formTitle{
@@ -68,7 +67,6 @@
 
 .pieWeb-content{
   width: 100%;
-  padding: 10px;
   position: relative;
   display: inline-block;
 }
@@ -79,6 +77,12 @@
   position: absolute;
   bottom: 22%;
   right: 5.5%
+}
+
+.infoPlate{
+  text-align: left;
+  font-size: 17px;
+  margin: 15px 10px 10px 10px;
 }
 
 

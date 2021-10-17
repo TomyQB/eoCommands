@@ -33,21 +33,6 @@
         <mat-divider class="primary" *ngIf="amount.plate!.additionals.length>i+1"></mat-divider>
       </div>
     </mat-list>
-<!--
-    <div *ngIf="amount.plate.additionals != undefined">
-      <div *ngFor="let a of amount.plate.additionals">
-        {{a.name}}
-        {{a.price}}
-      </div>
-    </div> -->
-
-  <!-- <section class="example-section" *ngIf="amount.plate.additionals != undefined">
-    <div *ngFor="let a of amount.plate.additionals; let i = index">
-      <section class="example-section">
-        <mat-checkbox class="example-margin" [(ngModel)]="a.name">Checked</mat-checkbox>
-      </section>
-    </div>
-  </section> -->
 
     <div class="e-float-input e-input-group" [hidden]="showTextarea">
       <div class="infoPlate">
