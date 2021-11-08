@@ -5,7 +5,7 @@
     </div>
 
     <div>
-      {{amount.plate!.price}}€
+      {{amount.plate!.price}}{{currencySumbolService.symbol}}
     </div>
 
   </div>
@@ -22,7 +22,7 @@
         <div class="list-item">
           <div>{{a.name}}</div>
           <div class="listpriceAmount">
-            <div class="listprice">{{a.price}}€</div>
+            <div class="listprice">{{a.price}}{{currencySumbolService.symbol}}</div>
             <div>
               <section class="example-section">
                 <mat-checkbox class="example-margin" [checked]="extrasChecked[i]" [disabled]="extrasDisable" (click)="addExtra(a)"></mat-checkbox>
@@ -51,5 +51,5 @@
 
 
 <div class="center">
-  <button mat-raised-button class="primary" (click)="addToPedido(description.value)">Añadir al pedido {{amount.subTotal}}€</button>
+  <button mat-raised-button class="primary" (click)="addToPedido(description.value)">Añadir al pedido {{amount.subTotal}}{{currencySumbolService.symbol}}</button>
 </div>

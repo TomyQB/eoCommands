@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common'
 
 import { HashService } from '../../services/hash.service'
+import { CurrencySumbolService } from 'src/app/services/currency-sumbol.service';
 
 @Component({
   selector: 'app-plate-info',
@@ -33,7 +34,7 @@ export class PlateInfoComponent implements OnInit {
   extrasDisable = true
   extrasChecked: boolean[] = []
 
-  constructor(private amountServices: AmountServicesService,private hashService: HashService, private location: Location, private totalObservableService: TotalObservableService) { }
+  constructor(public currencySumbolService: CurrencySumbolService, private amountServices: AmountServicesService,private hashService: HashService, private location: Location, private totalObservableService: TotalObservableService) { }
 
   ngOnInit(): void {
     this.prepareDescription();

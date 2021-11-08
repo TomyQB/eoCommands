@@ -19,20 +19,20 @@
       <div class="list-item">
         <div class="info-plate-price">
           <div>{{a.amount}} {{a.plate!.name}}</div>
-          <div>{{a.subTotal}}€</div>
+          <div>{{a.subTotal}}{{currencySumbolService.symbol}}</div>
         </div>
         <div>{{a.description}}</div>
         <div *ngFor="let e of a.extras">
           <div class="info-plate-price">
             <div>{{e.name}}</div>
-            <div>{{e.price}}€</div>
+            <div>{{e.price}}{{currencySumbolService.symbol}}</div>
           </div>
         </div>
       </div>
       <mat-divider class="primary"></mat-divider>
     </div>
     <div class="info-total-price">
-      Total pedido {{pedido.total}}€
+      Total pedido {{pedido.total}}{{currencySumbolService.symbol}}
     </div>
   </mat-list>
 

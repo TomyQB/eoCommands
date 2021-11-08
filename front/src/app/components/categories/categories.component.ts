@@ -1,3 +1,4 @@
+import { CurrencySumbolService } from './../../services/currency-sumbol.service';
 import { RestaurantService } from './../../services/restaurant.service';
 import { Pedido } from '../../models/Pedido';
 import { Category } from './../../models/Category';
@@ -21,10 +22,14 @@ export class CategoriesComponent implements OnInit {
 
   restaurantName: string = this.activeRoute.snapshot.paramMap.get('name')!
 
-  constructor(private pedidoService: PedidoServicesService, private menuServices: MenuServicesService, private restaurantService: RestaurantService, private router: Router, private activeRoute: ActivatedRoute, private hashService: HashService) { }
+  constructor(private currencySumbolService: CurrencySumbolService, private pedidoService: PedidoServicesService, private menuServices: MenuServicesService, private restaurantService: RestaurantService, private router: Router, private activeRoute: ActivatedRoute, private hashService: HashService) { }
 
   ngOnInit(): void {
     this.setUrlName();
+
+    this.currencySumbolService.setCurrencySymbol().subscribe(data => {
+      this.currencySumbolService.symbol = data.currency.symbol
+    })
 
     this.menuServices.getMenu(this.restaurantName).subscribe(data => {
       this.categories = data

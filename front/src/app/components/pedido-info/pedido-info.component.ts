@@ -11,6 +11,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { HashService } from 'src/app/services/hash.service';
 import { TotalObservableService } from 'src/app/services/total-observable.service';
+import { CurrencySumbolService } from 'src/app/services/currency-sumbol.service';
 
 declare var require: any
 
@@ -55,7 +56,7 @@ export class PedidoInfoComponent implements OnInit {
   ]);
 
 
-  constructor(private pedidoService: PedidoServicesService, private pendingOrderService: PendingOrderService, public dialog: MatDialog, private amountServices: AmountServicesService, private router: Router,
+  constructor(public currencySumbolService: CurrencySumbolService, private pedidoService: PedidoServicesService, private pendingOrderService: PendingOrderService, public dialog: MatDialog, private amountServices: AmountServicesService, private router: Router,
     private emailService: EmailService, private hash: HashService, private totalObservableService: TotalObservableService) { }
 
   ngOnInit(): void {

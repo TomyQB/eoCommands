@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 
 import { HashService } from '../../services/hash.service'
 import { DescAndAmount } from 'src/app/models/DescAndAmount';
+import { CurrencySumbolService } from 'src/app/services/currency-sumbol.service';
 
 @Component({
   selector: 'app-plates',
@@ -21,7 +22,7 @@ export class PlatesComponent implements OnInit {
 
   dic: {[key: string]: DescAndAmount} = {}
 
-  constructor(private router: Router, private hashService: HashService) { }
+  constructor(public currencySumbolService: CurrencySumbolService, private router: Router, private hashService: HashService) { }
 
   ngOnInit(): void {
     this.hashService.createDictionary(this.plates)

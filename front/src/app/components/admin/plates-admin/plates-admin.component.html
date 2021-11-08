@@ -11,7 +11,7 @@
         <div style="width: 40%;">{{p.name}}</div>
         <div class="list-item-noname">
           <div class="listpriceAmount">
-            <div class="listprice">{{p.price}}€</div>
+            <div class="listprice">{{p.price}}{{currencySumbolService.symbol}}</div>
           </div>
 
           <p class="estado-item" *ngIf="p.available">Disponible</p>

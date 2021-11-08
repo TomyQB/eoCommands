@@ -54,7 +54,7 @@
         <div style="width: 40%;">{{a.name}}</div>
         <div class="list-item-noname">
           <div class="listpriceAmount">
-            <div class="listprice">{{a.price}}€</div>
+            <div class="listprice">{{a.price}}{{currencySumbolService.symbol}}</div>
           </div>
 
           <span (click)="deleteAdditional(a.id!)" class="material-icons"> delete</span>

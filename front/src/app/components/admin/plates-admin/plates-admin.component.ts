@@ -8,6 +8,7 @@ import { Plate } from 'src/app/models/Plate';
 import { CategoryDTO } from 'src/app/models/CategoryDTO';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ModalDeleteComponent } from '../../modal-delete/modal-delete.component';
+import { CurrencySumbolService } from 'src/app/services/currency-sumbol.service';
 
 @Component({
   selector: 'app-plates-admin',
@@ -33,7 +34,7 @@ export class PlatesAdminComponent implements OnInit {
     width: '90%',
   }
 
-  constructor(public dialog: MatDialog, private router: Router, private menuService: MenuServicesService, private plateService: PlateService) { }
+  constructor(public currencySumbolService: CurrencySumbolService, public dialog: MatDialog, private router: Router, private menuService: MenuServicesService, private plateService: PlateService) { }
 
   ngOnInit(): void {
     this.plateService.getPlatesByCategoryId(this.category.id).subscribe(data => {

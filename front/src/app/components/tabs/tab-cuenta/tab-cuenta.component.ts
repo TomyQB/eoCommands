@@ -7,6 +7,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { Pedido } from 'src/app/models/Pedido';
 import { PendingOrderService } from 'src/app/services/pending-order.service';
 import { PendingOrdersRecord } from 'src/app/models/PendingOrdersRecord';
+import { CurrencySumbolService } from 'src/app/services/currency-sumbol.service';
 
 @Component({
   selector: 'app-tab-cuenta',
@@ -41,7 +42,7 @@ export class TabCuentaComponent implements OnInit {
   total: number = 0;
   tableNum: string = ""
 
-  constructor(private pendingOrderService: PendingOrderService, private pedidoServices: PedidoServicesService, private totalOrdersRecordService: TotalOrdersRecordService, private whatsappService: WhatsappService) { }
+  constructor(public currencySumbolService: CurrencySumbolService, private pendingOrderService: PendingOrderService, private pedidoServices: PedidoServicesService, private totalOrdersRecordService: TotalOrdersRecordService, private whatsappService: WhatsappService) { }
 
   ngOnInit(): void {
     this.getPendingOrders();

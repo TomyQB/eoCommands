@@ -10,7 +10,7 @@
       <div>{{p.name}}</div>
       <div *ngIf="!p.available">Agotado</div>
       <div class="listpriceAmount">
-        <div class="listprice">{{p.price}}€</div>
+        <div class="listprice">{{p.price}}{{currencySumbolService.symbol}}</div>
         <div>
           {{dic[p.name].amount}} uds
         </div>

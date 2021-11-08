@@ -30,8 +30,8 @@
         <div class="center20">{{pending.tableNum}}</div>
         <div class="center20">{{(pending.plate) ? pending.plate.name : pending.additional.name}}</div>
         <div class="center20">{{pending.amount}}</div>
-        <div class="center20">{{(pending.plate) ? pending.plate.price : pending.additional.price}}€</div>
-        <div class="center20">{{(pending.plate) ? pending.amount * pending.plate.price : pending.amount * pending.additional.price}}€</div>
+        <div class="center20">{{(pending.plate) ? pending.plate.price : pending.additional.price}}{{currencySumbolService.symbol}}</div>
+        <div class="center20">{{(pending.plate) ? pending.amount * pending.plate.price : pending.amount * pending.additional.price}}{{currencySumbolService.symbol}}</div>
       </div>
       <mat-divider></mat-divider>
     </div>

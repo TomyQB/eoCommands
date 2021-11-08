@@ -8,6 +8,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ExtrasCreateComponent } from '../extras-create/extras-create.component';
 import { ModalDeleteComponent } from '../../modal-delete/modal-delete.component';
 import { AdditionalDTO } from 'src/app/models/AdditionalDTO';
+import { CurrencySumbolService } from 'src/app/services/currency-sumbol.service';
 
 @Component({
   selector: 'app-plates-create',
@@ -50,7 +51,7 @@ export class PlatesCreateComponent implements OnInit {
     width: '50%',
   }
 
-  constructor(private plateService: PlateService, private router: Router, private additionalService: AdditionalService, public dialog: MatDialog,) { }
+  constructor(public currencySumbolService: CurrencySumbolService, private plateService: PlateService, private router: Router, private additionalService: AdditionalService, public dialog: MatDialog,) { }
 
   ngOnInit(): void {
     if(sessionStorage.getItem('plateIdAdmin')!) {
