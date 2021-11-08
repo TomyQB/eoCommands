@@ -1,0 +1,26 @@
+<div class="login-content">
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Email</mat-label>
+      <input type="email" matInput [formControl]="emailFormControl" placeholder="Ej. email@example.com">
+      <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+        Introduce un email correcto
+      </mat-error>
+      <mat-error *ngIf="emailFormControl.hasError('required')">
+        Email obligatorio
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Contraseña</mat-label>
+      <input type="password" matInput [formControl]="passwordFormControl" autocomplete="off">
+      <mat-error *ngIf="passwordFormControl.hasError('required')">
+        Contraseña obligatoria
+      </mat-error>
+    </mat-form-field>
+  </form>
+
+  <div class="button-end-order">
+    <button mat-raised-button class="primary" (click)="onSignIn()">Iniciar sesión</button>
+  </div>
+</div>

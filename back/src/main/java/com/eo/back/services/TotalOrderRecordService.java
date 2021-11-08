@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.eo.back.models.Month;
 import com.eo.back.models.TotalOrdersRecord;
+import com.eo.back.repositories.RestaurantRepository;
 import com.eo.back.repositories.TotalOrderRecordRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ public class TotalOrderRecordService {
     
     @Autowired
     private TotalOrderRecordRepository totalOrderRecordRepository;
+
+    @Autowired
+    private RestaurantServices restaurantServices;
 
     public List<TotalOrdersRecord> getAllTotalOrdersRecord(long restaurantId) {
         return totalOrderRecordRepository.getTotalOrdersRecordByRestaurantId(restaurantId);
@@ -44,6 +48,7 @@ public class TotalOrderRecordService {
         totalOrdersRecord.setRestaurantId(restaurantId);
         totalOrdersRecord.setMonth(getMonth());
         totalOrdersRecord.setYear(getYear());
+        totalOrdersRecord.setRestaurant(restaurantServices.getRestaurantById(restaurantId));
 
         totalOrderRecordRepository.save(totalOrdersRecord);
     }

@@ -1,0 +1,26 @@
+<div style="text-align: center; font-size: 25px; margin-top: 20px;" *ngFor="let restaurant of comercial.restaurants">
+  <strong>{{restaurant.name}}</strong>
+  <mat-list class="content">
+    <div class="displayFlex">
+      <div class="center33">
+        <h1 class="primary">Mes</h1>
+      </div>
+      <div class="center33">
+        <h1 class="primary">Año</h1>
+      </div>
+      <div class="center33">
+        <h1 class="primary">Pedidos</h1>
+      </div>
+    </div>
+
+    <div *ngFor="let orderRecord of restaurant.totalOrdersRecords; let i = index">
+        <div class="displayFlex tableTime">
+          <div class="center33">{{orderRecord.month}}</div>
+          <div class="center33">{{orderRecord.year}}</div>
+          <div class="center33">{{orderRecord.amountOrders}}</div>
+        </div>
+        <mat-divider class="border"></mat-divider>
+    </div>
+  </mat-list>
+
+</div>

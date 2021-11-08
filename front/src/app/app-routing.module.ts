@@ -1,3 +1,5 @@
+import { AdminCommercialComponent } from './components/admin-commercial/admin-commercial.component';
+import { LoginCommercialComponent } from './components/login-commercial/login-commercial.component';
 import { AdminCajaComponent } from './components/admin-caja/admin-caja.component';
 import { ExtrasCreateComponent } from './components/admin/extras-create/extras-create.component';
 import { PlatesAdminComponent } from './components/admin/plates-admin/plates-admin.component';
@@ -52,6 +54,10 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
+    path: 'loginCommercial',
+    component: LoginCommercialComponent
+  },
+  {
     path: 'restaurantPedidos',
     component: RestaurantPedidosComponent
   },
@@ -98,6 +104,10 @@ const routes: Routes = [
   {
     path: 'adminCaja',
     component: AdminCajaComponent
+  },
+  {
+    path: 'adminCommercial',
+    component: AdminCommercialComponent
   },
 
 ];

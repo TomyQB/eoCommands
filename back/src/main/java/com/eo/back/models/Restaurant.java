@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -37,5 +39,13 @@ public class Restaurant {
 
     @OneToMany(mappedBy = "restaurant")
     private List<Pedido> orders;
+
+    @OneToMany(mappedBy = "restaurant")
+    private List<TotalOrdersRecord> totalOrdersRecords;
+
+    @ManyToOne
+    @JoinColumn(name = "commercial")
+    @JsonIgnore
+    private Commercial commercial;
         
 }

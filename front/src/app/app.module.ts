@@ -35,6 +35,8 @@ import { CategoriesAdminComponent } from './components/admin/categories-admin/ca
 import { ModalDeleteComponent } from './components/modal-delete/modal-delete.component';
 import { ExtrasCreateComponent } from './components/admin/extras-create/extras-create.component';
 import { AdminCajaComponent } from './components/admin-caja/admin-caja.component';
+import { LoginCommercialComponent } from './components/login-commercial/login-commercial.component';
+import { AdminCommercialComponent } from './components/admin-commercial/admin-commercial.component';
 // import { NgxSpinnerModule} from 'ngx-spinner';
 @NgModule({
   declarations: [
@@ -65,6 +67,8 @@ import { AdminCajaComponent } from './components/admin-caja/admin-caja.component
     ModalDeleteComponent,
     ExtrasCreateComponent,
     AdminCajaComponent,
+    LoginCommercialComponent,
+    AdminCommercialComponent,
   ],
   imports: [
     BrowserModule,

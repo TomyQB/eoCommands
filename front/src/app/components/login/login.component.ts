@@ -1,4 +1,4 @@
-import { RestaurantLogin } from './../../models/RestaurantLogin';
+import { Login } from '../../models/Login';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -12,7 +12,7 @@ import { FormControl, Validators } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  restaurantLogin: RestaurantLogin = {
+  restaurantLogin: Login = {
     email: "",
     password: ""
   }
