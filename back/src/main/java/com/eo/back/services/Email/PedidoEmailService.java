@@ -27,7 +27,8 @@ public class PedidoEmailService extends AbstractEmailService<Pedido> {
     }
 
     public String createMessage(Pedido pedido) {
-        String message = "¡Hola!\n\nAquí puedes ver el resumen de tu pedido en " + pedido.getRestaurant().getName() + "\n\n";
+        String message = "¡Hola!\n\nAquí puedes ver el resumen de tu pedido en " + pedido.getRestaurant().getName() + "\n";
+        message += "Con código de pedido: " + pedido.getId() + "\n\n";
 
         message += "______________________________\n\n";
 

@@ -38,8 +38,8 @@ public class PedidoServices {
         return whatsAppDTO;
     }
     
-    public void savePedido(Pedido pedido) {
-        repository.save(pedido);
+    public Pedido savePedido(Pedido pedido) {
+        return repository.save(pedido);
     }
 
     public void deletePedido(PedidoDTO dto) {
