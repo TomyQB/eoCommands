@@ -45,15 +45,24 @@
     </mat-form-field>
 
     <mat-form-field class="example-full-width">
+      <mat-label>Prefijo móvil</mat-label>
+      <mat-select [formControl]="prefixFormControl">
+        <mat-option *ngFor="let prefix of prefixs" [value]="prefix.value">
+          {{prefix.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
       <mat-label>Nº de WhatsApp</mat-label>
-      <input type="number" matInput [formControl]="phoneFormControl" placeholder="Ej. 34123456789" autocomplete="off">
+      <input type="number" matInput [formControl]="phoneFormControl" placeholder="Ej. 123456789" autocomplete="off">
       <mat-error *ngIf="phoneFormControl.hasError('required')">
         Numero de telefono obligatorio
       </mat-error>
     </mat-form-field>
 
     <div class="asterisk">
-      *Se debe añadir el prefijo del pais (ES +34), a este numero llegará la cuenta. Gracias
+      *A este numero llegará la cuenta. Gracias
     </div>
 
     <form class="example-form">

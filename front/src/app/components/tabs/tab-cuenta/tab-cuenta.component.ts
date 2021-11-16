@@ -98,7 +98,6 @@ export class TabCuentaComponent implements OnInit {
     this.pedidoServices.enviarCuentaWhatsapp(this.whatsAppDTO).subscribe(data => {
       this.whatsappService.singletonMessage(this.pendingOrders, this.total, data)
       this.urlWhatsapp = this.whatsappService.message
-      console.log(this.urlWhatsapp)
     })
   }
 

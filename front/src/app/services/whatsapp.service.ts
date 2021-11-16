@@ -26,8 +26,8 @@ export class WhatsappService {
         message += pendingOrders[i].amount + " " + pendingOrders[i].additional.name + " " + pendingOrders[i].additional.price + this.currencySumbolService.symbol + " = " + pendingOrders[i].additional.price * pendingOrders[i].amount + this.currencySumbolService.symbol + "%0A"
     }
 
-    message += "%0A%0A" + "*TOTAL = " + total + "*"
-    message += "%0A(IVA 10% = " + total * 0.1 + ")"
+    message += "%0A%0A" + "*TOTAL = " + total + this.currencySumbolService.symbol + "*"
+    message += "%0A(IVA 10% = " + total * 0.1 + this.currencySumbolService.symbol + ")"
 
     this.message = message
 

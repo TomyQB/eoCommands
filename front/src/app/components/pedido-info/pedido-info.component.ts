@@ -22,6 +22,12 @@ declare var require: any
 })
 export class PedidoInfoComponent implements OnInit {
 
+  prefixs = [
+    {value: '+34', viewValue: 'ES (+34)'},
+    {value: '+44', viewValue: 'UK (+44)'},
+    {value: '+507', viewValue: 'PAN (+507)'},
+  ];
+
   public showOverlay = false;
 
   restaurantName: string = sessionStorage.getItem("name")!;
@@ -48,6 +54,10 @@ export class PedidoInfoComponent implements OnInit {
   ]);
 
   tableFormControl = new FormControl('', [
+    Validators.required,
+  ]);
+
+  prefixFormControl = new FormControl('', [
     Validators.required,
   ]);
 
@@ -98,7 +108,10 @@ export class PedidoInfoComponent implements OnInit {
   openDialog() {
     this.pedido.email = this.emailFormControl.value
     this.pedido.numTable = this.tableFormControl.value
-    this.pedido.phoneNumber = this.phoneFormControl.value
+    if(this.phoneFormControl.value && this.prefixFormControl)
+      this.pedido.phoneNumber = this.prefixFormControl.value + this.phoneFormControl.value
+
+    console.log(this.pedido.phoneNumber)
 
     if(this.pedido.email && this.pedido.numTable && !isNaN(this.pedido.numTable)) {
       this.showOverlay = true
@@ -113,6 +126,7 @@ export class PedidoInfoComponent implements OnInit {
         })
       })
     } else alert("Rellena todos los campos correctamente")
+
   }
 
   goCategoriesPage() {
