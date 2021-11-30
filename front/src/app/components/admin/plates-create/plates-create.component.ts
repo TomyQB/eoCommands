@@ -75,7 +75,7 @@ export class PlatesCreateComponent implements OnInit {
   }
 
   createPlate(description: string) {
-    if(this.priceFormControl.value != "" && this.nameFormControl.value != "") {
+    if((this.priceFormControl.value != "" || this.priceFormControl.value == "0") && this.nameFormControl.value != "") {
       this.plate.name = this.nameFormControl.value
       this.plate.price = this.priceFormControl.value
 

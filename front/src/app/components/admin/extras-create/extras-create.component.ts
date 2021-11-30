@@ -42,7 +42,7 @@ export class ExtrasCreateComponent implements OnInit {
   }
 
   createAdditional() {
-    if(this.nameFormControl.value != "" && this.priceFormControl.value != "") {
+    if(this.nameFormControl.value != "" && (this.priceFormControl.value != "" || this.priceFormControl.value == "0")) {
       this.additional.name = this.nameFormControl.value
       this.additional.price = this.priceFormControl.value
       this.additional.plateId = this.idPlate
