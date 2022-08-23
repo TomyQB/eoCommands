@@ -1,51 +1,46 @@
-.content{
-  padding: 20px;
-  margin: auto;
-  font-size: 25px;
+
+
+td,
+th,
+tr,
+table {
+  border-top: 1px solid black;
+  border-collapse: collapse;
+  font-size: 12px;
+  font-family: 'Times New Roman';
 }
 
-.displayFlex{
-  display: flex;
-  justify-content: center;
+td.cantidad,
+th.cantidad {
+  width: 20px;
+  max-width: 20px;
+  word-break: break-all;
+  font-size: 12px;
+  font-family: 'Times New Roman';
 }
 
-.center33{
+td.precio,
+th.precio {
+  width: 40px;
+  max-width: 40px;
+  word-break: break-all;
+  font-size: 12px;
+  font-family: 'Times New Roman';
+}
+
+.centrado {
+  margin-top: 5px;
   text-align: center;
-  width: 33%;
-  padding: 10px;
+  align-content: center;
+  font-size: 19px;
 }
 
-h1{
-  max-width: 90%;
-  margin: auto;
+.ticket {
+  width: 155px;
+  max-width: 155px;
 }
 
-.tableTime{
-  padding: 20px 0px;
-  font-size: 20px;
-}
-
-.description{
-  font-size: 20px;
-  padding-bottom: 20px;
-  text-align: center;
-}
-
-.button-end-order{
-  text-align: center;
-  margin-top: 10px;
-}
-
-.Pendiente{
-  background-color: white;
-}
-
-.Servido{
-  background-color: #7DE124;
-}
-
-.border{
-  margin: 10px 10px 15px 10px;
-  border: 1px solid;
-  border-color: #9CCB3B;
+img {
+  max-width: inherit;
+  width: inherit;
 }

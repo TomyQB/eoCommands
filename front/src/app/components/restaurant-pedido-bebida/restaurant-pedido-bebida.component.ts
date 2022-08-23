@@ -19,7 +19,7 @@ export class RestaurantPedidoBebidaComponent implements OnInit {
     extras: [],
     estado: ''
   }
-
+  
   constructor(public pedidoServices: PedidoServicesService, private amountService: AmountServicesService) { }
 
   ngOnInit(): void {

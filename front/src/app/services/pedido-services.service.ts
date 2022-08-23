@@ -50,6 +50,10 @@ export class PedidoServicesService {
   deletePedido(pedido: Pedido) {
     return this.http.post<any>(this.Url + "deletePedido", pedido)
   }
+  
+  setPedidoPrinted(id: number) {
+    return this.http.put<any>(this.Url + "pedidoPrinted", id);
+  }
 
   deletePedidoObjeto(numTable: number) {
     var i = 0;

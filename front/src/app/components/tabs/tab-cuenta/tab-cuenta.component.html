@@ -33,6 +33,9 @@
         <div class="center20">{{(pending.plate) ? pending.plate.price : pending.additional.price}}{{currencySumbolService.symbol}}</div>
         <div class="center20">{{(pending.plate) ? pending.amount * pending.plate.price : pending.amount * pending.additional.price}}{{currencySumbolService.symbol}}</div>
       </div>
+      <div class="additionals" *ngIf="pending.plate && pending.plate.additionals.length > 0">
+        <div *ngFor="let additional of pending.plate.additionals"> {{additional.name}} {{additional.price}}€</div>
+      </div>
       <mat-divider></mat-divider>
     </div>
   </mat-list>
@@ -49,8 +52,8 @@
   <div class="displayFlex" style="gap: 50px; padding-top: 20px;">
     <div class="center">
 
-      <button mat-raised-button class="primary" (click)="sendCuenta()">
-        <a href="{{urlWhatsapp}}" target="_blank" class="{{disableUrl}}">Enviar cuenta al cliente</a>
+      <button mat-raised-button class="primary" (click)="printCuenta()" [disabled]="!tableNum ? 'disabled' : null">
+        Enviar cuenta al cliente
       </button>
     </div>
     <div class="center">

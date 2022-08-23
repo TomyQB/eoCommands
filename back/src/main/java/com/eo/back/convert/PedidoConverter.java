@@ -35,6 +35,7 @@ public class PedidoConverter extends AbstractConverter<Pedido, PedidoDTO>{
         pedido.setEstadoDrink(dto.getEstadoDrink());
         pedido.setHechosFood(0);
         pedido.setHechosDrink(0);
+        pedido.setPrinted(false);
 
         addAmountToAdditionals(dto.getAmounts());
 

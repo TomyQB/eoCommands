@@ -1,36 +1,30 @@
-<mat-list class="content">
-  <div class="displayFlex">
-    <div class="center33">
-      <h1 class="primary">Plato</h1>
-    </div>
-    <div class="center33">
-      <h1 class="primary">Unidades</h1>
-    </div>
-    <div class="center33">
-      <h1 class="primary">Estado del plato</h1>
-    </div>
-  </div>
-
-  <div *ngIf="pedido">
-    <div *ngFor="let amount of pedido.amounts; let i = index">
-      <div class="displayFlex tableTime {{amount.estado}}" *ngIf="amount.plate.drink" (click)="marcarHecho(i, amount.estado)">
-        <div class="center33">{{amount.plate.name}}</div>
-        <div class="center33">{{amount.amount}}</div>
-        <div class="center33">
-          <p>{{amount.estado}}</p>
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="restaurant-pedido-bebida.component.scss">
+        <script src="script.js"></script>
+    </head>
+    <body>
+        <div class="ticket">
+            <p class="centrado"><b>MESA {{pedido.tableNum}}</b></p>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="cantidad"></th>
+                        <th class="producto">PRODUCTO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let dish of pedido.amounts">
+                    <td class="cantidad">{{dish.amount}}</td>
+                    <td class="producto">{{dish.plate.name}} <br> {{dish.description}}
+                    <div *ngIf="dish.extras">
+                      <div *ngFor="let extra of dish.extras">{{extra.name}}</div>
+                    </div>
+                    </td>
+                  </tr>
+                </tbody>
+            </table>
         </div>
-      </div>
-
-      <div class="description {{amount.estado}}" *ngIf="amount.plate.drink">
-        <div *ngFor="let e of amount.extras">
-          {{e.name}}
-        </div>
-        <br>
-        <div *ngIf="amount.description != ''">
-          {{amount.description}}
-        </div>
-      </div>
-      <mat-divider *ngIf="amount.plate.drink" class="border"></mat-divider>
-    </div>
-  </div>
-</mat-list>
+    </body>
+</html>

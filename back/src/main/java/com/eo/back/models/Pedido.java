@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.data.relational.core.mapping.Embedded.Nullable;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
@@ -38,6 +40,8 @@ public class Pedido {
     private int hechosDrink;
     private int drinkCount;
     private int foodCount;
+    @Nullable
+    private boolean isPrinted;
 
     @ManyToOne
     @JsonIgnore

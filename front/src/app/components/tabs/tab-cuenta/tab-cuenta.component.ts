@@ -8,6 +8,7 @@ import { Pedido } from 'src/app/models/Pedido';
 import { PendingOrderService } from 'src/app/services/pending-order.service';
 import { PendingOrdersRecord } from 'src/app/models/PendingOrdersRecord';
 import { CurrencySumbolService } from 'src/app/services/currency-sumbol.service';
+import { PrinterService } from 'src/app/services/printer/printer.service';
 
 @Component({
   selector: 'app-tab-cuenta',
@@ -41,16 +42,22 @@ export class TabCuentaComponent implements OnInit {
 
   total: number = 0;
   tableNum: string = ""
+  
+  printers!: any;
 
-  constructor(public currencySumbolService: CurrencySumbolService, private pendingOrderService: PendingOrderService, private pedidoServices: PedidoServicesService, private totalOrdersRecordService: TotalOrdersRecordService, private whatsappService: WhatsappService) { }
+  constructor(public currencySumbolService: CurrencySumbolService, private pendingOrderService: PendingOrderService, private pedidoServices: PedidoServicesService,
+    private totalOrdersRecordService: TotalOrdersRecordService, private whatsappService: WhatsappService,  private printerService: PrinterService) { }
 
   ngOnInit(): void {
+    
+    this.printers = this.printerService.printers
+
     this.getPendingOrders();
 
     setInterval(() => {
       if(this.tableNum == "") this.getPendingOrders();
       else this.filtrarPendigOrdersByNumTable(this.tableNum);
-      }, 10000);
+      }, 300000);
   }
 
   calculateTotal() {
@@ -58,7 +65,13 @@ export class TabCuentaComponent implements OnInit {
     for(let i = 0; i < this.pendingOrders.length; i++) {
       let amount = this.pendingOrders[i].amount
       let price = (this.pendingOrders[i].additional) ? this.pendingOrders[i].additional.price : this.pendingOrders[i].plate.price
-      this.total += amount * price;
+      let additionals = 0;
+      if (this.pendingOrders[i].plate && this.pendingOrders[i].plate.additionals.length > 0) {
+        for (let additional of this.pendingOrders[i].plate.additionals) {
+          additionals += additional.price;
+        }
+      }
+      this.total += amount * price + additionals;
       this.total = Math.round(this.total * 100) / 100;
     }
   }
@@ -90,21 +103,79 @@ export class TabCuentaComponent implements OnInit {
       else i++
     }
     this.calculateTotal();
-    this.prepareMessage()
   }
 
-  prepareMessage() {
+  /*prepareMessage() {
     this.whatsAppDTO.tableNum = parseInt(this.tableNum)
     this.pedidoServices.enviarCuentaWhatsapp(this.whatsAppDTO).subscribe(data => {
       this.whatsappService.singletonMessage(this.pendingOrders, this.total, data)
       this.urlWhatsapp = this.whatsappService.message
     })
+  }*/
+
+  printCuenta() {
+    let isCorrectTableNum = this.pendingOrders.find((order: any) => order.tableNum == this.tableNum)
+    console.log(isCorrectTableNum)
+    if(this.tableNum != "" && isCorrectTableNum) {
+      this.printerService.establecerEnfatizado(1);
+      this.printerService.establecerJustificacion(PrinterService.Constantes.AlineacionCentro);
+      this.printerService.write("RESTAURANTE " + JSON.parse(sessionStorage.getItem('restaurant')!).name + "\n\n");
+      this.printerService.write("MESA " + this.tableNum + "\n\n");
+      this.printerService.write("------------------------------------------------" + "\n");
+      this.printerService.write("DESCRIPCION                 UNID.  PRECIO  TOTAL" + "\n");
+      this.printerService.write("================================================" + "\n");
+      this.printerService.establecerJustificacion(PrinterService.Constantes.AlineacionIzquierda);
+      for(let pedido of this.pendingOrders) {
+        if(pedido.plate) {
+          if (pedido.plate.name.length > 30) {
+            pedido.plate.name = pedido.plate.name.substring(0, 30);
+          }
+          console.log(pedido.plate.name);
+          console.log(pedido.plate.name.length);
+          let description = pedido.plate.name.concat(" ".repeat(31 - pedido.plate.name.length))
+          console.log(description);
+          let repeater = (7 - pedido.plate.name.length < 0) ? 0 : 7 - pedido.plate.name.length;
+          let price = pedido.plate.price.concat(" ".repeat(repeater))
+          this.printerService.write(description + pedido.amount + "   " + price + "€" + pedido.plate.price * pedido.amount +"€" + "\n");
+          if(pedido.plate.additionals.length > 0) {
+            this.printerService.establecerJustificacion(PrinterService.Constantes.AlineacionDerecha);
+            for(let additional of pedido.plate.additionals) {
+              let description = additional.name.concat(" ".repeat(31 - additional.name.length))
+              this.printerService.write(description + additional.price + "€" + "\n");
+            }
+            this.printerService.establecerJustificacion(PrinterService.Constantes.AlineacionIzquierda);
+          }
+        } else if(pedido.additional) {
+          if (pedido.additional.name.length > 30) {
+            pedido.additional.name = pedido.additional.name.substring(0, 30);
+          }
+          let description = pedido.additional.name.concat(" ".repeat(31 - pedido.additional.name.length))
+          this.printerService.write(description + pedido.amount + "  " + pedido.additional.price + "€ " + pedido.additional.price * pedido.amount +"€" + "\n");
+        }
+      }
+
+      let printers = this.printers.filter((e: string) => e.includes("cocina1cuenta")).toString();
+      this.print(printers);
+      /*for (let printer of printers) {
+        this.print(printer);
+      }*/
+
+
+    } else alert("Selecciona una mesa existente")
   }
 
-  sendCuenta() {
-    if(this.tableNum != "") {
-      // this.urlWhatsapp!.href = ""
-    } else alert("Selecciona una mesa")
+  async print(printerName: string | undefined) {
+    this.printerService.partialCut();
+    await this.printerService.imprimirEn(printerName)
+        .then(respuestaAlImprimir => {
+          if (respuestaAlImprimir === true) {
+              console.log("Impreso correctamente");
+              this.printerService.limpiarImpresora();
+          } else {
+              console.log("Error. La respuesta es: " + respuestaAlImprimir);
+              this.printerService.limpiarImpresora();
+          }
+        });
   }
 
   deleteCuenta() {

@@ -57,4 +57,10 @@ public class PedidoServices {
         }
     }
 
+    public void setPrintedPedido(long id) {
+        Pedido pedido = repository.getById(id);
+        pedido.setPrinted(true);
+        repository.save(pedido);
+    }
+
 }

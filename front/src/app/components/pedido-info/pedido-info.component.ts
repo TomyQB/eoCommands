@@ -111,8 +111,6 @@ export class PedidoInfoComponent implements OnInit {
     if(this.phoneFormControl.value && this.prefixFormControl)
       this.pedido.phoneNumber = this.prefixFormControl.value + this.phoneFormControl.value
 
-    console.log(this.pedido.phoneNumber)
-
     if(this.pedido.email && this.pedido.numTable && !isNaN(this.pedido.numTable)) {
       this.showOverlay = true
       this.emailService.sendMessage(this.pedido.email).subscribe(data => {

@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -94,5 +95,10 @@ public class PedidoController {
     @PostMapping("/deletePedido")
     public void deletePedidos(@RequestBody PedidoDTO dto) {
         pedidoServices.deletePedido(dto);
+    }
+
+    @PutMapping("/pedidoPrinted")
+    public void pedidoPrinted(@RequestBody long id) {
+        pedidoServices.setPrintedPedido(id);
     }
 }
