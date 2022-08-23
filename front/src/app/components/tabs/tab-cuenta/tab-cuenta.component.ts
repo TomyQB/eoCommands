@@ -9,6 +9,7 @@ import { PendingOrderService } from 'src/app/services/pending-order.service';
 import { PendingOrdersRecord } from 'src/app/models/PendingOrdersRecord';
 import { CurrencySumbolService } from 'src/app/services/currency-sumbol.service';
 import { PrinterService } from 'src/app/services/printer/printer.service';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-tab-cuenta',
@@ -151,6 +152,16 @@ export class TabCuentaComponent implements OnInit {
           this.printerService.write(description + pedido.amount + "   " + pedido.additional.price + "€" + priceSpace + pedido.additional.price * pedido.amount +"€" + "\n");
         }
       }
+      this.printerService.establecerJustificacion(PrinterService.Constantes.AlineacionIzquierda);
+      this.printerService.write("TOTAL CON IVA INCLUIDO");
+      this.printerService.establecerJustificacion(PrinterService.Constantes.AlineacionDerecha);
+      this.printerService.write(this.total + "€");
+      this.printerService.establecerJustificacion(PrinterService.Constantes.AlineacionCentro);
+      this.printerService.write("================================================" + "\n");
+      let currentDate = new Date();
+      const dateFormat = formatDate(currentDate, 'dd-MM-yyyy', 'en-ES');
+      this.printerService.write("FECHA: " + dateFormat + "\n");
+      this.printerService.write("Gracias por todo, le esperamos pronto!");
 
       let printers = this.printers.filter((e: string) => e.includes("cocina1cuenta")).toString();
       this.print(printers);
