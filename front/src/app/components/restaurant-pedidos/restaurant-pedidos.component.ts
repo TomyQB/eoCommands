@@ -26,11 +26,16 @@ export class RestaurantPedidosComponent implements OnInit {
     
     this.selectedIndex = parseInt(sessionStorage.getItem('tab')!)
 
-    this.printerService.getPrinters().then((impresoras: any) => {
-      this.printers = impresoras;
-      this.printerService.printers = impresoras;
+    if(!this.printerService.printers) {
+      this.printerService.getPrinters().then((impresoras: any) => {
+        this.printers = impresoras;
+        this.printerService.printers = impresoras;
+        this.getPedidos();
+      })
+    } else {
+      this.printers = this.printerService.printers;
       this.getPedidos();
-    })
+    }
 
     setInterval(() => {
       this.getPedidos();

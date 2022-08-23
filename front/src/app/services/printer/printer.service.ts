@@ -50,11 +50,8 @@ export class PrinterService {
     operaciones: any = [];
 
     getPrinters() {
-        if (!this.printers) {
-            return fetch(PrinterService.URL_PLUGIN_POR_DEFECTO + "/impresoras")
-                .then(r => r.json());
-        }
-        return this.printers;
+        return fetch(PrinterService.URL_PLUGIN_POR_DEFECTO + "/impresoras")
+            .then(r => r.json());
     }
 
     textoConAcentos(texto: string) {

@@ -115,7 +115,6 @@ export class TabCuentaComponent implements OnInit {
 
   printCuenta() {
     let isCorrectTableNum = this.pendingOrders.find((order: any) => order.tableNum == this.tableNum)
-    console.log(isCorrectTableNum)
     if(this.tableNum != "" && isCorrectTableNum) {
       this.printerService.establecerEnfatizado(1);
       this.printerService.establecerJustificacion(PrinterService.Constantes.AlineacionCentro);
@@ -130,13 +129,10 @@ export class TabCuentaComponent implements OnInit {
           if (pedido.plate.name.length > 30) {
             pedido.plate.name = pedido.plate.name.substring(0, 30);
           }
-          console.log(pedido.plate.name);
-          console.log(pedido.plate.name.length);
           let description = pedido.plate.name.concat(" ".repeat(31 - pedido.plate.name.length))
-          console.log(description);
-          let repeater = (7 - pedido.plate.name.length < 0) ? 0 : 7 - pedido.plate.name.length;
-          let price = pedido.plate.price.concat(" ".repeat(repeater))
-          this.printerService.write(description + pedido.amount + "   " + price + "€" + pedido.plate.price * pedido.amount +"€" + "\n");
+          let repeater = (7 - pedido.plate.price.toString().length <= 0) ? 0 : 7 - pedido.plate.price.toString().length;
+          let priceSpace = " ".repeat(repeater)
+          this.printerService.write(description + pedido.amount + "   " + pedido.plate.price + "€" + priceSpace + pedido.plate.price * pedido.amount +"€" + "\n");
           if(pedido.plate.additionals.length > 0) {
             this.printerService.establecerJustificacion(PrinterService.Constantes.AlineacionDerecha);
             for(let additional of pedido.plate.additionals) {
@@ -150,7 +146,9 @@ export class TabCuentaComponent implements OnInit {
             pedido.additional.name = pedido.additional.name.substring(0, 30);
           }
           let description = pedido.additional.name.concat(" ".repeat(31 - pedido.additional.name.length))
-          this.printerService.write(description + pedido.amount + "  " + pedido.additional.price + "€ " + pedido.additional.price * pedido.amount +"€" + "\n");
+          let repeater = (7 - pedido.additional.price.toString().length < 0) ? 0 : 7 - pedido.additional.price.toString().length;
+          let priceSpace = " ".repeat(repeater)
+          this.printerService.write(description + pedido.amount + "   " + pedido.additional.price + "€" + priceSpace + pedido.additional.price * pedido.amount +"€" + "\n");
         }
       }
 
