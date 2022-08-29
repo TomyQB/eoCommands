@@ -58,7 +58,6 @@ export class RestaurantPedidosComponent implements OnInit {
     for(let pedido of pedidos) {
       if (!pedido.printed) {
         await this.generateTicket(pedido);
-        console.log(pedido);
         this.pedidoServices.setPedidoPrinted(pedido.id).subscribe(() => { });
       }
     }
@@ -111,7 +110,7 @@ export class RestaurantPedidosComponent implements OnInit {
         }
       }
     });
-    let printers = this.printers.filter((e: string) => e.includes("cocina2"));
+    let printers = this.printers.filter((e: string) => e.includes("cocina"));
     for (let printer of printers) {
       await this.print(printer);
     }
