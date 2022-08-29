@@ -115,6 +115,7 @@ export class TabCuentaComponent implements OnInit {
   }*/
 
   printCuenta() {
+    console.log(this.printers)
     let isCorrectTableNum = this.pendingOrders.find((order: any) => order.tableNum == this.tableNum)
     if(this.tableNum != "" && isCorrectTableNum) {
       this.printerService.establecerEnfatizado(1);
@@ -153,17 +154,18 @@ export class TabCuentaComponent implements OnInit {
         }
       }
       this.printerService.establecerJustificacion(PrinterService.Constantes.AlineacionIzquierda);
-      this.printerService.write("TOTAL CON IVA INCLUIDO");
+      this.printerService.write("\n" + "TOTAL CON IVA INCLUIDO        ");
       this.printerService.establecerJustificacion(PrinterService.Constantes.AlineacionDerecha);
-      this.printerService.write(this.total + "€");
+      this.printerService.write(this.total + "€" + "\n");
       this.printerService.establecerJustificacion(PrinterService.Constantes.AlineacionCentro);
       this.printerService.write("================================================" + "\n");
       let currentDate = new Date();
       const dateFormat = formatDate(currentDate, 'dd-MM-yyyy', 'en-ES');
       this.printerService.write("FECHA: " + dateFormat + "\n");
-      this.printerService.write("Gracias por todo, le esperamos pronto!");
+      this.printerService.write("Gracias por todo, le esperamos pronto!" + "\n");
 
-      let printers = this.printers.filter((e: string) => e.includes("cocina1cuenta")).toString();
+      let printers = this.printers.filter((e: string) => e.includes("cuenta")).toString();
+      console.log(printers)
       this.print(printers);
       /*for (let printer of printers) {
         this.print(printer);
