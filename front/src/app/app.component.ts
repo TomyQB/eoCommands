@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { RestaurantService } from './services/restaurant.service';
+import { WebSocketService } from './services/web-socket.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'front';
+
+  constructor(private webSocketService: WebSocketService) {}
+
+
+  ngOnInit(): void {
+    this.webSocketService.connect()
+  }
 }

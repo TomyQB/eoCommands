@@ -1,11 +1,11 @@
 
-  <mat-tab-group [selectedIndex]="selectedIndex" class="tab" *ngIf="pedidos">
+  <mat-tab-group [selectedIndex]="selectedIndex" class="tab" *ngIf="pedidoServices.pedidos">
     <mat-tab label="Cocina">
-      <app-tab-comida [pedidos]="pedidos"></app-tab-comida>
+      <app-tab-comida [pedidos]="pedidoServices.pedidos"></app-tab-comida>
     </mat-tab>
 
     <mat-tab label="Barra">
-      <app-tab-bebida [pedidos]="pedidos"></app-tab-bebida>
+      <app-tab-bebida [pedidos]="pedidoServices.pedidos"></app-tab-bebida>
     </mat-tab>
 
     <mat-tab label="Cuenta">

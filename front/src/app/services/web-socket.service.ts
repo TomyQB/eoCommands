@@ -1,3 +1,4 @@
+import { PedidoServicesService } from 'src/app/services/pedido-services.service';
 import { Amount } from './../models/Amount';
 import { Pedido } from './../models/Pedido';
 import { RestaurantDTO } from './../models/RestaurantDTO';
@@ -14,7 +15,7 @@ import * as SockJS from 'sockjs-client';
 @Injectable({
   providedIn: 'root'
 })
-export class RestaurantService {
+export class WebSocketService {
 
   url = environment.Url
   
@@ -55,7 +56,7 @@ export class RestaurantService {
     drinkCount: 0
 }
 
-  constructor(private http: HttpClient) { }
+  constructor(private pedidoService: PedidoServicesService) { }
 
   connect() {
     const socket = new SockJS(this.url + 'ws-endpoint');
@@ -64,56 +65,28 @@ export class RestaurantService {
     const _this = this;
     this.stompClient.connect({}, function (frame: any) {
       console.log('Connected: ' + frame);
-
-      /*_this.stompClient.subscribe('/admin', function (hello: string) {
-        console.log(hello)
-        _this.onMessageReceived(hello)
-      });*/
     });
   }
-
-  listener() {
-    const _this = this;
-
-    this.stompClient.subscribe('/admin', function (hello: string) {
-      console.log(hello)
-      _this.onMessageReceived(hello)
-    });
-
-  }
-
+  
   disconnect() {
     if (this.stompClient != null) {
       this.stompClient.disconnect();
     }
+  }
+  
+  wsListen() {
+    const _this = this;
+    this.stompClient.subscribe('/admin', function (hello: any) {
+        console.log(JSON.parse(hello.body))
+        _this.pedidoService.pedidos.push(JSON.parse(hello.body))
+        return JSON.parse(hello.body)
+    });
+  }
 
-    console.log('Disconnected!');
+  sendName(pedido: Pedido) {
+    this.stompClient.send('/app/save', {}, JSON.stringify(pedido));
   }
 
   
-  sendName() {
-    this.stompClient.send('/app/save', {}, JSON.stringify(this.pedido));
-  }
-  
-  onMessageReceived(message: any) {
-    console.log("Message Recieved from Server :: " + message);
-    console.log(JSON.parse(message.body));
-  }
 
-  getRestaurantImage(restaurantName: string) {
-    return this.http.post<any>(this.url + "restaurant", restaurantName)
-  }
-
-  updateRestaurantPhoto(restaurant: RestaurantDTO) {
-    return this.http.post<any>(this.url + 'photoRestaurant', restaurant)
-  }
-
-  sendFormMessage(dto: RestaurantFormMainPage) {
-    return this.http.post<any>(this.url + "form", dto)
-  }
-
-  login(user: Login) {
-    return this.http.post<any>(this.url + "login", user)
-  }
-  
 }

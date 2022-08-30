@@ -8,6 +8,9 @@ import { HttpClient } from '@angular/common/http'
 import { Plate } from '../models/Plate';
 import { Observable } from 'rxjs';
 
+import  { Stomp } from '@stomp/stompjs';
+import * as SockJS from 'sockjs-client';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -15,7 +18,11 @@ export class PedidoServicesService {
 
   pedidoObjeto: any[] = []
 
+  pedidos!: any[]
+
   Url = environment.Url
+  
+  stompClient: any;
 
   constructor(private http: HttpClient) { }
 

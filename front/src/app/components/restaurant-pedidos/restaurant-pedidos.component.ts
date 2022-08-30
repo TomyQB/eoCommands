@@ -1,3 +1,4 @@
+import { WebSocketService } from './../../services/web-socket.service';
 import { Restaurant } from './../../models/Restaurant';
 import { PendingOrderService } from './../../services/pending-order.service';
 import { Component, OnInit } from '@angular/core';
@@ -20,11 +21,14 @@ export class RestaurantPedidosComponent implements OnInit {
   pendingOrders!: any[]
   printers!: any;
 
-  constructor(private pedidoServices: PedidoServicesService, private pendingOrderService: PendingOrderService, private printerService: PrinterService) { }
+  constructor(public pedidoServices: PedidoServicesService, private pendingOrderService: PendingOrderService, private printerService: PrinterService,
+    private webSocketService: WebSocketService) { }
 
   ngOnInit(): void {
     
     this.selectedIndex = parseInt(sessionStorage.getItem('tab')!)
+
+    this.webSocketService.wsListen()
 
     if(!this.printerService.printers) {
       this.printerService.getPrinters().then((impresoras: any) => {
@@ -37,14 +41,14 @@ export class RestaurantPedidosComponent implements OnInit {
       this.getPedidos();
     }
 
-    setInterval(() => {
+    /*setInterval(() => {
       this.getPedidos();
-      }, 300000);
+      }, 300000);*/
   }
 
   getPedidos() {
     this.pedidoServices.getAllPedidos(this.restaurant.id).subscribe(data => {
-      this.pedidos = data
+      this.pedidoServices.pedidos = data
       this.initialisePrint(data);
     })
   }

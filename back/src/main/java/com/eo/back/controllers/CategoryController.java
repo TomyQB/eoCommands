@@ -5,14 +5,20 @@ import java.io.IOException;
 import java.util.Map;
 
 import com.eo.back.convert.CategoryConverter;
+import com.eo.back.convert.PedidoConverter;
 import com.eo.back.dto.CategoryDTO;
+import com.eo.back.dto.PedidoDTO;
 import com.eo.back.models.Category;
+import com.eo.back.models.Pedido;
 import com.eo.back.services.CategoryServices;
 import com.eo.back.services.CloudinaryService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.Header;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,6 +39,16 @@ public class CategoryController {
     
     @Autowired
     private CloudinaryService cloudinaryService;
+    
+    @Autowired
+    private PedidoConverter pedidoConverter;
+
+    @MessageMapping("/save")
+    @SendTo("/admin")
+    public Pedido sendMessage(PedidoDTO pedido) {
+        System.out.println(pedido);
+        return pedidoConverter.fromDTO(pedido);
+    }
 
 
     @GetMapping("/menu/{restaurantName}")

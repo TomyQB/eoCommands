@@ -12,6 +12,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { HashService } from 'src/app/services/hash.service';
 import { TotalObservableService } from 'src/app/services/total-observable.service';
 import { CurrencySumbolService } from 'src/app/services/currency-sumbol.service';
+import { WebSocketService } from 'src/app/services/web-socket.service';
 
 declare var require: any
 
@@ -67,7 +68,7 @@ export class PedidoInfoComponent implements OnInit {
 
 
   constructor(public currencySumbolService: CurrencySumbolService, private pedidoService: PedidoServicesService, private pendingOrderService: PendingOrderService, public dialog: MatDialog, private amountServices: AmountServicesService, private router: Router,
-    private emailService: EmailService, private hash: HashService, private totalObservableService: TotalObservableService) { }
+    private emailService: EmailService, private hash: HashService, private totalObservableService: TotalObservableService, private webSocketService: WebSocketService) { }
 
   ngOnInit(): void {
     let count = this.pedidoService.countFoodAndDrink(this.pedido.amounts!)
@@ -83,7 +84,10 @@ export class PedidoInfoComponent implements OnInit {
   }
 
   sendOrder(){
-    this.pedidoService.madePedido(this.pedido).subscribe(data => {
+
+    this.webSocketService.sendName(this.pedido)
+    
+    /*this.pedidoService.madePedido(this.pedido).subscribe(data => {
       if(data) {
         this.pendingOrderService.madePendingOrder(this.pedido).subscribe(data2 => {
           if(data2 = true) {
@@ -96,7 +100,7 @@ export class PedidoInfoComponent implements OnInit {
           }
         })
       }
-    })
+    })*/
   }
 
   getHour() {
