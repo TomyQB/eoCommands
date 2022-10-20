@@ -31,7 +31,7 @@ export class RestaurantPedidosComponent implements OnInit {
         this.printers = impresoras;
         this.printerService.printers = impresoras;
         this.getPedidos();
-      })
+      }).catch(() => console.log("Error al encontrar impresoras"))
     } else {
       this.printers = this.printerService.printers;
       this.getPedidos();
@@ -45,7 +45,7 @@ export class RestaurantPedidosComponent implements OnInit {
   getPedidos() {
     this.pedidoServices.getAllPedidos(this.restaurant.id).subscribe(data => {
       this.pedidos = data
-      this.initialisePrint(data);
+      if(this.printers) this.initialisePrint(data);
     })
   }
 
