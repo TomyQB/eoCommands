@@ -1,5 +1,7 @@
+import { PrinterService } from 'src/app/services/printer/printer.service';
 import { PendingOrderService } from 'src/app/services/pending-order.service';
 import { Component, OnInit } from '@angular/core';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 @Component({
   selector: 'app-admin-caja',
@@ -10,6 +12,7 @@ export class AdminCajaComponent implements OnInit {
 
   ordersRecord: any
   restaurantId: number = JSON.parse(sessionStorage.getItem('restaurant')!).id
+  total: number = 0;
 
   constructor(private pendingOrderService:  PendingOrderService) { }
 
@@ -20,13 +23,19 @@ export class AdminCajaComponent implements OnInit {
   getOrdersRecord() {
     this.pendingOrderService.getAllOrdersRecord(this.restaurantId).subscribe(data => {
       this.ordersRecord = data
+      data.forEach((order: any) => {
+        if (order.plate) this.total += order.amount * order.plate.price
+        if (order.additional) this.total += order.amount * order.additional.price
+      });
     })
   }
 
   deleteCaja() {
     this.pendingOrderService.deleteOrdersRecord(this.restaurantId).subscribe(data => {
+      this.total = 0;
       this.getOrdersRecord();
     })
   }
+
 
 }

@@ -14,18 +14,19 @@ export class PrinterService {
     static URL_PLUGIN_POR_DEFECTO = "http://localhost:8000";
     static OperacionTicket = PrinterPlugin;
     static Constantes = {
+            Iniciar: "Iniciar",
             AccionTextoConAcentos: "textoacentos",
             AccionQrComoImagen: "qrimagen",
             AccionImagen: "imagen",
-            AccionText: "text",
-            AccionCut: "cut",
-            AccionPulse: "pulse",
-            AccionCutPartial: "cutpartial",
+            AccionText: "EscribirTexto",
+            AccionCut: "Corte",
+            AccionPulse: "Pulso",
+            AccionCutPartial: "CorteParcial",
             AccionJustification: "setJustification",
-            AccionTextSize: "setTextSize",
-            AccionFont: "setFont",
-            AccionEmphasize: "setEmphasis",
-            AccionFeed: "feed",
+            AccionTextSize: "EstablecerTamañoFuente",
+            AccionFont: "EstablecerFuente",
+            AccionEmphasize: "EstablecerEnfatizado",
+            AccionFeed: "Feed",
             AccionQr: "qrCode",
             AlineacionCentro: "center",
             AlineacionDerecha: "right",
@@ -52,6 +53,11 @@ export class PrinterService {
     getPrinters() {
         return fetch(PrinterService.URL_PLUGIN_POR_DEFECTO + "/impresoras")
             .then(r => r.json());
+    }
+    
+    initPrint() {
+        this.operaciones.push(new PrinterService.OperacionTicket(PrinterService.Constantes.Iniciar, ""));
+        return this;
     }
 
     textoConAcentos(texto: string) {
@@ -120,6 +126,7 @@ export class PrinterService {
             operaciones: this.operaciones,
             impresora: nombreImpresora,
         };
+        console.log(payload)
         const respuestaRaw = await fetch(PrinterService.URL_PLUGIN_POR_DEFECTO + "/imprimir",
         {
             method: "POST",

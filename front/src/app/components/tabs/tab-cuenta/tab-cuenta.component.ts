@@ -116,6 +116,7 @@ export class TabCuentaComponent implements OnInit {
 
   printCuenta() {
     console.log(this.printers)
+    this.printerService.initPrint();
     let isCorrectTableNum = this.pendingOrders.find((order: any) => order.tableNum == this.tableNum)
     if(this.tableNum != "" && isCorrectTableNum) {
       this.printerService.establecerEnfatizado(1);
