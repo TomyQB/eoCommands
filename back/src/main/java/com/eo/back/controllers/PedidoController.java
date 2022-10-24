@@ -10,6 +10,8 @@ import com.eo.back.services.PedidoServices;
 import com.eo.back.services.RestaurantServices;
 import com.eo.back.services.Email.PedidoEmailService;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +37,7 @@ public class PedidoController {
     @Autowired
     private PedidoEmailService emailService;
 
+    @Operation(summary = "Obtiene los pedidos de un restaurante por su id")
     @PostMapping("/pedido")
     public ResponseEntity<List<Pedido>> getPedidos(@RequestBody long id) {
         List<Pedido> pedidos = restaurantServices.getAllPedidos(id);
@@ -42,11 +45,13 @@ public class PedidoController {
         return new ResponseEntity<List<Pedido>>(pedidos, HttpStatus.OK);
     }
     
+    @Operation(summary = "Envia la cuenta a un cliente por whatshap")
     @PostMapping("/enviarCuentaWhatsapp")
     public WhatsAppDTO enviarCuentaWhatsapp(@RequestBody WhatsAppDTO dto) {
         return pedidoServices.getPedidoByRestaurantIdAndTableNum(dto.getRestaurantId(), dto.getTableNum());
     }
     
+    @Operation(summary = "Realiza un pedido")
     @PostMapping("/madePedido")
     public ResponseEntity<Boolean> madePedido(@RequestBody PedidoDTO dto) {
 
@@ -63,28 +68,32 @@ public class PedidoController {
         
         return new ResponseEntity<Boolean>(done, HttpStatus.OK);
     }
-        
+      
+    @Operation(summary = "Cambiar el estado de la comida de un pedido")  
     @PostMapping("/changeEstadoFoodPedido")
     public void changeEstadoFoodPedido(@RequestBody PedidoDTO dto) {
         Pedido pedido = pedidoServices.getPedidoById(dto.getId());
         pedido.setEstadoFood(dto.getEstadoFood());
         pedidoServices.savePedido(pedido);
     }
-            
+     
+    @Operation(summary = "Cambiar el estado de la bebida de un pedido")       
     @PostMapping("/changeEstadoDrinkPedido")
     public void changeEstadoDrinkPedido(@RequestBody PedidoDTO dto) {
         Pedido pedido = pedidoServices.getPedidoById(dto.getId());
         pedido.setEstadoDrink(dto.getEstadoDrink());
         pedidoServices.savePedido(pedido);
     }
-                
+     
+    @Operation(summary = "Cambiar el de la comida servida de un pedido")           
     @PostMapping("/changeFoodCount")
     public void changeFoodCount(@RequestBody PedidoDTO dto) {
         Pedido pedido = pedidoServices.getPedidoById(dto.getId());
         pedido.setHechosFood(dto.getHechosFood());
         pedidoServices.savePedido(pedido);
     }
-                    
+    
+    @Operation(summary = "Cambiar el de la bebida servida de un pedido")                
     @PostMapping("/changeDrinkCount")
     public void changeDrinkCount(@RequestBody PedidoDTO dto) {
         Pedido pedido = pedidoServices.getPedidoById(dto.getId());
@@ -92,11 +101,13 @@ public class PedidoController {
         pedidoServices.savePedido(pedido);
     }
 
+    @Operation(summary = "Elimina un pedido")
     @PostMapping("/deletePedido")
     public void deletePedidos(@RequestBody PedidoDTO dto) {
         pedidoServices.deletePedido(dto);
     }
 
+    @Operation(summary = "Marca un pedido como impreso")
     @PutMapping("/pedidoPrinted")
     public void pedidoPrinted(@RequestBody long id) {
         pedidoServices.setPrintedPedido(id);

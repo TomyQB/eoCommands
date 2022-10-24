@@ -2,7 +2,10 @@ package com.eo.back.services.PendingOrder;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import com.eo.back.dto.PedidoDTO;
+import com.eo.back.dto.pendingOrders.ChangeTableNumRequest;
 import com.eo.back.models.Amount;
 import com.eo.back.models.Extra;
 import com.eo.back.models.PendingOrderPlate;
@@ -56,6 +59,21 @@ public class PendingOrderPlateService extends AbstractPendingOrderService<Pendin
         pendingOrderPlate2.setTableNum(dto.getNumTable());
         pendingOrderPlate2.setDate(dto.getDate());
         this.pendingOrderRepository.save(pendingOrderPlate2);
+    }
+
+    public void changeTableNum(final ChangeTableNumRequest changeTableNumRequest) {
+        if (!pendingOrderRepository.getPendingOrderPlateByRestaurantIdAndTableNum(changeTableNumRequest.getRestaurantId(), changeTableNumRequest.getNewTableNum()).isEmpty()) {
+            // TODO: Lanzar excepción, hacer manejador
+        }
+        
+        List<PendingOrderPlate> pendingOrderPlates = pendingOrderRepository.getPendingOrderPlateByRestaurantIdAndTableNum(changeTableNumRequest.getRestaurantId(), changeTableNumRequest.getOldTableNum());
+    
+        for(PendingOrderPlate pendingOrderPlate : pendingOrderPlates) {
+            pendingOrderRepository.delete(pendingOrderPlate);
+            pendingOrderPlate.setTableNum(changeTableNumRequest.getNewTableNum());
+            pendingOrderRepository.save(pendingOrderPlate);
+        }
+
     }
 
 }

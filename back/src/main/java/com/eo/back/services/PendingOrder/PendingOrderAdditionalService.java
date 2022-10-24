@@ -2,7 +2,10 @@ package com.eo.back.services.PendingOrder;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import com.eo.back.dto.PedidoDTO;
+import com.eo.back.dto.pendingOrders.ChangeTableNumRequest;
 import com.eo.back.models.Additional;
 import com.eo.back.models.Amount;
 import com.eo.back.models.Extra;
@@ -66,6 +69,21 @@ public class PendingOrderAdditionalService extends AbstractPendingOrderService<P
         pendingOrderAdditional2.setTableNum(dto.getNumTable());
         pendingOrderAdditional2.setDate(dto.getDate());
         this.pendingOrderAdditionalRepository.save(pendingOrderAdditional2);
+    }
+    
+    public void changeTableNum(final ChangeTableNumRequest changeTableNumRequest) {
+        if (!pendingOrderAdditionalRepository.getPendingOrderAdditionalByRestaurantIdAndTableNum(changeTableNumRequest.getRestaurantId(), changeTableNumRequest.getNewTableNum()).isEmpty()) {
+            // TODO: Lanzar excepción, hacer manejador
+        }
+        
+        List<PendingOrderAdditional> pendingOrderAdditionals = pendingOrderAdditionalRepository.getPendingOrderAdditionalByRestaurantIdAndTableNum(changeTableNumRequest.getRestaurantId(), changeTableNumRequest.getOldTableNum());
+    
+        for(PendingOrderAdditional pendingOrderAdditional : pendingOrderAdditionals) {
+            pendingOrderAdditionalRepository.delete(pendingOrderAdditional);
+            pendingOrderAdditional.setTableNum(changeTableNumRequest.getNewTableNum());
+            pendingOrderAdditionalRepository.save(pendingOrderAdditional);
+        }
+
     }
 
 }

@@ -9,6 +9,7 @@ import com.eo.back.convert.PendingOrderAdditionalConverter;
 import com.eo.back.convert.PendingOrderPlateConverter;
 import com.eo.back.dto.PedidoDTO;
 import com.eo.back.dto.OrdersRecord.OrdersRecordDTO;
+import com.eo.back.dto.pendingOrders.ChangeTableNumRequest;
 import com.eo.back.dto.pendingOrders.PendingOrderAdditionalDTO;
 import com.eo.back.dto.pendingOrders.PendingOrderDTO;
 import com.eo.back.dto.pendingOrders.PendingOrderPlateDTO;
@@ -26,6 +27,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -136,6 +138,12 @@ public class PendingOrderController {
         ordersRecordDTOs.addAll(ordersRecordAdditionalDTOs);
 
         return ordersRecordDTOs;
+    }
+
+    @PutMapping("changeTableNum")
+    public void changeTableNum(@RequestBody ChangeTableNumRequest changeTableNumRequest) {
+        pendingOrderPlateService.changeTableNum(changeTableNumRequest);
+        pendingOrderAdditionalService.changeTableNum(changeTableNumRequest);
     }
     
 }
