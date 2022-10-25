@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.eo.back.dto.PedidoDTO;
 import com.eo.back.dto.WhatsAppDTO;
+import com.eo.back.dto.pendingOrders.ChangeTableNumRequest;
 import com.eo.back.models.Amount;
 import com.eo.back.models.Pedido;
 import com.eo.back.repositories.PedidoRepository;
@@ -15,17 +16,17 @@ import org.springframework.stereotype.Service;
 public class PedidoServices {
 
     @Autowired
-    private PedidoRepository repository;
+    private PedidoRepository pedidoRepository;
     
     @Autowired
     private RestaurantServices restaurantServices;
 
     public Pedido getPedidoById(long id) {
-        return repository.getById(id);
+        return pedidoRepository.getById(id);
     }
 
     public WhatsAppDTO getPedidoByRestaurantIdAndTableNum(long id, int tableNum) {
-        return createWhatsAppDTO(repository.getAllPedidoByRestaurantIdAndTableNum(id, tableNum));
+        return createWhatsAppDTO(pedidoRepository.getAllPedidoByRestaurantIdAndTableNum(id, tableNum));
     }
 
     private WhatsAppDTO createWhatsAppDTO(List<Pedido> pedidos) {
@@ -39,15 +40,15 @@ public class PedidoServices {
     }
     
     public Pedido savePedido(Pedido pedido) {
-        return repository.save(pedido);
+        return pedidoRepository.save(pedido);
     }
 
     public void deletePedido(PedidoDTO dto) {
-        repository.deleteAllPedidoByRestaurantIdAndTableNum(restaurantServices.getRestaurantById(dto.getRestaurantId()).getId(), dto.getNumTable());
+        pedidoRepository.deleteAllPedidoByRestaurantIdAndTableNum(restaurantServices.getRestaurantById(dto.getRestaurantId()).getId(), dto.getNumTable());
     }
 
     public void deletePedidosById(long idPedido) {
-        repository.deleteById(idPedido);
+        pedidoRepository.deleteById(idPedido);
     }
         
     public void addPedidoToAmount(Pedido pedido) {
@@ -58,9 +59,23 @@ public class PedidoServices {
     }
 
     public void setPrintedPedido(long id) {
-        Pedido pedido = repository.getById(id);
+        Pedido pedido = pedidoRepository.getById(id);
         pedido.setPrinted(true);
-        repository.save(pedido);
+        pedidoRepository.save(pedido);
+    }
+
+    public void changeTableNum(final ChangeTableNumRequest changeTableNum) {
+        if (!pedidoRepository.getAllPedidoByRestaurantIdAndTableNum(changeTableNum.getRestaurantId(), changeTableNum.getNewTableNum()).isEmpty()) {
+            throw new NullPointerException();
+            //TODO: Lanzar excepción
+        }
+
+        List<Pedido> pedidos = pedidoRepository.getAllPedidoByRestaurantIdAndTableNum(changeTableNum.getRestaurantId(), changeTableNum.getOldTableNum());
+
+        for(Pedido pedido : pedidos) {
+            pedido.setTableNum(changeTableNum.getNewTableNum());
+        }
+        pedidoRepository.saveAll(pedidos);
     }
 
 }

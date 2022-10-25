@@ -64,6 +64,7 @@ public class PendingOrderPlateService extends AbstractPendingOrderService<Pendin
     public void changeTableNum(final ChangeTableNumRequest changeTableNumRequest) {
         if (!pendingOrderRepository.getPendingOrderPlateByRestaurantIdAndTableNum(changeTableNumRequest.getRestaurantId(), changeTableNumRequest.getNewTableNum()).isEmpty()) {
             // TODO: Lanzar excepción, hacer manejador
+            throw new NullPointerException();
         }
         
         List<PendingOrderPlate> pendingOrderPlates = pendingOrderRepository.getPendingOrderPlateByRestaurantIdAndTableNum(changeTableNumRequest.getRestaurantId(), changeTableNumRequest.getOldTableNum());

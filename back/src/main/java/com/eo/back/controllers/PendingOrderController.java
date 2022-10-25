@@ -17,6 +17,7 @@ import com.eo.back.models.OrdersRecordAdditional;
 import com.eo.back.models.OrdersRecordPlate;
 import com.eo.back.models.PendingOrderAdditional;
 import com.eo.back.models.PendingOrderPlate;
+import com.eo.back.services.PedidoServices;
 import com.eo.back.services.OrdersRecord.OrdersRecordAdditionalService;
 import com.eo.back.services.OrdersRecord.OrdersRecordPlateService;
 import com.eo.back.services.PendingOrder.PendingOrderAdditionalService;
@@ -52,13 +53,16 @@ public class PendingOrderController {
     
     @Autowired
     private OrdersRecordPlateService ordersRecordPlateService;
-
     
     @Autowired
     private OrdersRecordAdditionalConverter ordersRecordAdditionalConverter;
 
     @Autowired
     private OrdersRecordPlateConverter ordersRecordPlateConverter;
+
+    @Autowired
+    private PedidoServices pedidoServices;
+
 
     @PostMapping("/madePendingOrder")
     public ResponseEntity<Boolean> madePendingOrder(@RequestBody PedidoDTO dto) {
@@ -142,6 +146,7 @@ public class PendingOrderController {
 
     @PutMapping("changeTableNum")
     public void changeTableNum(@RequestBody ChangeTableNumRequest changeTableNumRequest) {
+        pedidoServices.changeTableNum(changeTableNumRequest);
         pendingOrderPlateService.changeTableNum(changeTableNumRequest);
         pendingOrderAdditionalService.changeTableNum(changeTableNumRequest);
     }
