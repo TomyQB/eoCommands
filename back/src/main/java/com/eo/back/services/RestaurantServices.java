@@ -14,22 +14,22 @@ import org.springframework.stereotype.Service;
 public class RestaurantServices {
 
     @Autowired
-    private RestaurantRepository repository;
+    private RestaurantRepository restaurantRepository;
 
     public List<Restaurant> getAllRestaurants() {
-        return repository.findAll();
+        return restaurantRepository.findAll();
     }
 
     public Restaurant getRestaurantById(long id) {
-        return repository.getById(id);
+        return restaurantRepository.getById(id);
     }
 
     public Restaurant getRestaurantByName(String name) {
-        return repository.getRestaurantByName(name);
+        return restaurantRepository.getRestaurantByName(name);
     }
 
     public Restaurant getRestaurantByRestaurantLogin(LoginDTO loginDTO) {
-        return repository.getRestaurantByEmailAndPassword(loginDTO.getEmail(), loginDTO.getPassword());
+        return restaurantRepository.getRestaurantByEmailAndPassword(loginDTO.getEmail(), loginDTO.getPassword());
     }
     
     public List<Pedido> getAllPedidos(long id) {
@@ -37,7 +37,7 @@ public class RestaurantServices {
     }
 
     public void saveRestaurant(Restaurant restaurant) {
-        repository.save(restaurant);
+        restaurantRepository.save(restaurant);
     }
 
     // public void updateOrdersAmount(long id) {
