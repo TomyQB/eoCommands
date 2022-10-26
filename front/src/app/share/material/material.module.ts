@@ -13,6 +13,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 
 
@@ -33,7 +34,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatFormFieldModule,
     MatButtonToggleModule,
     MatRadioModule,
-    MatSelectModule
+    MatSelectModule,
+    DragDropModule
   ]
 })
 export class MaterialModule { }

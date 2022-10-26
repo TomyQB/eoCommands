@@ -4,6 +4,7 @@ import { AmountServicesService } from './../../services/amount-services.service'
 import { Pedido } from '../../models/Pedido';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 
 import { EmailService } from '../../services/email.service'
 import { PedidoServicesService } from '../../services/pedido-services.service'
@@ -21,7 +22,21 @@ declare var require: any
   styleUrls: ['./pedido-info.component.scss']
 })
 export class PedidoInfoComponent implements OnInit {
+  movies = [
+    'Episode I - The Phantom Menace',
+    'Episode II - Attack of the Clones',
+    'Episode III - Revenge of the Sith',
+    'Episode IV - A New Hope',
+    'Episode V - The Empire Strikes Back',
+    'Episode VI - Return of the Jedi',
+    'Episode VII - The Force Awakens',
+    'Episode VIII - The Last Jedi',
+    'Episode IX – The Rise of Skywalker',
+  ];
 
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.movies, event.previousIndex, event.currentIndex);
+  }
   prefixs = [
     {value: '+34', viewValue: 'ES (+34)'},
     {value: '+44', viewValue: 'UK (+44)'},

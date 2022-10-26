@@ -13,7 +13,9 @@
     Pedido
   </div>
   <mat-divider class="border"></mat-divider>
-
+  <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+    <div class="example-box" *ngFor="let movie of movies" cdkDrag>{{movie}}</div>
+  </div>
   <mat-list>
     <div *ngFor="let a of pedido.amounts">
       <div class="list-item">
