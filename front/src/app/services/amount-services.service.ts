@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.prod';
 import { Amount } from '../models/Amount';
+import { PRINCIPAL, ENTRANTE } from '../constants/plate-type';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,7 @@ export class AmountServicesService {
   public amounts: any[] = [];
 
   public entrante: any[] = [];
-  public pricipal: any[] = [];
+  public principal: any[] = [];
 
   Url = environment.Url;
 
@@ -21,6 +22,12 @@ export class AmountServicesService {
   }
 
   public addAmountToList(amount: Amount) {
+    if (amount.type === ENTRANTE) {
+      this.entrante.push(amount);
+    } else if (amount.type === PRINCIPAL) {
+      this.principal.push(amount);
+    }
+    console.log(amount);
     if (this.amounts.length > 0) {
       if (!this.comprobateAmountExist(amount)) {
         this.amounts.push(amount);
@@ -64,7 +71,11 @@ export class AmountServicesService {
   private calculateTotal() {
     let total: number = 0;
 
-    this.amounts.forEach((element) => {
+    this.entrante.forEach((element) => {
+      total += element.subTotal;
+    });
+
+    this.principal.forEach((element) => {
       total += element.subTotal;
     });
 
