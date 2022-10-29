@@ -1,18 +1,18 @@
-.mat-toolbar{
+.mat-toolbar {
   display: flex;
   justify-content: center;
 }
 
-.list-item{
+.list-item {
   padding: 10px;
 }
 
-.info-plate-price{
+.info-plate-price {
   display: flex;
   justify-content: space-between;
 }
 
-.paddingGeneral{
+.paddingGeneral {
   padding: 20px;
 }
 
@@ -20,35 +20,35 @@
   width: 100%;
 }
 
-.example-form{
+.example-form {
   margin-top: 20px;
 }
 
-.button-end-order{
+.button-end-order {
   text-align: center;
   margin-top: 20px;
 }
 
-.info-total-price{
+.info-total-price {
   padding: 10px;
   // display: flex;
   text-align: right;
   // justify-content: space-between;
 }
 
-.border{
+.border {
   margin-top: 10px;
   border: 1px solid;
-  border-color: #9CCB3B;
+  border-color: #9ccb3b;
 }
 
-.category-name{
+.category-name {
   text-align: center;
   font-weight: 570;
   font-size: 17px;
 }
 
-.asterisk{
+.asterisk {
   font-style: normal;
   font-style: italic;
   font-style: oblique;
@@ -63,7 +63,7 @@
   width: 100% !important;
   height: 100% !important;
   position: fixed !important;
-  background-color: rgba(0,0,0,0.9) !important;
+  background-color: rgba(0, 0, 0, 0.9) !important;
   cursor: pointer !important;
   visibility: visible !important;
   transition: visibility 0s, opacity 0.4s linear !important;
@@ -77,17 +77,16 @@
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%)
+  transform: translate(-50%, -50%);
 }
-
 
 // todelete
 
 .example-list {
-  width: 500px;
+  width: 100%;
   max-width: 100%;
   border: solid 1px #ccc;
-  min-height: 60px;
+  min-height: 40px;
   display: block;
   background: white;
   border-radius: 4px;
@@ -95,7 +94,7 @@
 }
 
 .example-box {
-  padding: 20px 10px;
+  padding: 5px;
   border-bottom: solid 1px #ccc;
   color: rgba(0, 0, 0, 0.87);
   display: flex;
@@ -112,8 +111,7 @@
   box-sizing: border-box;
   border-radius: 4px;
   box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
-  0 8px 10px 1px rgba(0, 0, 0, 0.14),
-  0 3px 14px 2px rgba(0, 0, 0, 0.12);
+    0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
 
 .cdk-drag-placeholder {

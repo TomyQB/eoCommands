@@ -1,46 +1,106 @@
 <mat-toolbar class="primary">
-  <span>{{restaurantName}}</span>
+  <span>{{ restaurantName }}</span>
 </mat-toolbar>
 
 <div class="overlay" *ngIf="showOverlay">
-  <div class="spinner ">
-    <img src="https://res.cloudinary.com/dxxvcl5fe/image/upload/v1633504473/loading_or0jw6.gif"/>
+  <div class="spinner">
+    <img
+      src="https://res.cloudinary.com/dxxvcl5fe/image/upload/v1633504473/loading_or0jw6.gif"
+      alt="spinner"
+    />
   </div>
 </div>
 
 <div class="paddingGeneral">
-  <div class="category-name">
-    Pedido
-  </div>
+  <div class="category-name">Pedido</div>
   <mat-divider class="border"></mat-divider>
-  <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-    <div class="example-box" *ngFor="let movie of movies" cdkDrag>{{movie}}</div>
-  </div>
-  <mat-list>
-    <div *ngFor="let a of pedido.amounts">
-      <div class="list-item">
-        <div class="info-plate-price">
-          <div>{{a.amount}} {{a.plate!.name}}</div>
-          <div>{{a.subTotal}}{{currencySumbolService.symbol}}</div>
-        </div>
-        <div>{{a.description}}</div>
-        <div *ngFor="let e of a.extras">
-          <div class="info-plate-price">
-            <div>{{e.name}}</div>
-            <div>{{e.price}}{{currencySumbolService.symbol}}</div>
+
+  <div cdkDropListGroup>
+    <div class="example-container">
+      <h2>Entrantes</h2>
+
+      <div
+        cdkDropList
+        [cdkDropListData]="entrante"
+        class="example-list"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <div class="example-box" *ngFor="let a of entrante" cdkDrag>
+          <div class="list-item">
+            <div class="info-plate-price">
+              <div>{{ a.amount }} {{ a.plate!.name }}</div>
+              <div>{{ a.subTotal }}{{ currencySumbolService.symbol }}</div>
+            </div>
+            <div>{{ a.description }}</div>
+            <div *ngFor="let e of a.extras">
+              <div class="info-plate-price">
+                <div>{{ e.name }}</div>
+                <div>{{ e.price }}{{ currencySumbolService.symbol }}</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <mat-divider class="primary"></mat-divider>
+
+      <div class="example-container">
+        <h2>Principales</h2>
+
+        <div
+          cdkDropList
+          [cdkDropListData]="principal"
+          class="example-list"
+          (cdkDropListDropped)="drop($event)"
+        >
+          <div class="example-box" *ngFor="let a of principal" cdkDrag>
+            <div class="list-item">
+              <div class="info-plate-price">
+                <div>{{ a.amount }} {{ a.plate!.name }}</div>
+                <div>{{ a.subTotal }}{{ currencySumbolService.symbol }}</div>
+              </div>
+              <div>{{ a.description }}</div>
+              <div *ngFor="let e of a.extras">
+                <div class="info-plate-price">
+                  <div>{{ e.name }}</div>
+                  <div>{{ e.price }}{{ currencySumbolService.symbol }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="info-total-price">
-      Total pedido {{pedido.total}}{{currencySumbolService.symbol}}
-    </div>
-  </mat-list>
+
+    <mat-list>
+      <div *ngFor="let a of pedido.amounts">
+        <div class="list-item">
+          <div class="info-plate-price">
+            <div>{{ a.amount }} {{ a.plate!.name }}</div>
+            <div>{{ a.subTotal }}{{ currencySumbolService.symbol }}</div>
+          </div>
+          <div>{{ a.description }}</div>
+          <div *ngFor="let e of a.extras">
+            <div class="info-plate-price">
+              <div>{{ e.name }}</div>
+              <div>{{ e.price }}{{ currencySumbolService.symbol }}</div>
+            </div>
+          </div>
+        </div>
+        <mat-divider class="primary"></mat-divider>
+      </div>
+      <div class="info-total-price">
+        Total pedido {{ pedido.total }}{{ currencySumbolService.symbol }}
+      </div>
+    </mat-list>
 
     <mat-form-field class="example-full-width">
       <mat-label>Nº de mesa (o habitación)</mat-label>
-      <input type="number" matInput [formControl]="tableFormControl" placeholder="Ej. 10" autocomplete="off">
+      <input
+        type="number"
+        matInput
+        [formControl]="tableFormControl"
+        placeholder="Ej. 10"
+        autocomplete="off"
+      />
       <mat-error *ngIf="tableFormControl.hasError('required')">
         Nº de mesa obligatorio
       </mat-error>
@@ -50,47 +110,70 @@
       <mat-label>Prefijo móvil</mat-label>
       <mat-select [formControl]="prefixFormControl">
         <mat-option *ngFor="let prefix of prefixs" [value]="prefix.value">
-          {{prefix.viewValue}}
+          {{ prefix.viewValue }}
         </mat-option>
       </mat-select>
     </mat-form-field>
 
     <mat-form-field class="example-full-width">
       <mat-label>Nº de WhatsApp</mat-label>
-      <input type="number" matInput [formControl]="phoneFormControl" placeholder="Ej. 123456789" autocomplete="off">
+      <input
+        type="number"
+        matInput
+        [formControl]="phoneFormControl"
+        placeholder="Ej. 123456789"
+        autocomplete="off"
+      />
       <mat-error *ngIf="phoneFormControl.hasError('required')">
         Numero de telefono obligatorio
       </mat-error>
     </mat-form-field>
 
-    <div class="asterisk">
-      *A este numero llegará la cuenta. Gracias
-    </div>
+    <div class="asterisk">*A este numero llegará la cuenta. Gracias</div>
 
     <form class="example-form">
       <mat-form-field class="example-full-width">
         <mat-label>Email</mat-label>
-        <input type="email" matInput [formControl]="emailFormControl" placeholder="ex@example.com">
-        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+        <input
+          type="email"
+          matInput
+          [formControl]="emailFormControl"
+          placeholder="ex@example.com"
+        />
+        <mat-error
+          *ngIf="
+            emailFormControl.hasError('email') &&
+            !emailFormControl.hasError('required')
+          "
+        >
           Introduce un email correcto
         </mat-error>
         <mat-error *ngIf="emailFormControl.hasError('required')">
           Email obligatorio
         </mat-error>
       </mat-form-field>
-  </form>
+    </form>
 
-  <div class="asterisk">
-    *Recibirá un código para verificar su email, insertelo y será efectivo su pedido. Gracias
+    <div class="asterisk">
+      *Recibirá un código para verificar su email, insertelo y será efectivo su
+      pedido. Gracias
+    </div>
+
+    <div class="button-end-order">
+      <button mat-raised-button class="primary" (click)="goCategoriesPage()">
+        Seguir pidiendo
+      </button>
+    </div>
+
+    <div class="button-end-order">
+      <button
+        mat-raised-button
+        class="primary"
+        (click)="openDialog()"
+        [disabled]="!(pedido.total > 0)"
+      >
+        Hacer pedido
+      </button>
+    </div>
   </div>
-
-  <div class="button-end-order">
-    <button mat-raised-button class="primary" (click)="goCategoriesPage()">Seguir pidiendo</button>
-  </div>
-
-  <div class="button-end-order">
-    <button mat-raised-button class="primary" (click)="openDialog()" [disabled]="!(pedido.total > 0)" >Hacer pedido</button>
-  </div>
-
 </div>
-
