@@ -33,4 +33,5 @@ public class PendingOrderPlate {
     private double subTotal;
     private int amount;
     private String date;
+    private String type;
 }

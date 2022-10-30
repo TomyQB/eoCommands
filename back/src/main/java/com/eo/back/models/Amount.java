@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -32,6 +33,9 @@ public class Amount {
     private String description;
     private double subTotal;
     private String estado;
+
+    @Transient
+    private String type;
 
     
     @OneToMany(mappedBy = "amount", cascade = CascadeType.ALL)
