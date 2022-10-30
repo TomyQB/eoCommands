@@ -16,6 +16,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { HashService } from 'src/app/services/hash.service';
 import { TotalObservableService } from 'src/app/services/total-observable.service';
 import { CurrencySumbolService } from 'src/app/services/currency-sumbol.service';
+import { ENTRANTE, PRINCIPAL } from '../../constants/plate-type';
 
 declare var require: any;
 
@@ -26,13 +27,10 @@ declare var require: any;
 })
 export class PedidoInfoComponent implements OnInit {
   entrante: any[] = [];
-
   principal: any[] = [];
+  bebida: any[] = [];
 
-  droped(movie: any) {
-    console.log(movie);
-  }
-  drop(event: CdkDragDrop<string[]>) {
+  dropEntrante(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,
@@ -46,6 +44,27 @@ export class PedidoInfoComponent implements OnInit {
         event.previousIndex,
         event.currentIndex
       );
+
+      this.entrante[event.currentIndex].plate.type = ENTRANTE;
+    }
+  }
+
+  dropPrincipal(event: CdkDragDrop<string[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+
+      this.principal[event.currentIndex].plate.type = PRINCIPAL;
     }
   }
 
@@ -72,7 +91,10 @@ export class PedidoInfoComponent implements OnInit {
     phoneNumber: '',
     estadoFood: 'Pendiente',
     estadoDrink: 'Pendiente',
-    amounts: this.amountServices.entrante.concat(this.amountServices.principal),
+    amounts: this.amountServices.entrante.concat(
+      this.amountServices.principal,
+      this.amountServices.bebida
+    ),
   };
 
   emailFormControl = new FormControl('', [
@@ -102,8 +124,9 @@ export class PedidoInfoComponent implements OnInit {
     let count = this.pedidoService.countFoodAndDrink(this.pedido.amounts!);
     this.pedido.foodCount = count[0];
     this.pedido.drinkCount = count[1];
-    this.entrante = this.amountServices.amounts;
-    this.principal = this.amountServices.entrante;
+    this.entrante = this.amountServices.entrante;
+    this.principal = this.amountServices.principal;
+    this.bebida = this.amountServices.bebida;
   }
 
   finishPedido() {

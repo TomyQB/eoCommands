@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.prod';
 import { Amount } from '../models/Amount';
-import { PRINCIPAL, ENTRANTE } from '../constants/plate-type';
+import { PRINCIPAL, ENTRANTE, BEBIDA } from '../constants/plate-type';
 
 @Injectable({
   providedIn: 'root',
@@ -23,42 +23,81 @@ export class AmountServicesService {
   }
 
   public addAmountToList(amount: Amount) {
-    // if (amount.type === ENTRANTE) {
-    //   this.entrante.push(amount);
-    // } else if (amount.type === PRINCIPAL) {
-    //   this.principal.push(amount);
-    // }
-    if (amount.plate?.drink === true) {
-      if (!this.comprobateAmountExist(this.bebida, amount)) {
-        this.bebida.push(amount);
+    if (amount.plate!.type === ENTRANTE) {
+      if (this.comprobatePrincipalExist(amount)) {
+        this.principal.push(amount);
+      } else {
+        this.comprobateEntranteExist(amount);
+        this.entrante.push(amount);
       }
+    } else if (amount.plate!.type === PRINCIPAL) {
+      if (this.comprobateEntranteExist(amount)) {
+        this.entrante.push(amount);
+      } else {
+        this.comprobatePrincipalExist(amount);
+        this.principal.push(amount);
+      }
+    } else if (amount.plate!.type === BEBIDA) {
+      this.comprobateBebidaExist(amount);
       this.bebida.push(amount);
-    }
-    console.log(amount);
-    if (this.amounts.length > 0) {
-      if (!this.comprobateAmountExist(this.amounts, amount)) {
-        this.amounts.push(amount);
-      }
-    } else {
-      this.amounts.push(amount);
     }
 
     return this.calculateTotal();
   }
 
-  private comprobateAmountExist(array: any[], amount: Amount) {
+  private comprobateEntranteExist(amount: Amount) {
     let repeAmount: Amount;
     let exist: boolean = false;
 
-    for (let i = 0; i < array.length; i++) {
-      if (array[i].plate!.name == amount.plate!.name) {
+    for (let i = 0; i < this.entrante.length; i++) {
+      if (this.entrante[i].plate!.name == amount.plate!.name) {
         repeAmount = this.amounts[i];
         exist = true;
 
         if (amount.amount > 0) {
-          this.updateAmount(amount, i);
+          this.updateEntrante(amount, i);
         } else if (amount.amount == 0) {
-          this.deleteAmount(i);
+          this.deleteEntrante(i);
+        }
+      }
+    }
+
+    return exist;
+  }
+
+  private comprobatePrincipalExist(amount: Amount) {
+    let repeAmount: Amount;
+    let exist: boolean = false;
+
+    for (let i = 0; i < this.principal.length; i++) {
+      if (this.principal[i].plate!.name == amount.plate!.name) {
+        repeAmount = this.amounts[i];
+        exist = true;
+
+        if (amount.amount > 0) {
+          this.updatePrincipal(amount, i);
+        } else if (amount.amount == 0) {
+          this.deletePrincipal(i);
+        }
+      }
+    }
+
+    return exist;
+  }
+
+  private comprobateBebidaExist(amount: Amount) {
+    let repeAmount: Amount;
+    let exist: boolean = false;
+
+    for (let i = 0; i < this.bebida.length; i++) {
+      if (this.bebida[i].plate!.name == amount.plate!.name) {
+        repeAmount = this.amounts[i];
+        exist = true;
+
+        if (amount.amount > 0) {
+          this.updateBebida(amount, i);
+        } else if (amount.amount == 0) {
+          this.deleteBebida(i);
         }
       }
     }
@@ -70,9 +109,33 @@ export class AmountServicesService {
     this.amounts.splice(index, 1);
   }
 
+  private deleteEntrante(index: number) {
+    this.entrante.splice(index, 1);
+  }
+
+  private deletePrincipal(index: number) {
+    this.principal.splice(index, 1);
+  }
+
+  private deleteBebida(index: number) {
+    this.bebida.splice(index, 1);
+  }
+
   private updateAmount(amount: Amount, index: number) {
     this.deleteAmount(index);
     this.amounts.push(amount);
+  }
+
+  private updateEntrante(amount: Amount, index: number) {
+    this.deleteEntrante(index);
+  }
+
+  private updatePrincipal(amount: Amount, index: number) {
+    this.deletePrincipal(index);
+  }
+
+  private updateBebida(amount: Amount, index: number) {
+    this.deleteBebida(index);
   }
 
   private calculateTotal() {
@@ -86,6 +149,9 @@ export class AmountServicesService {
       total += element.subTotal;
     });
 
+    this.bebida.forEach((element) => {
+      total += element.subTotal;
+    });
     return total;
   }
 }

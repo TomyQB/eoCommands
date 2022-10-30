@@ -23,36 +23,11 @@
         cdkDropList
         [cdkDropListData]="entrante"
         class="example-list"
-        (cdkDropListDropped)="drop($event)"
+        (cdkDropListDropped)="dropEntrante($event)"
       >
-        <div class="example-box" *ngFor="let a of entrante" cdkDrag>
-          <div class="list-item">
-            <div class="info-plate-price">
-              <div>{{ a.amount }} {{ a.plate!.name }}</div>
-              <div>{{ a.subTotal }}{{ currencySumbolService.symbol }}</div>
-            </div>
-            <div>{{ a.description }}</div>
-            <div *ngFor="let e of a.extras">
-              <div class="info-plate-price">
-                <div>{{ e.name }}</div>
-                <div>{{ e.price }}{{ currencySumbolService.symbol }}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="example-container">
-        <h2>Principales</h2>
-
-        <div
-          cdkDropList
-          [cdkDropListData]="principal"
-          class="example-list"
-          (cdkDropListDropped)="drop($event)"
-        >
-          <div class="example-box" *ngFor="let a of principal" cdkDrag>
-            <div class="list-item">
+        <mat-list class="p-0">
+          <div class="example-box" *ngFor="let a of entrante" cdkDrag>
+            <div>
               <div class="info-plate-price">
                 <div>{{ a.amount }} {{ a.plate!.name }}</div>
                 <div>{{ a.subTotal }}{{ currencySumbolService.symbol }}</div>
@@ -66,12 +41,41 @@
               </div>
             </div>
           </div>
-        </div>
+        </mat-list>
       </div>
     </div>
+    <div class="example-container">
+      <h2>Principales</h2>
 
+      <div
+        cdkDropList
+        [cdkDropListData]="principal"
+        class="example-list"
+        (cdkDropListDropped)="dropPrincipal($event)"
+      >
+        <mat-list class="p-0">
+          <div class="example-box" *ngFor="let a of principal" cdkDrag>
+            <div>
+              <div class="info-plate-price">
+                <div>{{ a.amount }} {{ a.plate!.name }}</div>
+                <div>{{ a.subTotal }}{{ currencySumbolService.symbol }}</div>
+              </div>
+              <div>{{ a.description }}</div>
+              <div *ngFor="let e of a.extras">
+                <div class="info-plate-price">
+                  <div>{{ e.name }}</div>
+                  <div>{{ e.price }}{{ currencySumbolService.symbol }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-list>
+      </div>
+    </div>
+  </div>
+  <div>
     <mat-list>
-      <div *ngFor="let a of pedido.amounts">
+      <div *ngFor="let a of bebida">
         <div class="list-item">
           <div class="info-plate-price">
             <div>{{ a.amount }} {{ a.plate!.name }}</div>
