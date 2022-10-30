@@ -63,8 +63,6 @@ export class PedidoInfoComponent implements OnInit {
     width: '90%',
   };
 
-  princial = [];
-
   pedido: Pedido = {
     numTable: -1,
     email: '',
@@ -74,7 +72,7 @@ export class PedidoInfoComponent implements OnInit {
     phoneNumber: '',
     estadoFood: 'Pendiente',
     estadoDrink: 'Pendiente',
-    amounts: this.amountServices.amounts,
+    amounts: this.amountServices.entrante.concat(this.amountServices.principal),
   };
 
   emailFormControl = new FormControl('', [
@@ -105,6 +103,7 @@ export class PedidoInfoComponent implements OnInit {
     this.pedido.foodCount = count[0];
     this.pedido.drinkCount = count[1];
     this.entrante = this.amountServices.amounts;
+    this.principal = this.amountServices.entrante;
   }
 
   finishPedido() {

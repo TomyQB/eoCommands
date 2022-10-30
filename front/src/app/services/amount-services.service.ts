@@ -12,6 +12,7 @@ export class AmountServicesService {
 
   public entrante: any[] = [];
   public principal: any[] = [];
+  public bebida: any[] = [];
 
   Url = environment.Url;
 
@@ -22,14 +23,20 @@ export class AmountServicesService {
   }
 
   public addAmountToList(amount: Amount) {
-    if (amount.type === ENTRANTE) {
-      this.entrante.push(amount);
-    } else if (amount.type === PRINCIPAL) {
-      this.principal.push(amount);
+    // if (amount.type === ENTRANTE) {
+    //   this.entrante.push(amount);
+    // } else if (amount.type === PRINCIPAL) {
+    //   this.principal.push(amount);
+    // }
+    if (amount.plate?.drink === true) {
+      if (!this.comprobateAmountExist(this.bebida, amount)) {
+        this.bebida.push(amount);
+      }
+      this.bebida.push(amount);
     }
     console.log(amount);
     if (this.amounts.length > 0) {
-      if (!this.comprobateAmountExist(amount)) {
+      if (!this.comprobateAmountExist(this.amounts, amount)) {
         this.amounts.push(amount);
       }
     } else {
@@ -39,12 +46,12 @@ export class AmountServicesService {
     return this.calculateTotal();
   }
 
-  private comprobateAmountExist(amount: Amount) {
+  private comprobateAmountExist(array: any[], amount: Amount) {
     let repeAmount: Amount;
     let exist: boolean = false;
 
-    for (let i = 0; i < this.amounts.length; i++) {
-      if (this.amounts[i].plate!.name == amount.plate!.name) {
+    for (let i = 0; i < array.length; i++) {
+      if (array[i].plate!.name == amount.plate!.name) {
         repeAmount = this.amounts[i];
         exist = true;
 
