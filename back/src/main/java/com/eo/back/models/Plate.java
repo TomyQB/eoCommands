@@ -36,6 +36,7 @@ public class Plate {
     private boolean drink;
     @Nullable
     private boolean isAvailable;
+    private String type;
     
     @ManyToOne
     @JsonIgnore

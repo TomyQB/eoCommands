@@ -58,6 +58,7 @@ public class PendingOrderPlateService extends AbstractPendingOrderService<Pendin
         pendingOrderPlate2.setRestaurantId(dto.getRestaurantId());
         pendingOrderPlate2.setTableNum(dto.getNumTable());
         pendingOrderPlate2.setDate(dto.getDate());
+        pendingOrderPlate2.setType(a.getType());
         this.pendingOrderRepository.save(pendingOrderPlate2);
     }
 
