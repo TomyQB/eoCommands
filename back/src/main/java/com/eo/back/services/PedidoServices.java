@@ -78,4 +78,8 @@ public class PedidoServices {
         pedidoRepository.saveAll(pedidos);
     }
 
+    public boolean checkFirstOrder(final String restaurantId, final String tableNum) {
+        return pedidoRepository.getAllPedidoByRestaurantIdAndTableNum(Long.parseLong(restaurantId), Integer.parseInt(tableNum)).isEmpty();
+    }
+
 }

@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -111,5 +113,11 @@ public class PedidoController {
     @PutMapping("/pedidoPrinted")
     public void pedidoPrinted(@RequestBody long id) {
         pedidoServices.setPrintedPedido(id);
+    }
+
+    @Operation(summary = "Comprueba si ya se ha realizado algun pedido desde esa mesa")
+    @GetMapping("/checkFirstOrder/{restaurantId}/{tableNum}")
+    public boolean checkFirstOrder(@PathVariable String restaurantId, @PathVariable String tableNum) {
+        return pedidoServices.checkFirstOrder(restaurantId, tableNum);
     }
 }

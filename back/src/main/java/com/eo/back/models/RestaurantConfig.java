@@ -18,6 +18,5 @@ public class RestaurantConfig {
     private long id;
 
     private int printConfirmation;
-    private int mailFirstTime;
-    private int mailAllTimes;
+    private int mailConfirmation;
 }
