@@ -14,10 +14,14 @@
 <div class="paddingGeneral">
   <div class="category-name">Pedido</div>
   <mat-divider class="border"></mat-divider>
+  <div class="asterisk" style="margin-top: 5px">
+    *Puede arrastrar los platos entre Entrantes y Principales para ordenar su
+    pedido
+  </div>
 
   <div cdkDropListGroup>
     <div class="example-container">
-      <h2>Entrantes</h2>
+      <h2 class="title">Entrantes</h2>
 
       <div
         cdkDropList
@@ -26,6 +30,9 @@
         (cdkDropListDropped)="dropEntrante($event)"
       >
         <mat-list class="p-0">
+          <div *ngIf="entrante.length === 0" class="empty">
+            <h3>Sin entrante</h3>
+          </div>
           <div class="example-box" *ngFor="let a of entrante" cdkDrag>
             <div>
               <div class="info-plate-price">
@@ -45,7 +52,7 @@
       </div>
     </div>
     <div class="example-container">
-      <h2>Principales</h2>
+      <h2 class="title">Principales</h2>
 
       <div
         cdkDropList
@@ -54,6 +61,9 @@
         (cdkDropListDropped)="dropPrincipal($event)"
       >
         <mat-list class="p-0">
+          <div *ngIf="principal.length === 0" class="empty">
+            <h3>Sin principal</h3>
+          </div>
           <div class="example-box" *ngFor="let a of principal" cdkDrag>
             <div>
               <div class="info-plate-price">
@@ -74,7 +84,10 @@
     </div>
   </div>
   <div>
-    <mat-list>
+    <h2 class="title">Bebida</h2>
+
+    <mat-list class="p-0 borderBGreen">
+      <div *ngIf="bebida.length === 0" class="empty"><h3>Sin bebida</h3></div>
       <div *ngFor="let a of bebida">
         <div class="list-item">
           <div class="info-plate-price">
@@ -91,52 +104,29 @@
         </div>
         <mat-divider class="primary"></mat-divider>
       </div>
-      <div class="info-total-price">
-        Total pedido {{ pedido.total }}{{ currencySumbolService.symbol }}
-      </div>
     </mat-list>
-
+    <div class="info-total-price">
+      Total pedido {{ pedido.total }}{{ currencySumbolService.symbol }}
+    </div>
     <mat-form-field class="example-full-width">
-      <mat-label>Nº de mesa (o habitación)</mat-label>
+      <mat-label>Nº de mesa</mat-label>
       <input
+        disabled
         type="number"
         matInput
-        [formControl]="tableFormControl"
-        placeholder="Ej. 10"
+        [value]="numMesa"
         autocomplete="off"
       />
-      <mat-error *ngIf="tableFormControl.hasError('required')">
-        Nº de mesa obligatorio
-      </mat-error>
     </mat-form-field>
 
-    <mat-form-field class="example-full-width">
-      <mat-label>Prefijo móvil</mat-label>
-      <mat-select [formControl]="prefixFormControl">
-        <mat-option *ngFor="let prefix of prefixs" [value]="prefix.value">
-          {{ prefix.viewValue }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field class="example-full-width">
-      <mat-label>Nº de WhatsApp</mat-label>
-      <input
-        type="number"
-        matInput
-        [formControl]="phoneFormControl"
-        placeholder="Ej. 123456789"
-        autocomplete="off"
-      />
-      <mat-error *ngIf="phoneFormControl.hasError('required')">
-        Numero de telefono obligatorio
-      </mat-error>
-    </mat-form-field>
-
-    <div class="asterisk">*A este numero llegará la cuenta. Gracias</div>
-
-    <form class="example-form">
-      <mat-form-field class="example-full-width">
+    <form>
+      <mat-form-field
+        *ngIf="
+          restaurantService.restaurantConfiguration.mailConfirmation ===
+            always || firstTime
+        "
+        class="example-full-width"
+      >
         <mat-label>Email</mat-label>
         <input
           type="email"

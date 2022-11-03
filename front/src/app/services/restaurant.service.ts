@@ -3,31 +3,30 @@ import { RestaurantFormMainPage } from './../models/RestaurantFormMainPage';
 import { environment } from './../../environments/environment.prod';
 import { Injectable } from '@angular/core';
 
-import { HttpClient } from '@angular/common/http'
+import { HttpClient } from '@angular/common/http';
 import { Login } from '../models/Login';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RestaurantService {
-
-  Url = environment.Url
-
-  constructor(private http: HttpClient) { }
+  Url = environment.Url;
+  restaurantConfiguration = { mailConfirmation: 2 };
+  constructor(private http: HttpClient) {}
 
   getRestaurantImage(restaurantName: string) {
-    return this.http.post<any>(this.Url + "restaurant", restaurantName)
+    return this.http.post<any>(this.Url + 'restaurant', restaurantName);
   }
 
   updateRestaurantPhoto(restaurant: RestaurantDTO) {
-    return this.http.post<any>(this.Url + 'photoRestaurant', restaurant)
+    return this.http.post<any>(this.Url + 'photoRestaurant', restaurant);
   }
 
   sendFormMessage(dto: RestaurantFormMainPage) {
-    return this.http.post<any>(this.Url + "form", dto)
+    return this.http.post<any>(this.Url + 'form', dto);
   }
 
   login(user: Login) {
-    return this.http.post<any>(this.Url + "login", user)
+    return this.http.post<any>(this.Url + 'login', user);
   }
 }

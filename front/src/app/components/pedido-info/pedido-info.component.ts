@@ -17,6 +17,13 @@ import { HashService } from 'src/app/services/hash.service';
 import { TotalObservableService } from 'src/app/services/total-observable.service';
 import { CurrencySumbolService } from 'src/app/services/currency-sumbol.service';
 import { ENTRANTE, PRINCIPAL } from '../../constants/plate-type';
+import {
+  ALWAYS,
+  FIRST_TIME,
+  NEVER,
+} from '../../constants/restaurant-configuration';
+
+import { RestaurantService } from '../../services/restaurant.service';
 
 declare var require: any;
 
@@ -26,10 +33,12 @@ declare var require: any;
   styleUrls: ['./pedido-info.component.scss'],
 })
 export class PedidoInfoComponent implements OnInit {
+  public always = ALWAYS;
   entrante: any[] = [];
   principal: any[] = [];
   bebida: any[] = [];
-
+  numMesa = '';
+  firstTime = true;
   dropEntrante(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(
@@ -68,12 +77,6 @@ export class PedidoInfoComponent implements OnInit {
     }
   }
 
-  prefixs = [
-    { value: '+34', viewValue: 'ES (+34)' },
-    { value: '+44', viewValue: 'UK (+44)' },
-    { value: '+507', viewValue: 'PAN (+507)' },
-  ];
-
   public showOverlay = false;
 
   restaurantName: string = sessionStorage.getItem('name')!;
@@ -83,12 +86,11 @@ export class PedidoInfoComponent implements OnInit {
   };
 
   pedido: Pedido = {
-    numTable: -1,
+    numTable: parseInt(sessionStorage.getItem('tableNum')!),
     email: '',
     restaurantId: parseInt(sessionStorage.getItem('idRestaurant')!),
     total: history.state.total,
     date: '',
-    phoneNumber: '',
     estadoFood: 'Pendiente',
     estadoDrink: 'Pendiente',
     amounts: this.amountServices.entrante.concat(
@@ -104,12 +106,9 @@ export class PedidoInfoComponent implements OnInit {
 
   tableFormControl = new FormControl('', [Validators.required]);
 
-  prefixFormControl = new FormControl('', [Validators.required]);
-
-  phoneFormControl = new FormControl('', [Validators.required]);
-
   constructor(
     public currencySumbolService: CurrencySumbolService,
+    public restaurantService: RestaurantService,
     private pedidoService: PedidoServicesService,
     private pendingOrderService: PendingOrderService,
     public dialog: MatDialog,
@@ -127,6 +126,20 @@ export class PedidoInfoComponent implements OnInit {
     this.entrante = this.amountServices.entrante;
     this.principal = this.amountServices.principal;
     this.bebida = this.amountServices.bebida;
+    this.numMesa = sessionStorage.getItem('tableNum')!;
+    if (
+      this.restaurantService.restaurantConfiguration.mailConfirmation ===
+      FIRST_TIME
+    ) {
+      this.pedidoService
+        .checkFirstOrder(
+          parseInt(sessionStorage.getItem('idRestaurant')!),
+          parseInt(sessionStorage.getItem('tableNum')!)
+        )
+        .subscribe((res) => {
+          this.firstTime = res;
+        });
+    }
   }
 
   finishPedido() {
@@ -164,31 +177,29 @@ export class PedidoInfoComponent implements OnInit {
 
   openDialog() {
     this.pedido.email = this.emailFormControl.value;
-    this.pedido.numTable = this.tableFormControl.value;
-    if (this.phoneFormControl.value && this.prefixFormControl)
-      this.pedido.phoneNumber =
-        this.prefixFormControl.value + this.phoneFormControl.value;
-
     if (
-      this.pedido.email &&
-      this.pedido.numTable &&
-      !isNaN(this.pedido.numTable)
+      !this.firstTime ||
+      this.restaurantService.restaurantConfiguration.mailConfirmation === NEVER
     ) {
-      this.showOverlay = true;
-      this.emailService.sendMessage(this.pedido.email).subscribe((data) => {
-        this.showOverlay = false;
-        const dialogRef = this.dialog.open(
-          ModalPhoneComponent,
-          this.dialogConfig
-        );
-        dialogRef.componentInstance.code = data;
-        dialogRef.afterClosed().subscribe((res) => {
-          if (res) {
-            this.finishPedido();
-          }
+      this.finishPedido();
+    } else {
+      if (this.pedido.email) {
+        this.showOverlay = true;
+        this.emailService.sendMessage(this.pedido.email).subscribe((data) => {
+          this.showOverlay = false;
+          const dialogRef = this.dialog.open(
+            ModalPhoneComponent,
+            this.dialogConfig
+          );
+          dialogRef.componentInstance.code = data;
+          dialogRef.afterClosed().subscribe((res) => {
+            if (res) {
+              this.finishPedido();
+            }
+          });
         });
-      });
-    } else alert('Rellena todos los campos correctamente');
+      } else alert('Rellena todos los campos correctamente');
+    }
   }
 
   goCategoriesPage() {

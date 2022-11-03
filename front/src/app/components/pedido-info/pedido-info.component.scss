@@ -24,10 +24,6 @@
   width: 100%;
 }
 
-.example-form {
-  margin-top: 20px;
-}
-
 .button-end-order {
   text-align: center;
   margin-top: 20px;
@@ -38,6 +34,19 @@
   // display: flex;
   text-align: right;
   // justify-content: space-between;
+}
+
+.borderBGreen {
+  border-bottom: solid 1px #9ccb3b;
+}
+
+.empty {
+  display: flex;
+  justify-content: center;
+  color: #a0a0a0;
+  h3 {
+    margin: 0;
+  }
 }
 
 .border {
@@ -84,16 +93,17 @@
   transform: translate(-50%, -50%);
 }
 
-// todelete
+.title {
+  margin: 10px 0 5px 0;
+}
 
 .example-list {
   width: 100%;
   max-width: 100%;
-  border: solid 1px #ccc;
+  border-bottom: solid 1px #9ccb3b;
   min-height: 28px;
   align-items: center;
   background: white;
-  border-radius: 4px;
   overflow: hidden;
 }
 
