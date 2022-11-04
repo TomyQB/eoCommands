@@ -1,6 +1,7 @@
 package com.eo.back.controllers;
 
 import java.util.List;
+import java.util.Objects;
 
 import com.eo.back.convert.PedidoConverter;
 import com.eo.back.dto.PedidoDTO;
@@ -64,7 +65,9 @@ public class PedidoController {
         if(pedido.getAmounts().size() > 0) {
             pedidoServices.addPedidoToAmount(pedido);
             Pedido pedidoDB = pedidoServices.savePedido(pedido);
-            emailService.sendEmail(pedidoDB);
+            if (Objects.nonNull(pedido.getEmail())) {
+                emailService.sendEmail(pedidoDB);
+            }
             done = true;
         }
         
