@@ -64,10 +64,7 @@ public class PedidoController {
         
         if(pedido.getAmounts().size() > 0) {
             pedidoServices.addPedidoToAmount(pedido);
-            Pedido pedidoDB = pedidoServices.savePedido(pedido);
-            if (Objects.nonNull(pedido.getEmail())) {
-                emailService.sendEmail(pedidoDB);
-            }
+            pedidoServices.savePedido(pedido);
             done = true;
         }
         
