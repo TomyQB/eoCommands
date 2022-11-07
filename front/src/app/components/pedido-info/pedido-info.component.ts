@@ -38,7 +38,7 @@ export class PedidoInfoComponent implements OnInit {
   principal: any[] = [];
   bebida: any[] = [];
   numMesa = '';
-  firstTime = true;
+  firstTime = false;
   dropEntrante(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(
@@ -127,16 +127,15 @@ export class PedidoInfoComponent implements OnInit {
     this.principal = this.amountServices.principal;
     this.bebida = this.amountServices.bebida;
     this.numMesa = sessionStorage.getItem('tableNum')!;
-    if (
-      this.restaurantService.restaurantConfiguration.mailConfirmation ===
-      FIRST_TIME
-    ) {
+    console.log(this.restaurantService.mailConfiguration);
+    if (this.restaurantService.mailConfiguration === FIRST_TIME) {
       this.pedidoService
         .checkFirstOrder(
           parseInt(sessionStorage.getItem('idRestaurant')!),
           parseInt(sessionStorage.getItem('tableNum')!)
         )
         .subscribe((res) => {
+          console.log(res);
           this.firstTime = res;
         });
     }
@@ -177,10 +176,7 @@ export class PedidoInfoComponent implements OnInit {
 
   openDialog() {
     this.pedido.email = this.emailFormControl.value;
-    if (
-      !this.firstTime ||
-      this.restaurantService.restaurantConfiguration.mailConfirmation === NEVER
-    ) {
+    if (!this.firstTime || this.restaurantService.mailConfiguration === NEVER) {
       this.finishPedido();
     } else {
       if (this.pedido.email) {

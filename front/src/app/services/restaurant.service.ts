@@ -11,7 +11,7 @@ import { Login } from '../models/Login';
 })
 export class RestaurantService {
   Url = environment.Url;
-  restaurantConfiguration = { mailConfirmation: 2 };
+  mailConfiguration = sessionStorage.getItem('mailConfiguration')!;
   constructor(private http: HttpClient) {}
 
   getRestaurantImage(restaurantName: string) {

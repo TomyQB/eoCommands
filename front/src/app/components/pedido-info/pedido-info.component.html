@@ -121,10 +121,7 @@
 
     <form>
       <mat-form-field
-        *ngIf="
-          restaurantService.restaurantConfiguration.mailConfirmation ===
-            always || firstTime
-        "
+        *ngIf="restaurantService.mailConfiguration === always || firstTime"
         class="example-full-width"
       >
         <mat-label>Email</mat-label>
@@ -148,7 +145,10 @@
       </mat-form-field>
     </form>
 
-    <div class="asterisk">
+    <div
+      *ngIf="restaurantService.mailConfiguration === always || firstTime"
+      class="asterisk"
+    >
       *Recibirá un código para verificar su email, insertelo y será efectivo su
       pedido. Gracias
     </div>
