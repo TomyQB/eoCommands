@@ -2,7 +2,7 @@ package com.eo.back.controllers;
 
 import java.io.IOException;
 
-import com.eo.back.convert.RestaurantConverter;
+import com.eo.back.convert.Restaurant.RestaurantConverter;
 import com.eo.back.dto.FormMessageDTO;
 import com.eo.back.dto.RestaurantDTO;
 import com.eo.back.dto.LoginDTO;

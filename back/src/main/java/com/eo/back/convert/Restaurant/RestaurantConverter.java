@@ -1,5 +1,6 @@
-package com.eo.back.convert;
+package com.eo.back.convert.Restaurant;
 
+import com.eo.back.convert.AbstractConverter;
 import com.eo.back.dto.RestaurantDTO;
 import com.eo.back.models.Restaurant;
 
