@@ -1,22 +1,27 @@
+<mat-tab-group [selectedIndex]="selectedIndex" class="tab" *ngIf="pedidos">
+  <mat-tab label="Cocina">
+    <app-tab-comida
+      [pedidos]="pedidos"
+      (getPedidos)="getPedidos()"
+    ></app-tab-comida>
+  </mat-tab>
 
-  <mat-tab-group [selectedIndex]="selectedIndex" class="tab" *ngIf="pedidos">
-    <mat-tab label="Cocina">
-      <app-tab-comida [pedidos]="pedidos"></app-tab-comida>
-    </mat-tab>
+  <mat-tab label="Barra">
+    <app-tab-bebida [pedidos]="pedidos"></app-tab-bebida>
+  </mat-tab>
 
-    <mat-tab label="Barra">
-      <app-tab-bebida [pedidos]="pedidos"></app-tab-bebida>
-    </mat-tab>
+  <mat-tab label="Cuenta">
+    <app-tab-cuenta
+      [pendingOrders]="pendingOrders"
+      (pedidosOutput)="eliminarPedidosOutput()"
+    ></app-tab-cuenta>
+  </mat-tab>
 
-    <mat-tab label="Cuenta">
-      <app-tab-cuenta [pendingOrders]="pendingOrders" (pedidosOutput)="eliminarPedidosOutput()"></app-tab-cuenta>
-    </mat-tab>
+  <mat-tab label="Administración">
+    <app-tab-admin></app-tab-admin>
+  </mat-tab>
 
-    <mat-tab label="Administración">
-      <app-tab-admin></app-tab-admin>
-    </mat-tab>
-
-    <!-- <mat-tab label="administración">
+  <!-- <mat-tab label="administración">
       <div style="text-align: center; padding-top: 30px; font-size: 30px;">
         <p style="padding-bottom: 10px;">Pedidos de este mes</p>
       </div>
@@ -27,7 +32,4 @@
         <button mat-raised-button class="primary" (click)="logOut()">Cerrar sesión</button>
       </div>
     </mat-tab> -->
-
-  </mat-tab-group>
-
-
+</mat-tab-group>
