@@ -52,5 +52,8 @@ public class Restaurant {
     @OneToOne
     @JoinColumn(name = "config")
     private RestaurantConfig restaurantConfig;
+    
+    @OneToMany(mappedBy = "restaurant")
+    private List<RestaurantPrinter> restaurantPrinters;
         
 }
