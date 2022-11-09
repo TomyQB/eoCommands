@@ -2,7 +2,6 @@ package com.eo.back.controllers;
 
 import java.io.IOException;
 
-import com.eo.back.convert.Restaurant.RestaurantConverter;
 import com.eo.back.dto.FormMessageDTO;
 import com.eo.back.dto.RestaurantDTO;
 import com.eo.back.dto.LoginDTO;
@@ -10,7 +9,6 @@ import com.eo.back.models.Restaurant;
 import com.eo.back.services.CloudinaryService;
 import com.eo.back.services.RestaurantServices;
 import com.eo.back.services.Email.FormEmailService;
-import com.eo.back.services.Email.PedidoEmailService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

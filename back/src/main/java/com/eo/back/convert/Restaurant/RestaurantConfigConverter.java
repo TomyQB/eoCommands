@@ -2,15 +2,8 @@ package com.eo.back.convert.Restaurant;
 
 import com.eo.back.convert.AbstractConverter;
 import com.eo.back.dto.Restaurant.RestaurantConfigDTO;
-import com.eo.back.dto.Restaurant.RestaurantPrinterDTO;
 import com.eo.back.models.RestaurantConfig;
-import com.eo.back.models.RestaurantPrinter;
-import com.eo.back.services.RestaurantServices;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service

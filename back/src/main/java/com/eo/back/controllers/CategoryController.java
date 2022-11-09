@@ -2,7 +2,6 @@ package com.eo.back.controllers;
 
 import java.util.List;
 import java.io.IOException;
-import java.util.Map;
 
 import com.eo.back.convert.CategoryConverter;
 import com.eo.back.dto.CategoryDTO;

@@ -1,10 +1,10 @@
 import { Restaurant } from './../../models/Restaurant';
-import { PendingOrderService } from './../../services/pending-order.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { PedidoServicesService } from '../../services/pedido-services.service'
 import { PrinterService } from 'src/app/services/printer/printer.service';
+import { RestaurantPrinterService } from 'src/app/services/restaurant-printer.service';
 
 @Component({
   selector: 'app-restaurant-pedidos',
@@ -20,22 +20,22 @@ export class RestaurantPedidosComponent implements OnInit {
   pendingOrders!: any[]
   printers!: any;
 
-  constructor(private pedidoServices: PedidoServicesService, private pendingOrderService: PendingOrderService, private printerService: PrinterService) { }
+  constructor(private pedidoServices: PedidoServicesService, private restaurantPrinterService: RestaurantPrinterService, private printerService: PrinterService) { }
 
   ngOnInit(): void {
     
     this.selectedIndex = parseInt(sessionStorage.getItem('tab')!)
 
-    /*if(!this.printerService.printers) {
-      this.printerService.getPrinters().then((impresoras: any) => {
+    if(!this.printerService.printers) {
+      this.restaurantPrinterService.getPrinters(this.restaurant.id).subscribe(impresoras => {
         this.printers = impresoras;
         this.printerService.printers = impresoras;
         this.getPedidos();
-      }).catch(() => console.log("Error al encontrar impresoras"))
+      })
     } else {
-      this.printers = this.printerService.printers;*/
+      this.printers = this.printerService.printers;
       this.getPedidos();
-    //}
+    }
 
     setInterval(() => {
       this.getPedidos();
@@ -93,9 +93,11 @@ export class RestaurantPedidosComponent implements OnInit {
         }
       }
     });
-    let printers = this.printers.filter((e: string) => e.includes("barra"))
+    let printers = this.printers.filter((e: any) => e.type.includes("barra"))
+    console.log(printers)
     for (let printer of printers) {
-      await this.print(printer);
+      console.log(printer.name)
+      await this.print(printer.name);
     }
   }
 
@@ -110,9 +112,9 @@ export class RestaurantPedidosComponent implements OnInit {
         }
       }
     });
-    let printers = this.printers.filter((e: string) => e.includes("cocina"));
+    let printers = this.printers.filter((e: any) => e.type.includes("cocina"));
     for (let printer of printers) {
-      await this.print(printer);
+      await this.print(printer.name);
     }
   }
 
