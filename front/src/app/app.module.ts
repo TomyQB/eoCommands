@@ -37,6 +37,8 @@ import { ExtrasCreateComponent } from './components/admin/extras-create/extras-c
 import { AdminCajaComponent } from './components/admin-caja/admin-caja.component';
 import { LoginCommercialComponent } from './components/login-commercial/login-commercial.component';
 import { AdminCommercialComponent } from './components/admin-commercial/admin-commercial.component';
+import { ChangeTableDialogComponent } from './components/tabs/ChangeTable/change-table-dialog/change-table-dialog.component';
+import { ErrorMessageComponent } from './share/snackBar/error-message/error-message.component';
 // import { NgxSpinnerModule} from 'ngx-spinner';
 @NgModule({
   declarations: [
@@ -69,6 +71,8 @@ import { AdminCommercialComponent } from './components/admin-commercial/admin-co
     AdminCajaComponent,
     LoginCommercialComponent,
     AdminCommercialComponent,
+    ChangeTableDialogComponent,
+    ErrorMessageComponent,
   ],
   imports: [
     BrowserModule,

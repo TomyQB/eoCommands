@@ -60,8 +60,12 @@ export class PedidoServicesService {
     return this.http.put<any>(this.Url + 'pedidoPrinted', id);
   }
 
+  changeTable(data: any) {
+    return this.http.put<any>(this.Url + 'changeTableNum', data);
+  }
+
   deletePedidoObjeto(numTable: number) {
-    var i = 0;
+    let i = 0;
     while (i < this.pedidoObjeto.length) {
       if (this.pedidoObjeto[i].tableNum == numTable) {
         this.pedidoObjeto.splice(i, 1);

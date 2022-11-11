@@ -1,4 +1,3 @@
-
 <mat-list class="content">
   <div class="displayFlex">
     <div class="center25">
@@ -16,20 +15,42 @@
   </div>
 
   <div *ngFor="let pedido of pedidos; let i = index">
-    <div *ngIf="pedido.foodCount > 0" (click)="plateView(pedido, i)">
-      <div class="displayFlex tableTime {{pedido.estadoFood}}" *ngIf="i % 2 != 0">
-        <div class="center25">{{pedido.tableNum}}</div>
-        <div class="center25">{{pedido.date}}</div>
-        <div class="center25">{{pedido.hechosFood}}/{{pedido.foodCount}}</div>
-        <div class="center25">{{pedido.estadoFood}}</div>
+    <div *ngIf="pedido.foodCount > 0">
+      <div class="displayFlex tableTime {{ pedido.estadoFood }}">
+        <div class="center25" (click)="openDialog(pedido.tableNum)">
+          {{ pedido.tableNum }}
+          <mat-icon style="float: right; margin-right: 15px">edit</mat-icon>
+        </div>
+        <div class="center25" (click)="plateView(pedido, i)">
+          {{ pedido.date }}
+        </div>
+        <div class="center25" (click)="plateView(pedido, i)">
+          {{ pedido.hechosFood }}/{{ pedido.foodCount }}
+        </div>
+        <div class="center25" (click)="plateView(pedido, i)">
+          {{ pedido.estadoFood }}
+        </div>
       </div>
 
-      <div class="displayFlex tableTime {{pedido.estadoFood}}" *ngIf="i % 2 == 0">
-        <div class="center25 green">{{pedido.tableNum}}</div>
-        <div class="center25 green">{{pedido.date}}</div>
-        <div class="center25 green">{{pedido.hechosFood}}/{{pedido.foodCount}}</div>
-        <div class="center25 green">{{pedido.estadoFood}}</div>
+      <!--
+      <div
+        class="displayFlex tableTime {{ pedido.estadoFood }}"
+        *ngIf="i % 2 == 0"
+      >
+        <div class="center25 green" (click)="openDialog(pedido.tableNum)">
+          <mat-icon>edit</mat-icon>
+        </div>
+        <div class="center25 green" (click)="plateView(pedido, i)">
+          {{ pedido.date }}
+        </div>
+        <div class="center25 green" (click)="plateView(pedido, i)">
+          {{ pedido.hechosFood }}/{{ pedido.foodCount }}
+        </div>
+        <div class="center25 green" (click)="plateView(pedido, i)">
+          {{ pedido.estadoFood }}
+        </div>
       </div>
+-->
       <mat-divider class="border"></mat-divider>
     </div>
   </div>
