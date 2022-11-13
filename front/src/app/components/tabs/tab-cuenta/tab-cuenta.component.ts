@@ -124,7 +124,6 @@ export class TabCuentaComponent implements OnInit {
   }*/
 
   printCuenta() {
-    console.log(this.printers);
     this.printerService.initPrint();
     let isCorrectTableNum = this.pendingOrders.find(
       (order: any) => order.tableNum == this.tableNum
@@ -238,14 +237,10 @@ export class TabCuentaComponent implements OnInit {
         'Gracias por todo, le esperamos pronto!' + '\n'
       );
 
-      let printers = this.printers
-        .filter((e: string) => e.includes('cuenta'))
-        .toString();
-      console.log(printers);
-      this.print(printers);
-      /*for (let printer of printers) {
-        this.print(printer);
-      }*/
+      let printers = this.printers.filter((e: any) => e.type.includes("cuenta"));
+      for (let printer of printers) {
+        this.print(printers);
+      }
     } else alert('Selecciona una mesa existente');
   }
 

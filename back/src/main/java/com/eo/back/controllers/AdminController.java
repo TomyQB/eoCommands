@@ -24,8 +24,6 @@ public class AdminController {
     @GetMapping("/sendEmail")
     public void senEmailAdmin() {
         List<Restaurant> restaurants = restaurantServices.getAllRestaurants();
-        for (Restaurant restaurant : restaurants) {
-        }
 
         adminEmailService.sendEmail(restaurants);
     }

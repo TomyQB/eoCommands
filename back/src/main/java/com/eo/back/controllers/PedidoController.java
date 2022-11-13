@@ -1,7 +1,6 @@
 package com.eo.back.controllers;
 
 import java.util.List;
-import java.util.Objects;
 
 import com.eo.back.convert.PedidoConverter;
 import com.eo.back.dto.PedidoDTO;
@@ -9,7 +8,6 @@ import com.eo.back.dto.WhatsAppDTO;
 import com.eo.back.models.Pedido;
 import com.eo.back.services.PedidoServices;
 import com.eo.back.services.RestaurantServices;
-import com.eo.back.services.Email.PedidoEmailService;
 
 import io.swagger.v3.oas.annotations.Operation;
 
@@ -36,9 +34,6 @@ public class PedidoController {
 
     @Autowired
     private PedidoConverter pedidoConverter;
-    
-    @Autowired
-    private PedidoEmailService emailService;
 
     @Operation(summary = "Obtiene los pedidos de un restaurante por su id")
     @PostMapping("/pedido")
