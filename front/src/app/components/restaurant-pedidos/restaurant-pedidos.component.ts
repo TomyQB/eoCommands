@@ -25,7 +25,9 @@ export class RestaurantPedidosComponent implements OnInit {
     private pedidoServices: PedidoServicesService,
     private pendingOrderService: PendingOrderService,
     private printerService: PrinterService
-  ) {}
+  ) {
+    this.pedidoServices.subject.next();
+  }
 
   ngOnInit(): void {
     this.selectedIndex = parseInt(sessionStorage.getItem('tab')!);

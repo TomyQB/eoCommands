@@ -14,9 +14,9 @@
     <app-tab-cuenta
       [pendingOrders]="pendingOrders"
       (pedidosOutput)="eliminarPedidosOutput()"
+      []="eventsSubject.asObservable()"
     ></app-tab-cuenta>
   </mat-tab>
-  <!--  []="eventsSubject.asObservable()"-->
 
   <mat-tab label="Administración">
     <app-tab-admin></app-tab-admin>
