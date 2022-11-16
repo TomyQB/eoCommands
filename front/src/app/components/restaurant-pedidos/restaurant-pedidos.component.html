@@ -14,23 +14,10 @@
     <app-tab-cuenta
       [pendingOrders]="pendingOrders"
       (pedidosOutput)="eliminarPedidosOutput()"
-      []="eventsSubject.asObservable()"
     ></app-tab-cuenta>
   </mat-tab>
 
   <mat-tab label="Administración">
     <app-tab-admin></app-tab-admin>
   </mat-tab>
-
-  <!-- <mat-tab label="administración">
-      <div style="text-align: center; padding-top: 30px; font-size: 30px;">
-        <p style="padding-bottom: 10px;">Pedidos de este mes</p>
-      </div>
-      <div style="text-align: center; padding: 30px;">
-        <button mat-raised-button class="primary" (click)="crearMenu()">Administrar menu</button>
-      </div>
-      <div style="text-align: center; padding: 30px;">
-        <button mat-raised-button class="primary" (click)="logOut()">Cerrar sesión</button>
-      </div>
-    </mat-tab> -->
 </mat-tab-group>

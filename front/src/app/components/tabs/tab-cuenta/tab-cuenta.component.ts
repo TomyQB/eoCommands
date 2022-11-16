@@ -50,11 +50,14 @@ export class TabCuentaComponent implements OnInit {
     private totalOrdersRecordService: TotalOrdersRecordService,
     private whatsappService: WhatsappService,
     private printerService: PrinterService
-  ) {}
+  ) {
+    this.pedidoServices.cambiarNumeroMesa.subscribe(() => {
+      this.getPendingOrders();
+    });
+  }
 
   ngOnInit(): void {
     this.printers = this.printerService.printers;
-
     this.getPendingOrders();
 
     setInterval(() => {
@@ -237,7 +240,9 @@ export class TabCuentaComponent implements OnInit {
         'Gracias por todo, le esperamos pronto!' + '\n'
       );
 
-      let printers = this.printers.filter((e: any) => e.type.includes("cuenta"));
+      let printers = this.printers.filter((e: any) =>
+        e.type.includes('cuenta')
+      );
       for (let printer of printers) {
         this.print(printers);
       }

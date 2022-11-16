@@ -14,7 +14,6 @@ import { Subject } from 'rxjs';
 })
 export class RestaurantPedidosComponent implements OnInit {
   public selectedIndex: number = 0;
-  eventsSubject: Subject<void> = new Subject<void>();
 
   restaurant: Restaurant = JSON.parse(sessionStorage.getItem('restaurant')!);
   pedidos!: any[];
@@ -25,9 +24,7 @@ export class RestaurantPedidosComponent implements OnInit {
     private pedidoServices: PedidoServicesService,
     private pendingOrderService: PendingOrderService,
     private printerService: PrinterService
-  ) {
-    this.pedidoServices.subject.next();
-  }
+  ) {}
 
   ngOnInit(): void {
     this.selectedIndex = parseInt(sessionStorage.getItem('tab')!);
@@ -48,11 +45,8 @@ export class RestaurantPedidosComponent implements OnInit {
     }, 300000);
   }
 
-  loadAfterChangeTableNum() {
-    this.eventsSubject.next();
-  }
-
   getPedidos() {
+    this.pedidoServices.cambiarNumeroMesa.next();
     this.pedidoServices.getAllPedidos(this.restaurant.id).subscribe((data) => {
       this.pedidos = data;
       if (this.printers) this.initialisePrint(data);

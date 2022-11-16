@@ -2,7 +2,13 @@
   <div class="box">
     Ver cuenta mesa
     <mat-form-field class="inputContent">
-      <input matInput [(ngModel)]="tableNum" (keyup)="getPendingByTable()" placeholder="numero de mesa" autocomplete="off">
+      <input
+        matInput
+        [(ngModel)]="tableNum"
+        (keyup)="getPendingByTable()"
+        placeholder="numero de mesa"
+        autocomplete="off"
+      />
     </mat-form-field>
   </div>
 
@@ -27,38 +33,57 @@
 
     <div *ngFor="let pending of pendingOrders">
       <div class="displayFlex tableTime">
-        <div class="center20">{{pending.tableNum}}</div>
-        <div class="center20">{{(pending.plate) ? pending.plate.name : pending.additional.name}}</div>
-        <div class="center20">{{pending.amount}}</div>
-        <div class="center20">{{(pending.plate) ? pending.plate.price : pending.additional.price}}{{currencySumbolService.symbol}}</div>
-        <div class="center20">{{(pending.plate) ? pending.amount * pending.plate.price : pending.amount * pending.additional.price}}{{currencySumbolService.symbol}}</div>
+        <div class="center20">{{ pending.tableNum }}</div>
+        <div class="center20">
+          {{ pending.plate ? pending.plate.name : pending.additional.name }}
+        </div>
+        <div class="center20">{{ pending.amount }}</div>
+        <div class="center20">
+          {{ pending.plate ? pending.plate.price : pending.additional.price
+          }}{{ currencySumbolService.symbol }}
+        </div>
+        <div class="center20">
+          {{
+            pending.plate
+              ? pending.amount * pending.plate.price
+              : pending.amount * pending.additional.price
+          }}{{ currencySumbolService.symbol }}
+        </div>
       </div>
-      <div class="additionals" *ngIf="pending.plate && pending.plate.additionals.length > 0">
-        <div *ngFor="let additional of pending.plate.additionals"> {{additional.name}} {{additional.price}}€</div>
+      <div
+        class="additionals"
+        *ngIf="pending.plate && pending.plate.additionals.length > 0"
+      >
+        <div *ngFor="let additional of pending.plate.additionals">
+          {{ additional.name }} {{ additional.price }}€
+        </div>
       </div>
       <mat-divider></mat-divider>
     </div>
   </mat-list>
 
-  <div style="font-size: 18px;">
-    <div class="totalIva">
-      Total con iva incluido
-    </div>
+  <div style="font-size: 18px">
+    <div class="totalIva">Total con iva incluido</div>
     <div class="littleBox">
-      {{total}}
+      {{ total }}
     </div>
   </div>
 
-  <div class="displayFlex" style="gap: 50px; padding-top: 20px;">
+  <div class="displayFlex" style="gap: 50px; padding-top: 20px">
     <div class="center">
-
-      <button mat-raised-button class="primary" (click)="printCuenta()" [disabled]="!tableNum ? 'disabled' : null">
-        Enviar cuenta al cliente
+      <button
+        mat-raised-button
+        class="primary"
+        (click)="printCuenta()"
+        [disabled]="!tableNum ? 'disabled' : null"
+      >
+        Imprimir cuenta
       </button>
     </div>
     <div class="center">
-      <button mat-raised-button class="primary" (click)="deleteCuenta()">Eliminar cuenta</button>
+      <button mat-raised-button class="primary" (click)="deleteCuenta()">
+        Eliminar cuenta
+      </button>
     </div>
   </div>
-
 </div>

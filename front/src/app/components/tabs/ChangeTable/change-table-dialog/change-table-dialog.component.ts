@@ -22,9 +22,6 @@ export class ChangeTableDialogComponent implements OnInit {
   ngOnInit(): void {}
 
   changeTable() {
-    console.log(JSON.parse(sessionStorage.getItem('restaurant')!).id);
-    console.log(this.oldTableNum);
-    console.log(this.newTableNum);
     this.pedidoServices
       .changeTable({
         restaurantId: JSON.parse(sessionStorage.getItem('restaurant')!).id,

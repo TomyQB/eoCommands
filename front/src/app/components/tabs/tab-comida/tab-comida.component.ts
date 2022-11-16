@@ -21,11 +21,7 @@ export class TabComidaComponent implements OnInit {
     private router: Router,
     public pedidoServices: PedidoServicesService,
     public dialog: MatDialog
-  ) {
-    this.pedidoServices.subject.subscribe(() => {
-      console.log('jajaja');
-    });
-  }
+  ) {}
 
   ngOnInit(): void {
     this.comprobarPlatosHechos();

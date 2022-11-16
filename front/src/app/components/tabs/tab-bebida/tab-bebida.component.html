@@ -1,4 +1,3 @@
-
 <mat-list class="content">
   <div class="displayFlex">
     <div class="center25">
@@ -16,19 +15,14 @@
   </div>
 
   <div *ngFor="let pedido of pedidos; let i = index">
-    <div *ngIf="pedido.drinkCount > 0"  (click)="drinkView(pedido, i)">
-      <div class="displayFlex tableTime {{pedido.estadoDrink}}" *ngIf="i % 2 != 0">
-        <div class="center25">{{pedido.tableNum}}</div>
-        <div class="center25">{{pedido.date}}</div>
-        <div class="center25">{{pedido.hechosDrink}}/{{pedido.drinkCount}}</div>
-        <div class="center25">{{pedido.estadoDrink}}</div>
-      </div>
-
-      <div class="displayFlex tableTime {{pedido.estadoDrink}}" *ngIf="i % 2 == 0">
-        <div class="center25 green">{{pedido.tableNum}}</div>
-        <div class="center25 green">{{pedido.date}}</div>
-        <div class="center25 green">{{pedido.hechosDrink}}/{{pedido.drinkCount}}</div>
-        <div class="center25 green">{{pedido.estadoDrink}}</div>
+    <div *ngIf="pedido.drinkCount > 0" (click)="drinkView(pedido, i)">
+      <div class="displayFlex tableTime {{ pedido.estadoDrink }}">
+        <div class="center25">{{ pedido.tableNum }}</div>
+        <div class="center25">{{ pedido.date }}</div>
+        <div class="center25">
+          {{ pedido.hechosDrink }}/{{ pedido.drinkCount }}
+        </div>
+        <div class="center25">{{ pedido.estadoDrink }}</div>
       </div>
       <mat-divider class="border"></mat-divider>
     </div>

@@ -15,7 +15,7 @@ export class PedidoServicesService {
   pedidoObjeto: any[] = [];
   public numMesa = sessionStorage.getItem('tableNum')!;
   Url = environment.Url;
-  subject: Subject<Object> = new Subject<Object>();
+  cambiarNumeroMesa: Subject<Object> = new Subject<Object>();
 
   constructor(private http: HttpClient) {}
 
