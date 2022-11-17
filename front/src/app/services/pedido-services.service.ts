@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
 import { Plate } from '../models/Plate';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +15,7 @@ export class PedidoServicesService {
   pedidoObjeto: any[] = [];
   public numMesa = sessionStorage.getItem('tableNum')!;
   Url = environment.Url;
+  cambiarNumeroMesa: Subject<Object> = new Subject<Object>();
 
   constructor(private http: HttpClient) {}
 
