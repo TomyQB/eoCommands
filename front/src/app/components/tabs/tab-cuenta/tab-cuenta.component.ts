@@ -1,3 +1,4 @@
+import { ConectorPlugin } from './../../../services/printer/printerv3.service';
 import { WhatsAppDTO } from './../../../models/WhatsAppDTO';
 import { WhatsappService } from './../../../services/whatsapp.service';
 import { TotalOrdersRecordService } from './../../../services/total-orders-record.service';
@@ -8,7 +9,7 @@ import { Pedido } from 'src/app/models/Pedido';
 import { PendingOrderService } from 'src/app/services/pending-order.service';
 import { PendingOrdersRecord } from 'src/app/models/PendingOrdersRecord';
 import { CurrencySumbolService } from 'src/app/services/currency-sumbol.service';
-import { PrinterService } from 'src/app/services/printer/printer.service';
+import { PrinterService } from 'src/app/services/printer/printerv1.service';
 import { formatDate } from '@angular/common';
 
 @Component({
@@ -124,22 +125,23 @@ export class TabCuentaComponent implements OnInit {
   }*/
 
   printCuenta() {
-    this.printerService.initPrint();
+    console.log(this.printers)
     let isCorrectTableNum = this.pendingOrders.find(
       (order: any) => order.tableNum == this.tableNum
     );
     if (this.tableNum != '' && isCorrectTableNum) {
       this.printerService.establecerEnfatizado(1);
-      this.printerService.establecerJustificacion(
-        PrinterService.Constantes.AlineacionCentro
-      );
+      this.printerService.establecerJustificacion(PrinterService.Constantes.AlineacionIzquierda);
       this.printerService.write(
         'RESTAURANTE ' +
           JSON.parse(sessionStorage.getItem('restaurant')!).name +
           '\n\n'
       );
       this.printerService.write('MESA ' + this.tableNum + '\n\n');
-      this.printerService.write(
+      this.printerService.generateTicket(this.pendingOrders).subscribe((text: any) => {
+        console.log(text.date)
+      })
+      /*this.printerService.write(
         '------------------------------------------------' + '\n'
       );
       this.printerService.write(
@@ -148,9 +150,7 @@ export class TabCuentaComponent implements OnInit {
       this.printerService.write(
         '================================================' + '\n'
       );
-      this.printerService.establecerJustificacion(
-        PrinterService.Constantes.AlineacionIzquierda
-      );
+      console.log(this.pendingOrders)
       for (let pedido of this.pendingOrders) {
         if (pedido.plate) {
           if (pedido.plate.name.length > 30) {
@@ -169,10 +169,10 @@ export class TabCuentaComponent implements OnInit {
               pedido.amount +
               '   ' +
               pedido.plate.price +
-              '€' +
+              '' +
               priceSpace +
-              pedido.plate.price * pedido.amount +
-              '€' +
+              Math.round(pedido.plate.price * pedido.amount * 100) / 100 +
+              '' +
               '\n'
           );
           if (pedido.plate.additionals.length > 0) {
@@ -184,7 +184,7 @@ export class TabCuentaComponent implements OnInit {
                 ' '.repeat(31 - additional.name.length)
               );
               this.printerService.write(
-                description + additional.price + '€' + '\n'
+                description + additional.price + '' + '\n'
               );
             }
             this.printerService.establecerJustificacion(
@@ -208,25 +208,19 @@ export class TabCuentaComponent implements OnInit {
               pedido.amount +
               '   ' +
               pedido.additional.price +
-              '€' +
+              '' +
               priceSpace +
               pedido.additional.price * pedido.amount +
-              '€' +
+              '' +
               '\n'
           );
         }
-      }
-      this.printerService.establecerJustificacion(
-        PrinterService.Constantes.AlineacionIzquierda
-      );
+      }*/
+      this.printerService.establecerJustificacion(PrinterService.Constantes.AlineacionIzquierda);
       this.printerService.write('\n' + 'TOTAL CON IVA INCLUIDO        ');
-      this.printerService.establecerJustificacion(
-        PrinterService.Constantes.AlineacionDerecha
-      );
-      this.printerService.write(this.total + '€' + '\n');
-      this.printerService.establecerJustificacion(
-        PrinterService.Constantes.AlineacionCentro
-      );
+      this.printerService.establecerJustificacion(PrinterService.Constantes.AlineacionIzquierda);
+      this.printerService.write(this.total + '' + '\n');
+      this.printerService.establecerJustificacion(PrinterService.Constantes.AlineacionIzquierda);
       this.printerService.write(
         '================================================' + '\n'
       );
@@ -239,7 +233,7 @@ export class TabCuentaComponent implements OnInit {
 
       let printers = this.printers.filter((e: any) => e.type.includes("cuenta"));
       for (let printer of printers) {
-        this.print(printers);
+        //this.print(printer.name);
       }
     } else alert('Selecciona una mesa existente');
   }

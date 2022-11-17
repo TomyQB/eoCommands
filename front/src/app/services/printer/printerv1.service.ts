@@ -1,6 +1,8 @@
+import { ConectorPlugin } from 'src/app/services/printer/printerv3.service';
 import { PrinterPlugin } from './PrinterPlugin';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +12,7 @@ export class PrinterService {
     constructor(private http: HttpClient) { }
 
     printers: any;
+    Url = environment.Url
 
     static URL_PLUGIN = "http://localhost:8000";
     static OperacionTicket = PrinterPlugin;
@@ -62,118 +65,61 @@ export class PrinterService {
             this.operaciones.push(new PrinterService.OperacionTicket(PrinterService.Constantes.AccionCut, ""));
         }
     
-        /*cash() {
-            this.operaciones.push(new OperacionTicket(C.AccionCash, ""));
+        partialCut() {
+            this.operaciones.push(new PrinterService.OperacionTicket(PrinterService.Constantes.AccionCutPartial, ""));
         }
     
-        cutPartial() {
-            this.operaciones.push(new OperacionTicket(C.AccionCutPartial, ""));
+        setFontSize(a: any, b: any) {
+            this.operaciones.push(new PrinterService.OperacionTicket(PrinterService.Constantes.AccionFontSize, `${a},${b}`));
         }
     
-        setFontSize(a, b) {
-            this.operaciones.push(new OperacionTicket(C.AccionFontSize, `${a},${b}`));
+        setFont(font: any) {
+            if (font !== PrinterService.Constantes.FuenteA && font !== PrinterService.Constantes.FuenteB) throw Error("Fuente inválida");
+            this.operaciones.push(new PrinterService.OperacionTicket(PrinterService.Constantes.AccionFont, font));
         }
-    
-        setFont(font) {
-            if (font !== C.FuenteA && font !== C.FuenteB) throw Error("Fuente inválida");
-            this.operaciones.push(new OperacionTicket(C.AccionFont, font));
-        }
-        setEmphasize(val) {
+
+        establecerEnfatizado(val: any) {
             if (isNaN(parseInt(val)) || parseInt(val) < 0) throw Error("Valor inválido");
-            this.operaciones.push(new OperacionTicket(C.AccionEmphasize, val));
+            this.operaciones.push(new PrinterService.OperacionTicket(PrinterService.Constantes.AccionEmphasize, val));
         }
-        setAlign(align) {
-            if (align !== C.AlineacionCentro && align !== C.AlineacionDerecha && align !== C.AlineacionIzquierda) {
+
+        establecerJustificacion(align: any) {
+            if (align !== PrinterService.Constantes.AlineacionCentro
+                && align !== PrinterService.Constantes.AlineacionDerecha 
+                && align !== PrinterService.Constantes.AlineacionIzquierda) {
                 throw Error(`Alineación ${align} inválida`);
             }
-            this.operaciones.push(new OperacionTicket(C.AccionAlign, align));
+            this.operaciones.push(new PrinterService.OperacionTicket(PrinterService.Constantes.AccionAlign, align));
         }
     
-        write(text) {
-            this.operaciones.push(new OperacionTicket(C.AccionWrite, text));
+        write(text: any) {
+            this.operaciones.push(new PrinterService.OperacionTicket(PrinterService.Constantes.AccionWrite, text));
         }
+
     
-        feed(n) {
-            if (!parseInt(n) || parseInt(n) < 0) {
-                throw Error("Valor para feed inválido");
-            }
-            this.operaciones.push(new OperacionTicket(C.AccionFeed, n));
-        }
-    
-        end() {
-            return fetch(this.ruta + "/imprimir", {
-                    method: "POST",
-                    body: JSON.stringify(this.operaciones),
-                })
-                .then(r => r.json());
-        }*/
-    
-        /*imprimirEnImpresora(nombreImpresora) {
+        imprimirEn(nombreImpresora: any) {
             const payload = {
                 operaciones: this.operaciones,
                 impresora: nombreImpresora,
             };
-            return fetch(this.ruta + "/imprimir_en", {
+            return fetch(ConectorPlugin.URL_PLUGIN_POR_DEFECTO + "/imprimir_en", {
                     method: "POST",
                     body: JSON.stringify(payload),
                 })
                 .then(r => r.json());
-        }*/
-    
-        /*qr(contenido) {
-            this.operaciones.push(new OperacionTicket(C.AccionQr, contenido));
-        }
-    
-        validarMedida(medida) {
-            medida = parseInt(medida);
-            if (medida !== C.Medida80 &&
-                medida !== C.Medida100 &&
-                medida !== C.Medida156 &&
-                medida !== C.Medida200 &&
-                medida !== C.Medida300 &&
-                medida !== C.Medida350) {
-                throw Error("Valor para medida del barcode inválido");
-            }
-        }
-    
-        validarTipo(tipo) {
-            if (
-                [C.AccionBarcode128,
-                    C.AccionBarcode39,
-                    C.AccionBarcode93,
-                    C.AccionBarcodeEAN,
-                    C.AccionBarcodeTwoOfFiveInterleaved,
-                    C.AccionBarcodeTwoOfFiveSinInterleaved,
-                    C.AccionBarcodeCodabar,
-                    C.AccionBarcodeUPCA,
-                    C.AccionBarcodeUPCE,
-                ]
-                .indexOf(tipo) === -1
-            ) throw Error("Tipo de código de barras no soportado");
-        }
-    
-        barcode(contenido, medida, tipo) {
-            this.validarMedida(medida);
-            this.validarTipo(tipo);
-            let payload = contenido.concat(",").concat(medida.toString());
-            this.operaciones.push(new OperacionTicket(tipo, payload));
-        }
-        imprimirEnImpresoraConNombreEIp(nombreImpresora, ip) {
-            const payload = {
-                operaciones: this.operaciones,
-                impresora: nombreImpresora,
-                ip: ip,
-            };
-            return fetch(this.ruta + "/imprimir_y_reenviar", {
-                method: "POST",
-                body: JSON.stringify(payload),
-            })
-                .then(r => r.json());
-        }*/
-    
+        }    
 
     limpiarImpresora() {
         this.operaciones = [];
+    }
+
+    quitarAcentos(text: string) {
+        return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
+
+    generateTicket(pendingOrders: any) {
+        return this.http.post<any>(this.Url + "generateTicket", pendingOrders)
+
     }
 
 }
