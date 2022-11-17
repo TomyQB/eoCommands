@@ -93,9 +93,7 @@ export class TabCuentaComponent implements OnInit {
       .getAllPendingOrder(this.pedidoDelete.restaurantId)
       .subscribe((data) => {
         this.pendingOrders = data;
-        console.log(data)
         this.printerService.generateBody(this.pendingOrders).subscribe((text: any) => {
-          console.log(text.text)
         })
         this.calculateTotal();
         sessionStorage.setItem('pendingOrders', JSON.stringify(data));
@@ -132,7 +130,6 @@ export class TabCuentaComponent implements OnInit {
   }*/
 
   async printCuenta() {
-    console.log(this.printers)
     let isCorrectTableNum = this.pendingOrders.find(
       (order: any) => order.tableNum == this.tableNum
     );
@@ -146,13 +143,11 @@ export class TabCuentaComponent implements OnInit {
       );
       this.printerService.write('MESA ' + this.tableNum + '\n\n');
       this.printerService.generateBody(this.pendingOrders).subscribe((text: any) => {
-        this.printerService.write(text.text)
         this.generateFooder();
 
         let printers = this.printers.filter((e: any) =>
           e.type.includes('cuenta')
         );
-        console.log(printers)
         for (let printer of printers) {
           this.print(printer.name);
         }
