@@ -117,7 +117,7 @@ export class PrinterService {
         return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     }
 
-    generateTicket(pendingOrders: any) {
+    generateBody(pendingOrders: any) {
         return this.http.post<any>(this.Url + "generateTicket", pendingOrders)
 
     }

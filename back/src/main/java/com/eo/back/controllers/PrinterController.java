@@ -2,7 +2,9 @@ package com.eo.back.controllers;
 
 import java.util.List;
 
+import com.eo.back.dto.PrintTextDTO;
 import com.eo.back.dto.Restaurant.RestaurantPrinterDTO;
+import com.eo.back.dto.pendingOrders.PendingOrderCuentaDTO;
 import com.eo.back.dto.pendingOrders.PendingOrderDTO;
 import com.eo.back.models.RestaurantPrinter;
 import com.eo.back.services.RestaurantPrinterService;
@@ -24,9 +26,7 @@ public class PrinterController {
     private PrintService printService;
 
     @PostMapping("/generateTicket")
-    public PendingOrderDTO generateTicket(@RequestBody List<PendingOrderDTO> pendingOrderDTOs) {
-        PendingOrderDTO pendingOrderDTO = new PendingOrderDTO();
-        pendingOrderDTO.setDate(printService.generateTicket(pendingOrderDTOs));
-        return pendingOrderDTO;
+    public PrintTextDTO generateTicket(@RequestBody List<PendingOrderCuentaDTO> pendingOrderDTOs) {
+        return printService.generateTicket(pendingOrderDTOs);
     }
 }

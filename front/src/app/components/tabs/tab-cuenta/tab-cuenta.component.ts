@@ -93,6 +93,10 @@ export class TabCuentaComponent implements OnInit {
       .getAllPendingOrder(this.pedidoDelete.restaurantId)
       .subscribe((data) => {
         this.pendingOrders = data;
+        console.log(data)
+        this.printerService.generateBody(this.pendingOrders).subscribe((text: any) => {
+          console.log(text.text)
+        })
         this.calculateTotal();
         sessionStorage.setItem('pendingOrders', JSON.stringify(data));
       });
@@ -127,7 +131,7 @@ export class TabCuentaComponent implements OnInit {
     })
   }*/
 
-  printCuenta() {
+  async printCuenta() {
     console.log(this.printers)
     let isCorrectTableNum = this.pendingOrders.find(
       (order: any) => order.tableNum == this.tableNum
@@ -141,110 +145,40 @@ export class TabCuentaComponent implements OnInit {
           '\n\n'
       );
       this.printerService.write('MESA ' + this.tableNum + '\n\n');
-      this.printerService.generateTicket(this.pendingOrders).subscribe((text: any) => {
-        console.log(text.date)
-      })
-      /*this.printerService.write(
-        '------------------------------------------------' + '\n'
-      );
-      this.printerService.write(
-        'DESCRIPCION                 UNID.  PRECIO  TOTAL' + '\n'
-      );
-      this.printerService.write(
-        '================================================' + '\n'
-      );
-      console.log(this.pendingOrders)
-      for (let pedido of this.pendingOrders) {
-        if (pedido.plate) {
-          if (pedido.plate.name.length > 30) {
-            pedido.plate.name = pedido.plate.name.substring(0, 30);
-          }
-          let description = pedido.plate.name.concat(
-            ' '.repeat(31 - pedido.plate.name.length)
-          );
-          let repeater =
-            7 - pedido.plate.price.toString().length <= 0
-              ? 0
-              : 7 - pedido.plate.price.toString().length;
-          let priceSpace = ' '.repeat(repeater);
-          this.printerService.write(
-            description +
-              pedido.amount +
-              '   ' +
-              pedido.plate.price +
-              '' +
-              priceSpace +
-              Math.round(pedido.plate.price * pedido.amount * 100) / 100 +
-              '' +
-              '\n'
-          );
-          if (pedido.plate.additionals.length > 0) {
-            this.printerService.establecerJustificacion(
-              PrinterService.Constantes.AlineacionDerecha
-            );
-            for (let additional of pedido.plate.additionals) {
-              let description = additional.name.concat(
-                ' '.repeat(31 - additional.name.length)
-              );
-              this.printerService.write(
-                description + additional.price + '' + '\n'
-              );
-            }
-            this.printerService.establecerJustificacion(
-              PrinterService.Constantes.AlineacionIzquierda
-            );
-          }
-        } else if (pedido.additional) {
-          if (pedido.additional.name.length > 30) {
-            pedido.additional.name = pedido.additional.name.substring(0, 30);
-          }
-          let description = pedido.additional.name.concat(
-            ' '.repeat(31 - pedido.additional.name.length)
-          );
-          let repeater =
-            7 - pedido.additional.price.toString().length < 0
-              ? 0
-              : 7 - pedido.additional.price.toString().length;
-          let priceSpace = ' '.repeat(repeater);
-          this.printerService.write(
-            description +
-              pedido.amount +
-              '   ' +
-              pedido.additional.price +
-              '' +
-              priceSpace +
-              pedido.additional.price * pedido.amount +
-              '' +
-              '\n'
-          );
-        }
-      }*/
-      this.printerService.establecerJustificacion(PrinterService.Constantes.AlineacionIzquierda);
-      this.printerService.write('\n' + 'TOTAL CON IVA INCLUIDO        ');
-      this.printerService.establecerJustificacion(PrinterService.Constantes.AlineacionIzquierda);
-      this.printerService.write(this.total + '' + '\n');
-      this.printerService.establecerJustificacion(PrinterService.Constantes.AlineacionIzquierda);
-      this.printerService.write(
-        '================================================' + '\n'
-      );
-      let currentDate = new Date();
-      const dateFormat = formatDate(currentDate, 'dd-MM-yyyy', 'en-ES');
-      this.printerService.write('FECHA: ' + dateFormat + '\n');
-      this.printerService.write(
-        'Gracias por todo, le esperamos pronto!' + '\n'
-      );
+      this.printerService.generateBody(this.pendingOrders).subscribe((text: any) => {
+        this.printerService.write(text.text)
+        this.generateFooder();
 
-      let printers = this.printers.filter((e: any) =>
-        e.type.includes('cuenta')
-      );
-      for (let printer of printers) {
-        //this.print(printer.name);
-      }
+        let printers = this.printers.filter((e: any) =>
+          e.type.includes('cuenta')
+        );
+        console.log(printers)
+        for (let printer of printers) {
+          this.print(printer.name);
+        }
+      })
     } else alert('Selecciona una mesa existente');
   }
 
+  private generateFooder() {
+    this.printerService.establecerJustificacion(PrinterService.Constantes.AlineacionIzquierda);
+    this.printerService.write('\n' + 'TOTAL CON IVA INCLUIDO        ');
+    this.printerService.establecerJustificacion(PrinterService.Constantes.AlineacionIzquierda);
+    this.printerService.write(this.total + '' + '\n');
+    this.printerService.establecerJustificacion(PrinterService.Constantes.AlineacionIzquierda);
+    this.printerService.write(
+      '================================================' + '\n'
+    );
+    let currentDate = new Date();
+    const dateFormat = formatDate(currentDate, 'dd-MM-yyyy', 'en-ES');
+    this.printerService.write('FECHA: ' + dateFormat + '\n');
+    this.printerService.write(
+      'Gracias por todo, le esperamos pronto!' + '\n'
+    );
+  }
+
   async print(printerName: string | undefined) {
-    this.printerService.partialCut();
+    this.printerService.cut();
     await this.printerService
       .imprimirEn(printerName)
       .then((respuestaAlImprimir) => {

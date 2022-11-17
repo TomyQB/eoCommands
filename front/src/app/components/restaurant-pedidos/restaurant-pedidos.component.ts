@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { PedidoServicesService } from '../../services/pedido-services.service';
-import { PrinterService } from 'src/app/services/printer/printer.service';
+import { PrinterService } from 'src/app/services/printer/printerv1.service';
 import { Subject } from 'rxjs';
 import { RestaurantPrinterService } from 'src/app/services/restaurant-printer.service';
 
@@ -30,8 +30,6 @@ export class RestaurantPedidosComponent implements OnInit {
 
   ngOnInit(): void {
     this.selectedIndex = parseInt(sessionStorage.getItem('tab')!);
-
-    //this.printerService.obtenerImpresoras().then((impresoras: any) => {console.log(impresoras)})
 
     if(!this.printerService.printers) {
       this.restaurantPrinterService.getPrinters(this.restaurant.id).subscribe(impresoras => {
