@@ -14,7 +14,7 @@ export class PrinterService {
     printers: any;
     Url = environment.Url
 
-    static URL_PLUGIN = "http://localhost:8000";
+    static URL_PLUGIN = "https://localhost:8080";
     static OperacionTicket = PrinterPlugin;
     static Constantes = {
         AccionWrite: "write",
@@ -102,7 +102,7 @@ export class PrinterService {
                 operaciones: this.operaciones,
                 impresora: nombreImpresora,
             };
-            return fetch(ConectorPlugin.URL_PLUGIN_POR_DEFECTO + "/imprimir_en", {
+            return fetch(PrinterService.URL_PLUGIN + "/imprimir_en", {
                     method: "POST",
                     body: JSON.stringify(payload),
                 })
@@ -120,6 +120,15 @@ export class PrinterService {
     generateBody(pendingOrders: any) {
         return this.http.post<any>(this.Url + "generateTicket", pendingOrders)
 
+    }
+
+    getPrinters() {
+        return this.http.get<any>(PrinterService.URL_PLUGIN + "/getPrinters")
+    }
+
+    print(printName: string, text: string) {
+        console.log(text)
+        return this.http.post<any>(PrinterService.URL_PLUGIN + "/print/" + printName, text)
     }
 
 }

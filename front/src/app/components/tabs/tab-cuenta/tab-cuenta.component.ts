@@ -93,8 +93,6 @@ export class TabCuentaComponent implements OnInit {
       .getAllPendingOrder(this.pedidoDelete.restaurantId)
       .subscribe((data) => {
         this.pendingOrders = data;
-        this.printerService.generateBody(this.pendingOrders).subscribe((text: any) => {
-        })
         this.calculateTotal();
         sessionStorage.setItem('pendingOrders', JSON.stringify(data));
       });
@@ -134,6 +132,7 @@ export class TabCuentaComponent implements OnInit {
       (order: any) => order.tableNum == this.tableNum
     );
     if (this.tableNum != '' && isCorrectTableNum) {
+      let text = ""
       this.printerService.establecerEnfatizado(1);
       this.printerService.establecerJustificacion(PrinterService.Constantes.AlineacionIzquierda);
       this.printerService.write(
@@ -142,15 +141,22 @@ export class TabCuentaComponent implements OnInit {
           '\n\n'
       );
       this.printerService.write('MESA ' + this.tableNum + '\n\n');
-      this.printerService.generateBody(this.pendingOrders).subscribe((text: any) => {
-        this.generateFooder();
+      text = text.concat('RESTAURANTE ' +
+      JSON.parse(sessionStorage.getItem('restaurant')!).name +
+      '\n\n')
+      text = text.concat('MESA ' + this.tableNum + '\n\n')
+      this.printerService.generateBody(this.pendingOrders).subscribe((body: any) => {
+        text = text.concat(body.text)
+        this.printerService.getPrinters().subscribe((printers) => {console.log(printers)})
+        this.printerService.print("cocinabarracuenta", text).subscribe(() => {})
+        /*this.generateFooder();
 
         let printers = this.printers.filter((e: any) =>
           e.type.includes('cuenta')
         );
         for (let printer of printers) {
           this.print(printer.name);
-        }
+        }*/
       })
     } else alert('Selecciona una mesa existente');
   }

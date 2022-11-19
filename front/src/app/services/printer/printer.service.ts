@@ -11,7 +11,7 @@ export class PrinterService {
 
     printers: any;
 
-    static URL_PLUGIN_POR_DEFECTO = "http://localhost:8000";
+    static URL_PLUGIN_POR_DEFECTO = "https://localhost:8080";
     static OperacionTicket = PrinterPlugin;
     static Constantes = {
             Iniciar: "Iniciar",

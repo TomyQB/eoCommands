@@ -1,3 +1,4 @@
+import { PrinterService } from 'src/app/services/printer/printerv1.service';
 import { Router } from '@angular/router';
 import { RestaurantService } from './../../services/restaurant.service';
 import { RestaurantFormMainPage } from './../../models/RestaurantFormMainPage';
@@ -18,10 +19,11 @@ export class PaginaPrincipalComponent implements OnInit {
 
   };
 
-  constructor(private restaurantService: RestaurantService, private router: Router) {
+  constructor(private restaurantService: RestaurantService, private router: Router, private printService: PrinterService) {
   }
 
   ngOnInit(): void {
+    //PrinterService.getImpresoras().then((printers: any) => console.log(printers))
   }
 
   sendMessage() {
