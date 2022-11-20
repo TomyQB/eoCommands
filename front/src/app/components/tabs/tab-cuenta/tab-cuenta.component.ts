@@ -1,4 +1,3 @@
-import { ConectorPlugin } from './../../../services/printer/printerv3.service';
 import { WhatsAppDTO } from './../../../models/WhatsAppDTO';
 import { WhatsappService } from './../../../services/whatsapp.service';
 import { TotalOrdersRecordService } from './../../../services/total-orders-record.service';
@@ -20,6 +19,8 @@ import { formatDate } from '@angular/common';
 export class TabCuentaComponent implements OnInit {
   @Input() pendingOrders: any;
   @Output() pedidosOutput = new EventEmitter<String>();
+  
+  pedidos: any
 
   urlWhatsapp: string = '';
   disableUrl: string = 'disable';
@@ -59,6 +60,7 @@ export class TabCuentaComponent implements OnInit {
 
   ngOnInit(): void {
     this.printers = this.printerService.printers;
+    this.pedidos = this.pedidoServices.pedidos;
     this.getPendingOrders();
 
     setInterval(() => {
@@ -116,6 +118,10 @@ export class TabCuentaComponent implements OnInit {
         this.pendingOrders.splice(i, 1);
       else i++;
     }
+    this.pedidos = this.pedidos.filter((pedido: any) => 
+      pedido.tableNum == tableNum
+    )
+    console.log(this.pedidos)
     this.calculateTotal();
   }
 
@@ -127,13 +133,17 @@ export class TabCuentaComponent implements OnInit {
     })
   }*/
 
-  async printCuenta() {
+  printCuenta() {
     let isCorrectTableNum = this.pendingOrders.find(
       (order: any) => order.tableNum == this.tableNum
     );
     if (this.tableNum != '' && isCorrectTableNum) {
+      console.log(this.pedidos)
+      this.pedidos[0].restaurantId = JSON.parse(sessionStorage.getItem('restaurant')!).id
+      this.pedidos[0].numTable = this.tableNum
+      console.log(this.pedidos)
       let text = ""
-      this.printerService.generateBodyCuenta(this.pendingOrders).subscribe((body: any) => {
+      this.printerService.generateBodyCuenta(this.pedidos).subscribe((body: any) => {
         text = text.concat(body.text)
         text = text.concat(this.generateFooder())
         let printers = this.printers.filter((e: any) =>

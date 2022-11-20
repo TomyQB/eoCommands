@@ -1,5 +1,3 @@
-import { ConectorPlugin } from 'src/app/services/printer/printerv3.service';
-import { PrinterPlugin } from './PrinterPlugin';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment.prod';
@@ -31,9 +29,16 @@ export class PrinterService {
     generateBodyDrink(order: any) {
         return this.http.post<any>(this.Url + "generateTicketDrink", order)
     }
+      
+    generateBodyCancelFood(order: any) {
+        return this.http.post<any>(this.Url + "generateTicketCancelFood", order)
+    }
+    
+    generateBodyCancelDrink(order: any) {
+        return this.http.post<any>(this.Url + "generateTicketCancelDrink", order)
+    }
 
     print(printName: string, text: string) {
-        console.log(text)
         return this.http.post<any>(PrinterService.URL_PLUGIN + "/print/" + printName, text)
     }
 

@@ -1,7 +1,5 @@
-import { PrinterService } from 'src/app/services/printer/printer.service';
 import { PendingOrderService } from 'src/app/services/pending-order.service';
 import { Component, OnInit } from '@angular/core';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 @Component({
   selector: 'app-admin-caja',
@@ -26,6 +24,7 @@ export class AdminCajaComponent implements OnInit {
       data.forEach((order: any) => {
         if (order.plate) this.total += order.amount * order.plate.price
         if (order.additional) this.total += order.amount * order.additional.price
+        this.total = Math.round(this.total*100)/100
       });
     })
   }

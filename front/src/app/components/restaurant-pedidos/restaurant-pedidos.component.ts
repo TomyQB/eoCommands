@@ -51,6 +51,7 @@ export class RestaurantPedidosComponent implements OnInit {
     this.pedidoServices.cambiarNumeroMesa.next();
     this.pedidoServices.getAllPedidos(this.restaurant.id).subscribe((data) => {
       this.pedidos = data;
+      this.pedidoServices.pedidos = data;
       if (this.printers) this.initialisePrint(data);
     });
   }
@@ -59,38 +60,37 @@ export class RestaurantPedidosComponent implements OnInit {
     this.getPedidos();
   }
 
-  async initialisePrint(pedidos: any[]) {
+  initialisePrint(pedidos: any[]) {
     for (let pedido of pedidos) {
       if (!pedido.printed) {
-        await this.generateTicket(pedido);
-        this.pedidoServices.setPedidoPrinted(pedido.id).subscribe(() => {});
+        this.generateTicket(pedido);
       }
     }
   }
 
-  async generateTicket(pedido: any) {
+  generateTicket(pedido: any) {
     if (pedido.drinkCount > 0) {
       this.printerService.generateBodyDrink(pedido).subscribe((body: any) => {
-        console.log(body.text)
         let printers = this.printers.filter((e: any) =>
-          e.type.includes('cuenta')
+          e.type.includes('barra')
         );
         for (let printer of printers) {
-          console.log(printer)
-          this.printerService.print(printer.name, body.text).subscribe(() => {})
+          this.printerService.print(printer.name, body.text).subscribe(() => {
+            this.pedidoServices.setPedidoPrinted(pedido.id).subscribe(() => {});
+          })
         }
       })
     }
 
     if (pedido.foodCount > 0) {
       this.printerService.generateBodyFood(pedido).subscribe((body: any) => {
-        console.log(body.text)
         let printers = this.printers.filter((e: any) =>
-          e.type.includes('cuenta')
+          e.type.includes('cocina')
         );
         for (let printer of printers) {
-          console.log(printer)
-          this.printerService.print(printer.name, body.text).subscribe(() => {})
+          this.printerService.print(printer.name, body.text).subscribe(() => {
+            this.pedidoServices.setPedidoPrinted(pedido.id).subscribe(() => {});
+          })
         }
       })
     }

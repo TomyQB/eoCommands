@@ -13,6 +13,7 @@ import { Observable, Subject } from 'rxjs';
 })
 export class PedidoServicesService {
   pedidoObjeto: any[] = [];
+  pedidos: any[] = [];
   public numMesa = sessionStorage.getItem('tableNum')!;
   Url = environment.Url;
   cambiarNumeroMesa: Subject<Object> = new Subject<Object>();

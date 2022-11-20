@@ -7,10 +7,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.eo.back.dto.CancelFoodPrintDTO;
+import com.eo.back.dto.PedidoDTO;
 import com.eo.back.dto.PrintTextDTO;
 import com.eo.back.dto.pendingOrders.PendingOrderCuentaDTO;
 import com.eo.back.models.Additional;
 import com.eo.back.models.Amount;
+import com.eo.back.models.Extra;
 import com.eo.back.models.Pedido;
 import com.eo.back.services.RestaurantServices;
 
@@ -28,12 +31,12 @@ public class PrintService {
     private static final String CUENTA_BODY_FORMAT = "%-30s %-3s %6s %6s";
     private static final String FOOD_DRINK_FORMAT = "%-4s %-41s";
 
-    public PrintTextDTO generateTicketCuenta(List<PendingOrderCuentaDTO> pendingOrderDtos) {
+    public PrintTextDTO generateTicketCuenta(List<PedidoDTO> pedidos) {
         String result = "";
 
-        String restaurantName = restaurantServices.getRestaurantById(pendingOrderDtos.get(0).getRestaurantId()).getName();
+        String restaurantName = restaurantServices.getRestaurantById(pedidos.get(0).getRestaurantId()).getName();
         String headerRestaurant = "RESTAURANTE " + restaurantName;
-        String headerTable = "MESA " + pendingOrderDtos.get(0).getTableNum();
+        String headerTable = "MESA " + pedidos.get(0).getNumTable();
 
         result += centerString(headerRestaurant) + "\n\n";
         result += centerString(headerTable) + "\n\n";
@@ -42,23 +45,24 @@ public class PrintService {
         result += String.format(CUENTA_HEADER_FORMAT, "DESCRIPCION", "UNID.", "PRECIO", "TOTAL") + "\n";
         result += "================================================\n";
 
-        for(PendingOrderCuentaDTO pedido : pendingOrderDtos) {
-            if (Objects.nonNull(pedido.getPlate())) {
-                pedido.getPlate().setName(checkStringLength(pedido.getPlate().getName(), MAX_DESCRIPTION_WIDTH_CUENTA));
-
-                result += String.format(CUENTA_BODY_FORMAT, pedido.getPlate().getName(), pedido.getAmount(),
-                    pedido.getPlate().getPrice(), (pedido.getPlate().getPrice() * pedido.getAmount() * 100)/100) + "\n";
-                
-                if (pedido.getPlate().getAdditionals().size() > 0) {
-                    for(Additional additional : pedido.getPlate().getAdditionals()) {
-                        additional.setName(checkStringLength(additional.getName(), MAX_DESCRIPTION_WIDTH_CUENTA));
-
-                        result += String.format(CUENTA_BODY_FORMAT, additional.getName(), "",
-                            "", additional.getPrice()) + "\n";
+        for(PedidoDTO pedido : pedidos) {
+            for(Amount amount : pedido.getAmounts()) {
+                if (Objects.nonNull(amount.getPlate())) {
+                    amount.getPlate().setName(checkStringLength(amount.getPlate().getName(), MAX_DESCRIPTION_WIDTH_CUENTA));
+    
+                    result += String.format(CUENTA_BODY_FORMAT, amount.getPlate().getName(), amount.getAmount(),
+                    amount.getPlate().getPrice(), (amount.getPlate().getPrice() * amount.getAmount() * 100)/100) + "\n";
+                    
+                    if (amount.getExtras().size() > 0) {
+                        for(Extra extra : amount.getExtras()) {
+                            extra.setName(checkStringLength(extra.getName(), MAX_DESCRIPTION_WIDTH_CUENTA));
+    
+                            result += String.format(CUENTA_BODY_FORMAT, extra.getName(), "",
+                            "", extra.getPrice()) + "\n";
+                        }
                     }
                 }
             }
-
         }
 
         PrintTextDTO printTextDTO = new PrintTextDTO(StringUtils.stripAccents(result));
@@ -76,10 +80,9 @@ public class PrintService {
         for(Amount dish : pedido.getAmounts()) {
             if (!dish.getPlate().isDrink()) {
                 result += String.format(FOOD_DRINK_FORMAT, dish.getAmount(), dish.getPlate().getName()) + "\n";
-                
-                if (Objects.nonNull(dish.getDescription())) {
-                    result += String.format(FOOD_DRINK_FORMAT,"", dish.getDescription()) + "\n";
-                }
+
+                result += addExtras(dish);
+                result += addDescription(dish);
             }
         }
 
@@ -99,9 +102,41 @@ public class PrintService {
             if (dish.getPlate().isDrink()) {
                 result += String.format(FOOD_DRINK_FORMAT, dish.getAmount(), dish.getPlate().getName()) + "\n";
                 
-                if (Objects.nonNull(dish.getDescription())) {
-                    result += String.format(FOOD_DRINK_FORMAT,"", dish.getDescription()) + "\n";
-                }
+                result += addExtras(dish);
+                result += addDescription(dish);
+            }
+        }
+
+        PrintTextDTO printTextDTO = new PrintTextDTO(StringUtils.stripAccents(result));
+        return printTextDTO;
+    }
+
+    public PrintTextDTO generateTicketCancelFood(CancelFoodPrintDTO pedido) {
+        String result = "";
+
+        String headerTable = "MESA " + pedido.getTableNum() + " CANCELACION";
+        result += centerString(headerTable) + "\n\n";
+
+        result += String.format(FOOD_DRINK_FORMAT, "CANT", "PRODUCTO") + "\n";
+        result += String.format(FOOD_DRINK_FORMAT, pedido.getAmount(), pedido.getName()) + "\n";
+
+        PrintTextDTO printTextDTO = new PrintTextDTO(StringUtils.stripAccents(result));
+        return printTextDTO;
+    }
+    
+    public PrintTextDTO generateTicketCancelDrink(Pedido pedido) {
+        String result = "";
+
+        String headerTable = "MESA " + pedido.getTableNum();
+        result += centerString(headerTable) + "\n\n";
+
+        result += String.format(FOOD_DRINK_FORMAT, "CANT", "PRODUCTO") + "\n\n";
+
+        for(Amount dish : pedido.getAmounts()) {
+            if (dish.getPlate().isDrink()) {
+                result += String.format(FOOD_DRINK_FORMAT, dish.getAmount(), dish.getPlate().getName()) + "\n";
+                
+                result += addDescription(dish);
             }
         }
 
@@ -119,5 +154,22 @@ public class PrintService {
             return name.substring(0, maxLength);
         }
         return name;
-    }    
+    }
+    
+    private String addExtras(final Amount dish) {
+        String result = "";
+        if (Objects.nonNull(dish.getExtras())) {
+            for (Extra extra : dish.getExtras())
+            result += String.format(FOOD_DRINK_FORMAT, "", extra.getName()) + "\n";
+        }
+        return result;
+    }
+    
+    private String addDescription(final Amount dish) {
+        String result = "";
+        if (Objects.nonNull(dish.getDescription())) {
+            result += String.format(FOOD_DRINK_FORMAT,"", dish.getDescription()) + "\n";
+        }
+        return result;
+    }
 }

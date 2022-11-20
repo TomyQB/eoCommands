@@ -27,9 +27,6 @@ export class RestaurantService {
   }
 
   login(user: Login) {
-    /*const headers = new HttpHeaders()
-      .set("Access-Control-Allow-Origin", "*")
-    console.log(headers)*/
     return this.http.post<any>(this.Url + 'login', user);
   }
 }

@@ -23,7 +23,6 @@ export class PaginaPrincipalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //PrinterService.getImpresoras().then((printers: any) => console.log(printers))
   }
 
   sendMessage() {
