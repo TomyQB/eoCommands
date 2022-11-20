@@ -133,64 +133,28 @@ export class TabCuentaComponent implements OnInit {
     );
     if (this.tableNum != '' && isCorrectTableNum) {
       let text = ""
-      this.printerService.establecerEnfatizado(1);
-      this.printerService.establecerJustificacion(PrinterService.Constantes.AlineacionIzquierda);
-      this.printerService.write(
-        'RESTAURANTE ' +
-          JSON.parse(sessionStorage.getItem('restaurant')!).name +
-          '\n\n'
-      );
-      this.printerService.write('MESA ' + this.tableNum + '\n\n');
-      text = text.concat('RESTAURANTE ' +
-      JSON.parse(sessionStorage.getItem('restaurant')!).name +
-      '\n\n')
-      text = text.concat('MESA ' + this.tableNum + '\n\n')
-      this.printerService.generateBody(this.pendingOrders).subscribe((body: any) => {
+      this.printerService.generateBodyCuenta(this.pendingOrders).subscribe((body: any) => {
         text = text.concat(body.text)
-        this.printerService.getPrinters().subscribe((printers) => {console.log(printers)})
-        this.printerService.print("cocinabarracuenta", text).subscribe(() => {})
-        /*this.generateFooder();
-
+        text = text.concat(this.generateFooder())
         let printers = this.printers.filter((e: any) =>
           e.type.includes('cuenta')
         );
         for (let printer of printers) {
-          this.print(printer.name);
-        }*/
+          this.printerService.print(printer.name, text).subscribe(() => {})
+        }
       })
     } else alert('Selecciona una mesa existente');
   }
 
   private generateFooder() {
-    this.printerService.establecerJustificacion(PrinterService.Constantes.AlineacionIzquierda);
-    this.printerService.write('\n' + 'TOTAL CON IVA INCLUIDO        ');
-    this.printerService.establecerJustificacion(PrinterService.Constantes.AlineacionIzquierda);
-    this.printerService.write(this.total + '' + '\n');
-    this.printerService.establecerJustificacion(PrinterService.Constantes.AlineacionIzquierda);
-    this.printerService.write(
-      '================================================' + '\n'
-    );
+    let fooder = "";
+    fooder = fooder.concat('\n' + 'TOTAL CON IVA INCLUIDO        ' + this.total + '\n')
+    fooder = fooder.concat('================================================\n')
     let currentDate = new Date();
     const dateFormat = formatDate(currentDate, 'dd-MM-yyyy', 'en-ES');
-    this.printerService.write('FECHA: ' + dateFormat + '\n');
-    this.printerService.write(
-      'Gracias por todo, le esperamos pronto!' + '\n'
-    );
-  }
-
-  async print(printerName: string | undefined) {
-    this.printerService.cut();
-    await this.printerService
-      .imprimirEn(printerName)
-      .then((respuestaAlImprimir) => {
-        if (respuestaAlImprimir === true) {
-          console.log('Impreso correctamente');
-          this.printerService.limpiarImpresora();
-        } else {
-          console.log('Error. La respuesta es: ' + respuestaAlImprimir);
-          this.printerService.limpiarImpresora();
-        }
-      });
+    fooder = fooder.concat('FECHA: ' + dateFormat + '\n');
+    fooder = fooder.concat('Gracias por todo, le esperamos pronto!\n');
+    return fooder;
   }
 
   deleteCuenta() {

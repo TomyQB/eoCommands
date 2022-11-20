@@ -70,79 +70,30 @@ export class RestaurantPedidosComponent implements OnInit {
 
   async generateTicket(pedido: any) {
     if (pedido.drinkCount > 0) {
-      this.printHeader(pedido);
-      await this.printDrink(pedido);
+      this.printerService.generateBodyDrink(pedido).subscribe((body: any) => {
+        console.log(body.text)
+        let printers = this.printers.filter((e: any) =>
+          e.type.includes('cuenta')
+        );
+        for (let printer of printers) {
+          console.log(printer)
+          this.printerService.print(printer.name, body.text).subscribe(() => {})
+        }
+      })
     }
 
     if (pedido.foodCount > 0) {
-      this.printHeader(pedido);
-      await this.printFood(pedido);
-    }
-  }
-
-  printHeader(pedido: any) {
-    this.printerService.establecerEnfatizado(0);
-    this.printerService.establecerJustificacion(
-      PrinterService.Constantes.AlineacionCentro
-    );
-    this.printerService.write('MESA ' + pedido.tableNum + '\n\n\n');
-  }
-
-  async printDrink(pedido: any) {
-    this.printerService.establecerJustificacion(
-      PrinterService.Constantes.AlineacionIzquierda
-    );
-    this.printerService.write('CANT  PRODUCTO\n');
-    pedido.amounts.forEach((dish: any) => {
-      if (dish.plate.drink) {
-        this.printerService.write(
-          ' ' + dish.amount + '    ' + dish.plate.name + '\n'
+      this.printerService.generateBodyFood(pedido).subscribe((body: any) => {
+        console.log(body.text)
+        let printers = this.printers.filter((e: any) =>
+          e.type.includes('cuenta')
         );
-        if (dish.description) {
-          this.printerService.write(dish.description + '\n');
+        for (let printer of printers) {
+          console.log(printer)
+          this.printerService.print(printer.name, body.text).subscribe(() => {})
         }
-      }
-    });
-    let printers = this.printers.filter((e: any) => e.type.includes("barra"))
-    for (let printer of printers) {
-      await this.print(printer);
+      })
     }
   }
 
-  async printFood(pedido: any) {
-    this.printerService.establecerJustificacion(
-      PrinterService.Constantes.AlineacionIzquierda
-    );
-    this.printerService.write('CANT  PRODUCTO\n');
-    pedido.amounts.forEach((dish: any) => {
-      if (!dish.plate.drink) {
-        this.printerService.write(
-          ' ' + dish.amount + '    ' + dish.plate.name + '\n'
-        );
-        if (dish.description) {
-          this.printerService.write('    ' + dish.description + '\n');
-        }
-      }
-    });
-    let printers = this.printers.filter((e: string) => e.includes('cocina'));
-    for (let printer of printers) {
-      await this.print(printer);
-    }
-  }
-
-  async print(printerName: string | undefined) {
-    //this.printerService.cut();
-    this.printerService.partialCut();
-    await this.printerService
-      .imprimirEn(printerName)
-      .then((respuestaAlImprimir) => {
-        if (respuestaAlImprimir === true) {
-          console.log('Impreso correctamente');
-          this.printerService.limpiarImpresora();
-        } else {
-          console.log('Error. La respuesta es: ' + respuestaAlImprimir);
-          this.printerService.limpiarImpresora();
-        }
-      });
-  }
 }
