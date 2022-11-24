@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 
 import { RestaurantService } from 'src/app/services/restaurant.service';
 import { FormControl, Validators } from '@angular/forms';
+import { PrinterService } from 'src/app/services/printer/printerv1.service';
 
 @Component({
   selector: 'app-login',
@@ -25,9 +26,10 @@ export class LoginComponent implements OnInit {
     Validators.required,
   ]);
 
-  constructor(private restaurantService: RestaurantService, private router: Router) { }
+  constructor(private restaurantService: RestaurantService, private router: Router, private printService: PrinterService) { }
 
   ngOnInit(): void {
+    this.printService.getPrinters().subscribe(printers => console.log(printers))
   }
 
   ngOnDestroy(): void {
@@ -42,10 +44,6 @@ export class LoginComponent implements OnInit {
       if(data != null) {
         sessionStorage.setItem('restaurant', JSON.stringify(data))
         this.router.navigateByUrl("/restaurantPedidos");
-        // sessionStorage.setItem('userId', data.id.toString())
-        // sessionStorage.setItem('rname', data.name)
-        // sessionStorage.setItem('image', data.image)
-        // sessionStorage.setItem('idImage', data.idImage)
 
       } else alert("email o contraseña incorectos")
     })
