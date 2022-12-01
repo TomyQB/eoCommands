@@ -3,7 +3,7 @@ import { RestaurantFormMainPage } from './../models/RestaurantFormMainPage';
 import { environment } from './../../environments/environment.prod';
 import { Injectable } from '@angular/core';
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Login } from '../models/Login';
 
 @Injectable({

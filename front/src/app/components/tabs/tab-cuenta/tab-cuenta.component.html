@@ -33,31 +33,20 @@
 
     <div *ngFor="let pending of pendingOrders">
       <div class="displayFlex tableTime">
-        <div class="center20">{{ pending.tableNum }}</div>
-        <div class="center20">
-          {{ pending.plate ? pending.plate.name : pending.additional.name }}
-        </div>
-        <div class="center20">{{ pending.amount }}</div>
-        <div class="center20">
-          {{ pending.plate ? pending.plate.price : pending.additional.price
-          }}{{ currencySumbolService.symbol }}
-        </div>
-        <div class="center20">
-          {{
-            pending.plate
-              ? pending.amount * pending.plate.price
-              : pending.amount * pending.additional.price
-          }}{{ currencySumbolService.symbol }}
-        </div>
+        <div class="center20">{{pending.tableNum}}</div>
+        <div class="center20">{{(pending.plate) ? pending.plate.name : pending.additional.name}}</div>
+        <div class="center20">{{pending.amount}}</div>
+        <div class="center20">{{(pending.plate) ? pending.plate.price : pending.additional.price}}{{currencySumbolService.symbol}}</div>
+        <div class="center20">{{(pending.plate) ? (pending.amount * pending.plate.price * 100)/100 : (pending.amount * pending.additional.price * 100)/100}}{{currencySumbolService.symbol}}</div>
       </div>
-      <div
+      <!-- <div
         class="additionals"
         *ngIf="pending.plate && pending.plate.additionals.length > 0"
       >
         <div *ngFor="let additional of pending.plate.additionals">
           {{ additional.name }} {{ additional.price }}€
         </div>
-      </div>
+      </div> -->
       <mat-divider></mat-divider>
     </div>
   </mat-list>

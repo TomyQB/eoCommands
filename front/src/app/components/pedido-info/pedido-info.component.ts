@@ -127,7 +127,6 @@ export class PedidoInfoComponent implements OnInit {
     this.principal = this.amountServices.principal;
     this.bebida = this.amountServices.bebida;
     this.numMesa = sessionStorage.getItem('tableNum')!;
-    console.log(this.restaurantService.mailConfiguration);
     if (this.restaurantService.mailConfiguration === FIRST_TIME) {
       this.pedidoService
         .checkFirstOrder(
@@ -135,7 +134,6 @@ export class PedidoInfoComponent implements OnInit {
           parseInt(sessionStorage.getItem('tableNum')!)
         )
         .subscribe((res) => {
-          console.log(res);
           this.firstTime = res;
         });
     }

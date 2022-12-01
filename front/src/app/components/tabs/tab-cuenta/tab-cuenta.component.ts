@@ -8,7 +8,7 @@ import { Pedido } from 'src/app/models/Pedido';
 import { PendingOrderService } from 'src/app/services/pending-order.service';
 import { PendingOrdersRecord } from 'src/app/models/PendingOrdersRecord';
 import { CurrencySumbolService } from 'src/app/services/currency-sumbol.service';
-import { PrinterService } from 'src/app/services/printer/printer.service';
+import { PrinterService } from 'src/app/services/printer/printerv1.service';
 import { formatDate } from '@angular/common';
 
 @Component({
@@ -19,6 +19,8 @@ import { formatDate } from '@angular/common';
 export class TabCuentaComponent implements OnInit {
   @Input() pendingOrders: any;
   @Output() pedidosOutput = new EventEmitter<String>();
+  
+  pedidos: any
 
   urlWhatsapp: string = '';
   disableUrl: string = 'disable';
@@ -58,6 +60,7 @@ export class TabCuentaComponent implements OnInit {
 
   ngOnInit(): void {
     this.printers = this.printerService.printers;
+    this.pedidos = this.pedidoServices.pedidos;
     this.getPendingOrders();
 
     setInterval(() => {
@@ -115,6 +118,10 @@ export class TabCuentaComponent implements OnInit {
         this.pendingOrders.splice(i, 1);
       else i++;
     }
+    this.pedidos = this.pedidos.filter((pedido: any) => 
+      pedido.tableNum == tableNum
+    )
+    console.log(this.pedidos)
     this.calculateTotal();
   }
 
@@ -127,141 +134,37 @@ export class TabCuentaComponent implements OnInit {
   }*/
 
   printCuenta() {
-    this.printerService.initPrint();
     let isCorrectTableNum = this.pendingOrders.find(
       (order: any) => order.tableNum == this.tableNum
     );
     if (this.tableNum != '' && isCorrectTableNum) {
-      this.printerService.establecerEnfatizado(1);
-      this.printerService.establecerJustificacion(
-        PrinterService.Constantes.AlineacionCentro
-      );
-      this.printerService.write(
-        'RESTAURANTE ' +
-          JSON.parse(sessionStorage.getItem('restaurant')!).name +
-          '\n\n'
-      );
-      this.printerService.write('MESA ' + this.tableNum + '\n\n');
-      this.printerService.write(
-        '------------------------------------------------' + '\n'
-      );
-      this.printerService.write(
-        'DESCRIPCION                 UNID.  PRECIO  TOTAL' + '\n'
-      );
-      this.printerService.write(
-        '================================================' + '\n'
-      );
-      this.printerService.establecerJustificacion(
-        PrinterService.Constantes.AlineacionIzquierda
-      );
-      for (let pedido of this.pendingOrders) {
-        if (pedido.plate) {
-          if (pedido.plate.name.length > 30) {
-            pedido.plate.name = pedido.plate.name.substring(0, 30);
-          }
-          let description = pedido.plate.name.concat(
-            ' '.repeat(31 - pedido.plate.name.length)
-          );
-          let repeater =
-            7 - pedido.plate.price.toString().length <= 0
-              ? 0
-              : 7 - pedido.plate.price.toString().length;
-          let priceSpace = ' '.repeat(repeater);
-          this.printerService.write(
-            description +
-              pedido.amount +
-              '   ' +
-              pedido.plate.price +
-              '€' +
-              priceSpace +
-              pedido.plate.price * pedido.amount +
-              '€' +
-              '\n'
-          );
-          if (pedido.plate.additionals.length > 0) {
-            this.printerService.establecerJustificacion(
-              PrinterService.Constantes.AlineacionDerecha
-            );
-            for (let additional of pedido.plate.additionals) {
-              let description = additional.name.concat(
-                ' '.repeat(31 - additional.name.length)
-              );
-              this.printerService.write(
-                description + additional.price + '€' + '\n'
-              );
-            }
-            this.printerService.establecerJustificacion(
-              PrinterService.Constantes.AlineacionIzquierda
-            );
-          }
-        } else if (pedido.additional) {
-          if (pedido.additional.name.length > 30) {
-            pedido.additional.name = pedido.additional.name.substring(0, 30);
-          }
-          let description = pedido.additional.name.concat(
-            ' '.repeat(31 - pedido.additional.name.length)
-          );
-          let repeater =
-            7 - pedido.additional.price.toString().length < 0
-              ? 0
-              : 7 - pedido.additional.price.toString().length;
-          let priceSpace = ' '.repeat(repeater);
-          this.printerService.write(
-            description +
-              pedido.amount +
-              '   ' +
-              pedido.additional.price +
-              '€' +
-              priceSpace +
-              pedido.additional.price * pedido.amount +
-              '€' +
-              '\n'
-          );
+      console.log(this.pedidos)
+      this.pedidos[0].restaurantId = JSON.parse(sessionStorage.getItem('restaurant')!).id
+      this.pedidos[0].numTable = this.tableNum
+      console.log(this.pedidos)
+      let text = ""
+      this.printerService.generateBodyCuenta(this.pedidos).subscribe((body: any) => {
+        text = text.concat(body.text)
+        text = text.concat(this.generateFooder())
+        let printers = this.printers.filter((e: any) =>
+          e.type.includes('cuenta')
+        );
+        for (let printer of printers) {
+          this.printerService.print(printer.name, text).subscribe(() => {})
         }
-      }
-      this.printerService.establecerJustificacion(
-        PrinterService.Constantes.AlineacionIzquierda
-      );
-      this.printerService.write('\n' + 'TOTAL CON IVA INCLUIDO        ');
-      this.printerService.establecerJustificacion(
-        PrinterService.Constantes.AlineacionDerecha
-      );
-      this.printerService.write(this.total + '€' + '\n');
-      this.printerService.establecerJustificacion(
-        PrinterService.Constantes.AlineacionCentro
-      );
-      this.printerService.write(
-        '================================================' + '\n'
-      );
-      let currentDate = new Date();
-      const dateFormat = formatDate(currentDate, 'dd-MM-yyyy', 'en-ES');
-      this.printerService.write('FECHA: ' + dateFormat + '\n');
-      this.printerService.write(
-        'Gracias por todo, le esperamos pronto!' + '\n'
-      );
-
-      let printers = this.printers.filter((e: any) =>
-        e.type.includes('cuenta')
-      );
-      for (let printer of printers) {
-        this.print(printers);
-      }
+      })
     } else alert('Selecciona una mesa existente');
   }
 
-  async print(printerName: string | undefined) {
-    this.printerService.partialCut();
-    await this.printerService
-      .imprimirEn(printerName)
-      .then((respuestaAlImprimir) => {
-        if (respuestaAlImprimir === true) {
-          console.log('Impreso correctamente');
-          this.printerService.limpiarImpresora();
-        } else {
-          console.log('Error. La respuesta es: ' + respuestaAlImprimir);
-          this.printerService.limpiarImpresora();
-        }
-      });
+  private generateFooder() {
+    let fooder = "";
+    fooder = fooder.concat('\n' + 'TOTAL CON IVA INCLUIDO        ' + this.total + '\n')
+    fooder = fooder.concat('================================================\n')
+    let currentDate = new Date();
+    const dateFormat = formatDate(currentDate, 'dd-MM-yyyy', 'en-ES');
+    fooder = fooder.concat('FECHA: ' + dateFormat + '\n');
+    fooder = fooder.concat('Gracias por todo, le esperamos pronto!\n');
+    return fooder;
   }
 
   deleteCuenta() {

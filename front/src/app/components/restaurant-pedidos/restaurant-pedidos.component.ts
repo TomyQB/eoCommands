@@ -4,8 +4,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { PedidoServicesService } from '../../services/pedido-services.service';
-import { PrinterService } from 'src/app/services/printer/printer.service';
+import { PrinterService } from 'src/app/services/printer/printerv1.service';
 import { Subject } from 'rxjs';
+import { RestaurantPrinterService } from 'src/app/services/restaurant-printer.service';
 
 @Component({
   selector: 'app-restaurant-pedidos',
@@ -23,22 +24,23 @@ export class RestaurantPedidosComponent implements OnInit {
   constructor(
     private pedidoServices: PedidoServicesService,
     private pendingOrderService: PendingOrderService,
+    private restaurantPrinterService: RestaurantPrinterService,
     private printerService: PrinterService
   ) {}
 
   ngOnInit(): void {
     this.selectedIndex = parseInt(sessionStorage.getItem('tab')!);
 
-    /*if(!this.printerService.printers) {
-      this.printerService.getPrinters().then((impresoras: any) => {
+    if(!this.printerService.printers) {
+      this.restaurantPrinterService.getPrinters(this.restaurant.id).subscribe(impresoras => {
         this.printers = impresoras;
         this.printerService.printers = impresoras;
         this.getPedidos();
-      }).catch(() => console.log("Error al encontrar impresoras"))
+      })
     } else {
-      this.printers = this.printerService.printers;*/
-    this.getPedidos();
-    //}
+      this.printers = this.printerService.printers;
+      this.getPedidos();
+    }
 
     setInterval(() => {
       this.getPedidos();
@@ -49,6 +51,7 @@ export class RestaurantPedidosComponent implements OnInit {
     this.pedidoServices.cambiarNumeroMesa.next();
     this.pedidoServices.getAllPedidos(this.restaurant.id).subscribe((data) => {
       this.pedidos = data;
+      this.pedidoServices.pedidos = data;
       if (this.printers) this.initialisePrint(data);
     });
   }
@@ -57,90 +60,40 @@ export class RestaurantPedidosComponent implements OnInit {
     this.getPedidos();
   }
 
-  async initialisePrint(pedidos: any[]) {
+  initialisePrint(pedidos: any[]) {
     for (let pedido of pedidos) {
       if (!pedido.printed) {
-        await this.generateTicket(pedido);
-        this.pedidoServices.setPedidoPrinted(pedido.id).subscribe(() => {});
+        this.generateTicket(pedido);
       }
     }
   }
 
-  async generateTicket(pedido: any) {
+  generateTicket(pedido: any) {
     if (pedido.drinkCount > 0) {
-      this.printHeader(pedido);
-      await this.printDrink(pedido);
+      this.printerService.generateBodyDrink(pedido).subscribe((body: any) => {
+        let printers = this.printers.filter((e: any) =>
+          e.type.includes('barra')
+        );
+        for (let printer of printers) {
+          this.printerService.print(printer.name, body.text).subscribe(() => {
+            this.pedidoServices.setPedidoPrinted(pedido.id).subscribe(() => {});
+          })
+        }
+      })
     }
 
     if (pedido.foodCount > 0) {
-      this.printHeader(pedido);
-      await this.printFood(pedido);
-    }
-  }
-
-  printHeader(pedido: any) {
-    this.printerService.establecerEnfatizado(0);
-    this.printerService.establecerJustificacion(
-      PrinterService.Constantes.AlineacionCentro
-    );
-    this.printerService.write('MESA ' + pedido.tableNum + '\n\n\n');
-  }
-
-  async printDrink(pedido: any) {
-    this.printerService.establecerJustificacion(
-      PrinterService.Constantes.AlineacionIzquierda
-    );
-    this.printerService.write('CANT  PRODUCTO\n');
-    pedido.amounts.forEach((dish: any) => {
-      if (dish.plate.drink) {
-        this.printerService.write(
-          ' ' + dish.amount + '    ' + dish.plate.name + '\n'
+      this.printerService.generateBodyFood(pedido).subscribe((body: any) => {
+        let printers = this.printers.filter((e: any) =>
+          e.type.includes('cocina')
         );
-        if (dish.description) {
-          this.printerService.write(dish.description + '\n');
+        for (let printer of printers) {
+          this.printerService.print(printer.name, body.text).subscribe(() => {
+            this.pedidoServices.setPedidoPrinted(pedido.id).subscribe(() => {});
+          })
         }
-      }
-    });
-    let printers = this.printers.filter((e: string) => e.includes('barra'));
-    for (let printer of printers) {
-      await this.print(printer);
+      })
     }
   }
 
-  async printFood(pedido: any) {
-    this.printerService.establecerJustificacion(
-      PrinterService.Constantes.AlineacionIzquierda
-    );
-    this.printerService.write('CANT  PRODUCTO\n');
-    pedido.amounts.forEach((dish: any) => {
-      if (!dish.plate.drink) {
-        this.printerService.write(
-          ' ' + dish.amount + '    ' + dish.plate.name + '\n'
-        );
-        if (dish.description) {
-          this.printerService.write('    ' + dish.description + '\n');
-        }
-      }
-    });
-    let printers = this.printers.filter((e: string) => e.includes('cocina'));
-    for (let printer of printers) {
-      await this.print(printer);
-    }
-  }
-
-  async print(printerName: string | undefined) {
-    //this.printerService.cut();
-    this.printerService.partialCut();
-    await this.printerService
-      .imprimirEn(printerName)
-      .then((respuestaAlImprimir) => {
-        if (respuestaAlImprimir === true) {
-          console.log('Impreso correctamente');
-          this.printerService.limpiarImpresora();
-        } else {
-          console.log('Error. La respuesta es: ' + respuestaAlImprimir);
-          this.printerService.limpiarImpresora();
-        }
-      });
-  }
 }

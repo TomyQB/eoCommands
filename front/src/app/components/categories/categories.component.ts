@@ -43,12 +43,10 @@ export class CategoriesComponent implements OnInit {
     });
 
     this.menuServices.getMenu(this.restaurantName).subscribe((data) => {
-      console.log(data[0].restaurant.restaurantConfig.mailConfirmation);
       sessionStorage.setItem(
         'mailConfiguration',
         data[0].restaurant.restaurantConfig.mailConfirmation
       );
-      console.log(sessionStorage.getItem('mailConfiguration'));
       this.categories = data;
       this.image = data[0].restaurant.image; //ARREGLAR PARA QUE NO SE VEA FEO
       sessionStorage.setItem('idRestaurant', data[0].restaurant.id);
