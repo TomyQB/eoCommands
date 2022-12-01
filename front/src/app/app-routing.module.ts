@@ -4,6 +4,7 @@ import { AdminCajaComponent } from './components/admin-caja/admin-caja.component
 import { ExtrasCreateComponent } from './components/admin/extras-create/extras-create.component';
 import { PlatesAdminComponent } from './components/admin/plates-admin/plates-admin.component';
 import { CategoriesAdminComponent } from './components/admin/categories-admin/categories-admin.component';
+import { ConfigurationAdminComponent } from './components/admin/configuration-admin/configuration-admin.component';
 import { PlatesCreateComponent } from './components/admin/plates-create/plates-create.component';
 import { CategoriesCreateComponent } from './components/admin/categories-create/categories-create.component';
 import { PaginaPrincipalComponent } from './components/pagina-principal/pagina-principal.component';
@@ -29,91 +30,94 @@ const routes: Routes = [
     children: [
       {
         path: 'menu/:name',
-        component: CategoriesComponent
+        component: CategoriesComponent,
       },
       {
         path: 'plates',
-        component: PlatesComponent
+        component: PlatesComponent,
       },
       {
         path: 'plateInfo',
-        component: PlateInfoComponent
+        component: PlateInfoComponent,
       },
-    ]
+    ],
   },
   {
     path: 'pedidoInfo',
-    component: PedidoInfoComponent
+    component: PedidoInfoComponent,
   },
   {
     path: 'confirmacion',
-    component: ConfirmacionComponent
+    component: ConfirmacionComponent,
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
   },
   {
     path: 'loginCommercial',
-    component: LoginCommercialComponent
+    component: LoginCommercialComponent,
   },
   {
     path: 'restaurantPedidos',
-    component: RestaurantPedidosComponent
+    component: RestaurantPedidosComponent,
   },
   {
     path: 'restaurantPedidosInfo',
-    component: RestaurantPedidoInfoComponent
+    component: RestaurantPedidoInfoComponent,
   },
   {
     path: 'restaurantPedidosBebida',
-    component: RestaurantPedidoBebidaComponent
+    component: RestaurantPedidoBebidaComponent,
   },
   {
     path: 'terminos',
-    component: TerminosComponent
+    component: TerminosComponent,
   },
   {
     path: 'legal',
-    component: LegalComponent
+    component: LegalComponent,
   },
   {
     path: '',
-    component: PaginaPrincipalComponent
+    component: PaginaPrincipalComponent,
+  },
+  {
+    path: 'adminConfiguracion',
+    component: ConfigurationAdminComponent,
   },
   {
     path: 'adminCategories',
-    component: CategoriesAdminComponent
+    component: CategoriesAdminComponent,
   },
   {
     path: 'adminCategoriesCreate',
-    component: CategoriesCreateComponent
+    component: CategoriesCreateComponent,
   },
   {
     path: 'adminPlates',
-    component: PlatesAdminComponent
+    component: PlatesAdminComponent,
   },
   {
     path: 'adminPlatesCreate',
-    component: PlatesCreateComponent
+    component: PlatesCreateComponent,
   },
   {
     path: 'adminExtrasCreate',
-    component: ExtrasCreateComponent
+    component: ExtrasCreateComponent,
   },
   {
     path: 'adminCaja',
-    component: AdminCajaComponent
+    component: AdminCajaComponent,
   },
   {
     path: 'adminCommercial',
-    component: AdminCommercialComponent
+    component: AdminCommercialComponent,
   },
-
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

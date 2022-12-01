@@ -12,7 +12,7 @@ import { PedidoComponent } from './share/pedido/pedido.component';
 import { PedidoInfoComponent } from './components/pedido-info/pedido-info.component';
 import { LoginComponent } from './components/login/login.component';
 import { RestaurantPedidosComponent } from './components/restaurant-pedidos/restaurant-pedidos.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './share/material/material.module';
 import { CoreComponent } from './components/core/core.component';
 import { RestaurantPedidoInfoComponent } from './components/restaurant-pedido-info/restaurant-pedido-info.component';
@@ -38,6 +38,8 @@ import { AdminCajaComponent } from './components/admin-caja/admin-caja.component
 import { LoginCommercialComponent } from './components/login-commercial/login-commercial.component';
 import { AdminCommercialComponent } from './components/admin-commercial/admin-commercial.component';
 import { ChangeTableDialogComponent } from './components/tabs/ChangeTable/change-table-dialog/change-table-dialog.component';
+import { ConfigurationAdminComponent } from './components/admin/configuration-admin/configuration-admin.component';
+
 import { ErrorMessageComponent } from './share/snackBar/error-message/error-message.component';
 // import { NgxSpinnerModule} from 'ngx-spinner';
 @NgModule({
@@ -73,6 +75,7 @@ import { ErrorMessageComponent } from './share/snackBar/error-message/error-mess
     AdminCommercialComponent,
     ChangeTableDialogComponent,
     ErrorMessageComponent,
+    ConfigurationAdminComponent,
   ],
   imports: [
     BrowserModule,
@@ -84,8 +87,8 @@ import { ErrorMessageComponent } from './share/snackBar/error-message/error-mess
   ],
   entryComponents: [ModalPhoneComponent],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
 
 // pk_test_51HZwJtDRmiSLFsD4v5RcApqDX0kKokCoEQzNnnYhwydPSAjF2kqDDX0jYVaz3FOLU1rLbqvAh81QY7xahTxev1Io004DUUbSbT
