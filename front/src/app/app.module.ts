@@ -41,6 +41,7 @@ import { ChangeTableDialogComponent } from './components/tabs/ChangeTable/change
 import { ConfigurationAdminComponent } from './components/admin/configuration-admin/configuration-admin.component';
 
 import { ErrorMessageComponent } from './share/snackBar/error-message/error-message.component';
+import { PrinterDialogComponent } from './components/admin/configuration-admin/printer-dialog/printer-dialog.component';
 // import { NgxSpinnerModule} from 'ngx-spinner';
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { ErrorMessageComponent } from './share/snackBar/error-message/error-mess
     ChangeTableDialogComponent,
     ErrorMessageComponent,
     ConfigurationAdminComponent,
+    PrinterDialogComponent,
   ],
   imports: [
     BrowserModule,
