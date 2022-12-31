@@ -43,6 +43,7 @@ export class CategoriesComponent implements OnInit {
     });
 
     this.menuServices.getMenu(this.restaurantName).subscribe((data) => {
+      
       sessionStorage.setItem(
         'mailConfiguration',
         data[0].restaurant.restaurantConfig.mailConfirmation

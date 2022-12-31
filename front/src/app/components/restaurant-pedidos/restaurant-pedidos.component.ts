@@ -5,8 +5,9 @@ import { Router } from '@angular/router';
 
 import { PedidoServicesService } from '../../services/pedido-services.service';
 import { PrinterService } from 'src/app/services/printer/printerv1.service';
-import { Subject } from 'rxjs';
 import { RestaurantPrinterService } from 'src/app/services/restaurant-printer.service';
+import { RestaurantConfigurationService } from 'src/app/services/restaurant-configuration.service';
+import { NO } from 'src/app/constants/print-confirmation';
 
 @Component({
   selector: 'app-restaurant-pedidos',
@@ -20,23 +21,33 @@ export class RestaurantPedidosComponent implements OnInit {
   pedidos!: any[];
   pendingOrders!: any[];
   printers!: any;
+  restaurantConfig = this.configurationService.restaurantConfig;
 
   constructor(
     private pedidoServices: PedidoServicesService,
     private pendingOrderService: PendingOrderService,
     private restaurantPrinterService: RestaurantPrinterService,
-    private printerService: PrinterService
-  ) {}
+    private printerService: PrinterService,
+    private configurationService: RestaurantConfigurationService
+  ) {
+    this.configurationService
+      .getConfiguration(this.restaurant.id)
+      .subscribe((res) => {
+        sessionStorage.setItem('restaurantConfig', JSON.stringify(res!));
+      });
+  }
 
   ngOnInit(): void {
     this.selectedIndex = parseInt(sessionStorage.getItem('tab')!);
 
-    if(!this.printerService.printers) {
-      this.restaurantPrinterService.getPrinters(this.restaurant.id).subscribe(impresoras => {
-        this.printers = impresoras;
-        this.printerService.printers = impresoras;
-        this.getPedidos();
-      })
+    if (!this.printerService.printers) {
+      this.restaurantPrinterService
+        .getPrinters(this.restaurant.id)
+        .subscribe((impresoras) => {
+          this.printers = impresoras;
+          this.printerService.printers = impresoras;
+          this.getPedidos();
+        });
     } else {
       this.printers = this.printerService.printers;
       this.getPedidos();
@@ -61,9 +72,11 @@ export class RestaurantPedidosComponent implements OnInit {
   }
 
   initialisePrint(pedidos: any[]) {
-    for (let pedido of pedidos) {
-      if (!pedido.printed) {
-        this.generateTicket(pedido);
+    if (this.restaurantConfig.printConfirmation === NO) {
+      for (let pedido of pedidos) {
+        if (!pedido.printed) {
+          this.generateTicket(pedido);
+        }
       }
     }
   }
@@ -77,9 +90,9 @@ export class RestaurantPedidosComponent implements OnInit {
         for (let printer of printers) {
           this.printerService.print(printer.name, body.text).subscribe(() => {
             this.pedidoServices.setPedidoPrinted(pedido.id).subscribe(() => {});
-          })
+          });
         }
-      })
+      });
     }
 
     if (pedido.foodCount > 0) {
@@ -90,10 +103,9 @@ export class RestaurantPedidosComponent implements OnInit {
         for (let printer of printers) {
           this.printerService.print(printer.name, body.text).subscribe(() => {
             this.pedidoServices.setPedidoPrinted(pedido.id).subscribe(() => {});
-          })
+          });
         }
-      })
+      });
     }
   }
-
 }

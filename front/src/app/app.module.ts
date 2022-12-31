@@ -42,6 +42,7 @@ import { ConfigurationAdminComponent } from './components/admin/configuration-ad
 
 import { ErrorMessageComponent } from './share/snackBar/error-message/error-message.component';
 import { PrinterDialogComponent } from './components/admin/configuration-admin/printer-dialog/printer-dialog.component';
+import { SepararMesaComponent } from './components/tabs/tab-cuenta/separar-mesa/separar-mesa.component';
 // import { NgxSpinnerModule} from 'ngx-spinner';
 @NgModule({
   declarations: [
@@ -78,6 +79,7 @@ import { PrinterDialogComponent } from './components/admin/configuration-admin/p
     ErrorMessageComponent,
     ConfigurationAdminComponent,
     PrinterDialogComponent,
+    SepararMesaComponent,
   ],
   imports: [
     BrowserModule,

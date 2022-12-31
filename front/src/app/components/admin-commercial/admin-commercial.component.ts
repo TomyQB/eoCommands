@@ -12,7 +12,6 @@ export class AdminCommercialComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(history.state.data)
   }
 
 }

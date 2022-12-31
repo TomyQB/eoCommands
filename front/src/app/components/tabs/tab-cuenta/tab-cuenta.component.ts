@@ -10,6 +10,7 @@ import { PendingOrdersRecord } from 'src/app/models/PendingOrdersRecord';
 import { CurrencySumbolService } from 'src/app/services/currency-sumbol.service';
 import { PrinterService } from 'src/app/services/printer/printerv1.service';
 import { formatDate } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab-cuenta',
@@ -51,7 +52,8 @@ export class TabCuentaComponent implements OnInit {
     private pedidoServices: PedidoServicesService,
     private totalOrdersRecordService: TotalOrdersRecordService,
     private whatsappService: WhatsappService,
-    private printerService: PrinterService
+    private printerService: PrinterService,
+    private router: Router
   ) {
     this.pedidoServices.cambiarNumeroMesa.subscribe(() => {
       this.getPendingOrders();
@@ -121,7 +123,7 @@ export class TabCuentaComponent implements OnInit {
     this.pedidos = this.pedidos.filter((pedido: any) => 
       pedido.tableNum == tableNum
     )
-    console.log(this.pedidos)
+    this.pedidoServices.pedido = this.pendingOrders
     this.calculateTotal();
   }
 
@@ -138,10 +140,8 @@ export class TabCuentaComponent implements OnInit {
       (order: any) => order.tableNum == this.tableNum
     );
     if (this.tableNum != '' && isCorrectTableNum) {
-      console.log(this.pedidos)
       this.pedidos[0].restaurantId = JSON.parse(sessionStorage.getItem('restaurant')!).id
       this.pedidos[0].numTable = this.tableNum
-      console.log(this.pedidos)
       let text = ""
       this.printerService.generateBodyCuenta(this.pedidos).subscribe((body: any) => {
         text = text.concat(body.text)
@@ -212,5 +212,9 @@ export class TabCuentaComponent implements OnInit {
       .subscribe((data) => {
         this.totalOrdersRecordService.orderRecord = data;
       });
+  }
+
+  separateCuenta(){    
+    this.router.navigateByUrl("/separarCuenta");
   }
 }
