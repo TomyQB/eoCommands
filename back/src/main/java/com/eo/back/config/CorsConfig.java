@@ -11,16 +11,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
-public class CorsConfig extends WebSecurityConfigurerAdapter  {
-    
+public class CorsConfig extends WebSecurityConfigurerAdapter {
+
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry
-                .addMapping("/**")
-                .allowedMethods("*");
+                        .addMapping("/**")
+                        .allowedMethods("*");
             }
         };
     }
@@ -29,7 +29,7 @@ public class CorsConfig extends WebSecurityConfigurerAdapter  {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
     }
-    
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication().withUser("user").password("{noop}password").roles("USER");
