@@ -33,6 +33,9 @@
       </div>
       <mat-divider *ngIf="!amount.plate.drink" class="border"></mat-divider>
     </div>
-
+    
+    <div *ngIf="printConfirmation" class="displayFlex">
+      <button mat-raised-button class="primary" (click)="imprimir()">Imprimir</button>
+    </div>
   </div>
 </mat-list>

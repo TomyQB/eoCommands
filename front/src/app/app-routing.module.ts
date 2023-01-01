@@ -20,6 +20,7 @@ import { PedidoInfoComponent } from './components/pedido-info/pedido-info.compon
 import { PlateInfoComponent } from './components/plate-info/plate-info.component';
 import { PlatesComponent } from './components/plates/plates.component';
 import { CategoriesComponent } from './components/categories/categories.component';
+import { SepararMesaComponent } from './components/tabs/tab-cuenta/separar-mesa/separar-mesa.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -61,6 +62,10 @@ const routes: Routes = [
   {
     path: 'restaurantPedidos',
     component: RestaurantPedidosComponent,
+  },
+  {
+    path: 'separarCuenta',
+    component: SepararMesaComponent,
   },
   {
     path: 'restaurantPedidosInfo',

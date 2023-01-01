@@ -17,6 +17,7 @@ export class PedidoServicesService {
   public numMesa = sessionStorage.getItem('tableNum')!;
   Url = environment.Url;
   cambiarNumeroMesa: Subject<Object> = new Subject<Object>();
+  pedido: any
 
   constructor(private http: HttpClient) {}
 

@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { PedidoServicesService } from 'src/app/services/pedido-services.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ChangeTableDialogComponent } from '../ChangeTable/change-table-dialog/change-table-dialog.component';
+import { RestaurantConfigurationService } from 'src/app/services/restaurant-configuration.service';
+import { NO } from '../../../constants/print-confirmation';
 
 @Component({
   selector: 'app-tab-comida',
@@ -16,10 +18,12 @@ export class TabComidaComponent implements OnInit {
   @Output() getPedidos = new EventEmitter();
 
   pedidoLocal = sessionStorage.getItem('pedidos');
+  printConfirmation: any = this.configurationService.restaurantConfig
 
   constructor(
     private router: Router,
     public pedidoServices: PedidoServicesService,
+    public configurationService: RestaurantConfigurationService,
     public dialog: MatDialog
   ) {}
 
@@ -45,23 +49,29 @@ export class TabComidaComponent implements OnInit {
 
   private comprobarPlatosHechos() {
     this.pedidos.forEach((pedido) => {
-      if (
-        pedido.hechosFood == pedido.foodCount &&
-        pedido.estadoFood != 'Servido'
-      ) {
-        pedido.estadoFood = 'Servido';
-        this.pedidoServices
-          .changeEstadoFoodPedido(pedido)
-          .subscribe((data) => {});
-      } else if (
-        pedido.hechosFood != pedido.foodCount &&
-        pedido.estadoFood == 'Servido'
-      ) {
-        pedido.estadoFood = 'Pendiente';
-        this.pedidoServices
-          .changeEstadoFoodPedido(pedido)
-          .subscribe((data) => {});
+      
+      if(this.printConfirmation.printConfirmation === NO || pedido.printed){
+        if (
+          pedido.hechosFood == pedido.foodCount &&
+          pedido.estadoFood != 'Servido'
+        ) {
+          pedido.estadoFood = 'Servido';
+          this.pedidoServices
+            .changeEstadoFoodPedido(pedido)
+            .subscribe((data) => {});
+        } else if (
+          pedido.hechosFood != pedido.foodCount &&
+          pedido.estadoFood == 'Servido'
+        ) {
+          pedido.estadoFood = 'Pendiente';
+          this.pedidoServices
+            .changeEstadoFoodPedido(pedido)
+            .subscribe((data) => {});
+        }
+      } else {
+        pedido.estadoFood = 'Pendiente de confirmación';
       }
+   
     });
   }
 }
