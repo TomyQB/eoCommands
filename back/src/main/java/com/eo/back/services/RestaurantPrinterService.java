@@ -15,16 +15,21 @@ public class RestaurantPrinterService {
 
     @Autowired
     private RestaurantPrinterRepository restaurantPrinterRepository;
-    
+
     @Autowired
     private RestaurantPrinterConverter restaurantPrinterConverter;
-    
+
     public List<RestaurantPrinter> getRestaurantPrinters(final long restaurantId) {
         return restaurantPrinterRepository.findByRestaurantId(restaurantId);
     }
 
     public void savePrinters(final long restaurantId, final List<RestaurantPrinterDTO> restaurantPrinterDTOs) {
-        List<RestaurantPrinter> restaurantPrinters = restaurantPrinterConverter.fromDTOs(restaurantId, restaurantPrinterDTOs);
+        List<RestaurantPrinter> restaurantPrinters = restaurantPrinterConverter.fromDTOs(restaurantId,
+                restaurantPrinterDTOs);
         restaurantPrinterRepository.saveAll(restaurantPrinters);
+    }
+
+    public void deletePrinter(final long printerId) {
+        restaurantPrinterRepository.deleteById(printerId);
     }
 }
