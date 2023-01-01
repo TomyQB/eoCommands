@@ -20,8 +20,8 @@ import { Router } from '@angular/router';
 export class TabCuentaComponent implements OnInit {
   @Input() pendingOrders: any;
   @Output() pedidosOutput = new EventEmitter<String>();
-  
-  pedidos: any
+
+  pedidos: any;
 
   urlWhatsapp: string = '';
   disableUrl: string = 'disable';
@@ -120,10 +120,10 @@ export class TabCuentaComponent implements OnInit {
         this.pendingOrders.splice(i, 1);
       else i++;
     }
-    this.pedidos = this.pedidos.filter((pedido: any) => 
-      pedido.tableNum == tableNum
-    )
-    this.pedidoServices.pedido = this.pendingOrders
+    this.pedidos = this.pedidos.filter(
+      (pedido: any) => pedido.tableNum == tableNum
+    );
+    this.pedidoServices.pedido = this.pendingOrders;
     this.calculateTotal();
   }
 
@@ -140,26 +140,36 @@ export class TabCuentaComponent implements OnInit {
       (order: any) => order.tableNum == this.tableNum
     );
     if (this.tableNum != '' && isCorrectTableNum) {
-      this.pedidos[0].restaurantId = JSON.parse(sessionStorage.getItem('restaurant')!).id
-      this.pedidos[0].numTable = this.tableNum
-      let text = ""
-      this.printerService.generateBodyCuenta(this.pedidos).subscribe((body: any) => {
-        text = text.concat(body.text)
-        text = text.concat(this.generateFooder())
-        let printers = this.printers.filter((e: any) =>
-          e.type.includes('cuenta')
-        );
-        for (let printer of printers) {
-          this.printerService.print(printer.name, text).subscribe(() => {})
-        }
-      })
+      this.pedidos[0].restaurantId = JSON.parse(
+        sessionStorage.getItem('restaurant')!
+      ).id;
+      this.pedidos[0].numTable = this.tableNum;
+      let text = '';
+      this.printerService
+        .generateBodyCuenta(this.pedidos)
+        .subscribe((body: any) => {
+          text = text.concat(body.text);
+          text = text.concat(this.generateFooder());
+          let printers = this.printers.filter((e: any) =>
+            e.type.includes('cuenta')
+          );
+          console.log(printers);
+          for (let printer of printers) {
+            console.log(printer);
+            this.printerService.print(printer.name, text).subscribe(() => {});
+          }
+        });
     } else alert('Selecciona una mesa existente');
   }
 
   private generateFooder() {
-    let fooder = "";
-    fooder = fooder.concat('\n' + 'TOTAL CON IVA INCLUIDO        ' + this.total + '\n')
-    fooder = fooder.concat('================================================\n')
+    let fooder = '';
+    fooder = fooder.concat(
+      '\n' + 'TOTAL CON IVA INCLUIDO        ' + this.total + '\n'
+    );
+    fooder = fooder.concat(
+      '================================================\n'
+    );
     let currentDate = new Date();
     const dateFormat = formatDate(currentDate, 'dd-MM-yyyy', 'en-ES');
     fooder = fooder.concat('FECHA: ' + dateFormat + '\n');
@@ -214,7 +224,7 @@ export class TabCuentaComponent implements OnInit {
       });
   }
 
-  separateCuenta(){    
-    this.router.navigateByUrl("/separarCuenta");
+  separateCuenta() {
+    this.router.navigateByUrl('/separarCuenta');
   }
 }
