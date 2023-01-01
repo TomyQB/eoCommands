@@ -6,6 +6,7 @@ import javax.transaction.Transactional;
 
 import com.eo.back.dto.PedidoDTO;
 import com.eo.back.dto.pendingOrders.ChangeTableNumRequest;
+import com.eo.back.dto.pendingOrders.DeleteOrderRequest;
 import com.eo.back.models.Amount;
 import com.eo.back.models.Extra;
 import com.eo.back.models.PendingOrderPlate;
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PendingOrderPlateService extends AbstractPendingOrderService<PendingOrderPlate> {
-    
+
     @Autowired
     private PendingOrderPlateRepository pendingOrderRepository;
 
@@ -33,20 +34,23 @@ public class PendingOrderPlateService extends AbstractPendingOrderService<Pendin
     }
 
     public PendingOrderPlate getPendingOrderByMultiplePK(String plateName, long restaurantId, int tableNum) {
-        return this.pendingOrderRepository.getPendingOrderPlateByPlateNameAndRestaurantIdAndTableNum(plateName, restaurantId, tableNum);
+        return this.pendingOrderRepository.getPendingOrderPlateByPlateNameAndRestaurantIdAndTableNum(plateName,
+                restaurantId, tableNum);
     }
 
     public void savePendingOrder(PedidoDTO dto) {
 
         for (Amount a : dto.getAmounts()) {
 
-            PendingOrderPlate pendingOrderPlate = getPendingOrderByMultiplePK(a.getPlate().getName(), dto.getRestaurantId(), dto.getNumTable());
+            PendingOrderPlate pendingOrderPlate = getPendingOrderByMultiplePK(a.getPlate().getName(),
+                    dto.getRestaurantId(), dto.getNumTable());
 
-            if(pendingOrderPlate != null) {
+            if (pendingOrderPlate != null) {
                 pendingOrderPlate.setAmount(pendingOrderPlate.getAmount() + a.getAmount());
                 pendingOrderRepository.save(pendingOrderPlate);
 
-            } else createNewPendingOrderPlate(dto, a);
+            } else
+                createNewPendingOrderPlate(dto, a);
         }
     }
 
@@ -63,19 +67,34 @@ public class PendingOrderPlateService extends AbstractPendingOrderService<Pendin
     }
 
     public void changeTableNum(final ChangeTableNumRequest changeTableNumRequest) {
-        if (!pendingOrderRepository.getPendingOrderPlateByRestaurantIdAndTableNum(changeTableNumRequest.getRestaurantId(), changeTableNumRequest.getNewTableNum()).isEmpty()) {
+        if (!pendingOrderRepository.getPendingOrderPlateByRestaurantIdAndTableNum(
+                changeTableNumRequest.getRestaurantId(), changeTableNumRequest.getNewTableNum()).isEmpty()) {
             // TODO: Lanzar excepción, hacer manejador
             throw new NullPointerException();
         }
-        
-        List<PendingOrderPlate> pendingOrderPlates = pendingOrderRepository.getPendingOrderPlateByRestaurantIdAndTableNum(changeTableNumRequest.getRestaurantId(), changeTableNumRequest.getOldTableNum());
-    
-        for(PendingOrderPlate pendingOrderPlate : pendingOrderPlates) {
+
+        List<PendingOrderPlate> pendingOrderPlates = pendingOrderRepository
+                .getPendingOrderPlateByRestaurantIdAndTableNum(changeTableNumRequest.getRestaurantId(),
+                        changeTableNumRequest.getOldTableNum());
+
+        for (PendingOrderPlate pendingOrderPlate : pendingOrderPlates) {
             pendingOrderRepository.delete(pendingOrderPlate);
             pendingOrderPlate.setTableNum(changeTableNumRequest.getNewTableNum());
             pendingOrderRepository.save(pendingOrderPlate);
         }
+    }
 
+    public void deleteOrder(DeleteOrderRequest deleteOrderRequest) {
+        PendingOrderPlate pendingOrderPlate = pendingOrderRepository
+                .getPendingOrderPlateByRestaurantIdAndPlateIdAndTableNum(deleteOrderRequest.getRestaurantId(),
+                        deleteOrderRequest.getPlateId(), deleteOrderRequest.getTableNum());
+
+        if (pendingOrderPlate.getAmount() > deleteOrderRequest.getAmountToDelete()) {
+            pendingOrderPlate.setAmount(pendingOrderPlate.getAmount() - deleteOrderRequest.getAmountToDelete());
+            pendingOrderRepository.save(pendingOrderPlate);
+        } else {
+            pendingOrderRepository.delete(pendingOrderPlate);
+        }
     }
 
 }
