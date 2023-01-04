@@ -75,6 +75,21 @@ export class TabCuentaComponent implements OnInit {
     }, 300000);
   }
 
+  totals() {
+    this.total = 0;
+    this.pendingOrders?.map((plato: any) => {
+      this.total =
+        this.total +
+        (plato.plate
+          ? plato.plate.price * plato.amount
+          : plato.additional.price * plato.amount);
+    });
+
+    this.total = Math.round((this.total + Number.EPSILON) * 100) / 100;
+
+    return this.total;
+  }
+
   calculateTotal() {
     this.total = 0;
     for (let i = 0; i < this.pendingOrders.length; i++) {
@@ -101,7 +116,7 @@ export class TabCuentaComponent implements OnInit {
       .getAllPendingOrder(this.pedidoDelete.restaurantId)
       .subscribe((data) => {
         this.pendingOrders = data;
-        this.calculateTotal();
+        // this.calculateTotal();
         sessionStorage.setItem('pendingOrders', JSON.stringify(data));
       });
   }
@@ -133,7 +148,7 @@ export class TabCuentaComponent implements OnInit {
       (pedido: any) => pedido.tableNum == tableNum
     );
     this.pedidoServices.pedido = this.pendingOrders;
-    this.calculateTotal();
+    // this.calculateTotal();
   }
 
   /*prepareMessage() {
@@ -162,9 +177,7 @@ export class TabCuentaComponent implements OnInit {
           let printers = this.printers.filter((e: any) =>
             e.type.includes('cuenta')
           );
-          console.log(printers);
           for (let printer of printers) {
-            console.log(printer);
             this.printerService.print(printer.name, text).subscribe(() => {});
           }
         });
