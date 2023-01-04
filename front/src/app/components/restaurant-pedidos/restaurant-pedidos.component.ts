@@ -29,15 +29,18 @@ export class RestaurantPedidosComponent implements OnInit {
     private restaurantPrinterService: RestaurantPrinterService,
     private printerService: PrinterService,
     private configurationService: RestaurantConfigurationService
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     this.configurationService
       .getConfiguration(this.restaurant.id)
       .subscribe((res) => {
         sessionStorage.setItem('restaurantConfig', JSON.stringify(res!));
+        this.configurationService.setSharingObservableData(
+          JSON.parse(sessionStorage.getItem('restaurantConfig')!)
+        );
       });
-  }
 
-  ngOnInit(): void {
     this.selectedIndex = parseInt(sessionStorage.getItem('tab')!);
 
     if (!this.printerService.printers) {

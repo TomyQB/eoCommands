@@ -1,9 +1,6 @@
 <mat-tab-group [selectedIndex]="selectedIndex" class="tab" *ngIf="pedidos">
   <mat-tab label="Cocina">
-    <app-tab-comida
-      [pedidos]="pedidos"
-      (getPedidos)="getPedidos()"
-    ></app-tab-comida>
+    <app-tab-comida [pedidos]="pedidos"></app-tab-comida>
   </mat-tab>
 
   <mat-tab label="Barra">
@@ -14,6 +11,7 @@
     <app-tab-cuenta
       [pendingOrders]="pendingOrders"
       (pedidosOutput)="eliminarPedidosOutput()"
+      (getPedidos)="getPedidos()"
     ></app-tab-cuenta>
   </mat-tab>
 
