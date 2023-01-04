@@ -39,6 +39,8 @@ export class PedidoInfoComponent implements OnInit {
   bebida: any[] = [];
   numMesa = '';
   firstTime = false;
+  total = 0;
+
   dropEntrante(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(
@@ -89,7 +91,8 @@ export class PedidoInfoComponent implements OnInit {
     numTable: parseInt(sessionStorage.getItem('tableNum')!),
     email: '',
     restaurantId: parseInt(sessionStorage.getItem('idRestaurant')!),
-    total: history.state.total,
+    // total: history.state.total,
+    total: this.total,
     date: '',
     estadoFood: 'Pendiente',
     estadoDrink: 'Pendiente',
@@ -139,6 +142,25 @@ export class PedidoInfoComponent implements OnInit {
     }
   }
 
+  totals() {
+    this.total = 0;
+    this.amountServices.entrante?.forEach((plato: any) => {
+      this.total = this.total + plato.plate.price * plato.amount;
+      plato.extras.forEach((ext: any) => (this.total = this.total + ext.price));
+    });
+
+    this.amountServices.principal?.forEach((plato: any) => {
+      this.total = this.total + plato.plate.price * plato.amount;
+      plato.extras.forEach((ext: any) => (this.total = this.total + ext.price));
+    });
+    this.amountServices.bebida?.forEach((plato: any) => {
+      this.total = this.total + plato.plate.price * plato.amount;
+    });
+    this.total = Math.round((this.total + Number.EPSILON) * 100) / 100;
+
+    return this.total;
+  }
+
   finishPedido() {
     this.showOverlay = true;
     this.pedido.date = this.getHour();
@@ -156,6 +178,9 @@ export class PedidoInfoComponent implements OnInit {
               this.hash.dic = {};
               this.totalObservableService.writeTotal(0);
               this.amountServices.amounts = [];
+              this.amountServices.entrante = [];
+              this.amountServices.principal = [];
+              this.amountServices.bebida = [];
               this.showOverlay = false;
               this.router.navigateByUrl('/confirmacion', {
                 state: { nameRest: name },
@@ -173,6 +198,7 @@ export class PedidoInfoComponent implements OnInit {
   }
 
   openDialog() {
+    this.pedido.total = this.total;
     this.pedido.email = this.emailFormControl.value;
     if (!this.firstTime || this.restaurantService.mailConfiguration === NEVER) {
       this.finishPedido();

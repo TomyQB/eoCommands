@@ -37,12 +37,12 @@
             <div>
               <div class="info-plate-price">
                 <div>{{ a.amount }} {{ a.plate!.name }}</div>
-                <div>{{ a.subTotal }}{{ currencySumbolService.symbol }}</div>
+                <div>{{ a.plate.price }}{{ currencySumbolService.symbol }}</div>
               </div>
               <div>{{ a.description }}</div>
               <div *ngFor="let e of a.extras">
                 <div class="info-plate-price">
-                  <div>{{ e.name }}</div>
+                  <div>- {{ e.name }}</div>
                   <div>{{ e.price }}{{ currencySumbolService.symbol }}</div>
                 </div>
               </div>
@@ -68,12 +68,12 @@
             <div>
               <div class="info-plate-price">
                 <div>{{ a.amount }} {{ a.plate!.name }}</div>
-                <div>{{ a.subTotal }}{{ currencySumbolService.symbol }}</div>
+                <div>{{ a.plate.price }}{{ currencySumbolService.symbol }}</div>
               </div>
               <div>{{ a.description }}</div>
               <div *ngFor="let e of a.extras">
                 <div class="info-plate-price">
-                  <div>{{ e.name }}</div>
+                  <div>- {{ e.name }}</div>
                   <div>{{ e.price }}{{ currencySumbolService.symbol }}</div>
                 </div>
               </div>
@@ -92,12 +92,12 @@
         <div class="list-item">
           <div class="info-plate-price">
             <div>{{ a.amount }} {{ a.plate!.name }}</div>
-            <div>{{ a.subTotal }}{{ currencySumbolService.symbol }}</div>
+            <div>{{ a.plate.price }}{{ currencySumbolService.symbol }}</div>
           </div>
           <div>{{ a.description }}</div>
           <div *ngFor="let e of a.extras">
             <div class="info-plate-price">
-              <div>{{ e.name }}</div>
+              <div>- {{ e.name }}</div>
               <div>{{ e.price }}{{ currencySumbolService.symbol }}</div>
             </div>
           </div>
@@ -106,7 +106,8 @@
       </div>
     </mat-list>
     <div class="info-total-price">
-      Total pedido {{ pedido.total }}{{ currencySumbolService.symbol }}
+      Total pedido {{ totals() }}
+      <!--      {{ pedido.total }}{{ currencySumbolService.symbol }}-->
     </div>
     <mat-form-field class="example-full-width">
       <mat-label>Nº de mesa</mat-label>
@@ -164,7 +165,7 @@
         mat-raised-button
         class="primary"
         (click)="openDialog()"
-        [disabled]="!(pedido.total > 0)"
+        [disabled]="!(total > 0)"
       >
         Hacer pedido
       </button>
