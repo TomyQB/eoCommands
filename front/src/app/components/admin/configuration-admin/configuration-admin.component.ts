@@ -27,7 +27,6 @@ export class ConfigurationAdminComponent implements OnInit {
   printerBarra = <any>[];
   printerCocina = <any>[];
   printerCuenta = <any>[];
-  printerToPost = <any>[];
 
   restaurant: Restaurant = JSON.parse(sessionStorage.getItem('restaurant')!);
 

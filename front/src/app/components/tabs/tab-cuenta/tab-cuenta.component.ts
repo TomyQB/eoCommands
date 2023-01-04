@@ -13,6 +13,8 @@ import { formatDate } from '@angular/common';
 import { Router } from '@angular/router';
 import { ChangeTableDialogComponent } from '../ChangeTable/change-table-dialog/change-table-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { DeletePlateComponent } from '../../restaurant-pedido-info/delete-plate/delete-plate.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-tab-cuenta',
@@ -57,7 +59,8 @@ export class TabCuentaComponent implements OnInit {
     private whatsappService: WhatsappService,
     private printerService: PrinterService,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private _snackBar: MatSnackBar
   ) {
     this.pedidoServices.cambiarNumeroMesa.subscribe(() => {
       this.getPendingOrders();
@@ -257,6 +260,57 @@ export class TabCuentaComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(() => {
       this.getPedidos.emit();
+    });
+  }
+
+  deleteOrder(pending: any) {
+    let data: any = {
+      restaurantId: JSON.parse(sessionStorage.getItem('restaurant')!).id,
+      tableNum: pending.tableNum,
+    };
+
+    if (pending.plate) {
+      data = { ...data, plateId: pending.plate.id };
+      const dialogRef = this.dialog.open(DeletePlateComponent, {});
+
+      dialogRef.afterClosed().subscribe((amountToDelete) => {
+        data = { ...data, amountToDelete };
+        this.deleteOrderPlate(data);
+      });
+    } else {
+      data = {
+        ...data,
+        additionalId: pending.additional.id,
+        name: pending.additional.name,
+      };
+      this.deleteOrderAdditional(data);
+    }
+
+    // this.pedidoServices
+    //   .deleteOrder({
+    //     restaurantId: JSON.parse(sessionStorage.getItem('restaurant')!).id,
+    //     tableNum: pending.tableNum,
+    //   })
+    //   .subscribe(
+    //     () => {
+    //     },
+    //     (error) => {
+    //       this._snackBar.openFromComponent(ErrorMessageComponent, {
+    //         duration: 3000,
+    //       });
+    //     }
+    //   );
+  }
+
+  deleteOrderPlate(data: any) {
+    this.pedidoServices.deleteOrderPlate(data).subscribe(() => {
+      this.getPendingOrders();
+    });
+  }
+
+  deleteOrderAdditional(data: any) {
+    this.pedidoServices.deleteOrderAdditional(data).subscribe(() => {
+      this.getPendingOrders();
     });
   }
 }

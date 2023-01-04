@@ -20,7 +20,7 @@
       <div class="center20">
         <h1 class="primary">Platos</h1>
       </div>
-      <div class="center20">
+      <div class="center10">
         <h1 class="primary">Unidades</h1>
       </div>
       <div class="center20">
@@ -28,6 +28,9 @@
       </div>
       <div class="center20">
         <h1 class="primary">Total</h1>
+      </div>
+      <div class="center10">
+        <h1 class="primary">Eliminar</h1>
       </div>
     </div>
 
@@ -40,7 +43,7 @@
         <div class="center20">
           {{ pending.plate ? pending.plate.name : pending.additional.name }}
         </div>
-        <div class="center20">{{ pending.amount }}</div>
+        <div class="center10">{{ pending.amount }}</div>
         <div class="center20">
           {{ pending.plate ? pending.plate.price : pending.additional.price
           }}{{ currencySumbolService.symbol }}
@@ -51,6 +54,11 @@
               ? (pending.amount * pending.plate.price * 100) / 100
               : (pending.amount * pending.additional.price * 100) / 100
           }}{{ currencySumbolService.symbol }}
+        </div>
+        <div class="center10">
+          <mat-icon color="warn" (click)="deleteOrder(pending)">
+            delete
+          </mat-icon>
         </div>
       </div>
       <!-- <div

@@ -17,7 +17,7 @@ export class PedidoServicesService {
   public numMesa = sessionStorage.getItem('tableNum')!;
   Url = environment.Url;
   cambiarNumeroMesa: Subject<Object> = new Subject<Object>();
-  pedido: any
+  pedido: any;
 
   constructor(private http: HttpClient) {}
 
@@ -85,5 +85,13 @@ export class PedidoServicesService {
     }
 
     return count;
+  }
+
+  deleteOrderPlate(data: any) {
+    return this.http.put<any>(this.Url + 'deleteOrderPlate', data);
+  }
+
+  deleteOrderAdditional(data: any) {
+    return this.http.put<any>(this.Url + 'deleteOrderAdditional', data);
   }
 }

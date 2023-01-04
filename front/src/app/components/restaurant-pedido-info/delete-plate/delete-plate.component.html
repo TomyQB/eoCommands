@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Eliminar Plato</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Cuantos quiere eliminar</mat-label>
+    <input matInput type="number" [(ngModel)]="amountToDelete" />
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()" color="warn">Cancelar</button>
+  <button mat-button (click)="delete()" class="accent">Eliminar</button>
+</div>
