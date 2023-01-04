@@ -23,4 +23,8 @@ export class RestaurantPrinterService {
       printers
     );
   }
+
+  deletePrinter(id: number) {
+    return this.http.delete<any>(this.Url + 'deletePrinter/' + id);
+  }
 }
