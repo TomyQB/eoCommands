@@ -5,7 +5,6 @@ import java.util.List;
 import com.eo.back.dto.PedidoDTO;
 import com.eo.back.dto.WhatsAppDTO;
 import com.eo.back.dto.pendingOrders.ChangeTableNumRequest;
-import com.eo.back.dto.pendingOrders.DeleteOrderRequest;
 import com.eo.back.models.Amount;
 import com.eo.back.models.Pedido;
 import com.eo.back.repositories.PedidoRepository;
