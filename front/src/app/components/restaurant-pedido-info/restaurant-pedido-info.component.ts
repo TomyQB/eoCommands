@@ -4,7 +4,6 @@ import { Component, OnInit } from '@angular/core';
 
 import { PedidoServicesService } from '../../services/pedido-services.service';
 import { RestaurantConfigurationService } from 'src/app/services/restaurant-configuration.service';
-import { NO, YES } from '../../constants/print-confirmation';
 import { PrinterService } from '../../services/printer/printerv1.service';
 import { RestaurantPrinterService } from '../../services/restaurant-printer.service';
 import { Restaurant } from '../../models/Restaurant';
