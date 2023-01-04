@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface AdditionalRepository extends JpaRepository<Additional, Long> {
 
     Additional getAdditionalByNameAndPlateId(String name, long plateId);
-    
+
 }

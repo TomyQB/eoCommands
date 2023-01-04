@@ -1,17 +1,22 @@
 package com.eo.back.services.PendingOrder;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
 import com.eo.back.dto.PedidoDTO;
 import com.eo.back.dto.pendingOrders.ChangeTableNumRequest;
-import com.eo.back.dto.pendingOrders.DeleteOrderRequest;
+import com.eo.back.dto.pendingOrders.DeleteOrderAdditionalRequest;
+import com.eo.back.dto.pendingOrders.DeleteOrderPlateRequest;
 import com.eo.back.models.Additional;
 import com.eo.back.models.Amount;
 import com.eo.back.models.Extra;
 import com.eo.back.models.PendingOrderAdditional;
+import com.eo.back.models.Plate;
+import com.eo.back.repositories.AdditionalRepository;
 import com.eo.back.repositories.PendingOrderAdditionalRepository;
+import com.eo.back.repositories.PlateRepository;
 import com.eo.back.services.AdditionalService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +31,15 @@ public class PendingOrderAdditionalService extends AbstractPendingOrderService<P
     @Autowired
     private AdditionalService additionalService;
 
+    @Autowired
+    private AdditionalRepository additionalRepository;
+
     public List<PendingOrderAdditional> getPendingOrderByRestaurantId(long restaurantId) {
         return this.pendingOrderAdditionalRepository.getPendingOrderAdditionalByRestaurantId(restaurantId);
     }
 
     public List<PendingOrderAdditional> getPendingOrderByRestaurantIdAndTableNum(long restaurantId, int tableNum) {
-        return this.pendingOrderAdditionalRepository.getPendingOrderAdditionalByRestaurantIdAndTableNum(restaurantId,
+        return this.pendingOrderAdditionalRepository.getByRestaurantIdAndTableNum(restaurantId,
                 tableNum);
     }
 
@@ -79,14 +87,14 @@ public class PendingOrderAdditionalService extends AbstractPendingOrderService<P
     }
 
     public void changeTableNum(final ChangeTableNumRequest changeTableNumRequest) {
-        if (!pendingOrderAdditionalRepository.getPendingOrderAdditionalByRestaurantIdAndTableNum(
+        if (!pendingOrderAdditionalRepository.getByRestaurantIdAndTableNum(
                 changeTableNumRequest.getRestaurantId(), changeTableNumRequest.getNewTableNum()).isEmpty()) {
             // TODO: Lanzar excepción, hacer manejador
             throw new NullPointerException();
         }
 
         List<PendingOrderAdditional> pendingOrderAdditionals = pendingOrderAdditionalRepository
-                .getPendingOrderAdditionalByRestaurantIdAndTableNum(changeTableNumRequest.getRestaurantId(),
+                .getByRestaurantIdAndTableNum(changeTableNumRequest.getRestaurantId(),
                         changeTableNumRequest.getOldTableNum());
 
         for (PendingOrderAdditional pendingOrderAdditional : pendingOrderAdditionals) {
@@ -96,7 +104,13 @@ public class PendingOrderAdditionalService extends AbstractPendingOrderService<P
         }
     }
 
-    public void deleteOrder(DeleteOrderRequest deleteOrderRequest) {
+    public void deleteOrder(DeleteOrderAdditionalRequest deleteOrderRequest) {
+
+        PendingOrderAdditional pendingOrderAdditional = pendingOrderAdditionalRepository
+                .getByRestaurantIdAndAdditionalIdAndTableNum(deleteOrderRequest.getRestaurantId(),
+                        deleteOrderRequest.getAdditionalId(), deleteOrderRequest.getTableNum());
+
+        pendingOrderAdditionalRepository.delete(pendingOrderAdditional);
 
     }
 

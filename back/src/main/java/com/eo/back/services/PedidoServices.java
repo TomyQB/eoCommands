@@ -26,8 +26,15 @@ public class PedidoServices {
         return pedidoRepository.getById(id);
     }
 
-    public WhatsAppDTO getPedidoByRestaurantIdAndTableNum(long id, int tableNum) {
-        return createWhatsAppDTO(pedidoRepository.getAllPedidoByRestaurantIdAndTableNum(id, tableNum));
+    // public WhatsAppDTO getPedidoByRestaurantIdAndTableNum(long id, int tableNum)
+    // {
+    // return
+    // createWhatsAppDTO(pedidoRepository.getAllPedidoByRestaurantIdAndTableNum(id,
+    // tableNum));
+    // }
+
+    public List<Pedido> getPedidoByRestaurantIdAndTableNum(long id, int tableNum) {
+        return pedidoRepository.getAllPedidoByRestaurantIdAndTableNum(id, tableNum);
     }
 
     private WhatsAppDTO createWhatsAppDTO(List<Pedido> pedidos) {

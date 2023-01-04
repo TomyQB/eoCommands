@@ -6,7 +6,7 @@ import javax.transaction.Transactional;
 
 import com.eo.back.dto.PedidoDTO;
 import com.eo.back.dto.pendingOrders.ChangeTableNumRequest;
-import com.eo.back.dto.pendingOrders.DeleteOrderRequest;
+import com.eo.back.dto.pendingOrders.DeleteOrderPlateRequest;
 import com.eo.back.models.Amount;
 import com.eo.back.models.Extra;
 import com.eo.back.models.PendingOrderPlate;
@@ -84,9 +84,9 @@ public class PendingOrderPlateService extends AbstractPendingOrderService<Pendin
         }
     }
 
-    public void deleteOrder(DeleteOrderRequest deleteOrderRequest) {
+    public void deleteOrder(DeleteOrderPlateRequest deleteOrderRequest) {
         PendingOrderPlate pendingOrderPlate = pendingOrderRepository
-                .getPendingOrderPlateByRestaurantIdAndPlateIdAndTableNum(deleteOrderRequest.getRestaurantId(),
+                .getByRestaurantIdAndPlateIdAndTableNum(deleteOrderRequest.getRestaurantId(),
                         deleteOrderRequest.getPlateId(), deleteOrderRequest.getTableNum());
 
         if (pendingOrderPlate.getAmount() > deleteOrderRequest.getAmountToDelete()) {

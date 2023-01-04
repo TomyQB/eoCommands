@@ -25,10 +25,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @CrossOrigin
 public class PedidoController {
-    
+
     @Autowired
     private PedidoServices pedidoServices;
-    
+
     @Autowired
     private RestaurantServices restaurantServices;
 
@@ -42,13 +42,16 @@ public class PedidoController {
 
         return new ResponseEntity<List<Pedido>>(pedidos, HttpStatus.OK);
     }
-    
+
     @Operation(summary = "Envia la cuenta a un cliente por whatshap")
     @PostMapping("/enviarCuentaWhatsapp")
     public WhatsAppDTO enviarCuentaWhatsapp(@RequestBody WhatsAppDTO dto) {
-        return pedidoServices.getPedidoByRestaurantIdAndTableNum(dto.getRestaurantId(), dto.getTableNum());
+        // return
+        // pedidoServices.getPedidoByRestaurantIdAndTableNum(dto.getRestaurantId(),
+        // dto.getTableNum());
+        return null;
     }
-    
+
     @Operation(summary = "Realiza un pedido")
     @PostMapping("/madePedido")
     public ResponseEntity<Boolean> madePedido(@RequestBody PedidoDTO dto) {
@@ -56,41 +59,41 @@ public class PedidoController {
         Boolean done = false;
 
         Pedido pedido = pedidoConverter.fromDTO(dto);
-        
-        if(pedido.getAmounts().size() > 0) {
+
+        if (pedido.getAmounts().size() > 0) {
             pedidoServices.addPedidoToAmount(pedido);
             pedidoServices.savePedido(pedido);
             done = true;
         }
-        
+
         return new ResponseEntity<Boolean>(done, HttpStatus.OK);
     }
-      
-    @Operation(summary = "Cambiar el estado de la comida de un pedido")  
+
+    @Operation(summary = "Cambiar el estado de la comida de un pedido")
     @PostMapping("/changeEstadoFoodPedido")
     public void changeEstadoFoodPedido(@RequestBody PedidoDTO dto) {
         Pedido pedido = pedidoServices.getPedidoById(dto.getId());
         pedido.setEstadoFood(dto.getEstadoFood());
         pedidoServices.savePedido(pedido);
     }
-     
-    @Operation(summary = "Cambiar el estado de la bebida de un pedido")       
+
+    @Operation(summary = "Cambiar el estado de la bebida de un pedido")
     @PostMapping("/changeEstadoDrinkPedido")
     public void changeEstadoDrinkPedido(@RequestBody PedidoDTO dto) {
         Pedido pedido = pedidoServices.getPedidoById(dto.getId());
         pedido.setEstadoDrink(dto.getEstadoDrink());
         pedidoServices.savePedido(pedido);
     }
-     
-    @Operation(summary = "Cambiar el de la comida servida de un pedido")           
+
+    @Operation(summary = "Cambiar el de la comida servida de un pedido")
     @PostMapping("/changeFoodCount")
     public void changeFoodCount(@RequestBody PedidoDTO dto) {
         Pedido pedido = pedidoServices.getPedidoById(dto.getId());
         pedido.setHechosFood(dto.getHechosFood());
         pedidoServices.savePedido(pedido);
     }
-    
-    @Operation(summary = "Cambiar el de la bebida servida de un pedido")                
+
+    @Operation(summary = "Cambiar el de la bebida servida de un pedido")
     @PostMapping("/changeDrinkCount")
     public void changeDrinkCount(@RequestBody PedidoDTO dto) {
         Pedido pedido = pedidoServices.getPedidoById(dto.getId());

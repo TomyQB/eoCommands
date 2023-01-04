@@ -10,7 +10,8 @@ import com.eo.back.convert.PendingOrderPlateConverter;
 import com.eo.back.dto.PedidoDTO;
 import com.eo.back.dto.OrdersRecord.OrdersRecordDTO;
 import com.eo.back.dto.pendingOrders.ChangeTableNumRequest;
-import com.eo.back.dto.pendingOrders.DeleteOrderRequest;
+import com.eo.back.dto.pendingOrders.DeleteOrderAdditionalRequest;
+import com.eo.back.dto.pendingOrders.DeleteOrderPlateRequest;
 import com.eo.back.dto.pendingOrders.PendingOrderAdditionalDTO;
 import com.eo.back.dto.pendingOrders.PendingOrderDTO;
 import com.eo.back.dto.pendingOrders.PendingOrderPlateDTO;
@@ -19,6 +20,7 @@ import com.eo.back.models.OrdersRecordPlate;
 import com.eo.back.models.PendingOrderAdditional;
 import com.eo.back.models.PendingOrderPlate;
 import com.eo.back.services.AmountService;
+import com.eo.back.services.ExtraService;
 import com.eo.back.services.PedidoServices;
 import com.eo.back.services.OrdersRecord.OrdersRecordAdditionalService;
 import com.eo.back.services.OrdersRecord.OrdersRecordPlateService;
@@ -68,6 +70,9 @@ public class PendingOrderController {
 
     @Autowired
     private AmountService amountService;
+
+    @Autowired
+    private ExtraService extraService;
 
     @PostMapping("/madePendingOrder")
     public ResponseEntity<Boolean> madePendingOrder(@RequestBody PedidoDTO dto) {
@@ -165,10 +170,15 @@ public class PendingOrderController {
         pendingOrderAdditionalService.changeTableNum(changeTableNumRequest);
     }
 
-    @PutMapping("/deleteOrder")
-    public void deleteOrder(@RequestBody DeleteOrderRequest deleteOrderRequest) {
-        // amountService.deleteOrder(deleteOrderRequest);
+    @PutMapping("/deleteOrderPlate")
+    public void deleteOrderPlate(@RequestBody DeleteOrderPlateRequest deleteOrderRequest) {
+        amountService.deleteOrder(deleteOrderRequest);
         pendingOrderPlateService.deleteOrder(deleteOrderRequest);
+    }
+
+    @PutMapping("/deleteOrderAdditional")
+    public void deleteOrderAdditional(@RequestBody DeleteOrderAdditionalRequest deleteOrderRequest) {
+        extraService.deleteOrder(deleteOrderRequest);
         pendingOrderAdditionalService.deleteOrder(deleteOrderRequest);
     }
 

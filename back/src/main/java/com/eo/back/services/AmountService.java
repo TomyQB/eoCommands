@@ -1,9 +1,10 @@
 package com.eo.back.services;
 
 import java.util.List;
+import java.util.Objects;
 
 import com.eo.back.dto.PedidoDTO;
-import com.eo.back.dto.pendingOrders.DeleteOrderRequest;
+import com.eo.back.dto.pendingOrders.DeleteOrderPlateRequest;
 import com.eo.back.models.Amount;
 import com.eo.back.models.Pedido;
 import com.eo.back.repositories.AmountRepository;
@@ -18,6 +19,9 @@ public class AmountService {
     @Autowired
     private AmountRepository amountRepository;
 
+    @Autowired
+    private PedidoServices pedidoServices;
+
     public Amount getAmountById(long id) {
         return amountRepository.getById(id);
     }
@@ -26,12 +30,23 @@ public class AmountService {
         amountRepository.save(amount);
     }
 
-    public void deleteOrder(DeleteOrderRequest deleteOrderRequest) {
-        Amount amount = amountRepository.findByPlateIdAndOrderId(deleteOrderRequest.getPlateId(),
-                deleteOrderRequest.getOrderId());
+    public void deleteOrder(DeleteOrderPlateRequest deleteOrderRequest) {
 
+        List<Pedido> pedidos = pedidoServices.getPedidoByRestaurantIdAndTableNum(deleteOrderRequest.getRestaurantId(),
+                deleteOrderRequest.getTableNum());
+
+        for (Pedido pedido : pedidos) {
+            Amount amount = amountRepository.findByOrderIdAndPlateId(pedido.getId(), deleteOrderRequest.getPlateId());
+            if (Objects.nonNull(amount)) {
+                deleteOrder(deleteOrderRequest, amount);
+            }
+        }
+    }
+
+    private void deleteOrder(DeleteOrderPlateRequest deleteOrderRequest, Amount amount) {
         if (amount.getAmount() > deleteOrderRequest.getAmountToDelete()) {
-            amount.setAmount(amount.getAmount() - deleteOrderRequest.getAmountToDelete());
+            amount.setAmount(amount.getAmount() -
+                    deleteOrderRequest.getAmountToDelete());
             amountRepository.save(amount);
         } else {
             amountRepository.deleteById(amount.getId());

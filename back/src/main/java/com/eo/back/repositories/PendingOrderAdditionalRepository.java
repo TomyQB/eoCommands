@@ -11,9 +11,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface PendingOrderAdditionalRepository extends JpaRepository<PendingOrderAdditional, Long> {
 
     List<PendingOrderAdditional> getPendingOrderAdditionalByRestaurantId(long restaurantId);
-    List<PendingOrderAdditional> getPendingOrderAdditionalByRestaurantIdAndTableNum(long restaurantId, int tableNum);
+
+    List<PendingOrderAdditional> getByRestaurantIdAndTableNum(long restaurantId, int tableNum);
+
+    PendingOrderAdditional getByRestaurantIdAndAdditionalIdAndTableNum(long restaurantId, long additionalId,
+            int tableNum);
 
     @Transactional
-    List<PendingOrderAdditional> deleteAllPendingOrderAdditionalByRestaurantIdAndTableNum(long restaurantId, int tableNum);
-    PendingOrderAdditional getPendingOrderAdditionalByAdditionalNameAndRestaurantIdAndTableNum(String extraName, long restaurantId, int tableNum);
+    List<PendingOrderAdditional> deleteAllPendingOrderAdditionalByRestaurantIdAndTableNum(long restaurantId,
+            int tableNum);
+
+    PendingOrderAdditional getPendingOrderAdditionalByAdditionalNameAndRestaurantIdAndTableNum(String extraName,
+            long restaurantId, int tableNum);
 }
