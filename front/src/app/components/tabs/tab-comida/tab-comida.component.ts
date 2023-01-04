@@ -2,8 +2,6 @@ import { isGeneratedFile } from '@angular/compiler/src/aot/util';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { PedidoServicesService } from 'src/app/services/pedido-services.service';
-import { MatDialog } from '@angular/material/dialog';
-import { ChangeTableDialogComponent } from '../ChangeTable/change-table-dialog/change-table-dialog.component';
 import { RestaurantConfigurationService } from 'src/app/services/restaurant-configuration.service';
 import { NO } from '../../../constants/print-confirmation';
 
@@ -15,29 +13,19 @@ import { NO } from '../../../constants/print-confirmation';
 export class TabComidaComponent implements OnInit {
   @Input() pedidos!: any[];
   @Output() cambioCocina = new EventEmitter<number>();
-  @Output() getPedidos = new EventEmitter();
 
   pedidoLocal = sessionStorage.getItem('pedidos');
-  printConfirmation: any = this.configurationService.restaurantConfig
-
+  printConfirmation: any = this.configurationService.restaurantConfig;
   constructor(
     private router: Router,
     public pedidoServices: PedidoServicesService,
-    public configurationService: RestaurantConfigurationService,
-    public dialog: MatDialog
+    public configurationService: RestaurantConfigurationService
   ) {}
 
   ngOnInit(): void {
-    this.comprobarPlatosHechos();
-  }
-
-  openDialog(tableNum: any) {
-    const dialogRef = this.dialog.open(ChangeTableDialogComponent, {
-      data: tableNum,
-    });
-
-    dialogRef.afterClosed().subscribe(() => {
-      this.getPedidos.emit();
+    this.configurationService.restaurantConfigObservable.subscribe((res) => {
+      this.printConfirmation = res;
+      this.comprobarPlatosHechos();
     });
   }
 
@@ -49,8 +37,7 @@ export class TabComidaComponent implements OnInit {
 
   private comprobarPlatosHechos() {
     this.pedidos.forEach((pedido) => {
-      
-      if(this.printConfirmation.printConfirmation === NO || pedido.printed){
+      if (this.printConfirmation?.printConfirmation === NO || pedido.printed) {
         if (
           pedido.hechosFood == pedido.foodCount &&
           pedido.estadoFood != 'Servido'
@@ -71,7 +58,6 @@ export class TabComidaComponent implements OnInit {
       } else {
         pedido.estadoFood = 'Pendiente de confirmación';
       }
-   
     });
   }
 }

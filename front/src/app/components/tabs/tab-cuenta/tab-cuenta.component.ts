@@ -11,6 +11,8 @@ import { CurrencySumbolService } from 'src/app/services/currency-sumbol.service'
 import { PrinterService } from 'src/app/services/printer/printerv1.service';
 import { formatDate } from '@angular/common';
 import { Router } from '@angular/router';
+import { ChangeTableDialogComponent } from '../ChangeTable/change-table-dialog/change-table-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-tab-cuenta',
@@ -20,6 +22,7 @@ import { Router } from '@angular/router';
 export class TabCuentaComponent implements OnInit {
   @Input() pendingOrders: any;
   @Output() pedidosOutput = new EventEmitter<String>();
+  @Output() getPedidos = new EventEmitter();
 
   pedidos: any;
 
@@ -53,7 +56,8 @@ export class TabCuentaComponent implements OnInit {
     private totalOrdersRecordService: TotalOrdersRecordService,
     private whatsappService: WhatsappService,
     private printerService: PrinterService,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) {
     this.pedidoServices.cambiarNumeroMesa.subscribe(() => {
       this.getPendingOrders();
@@ -103,6 +107,7 @@ export class TabCuentaComponent implements OnInit {
   }
 
   getPendingByTable() {
+    this.pendingOrders = JSON.parse(sessionStorage.getItem('pendingOrders')!);
     if (this.tableNum == '') {
       this.whatsappService.message = '';
       this.disableUrl = 'disable';
@@ -114,12 +119,16 @@ export class TabCuentaComponent implements OnInit {
   }
 
   private filtrarPendigOrdersByNumTable(tableNum: string) {
-    let i = 0;
-    while (i < this.pendingOrders.length) {
-      if (this.pendingOrders[i].tableNum != parseInt(tableNum))
-        this.pendingOrders.splice(i, 1);
-      else i++;
-    }
+    // let i = 0;
+    // while (i < this.pendingOrders.length) {
+    //   if (this.pendingOrders[i].tableNum != parseInt(tableNum))
+    //     this.pendingOrders.splice(i, 1);
+    //   else i++;
+    // }
+
+    this.pendingOrders = this.pendingOrders.filter(
+      (pedido: any) => pedido.tableNum === parseInt(tableNum)
+    );
     this.pedidos = this.pedidos.filter(
       (pedido: any) => pedido.tableNum == tableNum
     );
@@ -226,5 +235,15 @@ export class TabCuentaComponent implements OnInit {
 
   separateCuenta() {
     this.router.navigateByUrl('/separarCuenta');
+  }
+
+  changeTableNum(tableNum: any) {
+    const dialogRef = this.dialog.open(ChangeTableDialogComponent, {
+      data: tableNum,
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.getPedidos.emit();
+    });
   }
 }

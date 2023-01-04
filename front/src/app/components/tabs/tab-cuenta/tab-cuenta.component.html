@@ -33,11 +33,25 @@
 
     <div *ngFor="let pending of pendingOrders">
       <div class="displayFlex tableTime">
-        <div class="center20">{{pending.tableNum}}</div>
-        <div class="center20">{{(pending.plate) ? pending.plate.name : pending.additional.name}}</div>
-        <div class="center20">{{pending.amount}}</div>
-        <div class="center20">{{(pending.plate) ? pending.plate.price : pending.additional.price}}{{currencySumbolService.symbol}}</div>
-        <div class="center20">{{(pending.plate) ? (pending.amount * pending.plate.price * 100)/100 : (pending.amount * pending.additional.price * 100)/100}}{{currencySumbolService.symbol}}</div>
+        <div class="center20" (click)="changeTableNum(pending.tableNum)">
+          {{ pending.tableNum }}
+          <mat-icon class="pointer icon" color="warn">edit</mat-icon>
+        </div>
+        <div class="center20">
+          {{ pending.plate ? pending.plate.name : pending.additional.name }}
+        </div>
+        <div class="center20">{{ pending.amount }}</div>
+        <div class="center20">
+          {{ pending.plate ? pending.plate.price : pending.additional.price
+          }}{{ currencySumbolService.symbol }}
+        </div>
+        <div class="center20">
+          {{
+            pending.plate
+              ? (pending.amount * pending.plate.price * 100) / 100
+              : (pending.amount * pending.additional.price * 100) / 100
+          }}{{ currencySumbolService.symbol }}
+        </div>
       </div>
       <!-- <div
         class="additionals"
@@ -70,13 +84,23 @@
       </button>
     </div>
     <div class="center">
-      <button mat-raised-button class="primary" (click)="separateCuenta()">
+      <button
+        mat-raised-button
+        class="primary"
+        (click)="separateCuenta()"
+        [disabled]="!tableNum ? 'disabled' : null"
+      >
         Separar cuenta
       </button>
     </div>
 
     <div class="center">
-      <button mat-raised-button color="warn" (click)="deleteCuenta()">
+      <button
+        mat-raised-button
+        color="warn"
+        (click)="deleteCuenta()"
+        [disabled]="!tableNum ? 'disabled' : null"
+      >
         Eliminar cuenta
       </button>
     </div>

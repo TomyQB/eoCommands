@@ -17,9 +17,8 @@
   <div *ngFor="let pedido of pedidos; let i = index">
     <div *ngIf="pedido.foodCount > 0">
       <div class="displayFlex tableTime {{ pedido.estadoFood }}">
-        <div class="center25" (click)="openDialog(pedido.tableNum)">
+        <div class="center25">
           {{ pedido.tableNum }}
-          <mat-icon style="float: right; margin-right: 15px">edit</mat-icon>
         </div>
         <div class="center25" (click)="plateView(pedido, i)">
           {{ pedido.date }}
@@ -28,7 +27,7 @@
           {{ pedido.hechosFood }}/{{ pedido.foodCount }}
         </div>
         <div class="center25" (click)="plateView(pedido, i)">
-          {{ pedido.estadoFood }}
+          <span>{{ pedido.estadoFood }}</span>
         </div>
       </div>
 
