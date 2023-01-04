@@ -4,42 +4,50 @@
     <h2 class="title">Cuenta dividida</h2>
   </div>
 
+  <div class="tables">
+    <mat-card
+      cdkDropList
+      [cdkDropListData]="cuentaCompleta"
+      class="example-list"
+      (cdkDropListDropped)="dropCuentaCompleta($event)"
+    >
+      <mat-list class="p-0">
+        <div *ngIf="cuentaCompleta.length === 0" class="empty">
+          <h3>Sin elementos</h3>
+        </div>
+        <div class="example-box" *ngFor="let plato of cuentaCompleta" cdkDrag>
+          <span>
+            {{ plato.plate ? plato.plate.name : plato.additional.name }}
+          </span>
+          <span>
+            {{ plato.plate ? plato.plate.price : plato.additional.price }} €
+          </span>
+        </div>
+      </mat-list>
+    </mat-card>
 
-    <div class="tables">
-      <mat-card
-        cdkDropList
-        [cdkDropListData]="cuentaCompleta"
-        class="example-list"
-        (cdkDropListDropped)="dropCuentaCompleta($event)"
-      >
-        <mat-list class="p-0">
-          <div *ngIf="cuentaCompleta.length === 0" class="empty">
-            <h3>Sin elementos</h3>
-          </div>
-          <div class="example-box" *ngFor="let a of cuentaCompleta" cdkDrag>
-            <div>
-        {{a.plate.name}}
-            </div>
-          </div>
-        </mat-list>
-      </mat-card>
+    <mat-card
+      cdkDropList
+      [cdkDropListData]="cuentaDividida"
+      class="example-list"
+      (cdkDropListDropped)="dropCuentaDividida($event)"
+    >
+      <mat-list class="p-0">
+        <div *ngIf="cuentaDividida.length === 0" class="empty">
+          <h3>Sin elementos</h3>
+        </div>
+        <div class="example-box" *ngFor="let plato of cuentaDividida" cdkDrag>
+          <span>
+            {{ plato.plate ? plato.plate.name : plato.additional.name }}
+          </span>
+          <span>
+            {{ plato.plate ? plato.plate.price : plato.additional.price }} €
+          </span>
+        </div>
+      </mat-list>
+    </mat-card>
 
-      <mat-card
-        cdkDropList
-        [cdkDropListData]="cuentaDividida"
-        class="example-list"
-        (cdkDropListDropped)="dropCuentaDividida($event)"
-      >
-        <mat-list class="p-0">
-          <div *ngIf="cuentaDividida.length === 0" class="empty">
-            <h3>Sin elementos</h3>
-          </div>
-          <div class="example-box" *ngFor="let a of cuentaDividida" cdkDrag>
-            <div>
-              {{a.plate.name}}
-            </div>
-          </div>
-        </mat-list>
-      </mat-card>
-    </div>
+    <p>Total: {{ total() }}</p>
+    <p>Total: {{ totalDividida() }}</p>
   </div>
+</div>

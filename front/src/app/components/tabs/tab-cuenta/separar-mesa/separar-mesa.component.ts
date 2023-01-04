@@ -1,38 +1,42 @@
 import { Component, OnInit } from '@angular/core';
-import { map } from 'rxjs/operators'
+import { map } from 'rxjs/operators';
 import {
   CdkDragDrop,
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { PedidoServicesService } from 'src/app/services/pedido-services.service';
+import { CurrencySumbolService } from '../../../../services/currency-sumbol.service';
 @Component({
   selector: 'app-separar-mesa',
   templateUrl: './separar-mesa.component.html',
-  styleUrls: ['./separar-mesa.component.scss']
+  styleUrls: ['./separar-mesa.component.scss'],
 })
 export class SepararMesaComponent implements OnInit {
+  cuentaDividida = <any>[];
+  cuentaCompleta = <any>[];
 
-  cuentaDividida = <any>[]
-  cuentaCompleta = <any>[]
-  
-  constructor(private pedidoServices: PedidoServicesService) {
-    this.cuentaCompleta = pedidoServices.pedido
-   }
+  constructor(
+    private pedidoServices: PedidoServicesService,
+    public currencySumbolService: CurrencySumbolService
+  ) {
+    this.cuentaCompleta = pedidoServices.pedido;
+  }
 
   ngOnInit(): void {
-    this.fillCuenta()
-    console.log(this.pedidoServices.pedido);
+    this.fillCuenta();
   }
-  
-  fillCuenta(){    
-    this.cuentaCompleta.map((pedido:any, index:any)=>{      
-      if(pedido.amount > 1){
-        pedido.amount = pedido.amount -1
-        this.cuentaCompleta.splice(index, 0, pedido);
+
+  fillCuenta() {
+    for (let i = 0; this.cuentaCompleta.length > i; i++) {
+      if (this.cuentaCompleta[i].amount > 1) {
+        this.cuentaCompleta.push({
+          ...this.cuentaCompleta[i],
+          amount: this.cuentaCompleta[i].amount - 1,
+        });
+        this.cuentaCompleta[i].amount = 1;
       }
-      return pedido
-    })
+    }
   }
 
   printCuenta() {
@@ -56,7 +60,6 @@ export class SepararMesaComponent implements OnInit {
     // } else alert('Selecciona una mesa existente');
   }
 
-
   dropCuentaCompleta(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(
@@ -71,7 +74,6 @@ export class SepararMesaComponent implements OnInit {
         event.previousIndex,
         event.currentIndex
       );
-
     }
   }
 
@@ -89,7 +91,24 @@ export class SepararMesaComponent implements OnInit {
         event.previousIndex,
         event.currentIndex
       );
-
     }
+  }
+
+  total() {
+    let total = 0;
+    this.cuentaCompleta.map((plato: any) => {
+      total =
+        total + (plato.plate ? plato.plate.price : plato.additional.price);
+    });
+    return total;
+  }
+
+  totalDividida() {
+    let total = 0;
+    this.cuentaDividida.map((plato: any) => {
+      total =
+        total + (plato.plate ? plato.plate.price : plato.additional.price);
+    });
+    return total;
   }
 }
