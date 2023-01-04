@@ -39,25 +39,40 @@
       <div mat-subheader>Barra</div>
       <mat-list-item *ngFor="let print of printerBarra">
         <mat-icon matListItemIcon>local_drink</mat-icon>
-        <div matListItemTitle>{{ print.name }}</div>
+        <div matListItemTitle class="printerTitle pointer">
+          {{ print.name }}
+          <mat-icon color="warn" (click)="deletePrinter(print)">
+            delete
+          </mat-icon>
+        </div>
       </mat-list-item>
       <mat-divider></mat-divider>
       <div mat-subheader>Cocina</div>
       <mat-list-item *ngFor="let print of printerCocina">
         <mat-icon matListItemIcon> local_dining</mat-icon>
-        <div matListItemLine>{{ print.name }}</div>
+        <div matListItemLine class="printerTitle pointer">
+          {{ print.name }}
+          <mat-icon color="warn" (click)="deletePrinter(print)">
+            delete
+          </mat-icon>
+        </div>
       </mat-list-item>
       <mat-divider></mat-divider>
       <div mat-subheader>Cuenta</div>
       <mat-list-item *ngFor="let print of printerCuenta">
         <mat-icon matListItemIcon>account_balance_wallet</mat-icon>
-        <div matListItemTitle>{{ print.name }}</div>
+        <div matListItemTitle class="printerTitle pointer">
+          {{ print.name }}
+          <mat-icon color="warn" (click)="deletePrinter(print)">
+            delete
+          </mat-icon>
+        </div>
       </mat-list-item>
       <mat-divider></mat-divider>
     </mat-list>
   </form>
   <div class="add-printer">
-    <button mat-raised-button class="primary" (click)="openDialog()">
+    <button mat-raised-button class="primary" (click)="addPrinter()">
       Añadir impresora
     </button>
     <button mat-raised-button class="primary" (click)="sendConfiguration()">

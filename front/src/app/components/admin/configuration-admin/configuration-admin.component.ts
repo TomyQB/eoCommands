@@ -12,6 +12,7 @@ import { PrinterDialogComponent } from './printer-dialog/printer-dialog.componen
 import { Restaurant } from '../../../models/Restaurant';
 import { RestaurantPrinterService } from '../../../services/restaurant-printer.service';
 import { RestaurantConfigurationService } from '../../../services/restaurant-configuration.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-configuration-admin',
@@ -33,7 +34,8 @@ export class ConfigurationAdminComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     public printerService: RestaurantPrinterService,
-    public configurationService: RestaurantConfigurationService
+    public configurationService: RestaurantConfigurationService,
+    private router: Router
   ) {
     this.configurationService
       .getConfiguration(this.restaurant.id)
@@ -41,7 +43,13 @@ export class ConfigurationAdminComponent implements OnInit {
         this.printConfirmationFormControl.setValue(res?.printConfirmation);
         this.emailConfirmationFormControl.setValue(res?.mailConfirmation);
       });
+  }
 
+  ngOnInit(): void {
+    this.getPrinters();
+  }
+
+  getPrinters() {
     this.printerService.getPrinters(this.restaurant.id).subscribe((res) => {
       this.printerBarra = res.filter((printer: any) => printer.type === BARRA);
       this.printerCocina = res.filter(
@@ -53,8 +61,6 @@ export class ConfigurationAdminComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
-
   sendConfiguration() {
     if (
       (this.emailConfirmationFormControl.value ||
@@ -62,40 +68,44 @@ export class ConfigurationAdminComponent implements OnInit {
       (this.printConfirmationFormControl.value ||
         this.printConfirmationFormControl.value === 0)
     ) {
-      this.printerService
-        .postPrinters(this.printerToPost, this.restaurant.id)
-        .subscribe(() => {});
-
       const config = {
         restaurantId: this.restaurant.id,
         printConfirmation: this.printConfirmationFormControl.value,
         mailConfirmation: this.emailConfirmationFormControl.value,
       };
       this.configurationService.postConfiguration(config).subscribe(() => {});
+      this.router.navigateByUrl('/restaurantPedidos');
     } else alert('Rellena todos los campos correctamente');
   }
 
-  openDialog(): void {
+  addPrinter(): void {
     const dialogRef = this.dialog.open(PrinterDialogComponent, {
       width: '500px',
     });
 
     dialogRef.afterClosed().subscribe((print) => {
-      switch (print.type) {
-        case BARRA:
-          this.printerBarra.push(print);
-          this.printerToPost.push(print);
-          break;
-        case COCINA:
-          this.printerCocina.push(print);
-          this.printerToPost.push(print);
-          break;
-        case CUENTA:
-          this.printerCuenta.push(print);
-          this.printerToPost.push(print);
-          break;
-        default:
-      }
+      this.printerService
+        .postPrinters([print], this.restaurant.id)
+        .subscribe(() => {
+          switch (print?.type) {
+            case BARRA:
+              this.printerBarra.push(print);
+              break;
+            case COCINA:
+              this.printerCocina.push(print);
+              break;
+            case CUENTA:
+              this.printerCuenta.push(print);
+              break;
+            default:
+          }
+        });
+    });
+  }
+
+  deletePrinter({ id }: any) {
+    this.printerService.deletePrinter(id).subscribe(() => {
+      this.getPrinters();
     });
   }
 }
