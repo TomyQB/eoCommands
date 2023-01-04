@@ -100,6 +100,7 @@ export class SepararMesaComponent implements OnInit {
       total =
         total + (plato.plate ? plato.plate.price : plato.additional.price);
     });
+    total = Math.round((total + Number.EPSILON) * 100) / 100;
     return total;
   }
 
@@ -109,6 +110,7 @@ export class SepararMesaComponent implements OnInit {
       total =
         total + (plato.plate ? plato.plate.price : plato.additional.price);
     });
+    total = Math.round((total + Number.EPSILON) * 100) / 100;
     return total;
   }
 }
