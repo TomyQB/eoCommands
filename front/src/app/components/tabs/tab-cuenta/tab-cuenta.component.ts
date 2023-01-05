@@ -147,10 +147,10 @@ export class TabCuentaComponent implements OnInit {
     this.pendingOrders = this.pendingOrders.filter(
       (pedido: any) => pedido.tableNum === parseInt(tableNum)
     );
-    this.pedidos = this.pedidos.filter(
-      (pedido: any) => pedido.tableNum == tableNum
+    this.pedidos = this.pedidoServices.pedidos.filter(
+      (pedido: any) => pedido.tableNum === parseInt(tableNum)
     );
-    this.pedidoServices.pedido = this.pendingOrders;
+    // this.pedidoServices.pedido = this.pendingOrders;
     // this.calculateTotal();
   }
 
