@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import com.eo.back.dto.PedidoDTO;
 import com.eo.back.dto.pendingOrders.ChangeTableNumRequest;
 import com.eo.back.dto.pendingOrders.DeleteOrderPlateRequest;
+import com.eo.back.dto.pendingOrders.TableAssemblyRequest;
 import com.eo.back.models.Amount;
 import com.eo.back.models.Extra;
 import com.eo.back.models.PendingOrderPlate;
@@ -67,8 +68,7 @@ public class PendingOrderPlateService extends AbstractPendingOrderService<Pendin
     }
 
     public void changeTableNum(final ChangeTableNumRequest changeTableNumRequest) {
-        if (!pendingOrderRepository.getPendingOrderPlateByRestaurantIdAndTableNum(
-                changeTableNumRequest.getRestaurantId(), changeTableNumRequest.getNewTableNum()).isEmpty()) {
+        if (tableNumAlreadyExist(changeTableNumRequest.getRestaurantId(), changeTableNumRequest.getNewTableNum())) {
             // TODO: Lanzar excepción, hacer manejador
             throw new NullPointerException();
         }
@@ -80,6 +80,54 @@ public class PendingOrderPlateService extends AbstractPendingOrderService<Pendin
         for (PendingOrderPlate pendingOrderPlate : pendingOrderPlates) {
             pendingOrderRepository.delete(pendingOrderPlate);
             pendingOrderPlate.setTableNum(changeTableNumRequest.getNewTableNum());
+            pendingOrderRepository.save(pendingOrderPlate);
+        }
+    }
+
+    public void tableAssembly(final TableAssemblyRequest tableAssembly) {
+
+        if (tableNumAlreadyExist(tableAssembly.getRestaurantId(), tableAssembly.getFinalTable())
+                && checkFinalTable(tableAssembly) == 0) {
+            throw new NullPointerException();
+            // TODO: Lanzar excepción
+        }
+
+        if (checkFinalTable(tableAssembly) == 1) {
+            tableAssembly(tableAssembly.getRestaurantId(), tableAssembly.getSecondTable(),
+                    tableAssembly.getFinalTable());
+
+        } else if (checkFinalTable(tableAssembly) == 2) {
+            tableAssembly(tableAssembly.getRestaurantId(), tableAssembly.getFirstTable(),
+                    tableAssembly.getFinalTable());
+
+        } else {
+            tableAssembly(tableAssembly.getRestaurantId(), tableAssembly.getFirstTable(),
+                    tableAssembly.getFinalTable());
+            tableAssembly(tableAssembly.getRestaurantId(), tableAssembly.getSecondTable(),
+                    tableAssembly.getFinalTable());
+        }
+    }
+
+    private boolean tableNumAlreadyExist(final long restaurantId, final int tableNum) {
+        return !pendingOrderRepository.getPendingOrderPlateByRestaurantIdAndTableNum(restaurantId,
+                tableNum).isEmpty();
+    }
+
+    private int checkFinalTable(final TableAssemblyRequest tableAssembly) {
+        if (tableAssembly.getFinalTable() == tableAssembly.getFirstTable())
+            return 1;
+        if (tableAssembly.getFinalTable() == tableAssembly.getSecondTable())
+            return 2;
+        return 0;
+    }
+
+    private void tableAssembly(final long restaurantId, final int tableNum, final int finalTable) {
+        List<PendingOrderPlate> pendingOrderPlates = pendingOrderRepository
+                .getPendingOrderPlateByRestaurantIdAndTableNum(restaurantId, tableNum);
+
+        for (PendingOrderPlate pendingOrderPlate : pendingOrderPlates) {
+            pendingOrderRepository.delete(pendingOrderPlate);
+            pendingOrderPlate.setTableNum(finalTable);
             pendingOrderRepository.save(pendingOrderPlate);
         }
     }

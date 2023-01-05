@@ -15,6 +15,7 @@ import com.eo.back.dto.pendingOrders.DeleteOrderPlateRequest;
 import com.eo.back.dto.pendingOrders.PendingOrderAdditionalDTO;
 import com.eo.back.dto.pendingOrders.PendingOrderDTO;
 import com.eo.back.dto.pendingOrders.PendingOrderPlateDTO;
+import com.eo.back.dto.pendingOrders.TableAssemblyRequest;
 import com.eo.back.models.OrdersRecordAdditional;
 import com.eo.back.models.OrdersRecordPlate;
 import com.eo.back.models.PendingOrderAdditional;
@@ -168,6 +169,13 @@ public class PendingOrderController {
         pedidoServices.changeTableNum(changeTableNumRequest);
         pendingOrderPlateService.changeTableNum(changeTableNumRequest);
         pendingOrderAdditionalService.changeTableNum(changeTableNumRequest);
+    }
+
+    @PutMapping("/tableAssembly")
+    public void tableAssembly(@RequestBody TableAssemblyRequest tableAssemblyRequest) {
+        pedidoServices.tableAssembly(tableAssemblyRequest);
+        pendingOrderPlateService.tableAssembly(tableAssemblyRequest);
+        pendingOrderAdditionalService.tableAssembly(tableAssemblyRequest);
     }
 
     @PutMapping("/deleteOrderPlate")
