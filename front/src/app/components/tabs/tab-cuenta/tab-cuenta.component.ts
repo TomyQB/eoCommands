@@ -283,7 +283,12 @@ export class TabCuentaComponent implements OnInit {
         additionalId: pending.additional.id,
         name: pending.additional.name,
       };
-      this.deleteOrderAdditional(data);
+      const dialogRef = this.dialog.open(DeletePlateComponent, {});
+
+      dialogRef.afterClosed().subscribe((amountToDelete) => {
+        data = { ...data, amountToDelete };
+        this.deleteOrderAdditional(data);
+      });
     }
 
     // this.pedidoServices
