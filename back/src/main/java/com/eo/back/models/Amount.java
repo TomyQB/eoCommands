@@ -24,7 +24,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class Amount {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -33,11 +33,8 @@ public class Amount {
     private String description;
     private double subTotal;
     private String estado;
-
-    @Transient
     private String type;
 
-    
     @OneToMany(mappedBy = "amount", cascade = CascadeType.ALL)
     private List<Extra> extras;
 
@@ -55,5 +52,5 @@ public class Amount {
         return "Amount [amount=" + amount + ", description=" + description + ", extras=" + extras + ", id=" + id
                 + ", subTotal=" + subTotal + "]";
     }
-    
+
 }
