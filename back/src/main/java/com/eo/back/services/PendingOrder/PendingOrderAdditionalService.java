@@ -159,7 +159,13 @@ public class PendingOrderAdditionalService extends AbstractPendingOrderService<P
                 .getByRestaurantIdAndAdditionalIdAndTableNum(deleteOrderRequest.getRestaurantId(),
                         deleteOrderRequest.getAdditionalId(), deleteOrderRequest.getTableNum());
 
-        pendingOrderAdditionalRepository.delete(pendingOrderAdditional);
+        if (pendingOrderAdditional.getAmount() > deleteOrderRequest.getAmountToDelete()) {
+            pendingOrderAdditional
+                    .setAmount(pendingOrderAdditional.getAmount() - deleteOrderRequest.getAmountToDelete());
+            pendingOrderAdditionalRepository.save(pendingOrderAdditional);
+        } else {
+            pendingOrderAdditionalRepository.delete(pendingOrderAdditional);
+        }
 
     }
 
