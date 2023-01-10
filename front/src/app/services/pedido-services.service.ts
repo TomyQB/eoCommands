@@ -18,6 +18,7 @@ export class PedidoServicesService {
   Url = environment.Url;
   cambiarNumeroMesa: Subject<Object> = new Subject<Object>();
   pedido: any;
+  pedidosParaSeparar: any[] = [];
 
   constructor(private http: HttpClient) {}
 

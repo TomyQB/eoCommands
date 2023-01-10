@@ -150,7 +150,6 @@ export class TabCuentaComponent implements OnInit {
     this.pedidos = this.pedidoServices.pedidos.filter(
       (pedido: any) => pedido.tableNum === parseInt(tableNum)
     );
-    console.log(this.pedidos);
     this.pedidoServices.pedidosParaSeparar = this.pedidos;
     // this.pedidoServices.pedido = this.pedidos
 
@@ -267,7 +266,6 @@ export class TabCuentaComponent implements OnInit {
   }
 
   deleteOrder(pending: any) {
-    console.log(pending);
     let data: any = {
       restaurantId: JSON.parse(sessionStorage.getItem('restaurant')!).id,
       tableNum: pending.tableNum,
