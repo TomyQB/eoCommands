@@ -12,16 +12,25 @@
       (cdkDropListDropped)="dropCuentaCompleta($event)"
     >
       <mat-list class="p-0">
-        <div *ngIf="cuentaCompleta.length === 0" class="empty">
+        <div *ngIf="cuentaCompleta?.length === 0" class="empty">
           <h3>Sin elementos</h3>
         </div>
         <div class="example-box" *ngFor="let plato of cuentaCompleta" cdkDrag>
-          <span>
-            {{ plato.plate ? plato.plate.name : plato.additional.name }}
-          </span>
-          <span>
-            {{ plato.plate ? plato.plate.price : plato.additional.price }} €
-          </span>
+          <div class="info-plate-price">
+            <span>
+              {{ plato.plate ? plato.plate.name : plato.additional.name }}
+            </span>
+            <span>
+              {{ plato.plate ? plato.plate.price : plato.additional.price }} €
+            </span>
+          </div>
+
+          <div *ngFor="let extra of plato.extras">
+            <div class="info-plate-price">
+              <span>- {{ extra.name }}</span>
+              <span>{{ extra.price }} €</span>
+            </div>
+          </div>
         </div>
       </mat-list>
     </mat-card>
@@ -33,21 +42,37 @@
       (cdkDropListDropped)="dropCuentaDividida($event)"
     >
       <mat-list class="p-0">
-        <div *ngIf="cuentaDividida.length === 0" class="empty">
+        <div *ngIf="cuentaDividida?.length === 0" class="empty">
           <h3>Sin elementos</h3>
         </div>
         <div class="example-box" *ngFor="let plato of cuentaDividida" cdkDrag>
-          <span>
-            {{ plato.plate ? plato.plate.name : plato.additional.name }}
-          </span>
-          <span>
-            {{ plato.plate ? plato.plate.price : plato.additional.price }} €
-          </span>
+          <div class="info-plate-price">
+            <span>
+              {{ plato.plate ? plato.plate.name : plato.additional.name }}
+            </span>
+            <span>
+              {{ plato.plate ? plato.plate.price : plato.additional.price }} €
+            </span>
+          </div>
+
+          <div *ngFor="let extra of plato.extras">
+            <div class="info-plate-price">
+              <span>- {{ extra.name }}</span>
+              <span>{{ extra.price }} €</span>
+            </div>
+          </div>
         </div>
       </mat-list>
     </mat-card>
 
     <p>Total: {{ total() }}</p>
-    <p>Total: {{ totalDividida() }}</p>
+    <div>
+      <p>Total: {{ totalDividida() }}</p>
+      <div class="btn_imprimir">
+        <button mat-raised-button class="primary" (click)="printCuenta()">
+          Imprimir cuenta dividida
+        </button>
+      </div>
+    </div>
   </div>
 </div>
