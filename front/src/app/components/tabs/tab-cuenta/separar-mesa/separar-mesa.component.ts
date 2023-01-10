@@ -65,6 +65,11 @@ export class SepararMesaComponent implements OnInit {
   }
 
   printCuenta() {
+    let cuenta = Object.assign(this.cuenta[0]);
+    cuenta.total = this.totalDividida();
+    // Trabajar sobre cuentaToPrint para imprimir, aunque comprueba antes por si acaso falta algo o algo está mal
+    const cuentaToPrint = { ...cuenta, amounts: this.cuentaDividida };
+
     // let isCorrectTableNum = this.pendingOrders.find(
     //   (order: any) => order.tableNum == this.tableNum
     // );
