@@ -189,6 +189,10 @@ export class TabCuentaComponent implements OnInit {
     } else alert('Selecciona una mesa existente');
   }
 
+  print() {
+    console.log();
+  }
+
   private generateFooder() {
     let fooder = '';
     fooder = fooder.concat(
