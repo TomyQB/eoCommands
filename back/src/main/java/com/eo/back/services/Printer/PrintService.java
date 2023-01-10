@@ -181,7 +181,8 @@ public class PrintService {
 
     private String centerString(final String text) {
         int center = (MAX_WIDTH / 2) + (text.length() / 2);
-        return String.format("%" + center + "s %" + (MAX_WIDTH - center) + "s", text, "");
+        return String.format("%" + (MAX_WIDTH - center) + "s %" + text.length() + "s %" + (MAX_WIDTH - center) + "s",
+                "", text, "");
     }
 
     private String checkStringLength(String name, final int maxLength) {

@@ -267,6 +267,7 @@ export class TabCuentaComponent implements OnInit {
   }
 
   deleteOrder(pending: any) {
+    console.log(pending);
     let data: any = {
       restaurantId: JSON.parse(sessionStorage.getItem('restaurant')!).id,
       tableNum: pending.tableNum,
@@ -278,7 +279,7 @@ export class TabCuentaComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe((amountToDelete) => {
         data = { ...data, amountToDelete };
-        this.deleteOrderPlate(data);
+        this.deleteOrderPlate(data, pending.plate.name);
       });
     } else {
       data = {
@@ -310,15 +311,47 @@ export class TabCuentaComponent implements OnInit {
     //   );
   }
 
-  deleteOrderPlate(data: any) {
+  deleteOrderPlate(data: any, name: string) {
+    let cancelFoodPrint = {
+      tableNum: data.tableNum,
+      amount: data.amountToDelete,
+      name: name,
+    };
     this.pedidoServices.deleteOrderPlate(data).subscribe(() => {
-      this.getPendingOrders();
+      this.printerService
+        .generateBodyCancelFood(cancelFoodPrint)
+        .subscribe((body: any) => {
+          let printers = this.printers.filter((e: any) =>
+            e.type.includes('cocina')
+          );
+          for (let printer of printers) {
+            this.printerService.print(printer.name, body.text).subscribe(() => {
+              this.getPendingOrders();
+            });
+          }
+        });
     });
   }
 
   deleteOrderAdditional(data: any) {
+    let cancelFoodPrint = {
+      tableNum: data.tableNum,
+      amount: data.amountToDelete,
+      name: data.name,
+    };
     this.pedidoServices.deleteOrderAdditional(data).subscribe(() => {
-      this.getPendingOrders();
+      this.printerService
+        .generateBodyCancelFood(cancelFoodPrint)
+        .subscribe((body: any) => {
+          let printers = this.printers.filter((e: any) =>
+            e.type.includes('cocina')
+          );
+          for (let printer of printers) {
+            this.printerService.print(printer.name, body.text).subscribe(() => {
+              this.getPendingOrders();
+            });
+          }
+        });
     });
   }
 }
