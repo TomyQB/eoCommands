@@ -56,7 +56,7 @@ export class PedidoInfoComponent implements OnInit {
         event.currentIndex
       );
 
-      this.entrante[event.currentIndex].plate.type = ENTRANTE;
+      this.entrante[event.currentIndex].type = ENTRANTE;
     }
   }
 
@@ -75,7 +75,7 @@ export class PedidoInfoComponent implements OnInit {
         event.currentIndex
       );
 
-      this.principal[event.currentIndex].plate.type = PRINCIPAL;
+      this.principal[event.currentIndex].type = PRINCIPAL;
     }
   }
 
