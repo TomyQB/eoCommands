@@ -68,6 +68,10 @@ export class PedidoServicesService {
     return this.http.put<any>(this.Url + 'changeTableNum', data);
   }
 
+  tableAssembly(data: any) {
+    return this.http.put<any>(this.Url + 'tableAssembly', data);
+  }
+
   deletePedidoObjeto(numTable: number) {
     let i = 0;
     while (i < this.pedidoObjeto.length) {

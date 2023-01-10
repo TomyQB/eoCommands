@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>Juntar mesas</h1>
+<div mat-dialog-content>
+  <mat-form-field class="mesas">
+    <mat-label>mesa</mat-label>
+    <input matInput type="number" [(ngModel)]="tableNumA" />
+  </mat-form-field>
+
+  <mat-form-field class="mesas">
+    <mat-label>mesa</mat-label>
+    <input matInput type="number" [(ngModel)]="tableNumB" />
+  </mat-form-field>
+  <p>Se juntarán en la mesa: {{ tableNumA }}</p>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="onNoClick()" color="warn">Cancelar</button>
+  <button mat-button (click)="juntarMesas()" class="accent">Aceptar</button>
+</div>

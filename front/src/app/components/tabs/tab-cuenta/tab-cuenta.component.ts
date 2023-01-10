@@ -15,6 +15,7 @@ import { ChangeTableDialogComponent } from '../ChangeTable/change-table-dialog/c
 import { MatDialog } from '@angular/material/dialog';
 import { DeletePlateComponent } from '../../restaurant-pedido-info/delete-plate/delete-plate.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { JuntarMesaComponent } from './juntar-mesa/juntar-mesa.component';
 
 @Component({
   selector: 'app-tab-cuenta',
@@ -354,6 +355,14 @@ export class TabCuentaComponent implements OnInit {
             });
           }
         });
+    });
+  }
+
+  juntarMesas() {
+    const dialogRef = this.dialog.open(JuntarMesaComponent);
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.getPedidos.emit();
     });
   }
 }

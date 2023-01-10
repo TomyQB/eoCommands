@@ -44,6 +44,7 @@ import { ErrorMessageComponent } from './share/snackBar/error-message/error-mess
 import { PrinterDialogComponent } from './components/admin/configuration-admin/printer-dialog/printer-dialog.component';
 import { SepararMesaComponent } from './components/tabs/tab-cuenta/separar-mesa/separar-mesa.component';
 import { DeletePlateComponent } from './components/restaurant-pedido-info/delete-plate/delete-plate.component';
+import { JuntarMesaComponent } from './components/tabs/tab-cuenta/juntar-mesa/juntar-mesa.component';
 // import { NgxSpinnerModule} from 'ngx-spinner';
 @NgModule({
   declarations: [
@@ -82,6 +83,7 @@ import { DeletePlateComponent } from './components/restaurant-pedido-info/delete
     PrinterDialogComponent,
     SepararMesaComponent,
     DeletePlateComponent,
+    JuntarMesaComponent,
   ],
   imports: [
     BrowserModule,
