@@ -1,6 +1,7 @@
 package com.eo.back.services.PendingOrder;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -146,10 +147,21 @@ public class PendingOrderAdditionalService extends AbstractPendingOrderService<P
         List<PendingOrderAdditional> pendingOrderAdditionals = pendingOrderAdditionalRepository
                 .getByRestaurantIdAndTableNum(restaurantId, tableNum);
 
-        for (PendingOrderAdditional pendingOrderPlate : pendingOrderAdditionals) {
-            pendingOrderAdditionalRepository.delete(pendingOrderPlate);
-            pendingOrderPlate.setTableNum(finalTable);
-            pendingOrderAdditionalRepository.save(pendingOrderPlate);
+        for (PendingOrderAdditional pendingOrderAdditional : pendingOrderAdditionals) {
+            PendingOrderAdditional pendingOrderAdditionalRepeat = pendingOrderAdditionalRepository
+                    .getByRestaurantIdAndAdditionalIdAndTableNum(restaurantId, pendingOrderAdditional.getAdditionalId(),
+                            finalTable);
+
+            if (Objects.isNull(pendingOrderAdditionalRepeat)) {
+                pendingOrderAdditionalRepository.delete(pendingOrderAdditional);
+                pendingOrderAdditional.setTableNum(finalTable);
+                pendingOrderAdditionalRepository.save(pendingOrderAdditional);
+            } else {
+                pendingOrderAdditionalRepository.delete(pendingOrderAdditional);
+                pendingOrderAdditionalRepeat
+                        .setAmount(pendingOrderAdditionalRepeat.getAmount() + pendingOrderAdditional.getAmount());
+                pendingOrderAdditionalRepository.save(pendingOrderAdditionalRepeat);
+            }
         }
     }
 

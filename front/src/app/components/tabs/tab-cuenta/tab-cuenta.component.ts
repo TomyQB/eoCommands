@@ -16,6 +16,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeletePlateComponent } from '../../restaurant-pedido-info/delete-plate/delete-plate.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { JuntarMesaComponent } from './juntar-mesa/juntar-mesa.component';
+import { RestaurantConfigurationService } from 'src/app/services/restaurant-configuration.service';
+import { NO } from 'src/app/constants/print-confirmation';
 
 @Component({
   selector: 'app-tab-cuenta',
@@ -26,6 +28,8 @@ export class TabCuentaComponent implements OnInit {
   @Input() pendingOrders: any;
   @Output() pedidosOutput = new EventEmitter<String>();
   @Output() getPedidos = new EventEmitter();
+
+  restaurantConfig = this.configurationService.restaurantConfig;
 
   pedidos: any;
 
@@ -61,7 +65,8 @@ export class TabCuentaComponent implements OnInit {
     private printerService: PrinterService,
     private router: Router,
     public dialog: MatDialog,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private configurationService: RestaurantConfigurationService
   ) {
     this.pedidoServices.cambiarNumeroMesa.subscribe(() => {
       this.getPendingOrders();
@@ -191,7 +196,7 @@ export class TabCuentaComponent implements OnInit {
   }
 
   print() {
-    console.log();
+    this.initialisePrint(this.pedidos);
   }
 
   private generateFooder() {
@@ -364,5 +369,42 @@ export class TabCuentaComponent implements OnInit {
     dialogRef.afterClosed().subscribe(() => {
       this.getPedidos.emit();
     });
+  }
+  initialisePrint(pedidos: any[]) {
+    if (this.restaurantConfig.printConfirmation === NO) {
+      for (let pedido of pedidos) {
+        if (!pedido.printed) {
+          this.generateTicket(pedido);
+        }
+      }
+    }
+  }
+
+  generateTicket(pedido: any) {
+    if (pedido.drinkCount > 0) {
+      this.printerService.generateBodyDrink(pedido).subscribe((body: any) => {
+        let printers = this.printers.filter((e: any) =>
+          e.type.includes('barra')
+        );
+        for (let printer of printers) {
+          this.printerService.print(printer.name, body.text).subscribe(() => {
+            this.pedidoServices.setPedidoPrinted(pedido.id).subscribe(() => {});
+          });
+        }
+      });
+    }
+
+    if (pedido.foodCount > 0) {
+      this.printerService.generateBodyFood(pedido).subscribe((body: any) => {
+        let printers = this.printers.filter((e: any) =>
+          e.type.includes('cocina')
+        );
+        for (let printer of printers) {
+          this.printerService.print(printer.name, body.text).subscribe(() => {
+            this.pedidoServices.setPedidoPrinted(pedido.id).subscribe(() => {});
+          });
+        }
+      });
+    }
   }
 }
