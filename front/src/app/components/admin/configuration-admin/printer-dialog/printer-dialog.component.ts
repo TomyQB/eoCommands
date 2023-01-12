@@ -12,18 +12,20 @@ import { PrinterService } from '../../../../services/printer/printerv1.service';
 export class PrinterDialogComponent implements OnInit {
   printer = {};
   printType = PRINT_TYPE;
-  printerList = <any>['hola', 'adios', 'ciao ciao'];
+  printerList = <any>[];
   typeFormControl = new FormControl('', [Validators.required]);
   printerFormControl = new FormControl('', [Validators.required]);
 
   constructor(
     public dialogRef: MatDialogRef<PrinterDialogComponent>,
     public printerService: PrinterService
-  ) {
-    //this.printerList = printerService.getPrinters();
-  }
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.printerService
+      .getPrinters()
+      .subscribe((printers: any) => (this.printerList = printers));
+  }
 
   payload() {
     return {
