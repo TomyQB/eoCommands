@@ -30,3 +30,22 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 "ssl": true,
 "sslKey": "../../certificados/private.key",
 "sslCert": "../../certificados/localhost.crt"
+
+## Despliegue
+
+- ng build --prod
+- aws/s3/mtrestaurantorder.com
+- seleccionar todo
+- eliminar
+- cargar
+- agregar archivos
+- carpeta => dist/front y seleccionar todo
+- aws => seleccionar todo y cargar
+- seleccionar todo 
+- acciones
+- hacer público mediante acl
+- si no se actualiza ir a aws/CloudFront
+- invalidations
+- create invalidations
+- y poner /*
+- create invalidations
