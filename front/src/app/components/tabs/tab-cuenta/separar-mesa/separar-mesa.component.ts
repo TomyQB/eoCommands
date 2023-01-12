@@ -1,3 +1,4 @@
+import { Pedido } from 'src/app/models/Pedido';
 import { Component, OnInit } from '@angular/core';
 import {
   CdkDragDrop,
@@ -76,16 +77,16 @@ export class SepararMesaComponent implements OnInit {
     console.log(cuenta);
     console.log(this.cuentaDividida);
     // Trabajar sobre cuentaToPrint para imprimir, aunque comprueba antes por si acaso falta algo o algo está mal
-    const cuentaToPrint: any = { ...cuenta, amounts: this.cuentaDividida };
+    const cuentaToPrint: Pedido = { ...cuenta, amounts: this.cuentaDividida };
 
     cuentaToPrint.restaurantId = JSON.parse(
       sessionStorage.getItem('restaurant')!
     ).id;
-    cuentaToPrint.numTable = cuentaToPrint.tableNum;
+    // cuentaToPrint.numTable = cuentaToPrint.tableNum;
     console.log(cuentaToPrint);
     let text = '';
     this.printerService
-      .generateBodyCuenta(cuentaToPrint)
+      .generateBodyCuenta([cuentaToPrint])
       .subscribe((body: any) => {
         text = text.concat(body.text);
         text = text.concat(this.generateFooder());
@@ -93,7 +94,9 @@ export class SepararMesaComponent implements OnInit {
           e.type.includes('cuenta')
         );
         for (let printer of printers) {
-          this.printerService.print(printer.name, text).subscribe(() => {});
+          this.printerService.print(printer.name, text).subscribe(() => {
+            this.cuentaDividida = [];
+          });
         }
       });
   }
@@ -101,7 +104,7 @@ export class SepararMesaComponent implements OnInit {
   private generateFooder() {
     let fooder = '';
     fooder = fooder.concat(
-      '\n' + 'TOTAL CON IVA INCLUIDO        ' + this.total + '\n'
+      '\n' + 'TOTAL CON IVA INCLUIDO        ' + this.totalDividida() + '\n'
     );
     fooder = fooder.concat(
       '================================================\n'
