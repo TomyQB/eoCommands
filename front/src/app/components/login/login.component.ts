@@ -9,44 +9,37 @@ import { PrinterService } from 'src/app/services/printer/printerv1.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-
   restaurantLogin: Login = {
-    email: "",
-    password: ""
-  }
+    email: '',
+    password: '',
+  };
 
-  emailFormControl = new FormControl('', [
-    Validators.required,
-  ]);
+  emailFormControl = new FormControl('', [Validators.required]);
 
-  passwordFormControl = new FormControl('', [
-    Validators.required,
-  ]);
+  passwordFormControl = new FormControl('', [Validators.required]);
 
-  constructor(private restaurantService: RestaurantService, private router: Router, private printService: PrinterService) { }
+  constructor(
+    private restaurantService: RestaurantService,
+    private router: Router,
+    private printService: PrinterService
+  ) {}
 
-  ngOnInit(): void {
-    this.printService.getPrinters().subscribe(printers => console.log(printers))
-  }
+  ngOnInit(): void {}
 
-  ngOnDestroy(): void {
-  }
+  ngOnDestroy(): void {}
 
   onSignIn() {
-    this.restaurantLogin.email = this.emailFormControl.value
-    this.restaurantLogin.password = this.passwordFormControl.value
+    this.restaurantLogin.email = this.emailFormControl.value;
+    this.restaurantLogin.password = this.passwordFormControl.value;
 
-    this.restaurantService.login(this.restaurantLogin).subscribe(data => {
-
-      if(data != null) {
-        sessionStorage.setItem('restaurant', JSON.stringify(data))
-        this.router.navigateByUrl("/restaurantPedidos");
-
-      } else alert("email o contraseña incorectos")
-    })
+    this.restaurantService.login(this.restaurantLogin).subscribe((data) => {
+      if (data != null) {
+        sessionStorage.setItem('restaurant', JSON.stringify(data));
+        this.router.navigateByUrl('/restaurantPedidos');
+      } else alert('email o contraseña incorectos');
+    });
   }
-
 }
