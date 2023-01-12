@@ -5,6 +5,7 @@ import { DescAndAmount } from './../../models/DescAndAmount';
 import { Amount } from './../../models/Amount';
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import { PRINCIPAL } from '../../constants/plate-type';
 
 import { HashService } from '../../services/hash.service';
 import { CurrencySumbolService } from 'src/app/services/currency-sumbol.service';
@@ -27,6 +28,7 @@ export class PlateInfoComponent implements OnInit {
     plate: history.state.plate,
     extras: [],
     estado: 'Pendiente',
+    type: PRINCIPAL,
   };
 
   extras = 0;
