@@ -83,22 +83,26 @@ export class ConfigurationAdminComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((print) => {
-      this.printerService
-        .postPrinters([print], this.restaurant.id)
-        .subscribe(() => {
-          switch (print?.type) {
-            case BARRA:
-              this.printerBarra.push(print);
-              break;
-            case COCINA:
-              this.printerCocina.push(print);
-              break;
-            case CUENTA:
-              this.printerCuenta.push(print);
-              break;
-            default:
-          }
-        });
+      if (print) {
+        this.printerService
+          .postPrinters([print], this.restaurant.id)
+          .subscribe(() => {
+            this.getPrinters();
+
+            // switch (print?.type) {
+            //   case BARRA:
+            //     this.printerBarra.push(print);
+            //     break;
+            //   case COCINA:
+            //     this.printerCocina.push(print);
+            //     break;
+            //   case CUENTA:
+            //     this.printerCuenta.push(print);
+            //     break;
+            //   default:
+            // }
+          });
+      }
     });
   }
 
