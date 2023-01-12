@@ -7,5 +7,12 @@
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()" color="warn">Cancelar</button>
-  <button mat-button (click)="delete()" class="accent">Eliminar</button>
+  <button
+    mat-button
+    (click)="delete()"
+    class="accent"
+    [disabled]="!amountToDelete"
+  >
+    Eliminar
+  </button>
 </div>

@@ -281,8 +281,10 @@ export class TabCuentaComponent implements OnInit {
       const dialogRef = this.dialog.open(DeletePlateComponent, {});
 
       dialogRef.afterClosed().subscribe((amountToDelete) => {
-        data = { ...data, amountToDelete };
-        this.deleteOrderPlate(data, pending.plate.name);
+        if (amountToDelete) {
+          data = { ...data, amountToDelete };
+          this.deleteOrderPlate(data, pending.plate.name);
+        }
       });
     } else {
       data = {
@@ -293,8 +295,10 @@ export class TabCuentaComponent implements OnInit {
       const dialogRef = this.dialog.open(DeletePlateComponent, {});
 
       dialogRef.afterClosed().subscribe((amountToDelete) => {
-        data = { ...data, amountToDelete };
-        this.deleteOrderAdditional(data);
+        if (amountToDelete) {
+          data = { ...data, amountToDelete };
+          this.deleteOrderAdditional(data);
+        }
       });
     }
 
