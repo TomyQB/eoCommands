@@ -24,21 +24,16 @@ export class AmountServicesService {
 
   public addAmountToList(amount: Amount) {
     if (amount.plate!.type === ENTRANTE) {
-      if (this.comprobatePrincipalExist(amount)) {
-        this.principal.push(amount);
-      } else {
-        this.comprobateEntranteExist(amount);
-        this.entrante.push(amount);
-      }
+      this.comprobateEntranteExist(amount);
+      amount.type = ENTRANTE;
+      this.entrante.push(amount);
     } else if (amount.plate!.type === PRINCIPAL) {
-      if (this.comprobateEntranteExist(amount)) {
-        this.entrante.push(amount);
-      } else {
-        this.comprobatePrincipalExist(amount);
-        this.principal.push(amount);
-      }
+      this.comprobatePrincipalExist(amount);
+      amount.type = PRINCIPAL;
+      this.principal.push(amount);
     } else if (amount.plate!.type === BEBIDA) {
       this.comprobateBebidaExist(amount);
+      amount.type = BEBIDA;
       this.bebida.push(amount);
     }
 
