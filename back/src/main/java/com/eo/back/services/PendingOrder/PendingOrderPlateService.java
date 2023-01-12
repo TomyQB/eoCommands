@@ -1,6 +1,7 @@
 package com.eo.back.services.PendingOrder;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.transaction.Transactional;
 
@@ -126,9 +127,18 @@ public class PendingOrderPlateService extends AbstractPendingOrderService<Pendin
                 .getPendingOrderPlateByRestaurantIdAndTableNum(restaurantId, tableNum);
 
         for (PendingOrderPlate pendingOrderPlate : pendingOrderPlates) {
-            pendingOrderRepository.delete(pendingOrderPlate);
-            pendingOrderPlate.setTableNum(finalTable);
-            pendingOrderRepository.save(pendingOrderPlate);
+            PendingOrderPlate pendingOrderPlateRepeat = pendingOrderRepository
+                    .getByRestaurantIdAndPlateIdAndTableNum(restaurantId, pendingOrderPlate.getPlateId(), finalTable);
+
+            if (Objects.isNull(pendingOrderPlateRepeat)) {
+                pendingOrderRepository.delete(pendingOrderPlate);
+                pendingOrderPlate.setTableNum(finalTable);
+                pendingOrderRepository.save(pendingOrderPlate);
+            } else {
+                pendingOrderRepository.delete(pendingOrderPlate);
+                pendingOrderPlateRepeat.setAmount(pendingOrderPlateRepeat.getAmount() + pendingOrderPlate.getAmount());
+                pendingOrderRepository.save(pendingOrderPlateRepeat);
+            }
         }
     }
 
