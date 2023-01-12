@@ -371,12 +371,8 @@ export class TabCuentaComponent implements OnInit {
     });
   }
   initialisePrint(pedidos: any[]) {
-    if (this.restaurantConfig.printConfirmation === NO) {
-      for (let pedido of pedidos) {
-        if (!pedido.printed) {
-          this.generateTicket(pedido);
-        }
-      }
+    for (let pedido of pedidos) {
+      this.generateTicket(pedido);
     }
   }
 

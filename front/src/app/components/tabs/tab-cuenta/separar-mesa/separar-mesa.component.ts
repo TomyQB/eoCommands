@@ -6,6 +6,8 @@ import {
 } from '@angular/cdk/drag-drop';
 import { PedidoServicesService } from 'src/app/services/pedido-services.service';
 import { CurrencySumbolService } from '../../../../services/currency-sumbol.service';
+import { formatDate } from '@angular/common';
+import { PrinterService } from 'src/app/services/printer/printerv1.service';
 @Component({
   selector: 'app-separar-mesa',
   templateUrl: './separar-mesa.component.html',
@@ -15,12 +17,16 @@ export class SepararMesaComponent implements OnInit {
   cuentaDividida = <any>[];
   cuentaCompleta = <any>[];
   cuenta = [];
+  printers: any;
+
   constructor(
     private pedidoServices: PedidoServicesService,
-    public currencySumbolService: CurrencySumbolService
+    public currencySumbolService: CurrencySumbolService,
+    private printerService: PrinterService
   ) {}
 
   ngOnInit(): void {
+    this.printers = this.printerService.printers;
     this.cuenta = JSON.parse(
       JSON.stringify(this.pedidoServices.pedidosParaSeparar)
     );
@@ -67,27 +73,44 @@ export class SepararMesaComponent implements OnInit {
   printCuenta() {
     let cuenta = Object.assign(this.cuenta[0]);
     cuenta.total = this.totalDividida();
+    console.log(cuenta);
+    console.log(this.cuentaDividida);
     // Trabajar sobre cuentaToPrint para imprimir, aunque comprueba antes por si acaso falta algo o algo está mal
-    const cuentaToPrint = { ...cuenta, amounts: this.cuentaDividida };
+    const cuentaToPrint: any = { ...cuenta, amounts: this.cuentaDividida };
 
-    // let isCorrectTableNum = this.pendingOrders.find(
-    //   (order: any) => order.tableNum == this.tableNum
-    // );
-    // if (this.tableNum != '' && isCorrectTableNum) {
-    //   this.pedidos[0].restaurantId = JSON.parse(sessionStorage.getItem('restaurant')!).id
-    //   this.pedidos[0].numTable = this.tableNum
-    //   let text = ""
-    //   this.printerService.generateBodyCuenta(this.pedidos).subscribe((body: any) => {
-    //     text = text.concat(body.text)
-    //     text = text.concat(this.generateFooder())
-    //     let printers = this.printers.filter((e: any) =>
-    //       e.type.includes('cuenta')
-    //     );
-    //     for (let printer of printers) {
-    //       this.printerService.print(printer.name, text).subscribe(() => {})
-    //     }
-    //   })
-    // } else alert('Selecciona una mesa existente');
+    cuentaToPrint.restaurantId = JSON.parse(
+      sessionStorage.getItem('restaurant')!
+    ).id;
+    cuentaToPrint.numTable = cuentaToPrint.tableNum;
+    console.log(cuentaToPrint);
+    let text = '';
+    this.printerService
+      .generateBodyCuenta(cuentaToPrint)
+      .subscribe((body: any) => {
+        text = text.concat(body.text);
+        text = text.concat(this.generateFooder());
+        let printers = this.printers.filter((e: any) =>
+          e.type.includes('cuenta')
+        );
+        for (let printer of printers) {
+          this.printerService.print(printer.name, text).subscribe(() => {});
+        }
+      });
+  }
+
+  private generateFooder() {
+    let fooder = '';
+    fooder = fooder.concat(
+      '\n' + 'TOTAL CON IVA INCLUIDO        ' + this.total + '\n'
+    );
+    fooder = fooder.concat(
+      '================================================\n'
+    );
+    let currentDate = new Date();
+    const dateFormat = formatDate(currentDate, 'dd-MM-yyyy', 'en-ES');
+    fooder = fooder.concat('FECHA: ' + dateFormat + '\n');
+    fooder = fooder.concat('Gracias por todo, le esperamos pronto!\n');
+    return fooder;
   }
 
   dropCuentaCompleta(event: CdkDragDrop<string[]>) {
