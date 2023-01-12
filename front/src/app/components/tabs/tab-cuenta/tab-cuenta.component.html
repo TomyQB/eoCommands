@@ -12,6 +12,57 @@
     </mat-form-field>
   </div>
 
+  <div class="displayFlex" style="gap: 50px; margin-bottom: 10px">
+    <div class="center">
+      <button
+        mat-raised-button
+        class="primary"
+        (click)="printCuenta()"
+        [disabled]="!tableNum ? 'disabled' : null"
+      >
+        Imprimir cuenta
+      </button>
+    </div>
+
+    <div class="btn_imprimir">
+      <button
+        mat-raised-button
+        class="primary"
+        (click)="print()"
+        [disabled]="!tableNum ? 'disabled' : null"
+      >
+        Imprimir
+      </button>
+    </div>
+    <div class="center">
+      <button
+        mat-raised-button
+        class="primary"
+        (click)="separateCuenta()"
+        [disabled]="!tableNum ? 'disabled' : null"
+      >
+        Separar cuenta
+      </button>
+    </div>
+
+    <div class="center">
+      <button mat-raised-button class="primary" (click)="juntarMesas()">
+        Juntar cuenta
+      </button>
+    </div>
+
+    <div class="center">
+      <button
+        mat-raised-button
+        color="warn"
+        (click)="deleteCuenta()"
+        [disabled]="!tableNum ? 'disabled' : null"
+      >
+        Eliminar cuenta
+      </button>
+    </div>
+  </div>
+
   <mat-list class="matList">
     <div class="displayFlex">
       <div class="center20">
@@ -77,52 +128,6 @@
     <div class="totalIva">Total con iva incluido</div>
     <div class="littleBox">
       {{ totals() }}
-    </div>
-  </div>
-
-  <div class="displayFlex" style="gap: 50px; padding-top: 20px">
-    <div class="center">
-      <button
-        mat-raised-button
-        class="primary"
-        (click)="printCuenta()"
-        [disabled]="!tableNum ? 'disabled' : null"
-      >
-        Imprimir cuenta
-      </button>
-    </div>
-
-    <div class="btn_imprimir">
-      <button mat-raised-button class="primary" (click)="print()">
-        Imprimir
-      </button>
-    </div>
-    <div class="center">
-      <button
-        mat-raised-button
-        class="primary"
-        (click)="separateCuenta()"
-        [disabled]="!tableNum ? 'disabled' : null"
-      >
-        Separar cuenta
-      </button>
-    </div>
-
-    <div class="center">
-      <button
-        mat-raised-button
-        color="warn"
-        (click)="deleteCuenta()"
-        [disabled]="!tableNum ? 'disabled' : null"
-      >
-        Eliminar cuenta
-      </button>
-    </div>
-
-    <div class="center">
-      <button mat-raised-button class="primary" (click)="juntarMesas()">
-        Juntar cuenta
-      </button>
     </div>
   </div>
 </div>
