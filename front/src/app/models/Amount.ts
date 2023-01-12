@@ -11,4 +11,5 @@ export class Amount {
   pedido?: Pedido;
   extras!: Additional[];
   estado!: string;
+  type?: string;
 }
