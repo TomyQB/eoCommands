@@ -339,6 +339,7 @@ export class TabCuentaComponent implements OnInit {
           for (let printer of printers) {
             this.printerService.print(printer.name, body.text).subscribe(() => {
               this.getPendingOrders();
+              this.getPedidos.emit();
             });
           }
         });
@@ -361,6 +362,7 @@ export class TabCuentaComponent implements OnInit {
           for (let printer of printers) {
             this.printerService.print(printer.name, body.text).subscribe(() => {
               this.getPendingOrders();
+              this.getPedidos.emit();
             });
           }
         });
