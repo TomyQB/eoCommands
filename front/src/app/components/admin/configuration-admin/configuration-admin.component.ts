@@ -13,6 +13,7 @@ import { Restaurant } from '../../../models/Restaurant';
 import { RestaurantPrinterService } from '../../../services/restaurant-printer.service';
 import { RestaurantConfigurationService } from '../../../services/restaurant-configuration.service';
 import { Router } from '@angular/router';
+import { PrinterService } from '../../../services/printer/printerv1.service';
 
 @Component({
   selector: 'app-configuration-admin',
@@ -34,6 +35,7 @@ export class ConfigurationAdminComponent implements OnInit {
     public dialog: MatDialog,
     public printerService: RestaurantPrinterService,
     public configurationService: RestaurantConfigurationService,
+    public printerv1Service: PrinterService,
     private router: Router
   ) {
     this.configurationService
@@ -50,6 +52,7 @@ export class ConfigurationAdminComponent implements OnInit {
 
   getPrinters() {
     this.printerService.getPrinters(this.restaurant.id).subscribe((res) => {
+      this.printerv1Service.printers = res;
       this.printerBarra = res.filter((printer: any) => printer.type === BARRA);
       this.printerCocina = res.filter(
         (printer: any) => printer.type === COCINA
@@ -72,7 +75,16 @@ export class ConfigurationAdminComponent implements OnInit {
         printConfirmation: this.printConfirmationFormControl.value,
         mailConfirmation: this.emailConfirmationFormControl.value,
       };
-      this.configurationService.postConfiguration(config).subscribe(() => {});
+      this.configurationService.postConfiguration(config).subscribe(() => {
+        this.configurationService
+          .getConfiguration(this.restaurant.id)
+          .subscribe((res) => {
+            sessionStorage.setItem('restaurantConfig', JSON.stringify(res!));
+            this.configurationService.setSharingObservableData(
+              JSON.parse(sessionStorage.getItem('restaurantConfig')!)
+            );
+          });
+      });
       this.router.navigateByUrl('/restaurantPedidos');
     } else alert('Rellena todos los campos correctamente');
   }
@@ -88,7 +100,6 @@ export class ConfigurationAdminComponent implements OnInit {
           .postPrinters([print], this.restaurant.id)
           .subscribe(() => {
             this.getPrinters();
-
             // switch (print?.type) {
             //   case BARRA:
             //     this.printerBarra.push(print);
