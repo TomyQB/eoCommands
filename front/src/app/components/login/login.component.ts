@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { RestaurantService } from 'src/app/services/restaurant.service';
 import { FormControl, Validators } from '@angular/forms';
 import { PrinterService } from 'src/app/services/printer/printerv1.service';
+import { CurrencySumbolService } from 'src/app/services/currency-sumbol.service';
 
 @Component({
   selector: 'app-login',
@@ -24,10 +25,14 @@ export class LoginComponent implements OnInit {
   constructor(
     private restaurantService: RestaurantService,
     private router: Router,
-    private printService: PrinterService
+    private currencySumbolService: CurrencySumbolService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.currencySumbolService.setCurrencySymbol().subscribe((data) => {
+      this.currencySumbolService.symbol = data.currency.symbol;
+    });
+  }
 
   ngOnDestroy(): void {}
 

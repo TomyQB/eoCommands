@@ -376,7 +376,9 @@ export class TabCuentaComponent implements OnInit {
   }
   initialisePrint(pedidos: any[]) {
     for (let pedido of pedidos) {
-      this.generateTicket(pedido);
+      if (!pedido.printed) {
+        this.generateTicket(pedido);
+      }
     }
   }
 

@@ -74,16 +74,14 @@ export class SepararMesaComponent implements OnInit {
   printCuenta() {
     let cuenta = Object.assign(this.cuenta[0]);
     cuenta.total = this.totalDividida();
-    console.log(cuenta);
-    console.log(this.cuentaDividida);
     // Trabajar sobre cuentaToPrint para imprimir, aunque comprueba antes por si acaso falta algo o algo está mal
-    const cuentaToPrint: Pedido = { ...cuenta, amounts: this.cuentaDividida };
+    const cuentaToPrint: any = { ...cuenta, amounts: this.cuentaDividida };
+    cuentaToPrint.numTable = cuentaToPrint.tableNum;
 
     cuentaToPrint.restaurantId = JSON.parse(
       sessionStorage.getItem('restaurant')!
     ).id;
     // cuentaToPrint.numTable = cuentaToPrint.tableNum;
-    console.log(cuentaToPrint);
     let text = '';
     this.printerService
       .generateBodyCuenta([cuentaToPrint])
