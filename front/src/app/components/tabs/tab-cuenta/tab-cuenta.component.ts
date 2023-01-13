@@ -17,7 +17,6 @@ import { DeletePlateComponent } from '../../restaurant-pedido-info/delete-plate/
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { JuntarMesaComponent } from './juntar-mesa/juntar-mesa.component';
 import { RestaurantConfigurationService } from 'src/app/services/restaurant-configuration.service';
-import { NO } from 'src/app/constants/print-confirmation';
 
 @Component({
   selector: 'app-tab-cuenta',

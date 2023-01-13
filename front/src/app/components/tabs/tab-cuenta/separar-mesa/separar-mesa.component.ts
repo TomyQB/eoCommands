@@ -54,7 +54,7 @@ export class SepararMesaComponent implements OnInit {
           amount: this.cuentaCompleta[i].amount - 1,
           extras,
         });
-        this.cuentaCompleta[i].amount--;
+        this.cuentaCompleta[i].amount = 1;
       }
 
       if (this.cuentaCompleta[i].plate) {
