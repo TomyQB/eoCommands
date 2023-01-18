@@ -2,83 +2,83 @@
   width: 30%;
 }
 
-.example-form{
+.example-form {
   text-align: center;
   margin: 20px;
 }
 
-.content-title{
+.content-title {
   padding: 40px 20px 0px 20px;
   font-size: 17px;
   font-weight: bold;
   text-align: center;
 }
 
-.content-photo{
+.content-photo {
   padding: 10px 20px 0px 20px;
   font-size: 17px;
   text-align: center;
 }
 
-.content-category{
+.content-category {
   display: flex;
   flex-wrap: wrap;
 }
 
-.space-category{
+.space-category {
   padding: 5px;
 }
 
-.category-img:hover{
+.category-img:hover {
   outline: 5px solid blue;
 }
 
-img:focus{
+img:focus {
   outline: 5px solid blue;
 }
 
-.category-img{
+.category-img {
   object-fit: cover; /*this makes the image in src fit to the size specified below*/
   width: 140px; /* Here you can use wherever you want to specify the width and also the height of the <img>*/
   height: 85px;
 }
 
-.border{
+.border {
   margin: 10px 10px 15px 10px;
   border: 1px solid;
-  border-color: #9CCB3B;
+  border-color: #004b94;
 }
 
-.button-end-order{
+.button-end-order {
   text-align: center;
   margin-top: 20px;
   padding-bottom: 20px;
 }
 
-.uploadImg{
+.uploadImg {
   text-align: center;
 }
 
-.content-photo-propia{
+.content-photo-propia {
   padding: 10px 20px 20px 0px;
   font-size: 17px;
   text-align: center;
 }
 
-.file-text{
+.file-text {
   padding-bottom: 10px;
 }
 
-.imagenMin{
+.imagenMin {
   padding-top: 10px;
   width: 140px;
 }
 
-.buttonPhoto{
+.buttonPhoto {
   padding-top: 10px;
 }
 
-.cancel{
+.cancel {
   max-width: 80px;
   max-height: 35px;
 }

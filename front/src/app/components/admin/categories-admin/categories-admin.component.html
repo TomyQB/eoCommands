@@ -1,45 +1,74 @@
 <div class="content-img">
-  <img class="imgRestaurant" src={{restaurant.image}} alt="Su restaurante aun no tiene foto" />
-  <img class="imgLogo" src="https://res.cloudinary.com/dxxvcl5fe/image/upload/v1628612145/logo_xpn8e3.png" />
+  <img
+    class="imgRestaurant"
+    src="{{ restaurant.image }}"
+    alt="Su restaurante aun no tiene foto"
+  />
+  <img class="imgLogo" src="../../../assets/logo.png" />
 </div>
 
 <form novalidate enctype="multipart/form-data" class="uploadImg">
   <div class="custom-file">
     <div class="file-text">
-      <label class="custom-file-label" for="imagen">Elige una imagen en formato png o jpg</label>
+      <label class="custom-file-label" for="imagen"
+        >Elige una imagen en formato png o jpg</label
+      >
     </div>
-    <input type="file" class="custom-file-input" id="imagen" #imagenInputFile
-    (change)="onFileChange($event)" accept="image/png, image/jpeg">
+    <input
+      type="file"
+      class="custom-file-input"
+      id="imagen"
+      #imagenInputFile
+      (change)="onFileChange($event)"
+      accept="image/png, image/jpeg"
+    />
   </div>
   <div *ngIf="imagen" class="mt-5">
     <div>
-      <img class="image-thumbnail imagenMin" [src]="imagenMin">
+      <img class="image-thumbnail imagenMin" [src]="imagenMin" />
     </div>
   </div>
   <div class="form-group d-flex justify-content-between buttonPhoto">
-    <button mat-raised-button class="primary left" [disabled]="!imagen" (click)="uploadPhoto()">Subir foto</button>
-    <button mat-raised-button class="primary right" [disabled]="!imagen" (click)="reset()">Cancelar</button>
+    <button
+      mat-raised-button
+      class="primary left"
+      [disabled]="!imagen"
+      (click)="uploadPhoto()"
+    >
+      Subir foto
+    </button>
+    <button
+      mat-raised-button
+      class="primary right"
+      [disabled]="!imagen"
+      (click)="reset()"
+    >
+      Cancelar
+    </button>
   </div>
 </form>
 
-<div class="content-title">
-  ¡Haz tu pedido a cocina!
-</div>
+<div class="content-title">¡Haz tu pedido a cocina!</div>
 <mat-divider class="border"></mat-divider>
 <div class="content-category">
   <div class="card-category" *ngFor="let c of categories; let i = index">
-    <img class="category-img" src={{c.image}} (click)="plateView(i, c)">
-    <label class="category-label">{{c.name}}</label>
+    <img class="category-img" src="{{ c.image }}" (click)="plateView(i, c)" />
+    <label class="category-label">{{ c.name }}</label>
     <span (click)="deleteCategory(c)" class="material-icons"> delete</span>
     <span (click)="editCategory(c)" class="material-icons">edit</span>
   </div>
 
   <div class="card-category" (click)="createCategory()">
-    <img class="category-img" src="https://res.cloudinary.com/dxxvcl5fe/image/upload/v1631108999/a%C3%B1adir_r1sf5t.png">
-      <label class="category-label">Añade una nueva categoría</label>
+    <img
+      class="category-img"
+      src="https://res.cloudinary.com/dxxvcl5fe/image/upload/v1631108999/a%C3%B1adir_r1sf5t.png"
+    />
+    <label class="category-label">Añade una nueva categoría</label>
   </div>
 </div>
 
 <div class="button-end-order">
-  <button mat-raised-button class="primary" (click)="goPedidos()">Volver a pedidos</button>
+  <button mat-raised-button class="primary" (click)="goPedidos()">
+    Volver a pedidos
+  </button>
 </div>

@@ -1,60 +1,59 @@
-.content{
+.content {
   padding: 20px;
   margin: auto;
   font-size: 25px;
 }
 
-.displayFlex{
+.displayFlex {
   display: flex;
   justify-content: center;
 }
 
-.center33{
+.center33 {
   text-align: center;
   width: 33%;
   padding: 10px;
 }
 
-h1{
+h1 {
   max-width: 90%;
   margin: auto;
 }
 
-.tableTime{
+.tableTime {
   padding: 10px 0px;
   font-size: 20px;
   font-weight: bold;
 }
 
-.tableTime:hover{
-  background-color: #C9C9C9;
+.tableTime:hover {
+  background-color: #c9c9c9;
 }
 
-.Pendiente{
+.Pendiente {
   background-color: white;
 }
 
-.Servido{
-  background-color: #7DE124;
+.Servido {
+  background-color: #7de124;
 }
 
-.green{
-  color: grey;;
+.green {
+  color: grey;
 }
 
-.border{
+.border {
   margin: 10px 10px 15px 10px;
   border: 1px solid;
-  border-color: #9CCB3B;
+  border-color: #004b94;
 }
 
-
-.button{
+.button {
   text-align: center;
   padding: 30px;
 }
 
-.flexBox{
+.flexBox {
   display: flex;
   justify-content: center;
   gap: 30px;
