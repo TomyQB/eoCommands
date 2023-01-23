@@ -20,7 +20,7 @@ import lombok.Data;
 @Table(name = "restaurant")
 @Data
 public class Restaurant {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -33,6 +33,8 @@ public class Restaurant {
     private String phone;
     private String password;
     private String iban;
+    private String latitude;
+    private String longitude;
 
     @OneToMany(mappedBy = "restaurant")
     @JsonIgnore
@@ -52,8 +54,8 @@ public class Restaurant {
     @OneToOne
     @JoinColumn(name = "config")
     private RestaurantConfig restaurantConfig;
-    
+
     @OneToMany(mappedBy = "restaurant")
     private List<RestaurantPrinter> restaurantPrinters;
-        
+
 }
