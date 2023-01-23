@@ -24,6 +24,7 @@ import {
 } from '../../constants/restaurant-configuration';
 
 import { RestaurantService } from '../../services/restaurant.service';
+import { LocationService } from '../../services/location.service';
 
 declare var require: any;
 
@@ -40,7 +41,7 @@ export class PedidoInfoComponent implements OnInit {
   numMesa = '';
   firstTime = false;
   total = 0;
-
+  canOrder = null;
   dropEntrante(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(
@@ -119,10 +120,23 @@ export class PedidoInfoComponent implements OnInit {
     private router: Router,
     private emailService: EmailService,
     private hash: HashService,
-    private totalObservableService: TotalObservableService
+    private totalObservableService: TotalObservableService,
+    private locationService: LocationService
   ) {}
 
   ngOnInit(): void {
+    this.locationService.getPosition().then((pos) => {
+      console.log(pos);
+      this.locationService
+        .checkGeolocation({
+          id: sessionStorage.getItem('idRestaurant'),
+          latitude: pos.lng,
+          longitude: pos.lat,
+        })
+        .subscribe((res) => {
+          console.log(res);
+        });
+    });
     let count = this.pedidoService.countFoodAndDrink(this.pedido.amounts!);
     this.pedido.foodCount = count[0];
     this.pedido.drinkCount = count[1];

@@ -162,6 +162,7 @@
 
     <div class="button-end-order">
       <button
+        *ngIf="canOrder"
         mat-raised-button
         class="primary"
         (click)="openDialog()"
