@@ -130,8 +130,8 @@ export class PedidoInfoComponent implements OnInit {
       this.locationService
         .checkGeolocation({
           id: sessionStorage.getItem('idRestaurant'),
-          latitude: pos.lng,
-          longitude: pos.lat,
+          latitude: pos.lat,
+          longitude: pos.lng,
         })
         .subscribe((res) => {
           console.log(res);
