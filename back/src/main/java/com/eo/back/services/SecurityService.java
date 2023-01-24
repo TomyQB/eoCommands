@@ -23,16 +23,16 @@ public class SecurityService {
 
     // Latitud marca norte o sur
     public boolean isInLatitude(final double myLatitude, final String restaurantLatitude) {
-        if (myLatitude < Double.parseDouble(restaurantLatitude) + 0.000005
-                && myLatitude > Double.parseDouble(restaurantLatitude) - 0.000005)
+        if (myLatitude < Double.parseDouble(restaurantLatitude) + 0.002
+                && myLatitude > Double.parseDouble(restaurantLatitude) - 0.002)
             return true;
         return false;
     }
 
     // Latitud marca este u oeste
     public boolean isInLongitude(final double myLongitude, final String restaurantLongitude) {
-        if (myLongitude < Double.parseDouble(restaurantLongitude) + 0.000015
-                && myLongitude > Double.parseDouble(restaurantLongitude) - 0.000015)
+        if (myLongitude < Double.parseDouble(restaurantLongitude) + 0.0009
+                && myLongitude > Double.parseDouble(restaurantLongitude) - 0.0009)
             return true;
         return false;
     }
