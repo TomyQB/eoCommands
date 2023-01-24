@@ -132,7 +132,9 @@ export class PedidoInfoComponent implements OnInit {
           latitude: pos.lat,
           longitude: pos.lng,
         })
-        .subscribe((res) => {});
+        .subscribe((res) => {
+          this.canOrder = res;
+        });
     });
     let count = this.pedidoService.countFoodAndDrink(this.pedido.amounts!);
     this.pedido.foodCount = count[0];
