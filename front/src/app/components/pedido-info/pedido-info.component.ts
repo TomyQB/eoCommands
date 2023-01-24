@@ -126,16 +126,13 @@ export class PedidoInfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.locationService.getPosition().then((pos) => {
-      console.log(pos);
       this.locationService
         .checkGeolocation({
           id: sessionStorage.getItem('idRestaurant'),
           latitude: pos.lat,
           longitude: pos.lng,
         })
-        .subscribe((res) => {
-          console.log(res);
-        });
+        .subscribe((res) => {});
     });
     let count = this.pedidoService.countFoodAndDrink(this.pedido.amounts!);
     this.pedido.foodCount = count[0];
